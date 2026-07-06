@@ -8,5 +8,6 @@
     "outDir": "dist",
     "skipLibCheck": true
   },
-  "include": ["apps/**/*.ts", "scripts/**/*.ts"]
+"include": ["apps/**/*.ts"],
+  "exclude": ["node_modules", "dist", "scripts"]
 }
