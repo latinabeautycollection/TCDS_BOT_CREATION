@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>PQP Real Capability Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <!-- reCAPTCHA v2 + v3 owned-lab placeholders -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf5vQ4tAAAAAKiQMtciqKGfJl2uU1z-rp3BxXu8"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f6f8; margin:0; padding:24px; }
+    h1 { margin-top:0; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap:16px; }
+    .card { background:white; border-radius:12px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+    .good { color:#0a7a2f; font-weight:bold; }
+    .warn { color:#b36b00; font-weight:bold; }
+    .bad { color:#b00020; font-weight:bold; }
+    pre { background:#111; color:#00ff88; padding:12px; border-radius:8px; overflow:auto; max-height:360px; }
+    button { padding:12px 16px; margin:6px 0; cursor:pointer; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:8px; border-bottom:1px solid #ddd; text-align:left; vertical-align:top; }
+  </style>
+</head>
+
+<body>
+  <h1>PQP Real Capability Lab</h1>
+  <p>Owned-environment comparison between Browser, Multilogin profile, Residential Proxy, CapSolver outcome, and Linode server identity.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Session</h2>
+      <div id="sessionBox">Starting...</div>
+    </div>
+
+    <div class="card">
+      <h2>Linode Server</h2>
+      <pre id="linodeBox">{}</pre>
+    </div>
+
+    <div class="card">
+      <h2>Residential Proxy</h2>
+      <pre id="proxyBox">{}</pre>
+    </div>
+
+    <div class="card">
+      <h2>Browser / Multilogin</h2>
+      <pre id="browserBox">{}</pre>
+    </div>
+
+    <div class="card">
+      <h2>reCAPTCHA v2 Trap</h2>
+      <div class="g-recaptcha"
+           data-sitekey="6Le8vA4tAAAAAGy8d3y4FaFJCWDshjMl86o24R-e"
+           data-callback="onV2Solved"
+           data-expired-callback="onV2Expired"
+           data-error-callback="onV2Error"></div>
+      <pre id="v2Box">{ "status": "waiting" }</pre>
+    </div>
+
+    <div class="card">
+      <h2>reCAPTCHA v3 Trap</h2>
+      <button onclick="runV3Trap()">Run v3 Test</button>
+      <pre id="v3Box">{ "status": "waiting" }</pre>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h2>Mismatch Report</h2>
+    <button onclick="runFullCapability()">Run Full Capability Test</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Signal</th>
+          <th>Linode</th>
+          <th>Proxy</th>
+          <th>Browser</th>
+          <th>Expected</th>
+          <th>Status</th>
+          <th>Severity</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody id="mismatchTable"></tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h2>Raw Result</h2>
+    <pre id="rawBox">{}</pre>
+  </div>
+
+<script src="/pqp/assets/real-capability-collector.js"></script>
+
+<script>
+let sessionId = null;
+let context = null;
+let v2State = {
+  presented: true,
+  solved: false,
+  tokenGeneratedAt: null,
+  tokenSubmittedAt: null,
+  tokenFreshnessMs: null,
+  tokenLength: 0,
+  outcome: "waiting"
+};
+
+let v3State = {
+  presented: true,
+  solved: false,
+  tokenGeneratedAt: null,
+  tokenSubmittedAt: null,
+  tokenFreshnessMs: null,
+  tokenLength: 0,
+  score: null,
+  outcome: "waiting"
+};
+
+function pretty(obj) {
+  return JSON.stringify(obj, null, 2);
+}
+
+async function startSession() {
+  const res = await fetch("/api/pqp/session/start", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      profileName: new URLSearchParams(location.search).get("profileName") || "unknown-live-profile",
+      clientType: "real-capability-lab"
+    })
+  });
+
+  const data = await res.json();
+  sessionId = data.sessionId;
+  window.sessionId = sessionId;
+
+  document.getElementById("sessionBox").innerHTML =
+    `<b>Session ID:</b><br>${sessionId}`;
+
+  return sessionId;
+}
+
+async function loadContext() {
+  const res = await fetch("/api/pqp/session-context/" + sessionId);
+  context = await res.json();
+
+  document.getElementById("linodeBox").textContent = pretty(context?.linode || {});
+  document.getElementById("proxyBox").textContent = pretty(context?.proxy || {});
+
+  return context;
+}
+
+function onV2Solved(token) {
+  const now = Date.now();
+  v2State.solved = true;
+  v2State.tokenGeneratedAt = new Date(now).toISOString();
+  v2State.tokenSubmittedAt = new Date(now).toISOString();
+  v2State.tokenFreshnessMs = 0;
+  v2State.tokenLength = token ? token.length : 0;
+  v2State.outcome = "v2-token-received-record-only";
+
+  document.getElementById("v2Box").textContent = pretty(v2State);
+
+  recordChallengeOutcome("recaptcha_v2", v2State);
+}
+
+function onV2Expired() {
+  v2State.outcome = "expired";
+  document.getElementById("v2Box").textContent = pretty(v2State);
+}
+
+function onV2Error() {
+  v2State.outcome = "error";
+  document.getElementById("v2Box").textContent = pretty(v2State);
+}
+
+async function runV3Trap() {
+  const started = Date.now();
+
+  try {
+    const token = await grecaptcha.execute("6Lf5vQ4tAAAAAKiQMtciqKGfJl2uU1z-rp3BxXu8", {
+      action: "pqp_real_capability_test"
+    });
+
+    const ended = Date.now();
+
+    v3State.solved = true;
+    v3State.tokenGeneratedAt = new Date(started).toISOString();
+    v3State.tokenSubmittedAt = new Date(ended).toISOString();
+    v3State.tokenFreshnessMs = ended - started;
+    v3State.tokenLength = token ? token.length : 0;
+    v3State.outcome = "v3-token-received-record-only";
+
+    document.getElementById("v3Box").textContent = pretty(v3State);
+
+    await recordChallengeOutcome("recaptcha_v3", v3State);
+  } catch (err) {
+    v3State.outcome = "error";
+    v3State.error = String(err.message || err);
+    document.getElementById("v3Box").textContent = pretty(v3State);
+  }
+}
+
+async function recordChallengeOutcome(type, state) {
+  if (!sessionId) return;
+
+  await fetch("/api/pqp/challenge-deep-check", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      sessionId,
+      provider: "recaptcha-owned-lab-record-only",
+      challengeType: type,
+      tokenGeneratedAt: state.tokenGeneratedAt,
+      tokenSubmittedAt: state.tokenSubmittedAt,
+      tokenFreshnessMs: state.tokenFreshnessMs,
+      solveTimeMs: state.tokenFreshnessMs,
+      failCount: state.outcome.includes("error") ? 1 : 0,
+      retryCount: 0,
+      finalOutcome: state.outcome,
+      costUsd: 0
+    })
+  });
+}
+
+async function runFullCapability() {
+  document.getElementById("rawBox").textContent = "Running...";
+
+  try {
+  const result = await collectRealCapabilitySnapshot(sessionId, {
+    profileName: context?.profileName || new URLSearchParams(location.search).get("profileName") || "unknown-live-profile",
+    proxyLabel: context?.proxy?.ip || "unknown-proxy",
+
+    linode: context?.linode,
+    proxy: context?.proxy,
+
+    challenge: {
+      challengePresented: true,
+      challengeType: "recaptcha_v2_v3_owned_lab",
+      provider: "recaptcha-owned-lab-record-only",
+      tokenGeneratedAt: v2State.tokenGeneratedAt || v3State.tokenGeneratedAt,
+      tokenSubmittedAt: v2State.tokenSubmittedAt || v3State.tokenSubmittedAt,
+      tokenFreshnessMs: v2State.tokenFreshnessMs ?? v3State.tokenFreshnessMs,
+      solveTimeMs: v2State.tokenFreshnessMs ?? v3State.tokenFreshnessMs,
+      retryCount: 0,
+      failCount: (v2State.outcome === "error" || v3State.outcome === "error") ? 1 : 0,
+      timeoutCount: 0,
+      finalOutcome: v2State.solved || v3State.solved ? "recorded-success" : "not-solved",
+      costUsd: 0
+    }
+  });
+
+  document.getElementById("browserBox").textContent = pretty({
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    languages: navigator.languages,
+    platform: navigator.platform,
+    webdriver: navigator.webdriver,
+    hardwareConcurrency: navigator.hardwareConcurrency,
+    deviceMemory: navigator.deviceMemory,
+    maxTouchPoints: navigator.maxTouchPoints,
+    cookieEnabled: navigator.cookieEnabled,
+    plugins: navigator.plugins ? navigator.plugins.length : 0
+  });
+
+  document.getElementById("rawBox").textContent = pretty(result);
+  renderMismatchTable(result.mismatches || []);
+  } catch (err) {
+    document.getElementById("rawBox").textContent = pretty({
+      error: String(err && err.message ? err.message : err),
+      stack: err && err.stack ? err.stack : null
+    });
+  }
+}
+
+function renderMismatchTable(rows) {
+  const tbody = document.getElementById("mismatchTable");
+  tbody.innerHTML = "";
+
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="8" class="good">No mismatches detected</td></tr>`;
+    return;
+  }
+
+  for (const r of rows) {
+    const cls =
+      r.severity === "critical" ? "bad" :
+      r.severity === "high" ? "bad" :
+      r.severity === "medium" ? "warn" :
+      "good";
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${r.signalGroup || ""}.${r.signalName || ""}</td>
+        <td><code>${safe(r.linodeValue)}</code></td>
+        <td><code>${safe(r.proxyValue)}</code></td>
+        <td><code>${safe(r.browserValue)}</code></td>
+        <td><code>${safe(r.expectedValue)}</code></td>
+        <td class="${cls}">${r.mismatch ? "FAIL" : "PASS"}</td>
+        <td class="${cls}">${r.severity || ""}</td>
+        <td>${safe(r.reason)}</td>
+      </tr>
+    `;
+  }
+}
+
+function safe(v) {
+  if (v === null || v === undefined) return "";
+  return String(v).replace(/[<>&]/g, s => ({
+    "<": "&lt;",
+    ">": "&gt;",
+    "&": "&amp;"
+  }[s]));
+}
+
+(async () => {
+  await startSession();
+  await loadContext();
+
+  document.getElementById("browserBox").textContent = pretty({
+    userAgent: navigator.userAgent,
+    language: navigator.language,
+    languages: navigator.languages,
+    platform: navigator.platform,
+    webdriver: navigator.webdriver,
+    hardwareConcurrency: navigator.hardwareConcurrency,
+    deviceMemory: navigator.deviceMemory,
+    maxTouchPoints: navigator.maxTouchPoints,
+    cookieEnabled: navigator.cookieEnabled,
+    plugins: navigator.plugins ? navigator.plugins.length : 0
+  });
+})();
+</script>
+</body>
+</html>

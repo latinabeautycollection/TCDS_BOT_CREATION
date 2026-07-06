@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>PQP Fingerprint Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    button, input { padding: 12px; margin: 10px 0; display:block; }
+    #box { width: 100%; height: 220px; border: 1px solid #ccc; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>PQP Owned Fingerprint Test</h1>
+  <p>This page collects defensive telemetry for your owned environment.</p>
+
+  <input id="testInput" placeholder="Type here for keyboard cadence test" />
+  <button id="challengeBtn">Complete Soft Challenge</button>
+  <button id="scoreBtn">Score Session</button>
+  <pre id="output"></pre>
+  <div id="box">Move mouse and scroll inside this area.</div>
+
+<script>
+const output = document.getElementById("output");
+let sessionId = null;
+let events = [];
+let lastFlush = Date.now();
+
+function targetName(el) {
+  if (!el) return null;
+  if (el.id) return "#" + el.id;
+  if (el.className) return "." + String(el.className).split(" ")[0];
+  return el.tagName;
+}
+
+async function sha256(text) {
+  const data = new TextEncoder().encode(text);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function canvasSignature() {
+  const c = document.createElement("canvas");
+  c.width = 240;
+  c.height = 80;
+  const ctx = c.getContext("2d");
+  ctx.textBaseline = "top";
+  ctx.font = "16px Arial";
+  ctx.fillText("TCDS PQP Canvas 12345", 2, 2);
+  ctx.strokeRect(5, 5, 200, 50);
+  return c.toDataURL();
+}
+
+async function audioSignature() {
+  try {
+    const AudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    const ctx = new AudioContext(1, 44100, 44100);
+    const osc = ctx.createOscillator();
+    const comp = ctx.createDynamicsCompressor();
+    osc.type = "triangle";
+    osc.frequency.value = 10000;
+    osc.connect(comp);
+    comp.connect(ctx.destination);
+    osc.start(0);
+    const buffer = await ctx.startRendering();
+    let sum = 0;
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i += 100) sum += Math.abs(data[i]);
+    return String(sum);
+  } catch {
+    return "";
+  }
+}
+
+function webglInfo() {
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    const debug = gl.getExtension("WEBGL_debug_renderer_info");
+    return {
+      vendor: debug ? gl.getParameter(debug.UNMASKED_VENDOR_WEBGL) : "",
+      renderer: debug ? gl.getParameter(debug.UNMASKED_RENDERER_WEBGL) : ""
+    };
+  } catch {
+    return { vendor: "", renderer: "" };
+  }
+}
+
+async function startSession() {
+  const res = await fetch("/api/pqp/session/start", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      profileName: "manual-or-approved-test-client",
+      clientType: "owned_pqp_test"
+    })
+  });
+
+  const json = await res.json();
+  sessionId = json.sessionId;
+
+  await fetch("/api/pqp/edge", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({ sessionId })
+  });
+
+  return sessionId;
+}
+
+async function collectFingerprint() {
+  const webgl = webglInfo();
+
+  const payload = {
+    sessionId,
+    userAgent: navigator.userAgent,
+    languages: navigator.languages ? Array.from(navigator.languages) : [],
+    platform: navigator.platform,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    screen: {
+      width: screen.width,
+      height: screen.height,
+      colorDepth: screen.colorDepth
+    },
+    hardware: {
+      cpuCores: navigator.hardwareConcurrency || null,
+      memory: navigator.deviceMemory || null
+    },
+    browser: {
+      webdriver: Boolean(navigator.webdriver)
+    },
+    webgl,
+    canvasHash: await sha256(canvasSignature()),
+    audioHash: await sha256(await audioSignature()),
+    pluginCount: navigator.plugins ? navigator.plugins.length : 0
+  };
+
+  await fetch("/api/pqp/fingerprint", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify(payload)
+  });
+
+  output.textContent = JSON.stringify(payload, null, 2);
+}
+
+function record(eventType, e, metadata = {}) {
+  events.push({
+    eventType,
+    timestamp: Date.now(),
+    x: e.clientX ?? null,
+    y: e.clientY ?? null,
+    target: targetName(e.target),
+    metadata
+  });
+
+  if (events.length > 25 || Date.now() - lastFlush > 3000) {
+    flushEvents();
+  }
+}
+
+async function flushEvents() {
+  if (!sessionId || events.length === 0) return;
+
+  const batch = events.splice(0, events.length);
+  lastFlush = Date.now();
+
+  await fetch("/api/pqp/behavior", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({ sessionId, events: batch })
+  });
+}
+
+["mousemove","mousedown","mouseup","click","dblclick","scroll","keydown","keyup","focus","blur"].forEach(type => {
+  window.addEventListener(type, e => {
+    record(type, e, {
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+      visibility: document.visibilityState
+    });
+  }, { passive: true });
+});
+
+document.getElementById("challengeBtn").addEventListener("click", async () => {
+  const started = performance.now();
+
+  let nonce = 0;
+  let hash = "";
+  while (!hash.startsWith("000")) {
+    nonce++;
+    hash = await sha256(sessionId + ":" + nonce);
+    if (nonce > 100000) break;
+  }
+
+  const durationMs = Math.round(performance.now() - started);
+
+  await fetch("/api/pqp/challenge", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      sessionId,
+      challengeType: "owned_soft_pow",
+      outcome: hash.startsWith("000") ? "completed" : "failed",
+      durationMs
+    })
+  });
+
+  output.textContent = "Challenge recorded in " + durationMs + "ms";
+});
+
+document.getElementById("scoreBtn").addEventListener("click", async () => {
+  await flushEvents();
+
+  const res = await fetch("/api/pqp/score/" + sessionId, {
+    method: "POST"
+  });
+
+  const json = await res.json();
+  output.textContent = JSON.stringify(json, null, 2);
+});
+
+(async () => {
+  await startSession();
+  await collectFingerprint();
+})();
+</script>
+</body>
+</html>

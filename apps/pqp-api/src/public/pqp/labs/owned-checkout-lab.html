@@ -1,0 +1,482 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>PQP Owned Checkout Lab</title>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="/pqp/assets/pqp-green-fingerprint-collector.js" onerror="window.pqpExternalCollectorFailed=true"></script>
+<style>
+body{font-family:Arial;background:#f3f5f8;margin:0;color:#111}
+header{background:#061b3a;color:#fff;padding:18px 30px}
+main{display:grid;grid-template-columns:2fr 1fr;gap:20px;padding:24px;max-width:1440px;margin:auto}
+.card{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 5px #0002}
+.step{display:none}.step.active{display:block}
+.progress{display:flex;gap:8px;margin:12px 0}.dot{flex:1;padding:10px;border-radius:8px;background:#d9e1f2;text-align:center;font-weight:bold}.dot.active{background:#0b5fff;color:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select{width:100%;padding:12px;border:1px solid #bbb;border-radius:8px;box-sizing:border-box}
+label{font-weight:bold;margin-top:10px;display:block}
+button{background:#0b5fff;color:#fff;border:0;border-radius:8px;padding:13px 16px;font-weight:bold;cursor:pointer;margin:4px 0}
+button.secondary{background:#333}button.warn{background:#b36b00}
+.pic{height:130px;border-radius:12px;background:linear-gradient(135deg,#0b5fff,#111);display:grid;place-items:center;color:#fff;font-size:36px;font-weight:900}
+.muted{color:#666;font-size:13px}.flag{padding:6px 8px;border-radius:6px;background:#eef}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}.box{background:#101820;color:#00ff88;border-radius:8px;padding:10px}
+pre{background:#111;color:#00ff88;padding:12px;border-radius:8px;overflow:auto;max-height:300px;font-size:12px}
+.bad{color:#b00020}.good{color:#087b30}
+</style>
+</head>
+<body>
+<header>
+<h1>PQP Owned Electronics Checkout Lab</h1>
+<p class="muted">Owned checkout-style lab for Multilogin, proxy, browser fingerprint, behavior, reCAPTCHA/CapSolver, and Phase 4 scoring.</p>
+</header>
+
+<main>
+<section>
+<div class="progress">
+  <div class="dot active" id="p-product">Product</div>
+  <div class="dot" id="p-cart">Cart</div>
+  <div class="dot" id="p-shipping">Shipping</div>
+  <div class="dot" id="p-payment">Payment</div>
+  <div class="dot" id="p-review">Review</div>
+</div>
+
+<div class="card step active" id="step-product">
+  <div class="pic">4K</div>
+  <h2>4K Streaming Device Pro</h2>
+  <p>Owned lab SKU: PQP-OWNED-001</p>
+  <p><b>$199.99</b></p>
+  <button onclick="nextStep('cart','add_to_cart')">Add to Cart</button>
+</div>
+
+<div class="card step" id="step-cart">
+  <h2>Cart Summary</h2>
+  <p>4K Streaming Device Pro × 1</p>
+  <p>Subtotal: <b>$199.99</b></p>
+  <p>Estimated tax: <b>$12.00</b></p>
+  <p>Total: <b>$211.99</b></p>
+  <button onclick="nextStep('shipping','cart_continue')">Continue to Shipping</button>
+</div>
+
+<div class="card step" id="step-shipping">
+  <h2>Shipping / Pickup</h2>
+  <label>Fulfillment</label>
+  <select id="fulfillment"><option>Ship to home</option><option>Store pickup</option></select>
+  <div class="row">
+    <div><label>Email</label><input id="email" autocomplete="email"></div>
+    <div><label>Phone</label><input id="phone" autocomplete="tel"></div>
+  </div>
+  <label>Address</label><input id="address" autocomplete="street-address">
+  <div class="row">
+    <div><label>City</label><input id="city"></div>
+    <div><label>ZIP</label><input id="zip"></div>
+  </div>
+  <button onclick="nextStep('payment','shipping_continue')">Continue to Payment</button>
+</div>
+
+<div class="card step" id="step-payment">
+  <h2>Payment</h2>
+  <label>Payment Method</label>
+  <select id="payment"><option>Test Card Ending 4242</option><option>Test PayPal</option></select>
+  <label>Promo Code</label><input id="promo" placeholder="TEST10">
+  <button onclick="applyPromo()">Apply Promo</button>
+  <div class="card"><h3>reCAPTCHA v2 Trap</h3><div id="recaptchaV2Box"></div></div>
+  <button onclick="nextStep('review','payment_continue')">Continue to Review</button>
+</div>
+
+<div class="card step" id="step-review">
+  <h2>Review Order</h2>
+  <p>Total: <b>$211.99</b></p>
+  <p class="muted">No real order is placed.</p>
+  <button onclick="submitOwnedOrder()">Place Test Order</button>
+</div>
+</section>
+
+<aside>
+<div class="card"><h2>Session</h2><pre id="sessionBox">{}</pre></div>
+<div class="card">
+  <h2>Actions</h2>
+  <button class="secondary" onclick="runFullPqpCapture()">Full Browser/Fingerprint Capture</button>
+  <button class="secondary" onclick="runProxySelfCheck()">Observed IP / Proxy Self-Check</button>
+  <button class="secondary" onclick="loadCollisionCounts()">Collision Counts</button>
+  <button class="warn" onclick="runV3()">Run reCAPTCHA v3</button>
+  <button class="secondary" onclick="runAnalyze()">Analyze + Phase 4 Score</button>
+</div>
+<div class="card"><h2>Score Breakdown</h2><div class="kpi" id="scoreKpis"></div><pre id="analysisBox">{}</pre></div>
+<div class="card"><h2>Observed IP / Proxy / IPQS / IPinfo</h2><pre id="proxyBox">{}</pre></div>
+<div class="card"><h2>Collision Counts</h2><pre id="collisionBox">{}</pre></div>
+<div class="card"><h2>Signals</h2><pre id="signalBox">{}</pre></div>
+<div class="card"><h2>Challenge / CapSolver</h2><pre id="challengeBox">{}</pre></div>
+</aside>
+</main>
+
+<script>
+window.pqpStartedAt=Date.now();
+window.profileName=new URLSearchParams(location.search).get("profileName")||"owned-checkout-profile";
+window.sessionId=new URLSearchParams(location.search).get("sessionId")||null;
+window.pqpExternalCollectorFailed=false;
+
+let labConfig={},recaptchaV2Rendered=false,v2TokenGeneratedAt=null,currentStep="product",stepTimes={product:performance.now()},latestContext={},latestSnapshot={};
+
+async function apiPost(url,body){
+ try{
+  const r=await fetch(url,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(url+" failed "+r.status+" "+await r.text());
+  return r.json().catch(()=>({}));
+ }catch(e){
+  console.warn("PQP apiPost failed",url,e);
+  return {ok:false,error:String(e.message||e),url};
+ }
+}
+async function apiGet(url){
+ try{
+  const r=await fetch(url);
+  if(!r.ok)throw new Error(url+" failed "+r.status);
+  return r.json();
+ }catch(e){
+  console.warn("PQP apiGet failed",url,e);
+  return {};
+ }
+}
+async function sha256(text){
+ if (window.crypto && crypto.subtle) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(String(text)));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("");
+ }
+
+ let h = 2166136261;
+ const input = String(text);
+ for (let i = 0; i < input.length; i++) {
+  h ^= input.charCodeAt(i);
+  h = Math.imul(h, 16777619);
+ }
+ return "fnv1a-" + (h >>> 0).toString(16).padStart(8, "0");
+}
+function getRunId(){return new URLSearchParams(location.search).get("runId") || new Date().toISOString().slice(0,10);}
+
+async function startSession(){if(window.sessionId)return window.sessionId;const r=await apiPost("/api/pqp/session/start",{profileName:window.profileName,clientType:"owned-checkout-green-tier-final"});window.sessionId=r.sessionId;return window.sessionId;}
+
+function setStep(step){document.querySelectorAll(".step").forEach(x=>x.classList.remove("active"));document.getElementById("step-"+step).classList.add("active");document.querySelectorAll(".dot").forEach(x=>x.classList.remove("active"));document.getElementById("p-"+step).classList.add("active");currentStep=step;stepTimes[step]=performance.now();}
+async function nextStep(step,eventType){await pqpTransaction(eventType,"/owned-checkout/"+currentStep,stepTimes[currentStep]||window.pqpStartedAt,{nextStep:step});setStep(step);}
+async function applyPromo(){await pqpTransaction("coupon_apply","/owned-checkout/payment",stepTimes.payment||window.pqpStartedAt,{promo:document.getElementById("promo").value});}
+
+async function loadConfig(){
+ labConfig=await apiGet("/api/pqp/lab-config");
+ if(labConfig.ja3ja4Status!=="enabled"){collisionBox.textContent=JSON.stringify({ja3ja4:"not_available_without_edge_collector", note:"Browser JavaScript cannot collect real JA3/JA4. Add Envoy/OpenResty/Cloudflare logs for true TLS fingerprints."},null,2);}
+ if(labConfig.recaptchaV2SiteKey&&window.grecaptcha&&!recaptchaV2Rendered){
+  grecaptcha.ready(()=>{grecaptcha.render("recaptchaV2Box",{sitekey:labConfig.recaptchaV2SiteKey,callback:t=>{v2TokenGeneratedAt=Date.now();recordChallenge("recaptcha_v2","token_generated",{tokenLength:t.length,tokenGeneratedAt:new Date(v2TokenGeneratedAt).toISOString()});}});recaptchaV2Rendered=true;});
+ } else recaptchaV2Box.innerHTML="<p class='muted'>Set PQP_RECAPTCHA_V2_SITE_KEY to enable v2.</p>";
+}
+
+async function fallbackCanvas(){
+ const c=document.createElement("canvas"),ctx=c.getContext("2d");c.width=280;c.height=80;ctx.textBaseline="top";ctx.font="18px Arial";ctx.fillStyle="#f60";ctx.fillRect(0,0,280,80);ctx.fillStyle="#069";ctx.fillText("PQP Canvas 12345",8,12);ctx.strokeStyle="#111";ctx.beginPath();ctx.arc(120,45,20,0,Math.PI*2);ctx.stroke();return {hash:await sha256(c.toDataURL()), dataLength:c.toDataURL().length};
+}
+
+async function fallbackAudio(){
+ try{const AC=window.OfflineAudioContext||window.webkitOfflineAudioContext;if(!AC)return {available:false};const ctx=new AC(1,44100,44100);const osc=ctx.createOscillator();const comp=ctx.createDynamicsCompressor();osc.type="triangle";osc.frequency.value=10000;osc.connect(comp);comp.connect(ctx.destination);osc.start(0);const buf=await ctx.startRendering();let sum=0;const data=buf.getChannelData(0);for(let i=0;i<data.length;i+=100)sum+=Math.abs(data[i]);return {available:true,hash:await sha256(sum.toString()), sampleRate:ctx.sampleRate};}catch(e){return {available:false,error:String(e.message||e)}}
+}
+
+function fallbackWebGL(){
+ try{const c=document.createElement("canvas");const gl=c.getContext("webgl")||c.getContext("experimental-webgl");if(!gl)return {available:false};const dbg=gl.getExtension("WEBGL_debug_renderer_info");return {available:true,vendor:gl.getParameter(gl.VENDOR),renderer:gl.getParameter(gl.RENDERER),unmaskedVendor:dbg?gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL):null,unmaskedRenderer:dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):null,version:gl.getParameter(gl.VERSION),shaderVersion:gl.getParameter(gl.SHADING_LANGUAGE_VERSION),extensions:gl.getSupportedExtensions()||[]};}catch(e){return {available:false,error:String(e.message||e)}}
+}
+
+async function fallbackWebGPU(){
+ try{if(!navigator.gpu)return {available:false};const adapter=await navigator.gpu.requestAdapter();if(!adapter)return {available:false};let info={};if(adapter.requestAdapterInfo)info=await adapter.requestAdapterInfo();return {available:true,info,features:Array.from(adapter.features||[]),limits:adapter.limits||{}};}catch(e){return {available:false,error:String(e.message||e)}}
+}
+
+async function fallbackMediaDevices(){
+ try{if(!navigator.mediaDevices?.enumerateDevices)return {available:false};const devices=await navigator.mediaDevices.enumerateDevices();return {available:true,audioInputs:devices.filter(d=>d.kind==="audioinput").length,audioOutputs:devices.filter(d=>d.kind==="audiooutput").length,videoInputs:devices.filter(d=>d.kind==="videoinput").length,labelsPresent:devices.some(d=>!!d.label),deviceIdsPresent:devices.some(d=>!!d.deviceId),groupIdsPresent:devices.some(d=>!!d.groupId),devices:devices.map(d=>({kind:d.kind,label:Boolean(d.label),deviceId:Boolean(d.deviceId),groupId:Boolean(d.groupId)}))};}catch(e){return {available:false,error:String(e.message||e)}}
+}
+
+async function fallbackWebRTC(){
+ return new Promise(resolve=>{
+  const out={available:!!window.RTCPeerConnection,localCandidates:[],publicCandidates:[],relayCandidates:[],candidateIps:[],rawCandidates:[],mdnsMasked:false,error:null,stunMode:null};
+  if(!window.RTCPeerConnection)return resolve(out);
+
+  try{
+   const iceServers = [];
+
+   if (labConfig.stunUrls?.length) {
+    iceServers.push(...labConfig.stunUrls.map(url => ({ urls: url })));
+    out.stunMode = "owned_stun";
+   }
+
+   if (labConfig.turnUrls?.length) {
+    iceServers.push(...labConfig.turnUrls.map(url => ({ urls: url })));
+    out.stunMode = "owned_turn";
+   }
+
+   if (!iceServers.length && labConfig.thirdPartyStunAllowed) {
+    iceServers.push({ urls: "stun:stun.l.google.com:19302" });
+    out.stunMode = "third_party_google_stun_allowed";
+   }
+
+   if (!iceServers.length) out.stunMode = "no_stun_configured";
+
+   const pc = new RTCPeerConnection({ iceServers });
+   pc.createDataChannel("pqp");
+   pc.onicecandidate=e=>{
+    if(!e.candidate){pc.close();return resolve(out);}
+    const cand=e.candidate.candidate;
+    out.rawCandidates.push(cand);
+    const parts=cand.split(" ");
+    const ip=parts[4];
+    const type=parts[7];
+
+    if(ip){
+      out.candidateIps.push(ip);
+      if(String(ip).includes(".local")) out.mdnsMasked=true;
+    }
+
+    if(type==="host") out.localCandidates.push(cand);
+    if(type==="srflx") out.publicCandidates.push(cand);
+    if(type==="relay") out.relayCandidates.push(cand);
+   };
+
+   pc.createOffer().then(o=>pc.setLocalDescription(o));
+   setTimeout(()=>{try{pc.close()}catch{};resolve(out)},3500);
+  }catch(e){
+   out.error=String(e.message||e);
+   resolve(out);
+  }
+ });
+}
+
+function detectFonts(){
+ const base=["monospace","sans-serif","serif"];const test=[
+"Arial","Arial Black","Arial Narrow","Arial Rounded MT Bold",
+"Bahnschrift","Calibri","Calibri Light","Cambria","Cambria Math","Candara","Candara Light",
+"Comic Sans MS","Consolas","Constantia","Corbel","Corbel Light","Courier New",
+"Ebrima","Franklin Gothic Book","Franklin Gothic Demi","Franklin Gothic Heavy","Franklin Gothic Medium",
+"Gadugi","Garamond","Georgia","Impact","Javanese Text","Leelawadee","Leelawadee UI",
+"Lucida Console","Lucida Sans Unicode","Malgun Gothic","Microsoft Himalaya","Microsoft JhengHei",
+"Microsoft JhengHei UI","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Sans Serif",
+"Microsoft Tai Le","Microsoft Uighur","Microsoft YaHei","Microsoft YaHei UI","Microsoft Yi Baiti",
+"MingLiU-ExtB","NSimSun","PMingLiU-ExtB","Palatino Linotype",
+"Segoe Fluent Icons","Segoe MDL2 Assets","Segoe Print","Segoe Script","Segoe UI","Segoe UI Emoji",
+"Segoe UI Historic","Segoe UI Symbol","Segoe UI Variable",
+"SimSun","SimSun-ExtB","SimSun-ExtG","Sitka","Sitka Text","Symbol","Tahoma","Times New Roman",
+"Trebuchet MS","Verdana","Webdings","Wingdings","Wingdings 2","Wingdings 3","Yu Gothic","Yu Gothic UI",
+"serif","sans-serif","monospace"
+];
+ const span=document.createElement("span");span.style.position="absolute";span.style.left="-9999px";span.style.fontSize="72px";span.textContent="mmmmmmmmmmlli";document.body.appendChild(span);
+ const widths={};base.forEach(f=>{span.style.fontFamily=f;widths[f]=span.offsetWidth});
+ const found=[];test.forEach(font=>{for(const b of base){span.style.fontFamily=`"${font}",${b}`;if(span.offsetWidth!==widths[b]){found.push(font);break;}}});
+ document.body.removeChild(span);return {fonts:found,fontCount:found.length};
+}
+
+async function fallbackFingerprintSnapshot(extra,ctx){
+ const canvas=await fallbackCanvas();const audio=await fallbackAudio();const webgl=fallbackWebGL();const webgpu=await fallbackWebGPU();const mediaDevices=await fallbackMediaDevices();const webrtc=await fallbackWebRTC();const fonts=detectFonts();
+ return {
+  sessionId:window.sessionId,profileName:window.profileName,proxyLabel:ctx?.observed?.ip||ctx?.context?.proxy?.ip||"observed-runtime",
+  browser:{userAgent:navigator.userAgent,browserCore:"runtime",vendor:navigator.vendor,appVersion:navigator.appVersion,doNotTrack:navigator.doNotTrack},
+  navigator:extra.navigatorAttributes,
+  timezoneLocale:{browserTimezone:Intl.DateTimeFormat().resolvedOptions().timeZone,timezoneOffset:new Date().getTimezoneOffset(),locale:navigator.language},
+  graphics:{canvas,audio,webgl,webgpu},
+  fonts,screen:{screenWidth:screen.width,screenHeight:screen.height,availWidth:screen.availWidth,availHeight:screen.availHeight,colorDepth:screen.colorDepth,pixelDepth:screen.pixelDepth,devicePixelRatio:devicePixelRatio,innerWidth,innerHeight,outerWidth,outerHeight},
+  mediaDevices,storage:extra.storageAging,webrtc,
+  dnsContext:ctx.dnsContext,ipIntel:ctx.ipIntel,linode:ctx.context?.linode||{},proxy:ctx.context?.proxy||{ip:ctx.observed?.ip},observedIp:ctx.observed,
+  edge:{ja3:null,ja4:null,status:"not_collectable_in_browser_without_edge_collector"},
+  trust:{collector:"fallback_inline",externalCollectorFailed:window.pqpExternalCollectorFailed}
+ };
+}
+
+
+
+function pqpSerializeNavigatorPlugins(){
+ try{
+  return Array.from(navigator.plugins || []).map(plugin=>({
+   name:plugin.name,
+   filename:plugin.filename,
+   description:plugin.description,
+   length:plugin.length,
+   mimeTypes:Array.from(plugin || []).map(mt=>({
+    type:mt.type,
+    suffixes:mt.suffixes,
+    description:mt.description
+   }))
+  }));
+ }catch(e){
+  return {error:String(e.message||e)};
+ }
+}
+
+function pqpSerializeNavigatorMimeTypes(){
+ try{
+  return Array.from(navigator.mimeTypes || []).map(mt=>({
+   type:mt.type,
+   suffixes:mt.suffixes,
+   description:mt.description,
+   enabledPlugin:mt.enabledPlugin ? {
+    name:mt.enabledPlugin.name,
+    filename:mt.enabledPlugin.filename,
+    description:mt.enabledPlugin.description
+   } : null
+  }));
+ }catch(e){
+  return {error:String(e.message||e)};
+ }
+}
+
+function pqpCollectScreenOrientation(){
+ try{
+  return screen.orientation ? {
+   type:screen.orientation.type,
+   angle:screen.orientation.angle
+  } : null;
+ }catch(e){
+  return {error:String(e.message||e)};
+ }
+}
+
+function pqpCollectTouchSupport(){
+ try{
+  return {
+   maxTouchPoints:navigator.maxTouchPoints || 0,
+   ontouchstart:"ontouchstart" in window,
+   touchEvent:typeof TouchEvent !== "undefined",
+   pointerEvent:typeof PointerEvent !== "undefined",
+   coarsePointer:window.matchMedia ? window.matchMedia("(pointer: coarse)").matches : null,
+   anyCoarsePointer:window.matchMedia ? window.matchMedia("(any-pointer: coarse)").matches : null
+  };
+ }catch(e){
+  return {error:String(e.message||e)};
+ }
+}
+
+async function pqpCollectBrowserGeolocation(){
+ if(!navigator.geolocation){
+  return {status:"unsupported", ok:false, error:"navigator.geolocation unavailable"};
+ }
+
+ return await new Promise(resolve=>{
+  navigator.geolocation.getCurrentPosition(
+   pos=>resolve({
+    status:"ok",
+    ok:true,
+    latitude:pos.coords.latitude,
+    longitude:pos.coords.longitude,
+    accuracy:pos.coords.accuracy,
+    altitude:pos.coords.altitude,
+    altitudeAccuracy:pos.coords.altitudeAccuracy,
+    heading:pos.coords.heading,
+    speed:pos.coords.speed,
+    timestamp:pos.timestamp
+   }),
+   err=>resolve({
+    status:"error",
+    ok:false,
+    code:err.code,
+    message:err.message
+   }),
+   {enableHighAccuracy:false,timeout:10000,maximumAge:60000}
+  );
+ });
+}
+
+async function pqpCollectExtraBrowserSignals(sessionId,profileName){
+ const key="pqp_profile_first_seen_at";if(!localStorage.getItem(key))localStorage.setItem(key,String(Date.now()));
+ const firstSeen=Number(localStorage.getItem(key)),now=Date.now();
+ await apiPost("/api/pqp/profile-aging-event",{sessionId,profileName,cookieAgeMs:document.cookie?now-firstSeen:null,localStorageAgeMs:now-firstSeen,indexedDbAgeMs:window.indexedDB?now-firstSeen:null,serviceWorkerAgeMs:navigator.serviceWorker?now-firstSeen:null,cacheAgeMs:window.caches?now-firstSeen:null,profileFirstSeenAt:new Date(firstSeen).toISOString()});
+ return {
+  navigatorAttributes:{webdriver:navigator.webdriver,userAgent:navigator.userAgent,userAgentData:navigator.userAgentData?{brands:navigator.userAgentData.brands,mobile:navigator.userAgentData.mobile,platform:navigator.userAgentData.platform}:null,appCodeName:navigator.appCodeName,appName:navigator.appName,appVersion:navigator.appVersion,platform:navigator.platform,product:navigator.product,productSub:navigator.productSub,vendor:navigator.vendor,vendorSub:navigator.vendorSub,language:navigator.language,languages:Array.from(navigator.languages||[]),cookieEnabled:navigator.cookieEnabled,doNotTrack:navigator.doNotTrack,hardwareConcurrency:navigator.hardwareConcurrency,deviceMemory:navigator.deviceMemory,maxTouchPoints:navigator.maxTouchPoints,pdfViewerEnabled:navigator.pdfViewerEnabled,pluginsCount:navigator.plugins?navigator.plugins.length:null,plugins:pqpSerializeNavigatorPlugins(),mimeTypesCount:navigator.mimeTypes?navigator.mimeTypes.length:null,mimeTypes:pqpSerializeNavigatorMimeTypes(),bluetoothAvailable:!!navigator.bluetooth,clipboardAvailable:!!navigator.clipboard,credentialsAvailable:!!navigator.credentials,locksAvailable:!!navigator.locks,keyboardAvailable:!!navigator.keyboard,usbAvailable:!!navigator.usb,serialAvailable:!!navigator.serial,hidAvailable:!!navigator.hid},
+  automationLeaks:{webdriver:navigator.webdriver,playwright:!!window.__playwright||!!window.__pwInitScripts,selenium:!!window._Selenium_IDE_Recorder||!!window.__webdriver_script_fn,puppeteer:!!window.__puppeteer_utility_world__,chromeRuntime:!!window.chrome?.runtime,devtoolsLikely:outerWidth-innerWidth>160||outerHeight-innerHeight>160,pluginsCount:navigator.plugins?.length||0,mimeTypesCount:navigator.mimeTypes?.length||0},
+  storageAging:{firstSeenAt:new Date(firstSeen).toISOString(),localStorageAgeMs:now-firstSeen,cookieEnabled:navigator.cookieEnabled,serviceWorkerAvailable:!!navigator.serviceWorker,cacheApiAvailable:!!window.caches,indexedDbAvailable:!!window.indexedDB}
+ };
+}
+
+["mousemove","scroll","keydown","keyup","click","focus","blur"].forEach(type=>{window.addEventListener(type,ev=>{if(!window.sessionId)return;const payload={x:ev.clientX??null,y:ev.clientY??null,key:ev.key??null,target:ev.target?.tagName||null,ts:performance.now(),step:currentStep};navigator.sendBeacon("/api/pqp/behavior-event",new Blob([JSON.stringify({sessionId:window.sessionId,profileName:window.profileName,eventType:type,payload})],{type:"application/json"}));},{passive:true});});
+
+async function pqpTransaction(eventType,page,startedAt,metadata={}){await apiPost("/api/pqp/transaction-event",{sessionId:window.sessionId,profileName:window.profileName,eventType,page,durationMs:Math.round(performance.now()-startedAt),metadata:{...metadata,step:currentStep,runId:getRunId()}});}
+
+async function recordChallenge(challengeType,outcome,metadata={}){await apiPost("/api/pqp/challenge-event",{sessionId:window.sessionId,profileName:window.profileName,challengeType,provider:metadata.capsolver?.used?"capsolver":"manual_or_unknown",outcome,solveTimeMs:Math.round(performance.now()-window.pqpStartedAt),tokenGeneratedAt:metadata.tokenGeneratedAt||null,tokenSubmittedAt:new Date().toISOString(),retryCount:metadata.capsolver?.retryCount||0,failCount:outcome.includes("fail")?1:0,timeoutCount:outcome.includes("timeout")?1:0,costUsd:metadata.capsolver?.costUsd||null,raw:metadata});}
+
+async function verifyRecaptcha(challengeType,token,metadata={}){
+ const started=performance.now();const params=new URLSearchParams(location.search);const capsolver={used:params.get("solver")==="capsolver",taskId:params.get("capsolverTaskId")||null,costUsd:Number(params.get("capsolverCostUsd")||0)||null,retryCount:Number(params.get("capsolverRetryCount")||0)||0};
+ const res=await apiPost("/api/pqp/owned-lab/verify-recaptcha",{sessionId:window.sessionId,profileName:window.profileName,challengeType,token,provider:capsolver.used?"capsolver":"manual_or_unknown",capsolver,solveTimeMs:Math.round(performance.now()-started),tokenGeneratedAt:metadata.tokenGeneratedAt||null,raw:metadata});
+ challengeBox.textContent=JSON.stringify(res,null,2);return res;
+}
+
+async function collectContext(){
+ let context={};try{context=await apiGet("/api/pqp/session-context/"+window.sessionId)}catch{}
+ let observed={};try{observed=await apiGet("/api/pqp/observed-ip")}catch{}
+ let dnsContext={};try{dnsContext=await apiGet("/api/pqp/dns-context")}catch{}
+ let ipIntel={};const proxyIp=context?.proxy?.ip||context?.proxyIp||context?.observedIp||observed?.ip||"";
+ if(proxyIp){try{ipIntel.proxy=await apiGet("/api/pqp/ip-intel/"+encodeURIComponent(proxyIp))}catch{}}
+ latestContext={context,observed,dnsContext,ipIntel};return latestContext;
+}
+
+async function runProxySelfCheck(){const ctx=await collectContext();proxyBox.textContent=JSON.stringify(ctx,null,2);return ctx;}
+
+async function runFullPqpCapture(){
+ const extra=await pqpCollectExtraBrowserSignals(window.sessionId,window.profileName);
+ const browserGeolocation=await pqpCollectBrowserGeolocation();
+ const ctx=await collectContext();
+ let green={};
+ if(window.collectPqpGreenFingerprint&&!window.pqpExternalCollectorFailed){
+  try{green=await window.collectPqpGreenFingerprint(window.sessionId,{profileName:window.profileName,proxyLabel:ctx.observed?.ip||ctx.context?.proxy?.ip||"runtime-proxy",linode:ctx.context?.linode||{},proxy:ctx.context?.proxy||{ip:ctx.observed?.ip},dnsContext:ctx.dnsContext,ipIntel:ctx.ipIntel});}catch(e){green={error:String(e.message||e)}}
+ }
+ if(!green?.snapshot){green={...(green||{}),snapshot:await fallbackFingerprintSnapshot(extra,ctx),fallbackUsed:true};}
+ green.snapshot.extraBrowserSignals=extra;
+ green.snapshot.screen={...(green.snapshot.screen||{}),orientation:pqpCollectScreenOrientation(),touchSupport:pqpCollectTouchSupport()};
+ green.snapshot.touchSupport=pqpCollectTouchSupport();
+ green.snapshot.geolocation=browserGeolocation;
+ green.snapshot.browserGeolocation=browserGeolocation;
+ green.snapshot.dnsContext=ctx.dnsContext;
+ green.snapshot.ipIntel=ctx.ipIntel;
+ green.snapshot.observedIp=ctx.observed;
+ green.snapshot.checkoutLab={
+  page:location.pathname,
+  currentStep,
+  stepTimes,
+  startedAt:new Date(window.pqpStartedAt).toISOString(),
+  runId:getRunId()
+ };
+ latestSnapshot=green.snapshot;
+ await apiPost("/api/pqp/real-capability/snapshot",green.snapshot);
+ signalBox.textContent=JSON.stringify({extra,context:ctx,green},null,2);
+ await loadCollisionCounts();
+ return{extra,context:ctx,green};
+}
+
+async function loadCollisionCounts(){
+ const runId = new URLSearchParams(location.search).get("runId") || "";
+ const qs = runId ? "?runId=" + encodeURIComponent(runId) : "?recentHours=24";
+
+ const data = await apiGet(
+  "/api/pqp/collision-counts/" +
+  encodeURIComponent(window.profileName) + "/" +
+  encodeURIComponent(window.sessionId) + qs
+ );
+
+ collisionBox.textContent=JSON.stringify({
+  ...data,
+  ja3ja4Note:"Real JA3/JA4 requires Envoy/OpenResty/Cloudflare edge collection. Browser JS cannot produce true TLS fingerprints."
+ },null,2);
+
+ return data;
+}
+
+function renderScore(deep,phase4){
+ const s=phase4||{};scoreKpis.innerHTML=["networkScore","fingerprintScore","behaviorScore","challengeScore","proxyScore","populationScore","agingScore","profileCapabilityScore"].map(k=>`<div class="box">${k}<br><b>${s[k]??"-"}</b></div>`).join("");
+ scoreKpis.innerHTML+=`<div class="box">deepScore<br><b>${deep.finalDeepScore??"-"}</b></div><div class="box">verdict<br><b>${s.verdict||deep.verdict||"-"}</b></div>`;
+}
+
+async function runAnalyze(){await runFullPqpCapture();const deep=await apiPost("/api/pqp/deep-fingerprint/green-tier-analyze/"+window.sessionId,{});let phase4={};try{phase4=await apiPost("/api/pqp/phase4/profile-capability/"+window.sessionId,{})}catch{}renderScore(deep,phase4);analysisBox.textContent=JSON.stringify({topMismatches:(deep.mismatches||[]).slice(0,15),deep,phase4},null,2);}
+
+async function runV3(){
+ if(!labConfig.recaptchaV3SiteKey){challengeBox.textContent="Set PQP_RECAPTCHA_V3_SITE_KEY to enable v3.";return;}
+ const started=Date.now();grecaptcha.ready(async()=>{try{const token=await grecaptcha.execute(labConfig.recaptchaV3SiteKey,{action:labConfig.recaptchaV3Action||"owned_checkout_lab"});await verifyRecaptcha("recaptcha_v3",token,{tokenLength:token.length,tokenGeneratedAt:new Date(started).toISOString(),tokenFreshnessMs:Date.now()-started});}catch(err){await recordChallenge("recaptcha_v3","fail",{error:String(err.message||err)});challengeBox.textContent=String(err.message||err);}});
+}
+
+async function submitOwnedOrder(){
+ const formStart=performance.now();const v2Token=window.grecaptcha&&recaptchaV2Rendered?grecaptcha.getResponse():"";
+ if(recaptchaV2Rendered&&!v2Token){await recordChallenge("recaptcha_v2","missing_token",{});alert("Complete the reCAPTCHA v2 test first.");return;}
+ if(v2Token){await verifyRecaptcha("recaptcha_v2",v2Token,{tokenLength:v2Token.length,tokenGeneratedAt:v2TokenGeneratedAt?new Date(v2TokenGeneratedAt).toISOString():null,tokenFreshnessMs:v2TokenGeneratedAt?Date.now()-v2TokenGeneratedAt:null});}
+ await pqpTransaction("checkout_submit","/owned-checkout/review",formStart,{recaptchaV2Present:Boolean(v2Token),payment:document.getElementById("payment").value,fulfillment:document.getElementById("fulfillment").value});
+ await runAnalyze();alert("Owned PQP checkout submitted and scored.");
+}
+
+window.addEventListener("load",async()=>{await startSession();sessionBox.textContent=JSON.stringify({sessionId:window.sessionId,profileName:window.profileName,runId:getRunId(),externalCollectorFailed:window.pqpExternalCollectorFailed},null,2);await loadConfig();await pqpTransaction("page_loaded",location.pathname,window.pqpStartedAt);await runFullPqpCapture();});
+</script>
+</body>
+</html>

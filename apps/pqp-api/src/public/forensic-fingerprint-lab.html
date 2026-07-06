@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>PQP Forensic Fingerprint Lab</title>
+  <style>
+    body { font-family: Arial; background:#f4f6f8; padding:24px; }
+    .card { background:#fff; padding:16px; border-radius:10px; margin-bottom:16px; }
+    pre { background:#111; color:#00ff88; padding:12px; overflow:auto; }
+    a, button { padding:10px 14px; display:inline-block; margin:6px 0; }
+  </style>
+</head>
+<body>
+  <h1>PQP Forensic Fingerprint Lab</h1>
+  <div class="card">
+    <h2>FingerprintJS Visitor ID</h2>
+    <button onclick="runFP()">Run FingerprintJS</button>
+    <pre id="fpBox">{}</pre>
+  </div>
+  <div class="card">
+    <h2>CreepJS Deep Inspection</h2>
+    <a href="http://23.239.12.166:8090" target="_blank">Open CreepJS</a>
+  </div>
+  <div class="card">
+    <h2>PQP Real Capability Lab</h2>
+    <a href="/pqp/real-capability-lab.html" target="_blank">Open PQP Real Capability Lab</a>
+  </div>
+
+<script src="/pqp/assets/fingerprintjs-collector.js"></script>
+<script>
+async function startSession() {
+  const res = await fetch("/api/pqp/session/start", {
+    method: "POST",
+    headers: {"content-type": "application/json"},
+    body: JSON.stringify({
+      profileName: new URLSearchParams(location.search).get("profileName") || "forensic-live-profile",
+      clientType: "forensic-fingerprint-lab"
+    })
+  });
+  if (!res.ok) throw new Error("Failed to start PQP session");
+  const json = await res.json();
+  window.sessionId = json.sessionId;
+  return json.sessionId;
+}
+
+async function runFP() {
+  try {
+    if (!window.sessionId) await startSession();
+    const result = await window.collectFingerprintJS(window.sessionId);
+    document.getElementById("fpBox").textContent = JSON.stringify({
+      sessionId: window.sessionId,
+      visitorId: result.visitorId,
+      confidence: result.confidence
+    }, null, 2);
+  } catch (err) {
+    document.getElementById("fpBox").textContent = String(err.message || err);
+  }
+}
+
+startSession().catch(err => {
+  document.getElementById("fpBox").textContent = String(err.message || err);
+});
+</script>
+</body>
+</html>

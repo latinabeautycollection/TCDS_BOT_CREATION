@@ -1,0 +1,20 @@
+[
+  {
+    "profileName": "mlx-profile-001",
+    "provider": "multilogin",
+    "proxyLabel": "res-proxy-001",
+    "proxyType": "residential",
+    "expectedCountry": "US",
+    "expectedTimezone": "America/New_York",
+    "userAgent": "Configured inside Multilogin"
+  },
+  {
+    "profileName": "mlx-profile-002",
+    "provider": "multilogin",
+    "proxyLabel": "res-proxy-002",
+    "proxyType": "residential",
+    "expectedCountry": "US",
+    "expectedTimezone": "America/Chicago",
+    "userAgent": "Configured inside Multilogin"
+  }
+]
