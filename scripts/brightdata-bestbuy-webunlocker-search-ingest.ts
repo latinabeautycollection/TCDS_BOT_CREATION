@@ -16,6 +16,7 @@ const ENV = {
   RATE_LIMIT_PER_MINUTE: Number(process.env.BESTBUY_RATE_LIMIT_PER_MINUTE ?? 30),
   HEALTH_PORT: Number(process.env.BESTBUY_HEALTH_PORT ?? 8097),
   PROMOTE_SYNC: process.env.BESTBUY_PROMOTE_SYNC !== "false",
+  RETRY_TIMEOUT_ROWS: process.env.BESTBUY_RETRY_TIMEOUT_ROWS === "true",
 };
 const LOCK_KEY = 913_880_221;
 const payload = {
@@ -110,6 +111,40 @@ const pool = new Pool({
   connectionTimeoutMillis: 10_000,
 });
 let shutdownRequested = false;
+function parseKeywordInput(raw: string | undefined): string[] {
+  if (!raw || !raw.trim()) return [];
+
+  const trimmed = raw.trim();
+
+  if (trimmed.startsWith("[")) {
+    const parsed = JSON.parse(trimmed);
+    if (!Array.isArray(parsed)) throw new Error("BESTBUY_KEYWORDS JSON must be an array");
+    return parsed.map((item) => String(item).trim()).filter(Boolean);
+  }
+
+  return trimmed
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function buildBestBuySearchUrl(keyword: string): string {
+  const url = new URL("https://www.bestbuy.com/site/searchpage.jsp");
+  url.searchParams.set("st", keyword);
+  return url.toString();
+}
+
+function getConfiguredInputUrls(): string[] {
+  const keywords = parseKeywordInput(process.env.BESTBUY_KEYWORDS);
+
+  if (keywords.length > 0) {
+    return keywords.map(buildBestBuySearchUrl);
+  }
+
+  return payload.input.map((item) => item.url);
+}
+
+
 function assertEnv(hasSearchUrls: boolean): void {
   if (!ENV.BRIGHTDATA_TOKEN) throw new Error("Missing BRIGHTDATA_TOKEN");
   if (!ENV.DATABASE_URL) throw new Error("Missing DATABASE_URL");
@@ -534,8 +569,8 @@ class CollectionRunManager {
         dataset_id: ENV.DATASET_ID,
         mode: "search_url_trigger",
         limit_per_input: payload.limit_per_input,
-        input_count: payload.input.length,
-        payload_hash: stableHash(payload),
+        input_count: getConfiguredInputUrls().length,
+        payload_hash: stableHash({ ...payload, input: getConfiguredInputUrls() }),
       })]
     );
     return result.rows[0].run_id;
@@ -705,7 +740,7 @@ class BestBuyWorkerHost {
         return;
       }
       // 1. Classification
-      const inputUrls = payload.input.map((item) => item.url);
+      const inputUrls = getConfiguredInputUrls();
       const searchUrls: string[] = [];
       const directProductUrls: string[] = [];
       for (const url of inputUrls) {
@@ -749,7 +784,9 @@ class BestBuyWorkerHost {
       let rows = await this.brightData.downloadSnapshot(metrics.snapshotId, false);
       metrics.downloadMs = Date.now() - t;
 
-      rows = await this.retryTimeoutRows(rows);
+      if (ENV.RETRY_TIMEOUT_ROWS) {
+        rows = await this.retryTimeoutRows(rows);
+      }
       rows = orderRowsForProcessing(rows);
       rows = ENV.MAX_ROWS > 0 ? rows.slice(0, ENV.MAX_ROWS) : rows;
 
