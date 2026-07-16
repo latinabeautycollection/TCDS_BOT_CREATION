@@ -5,7 +5,7 @@ function zones(){return config.STAPLES_UNLOCKER_ZONE_POLICY==='premium_only'?[co
 export async function unlockStaplesPage(url:string){let last:unknown;for(const zone of zones()){try{return await unlock(url,zone);}catch(e){last=e;}}throw last;}
 
 function decodeHtml(value:string){return value.replace(/&amp;/gi,'&').replace(/&#x2f;/gi,'/').replace(/&#47;/g,'/').replace(/&quot;/gi,'"').replace(/&#39;/g,"'");}
-export function extractStaplesProductUrls(html:string,baseUrl:string){const urls=new Set<string>();const add=(raw:string)=>{try{const u=new URL(decodeHtml(raw).replace(/\\u002f/gi,'/').replace(/\\\//g,'/'),baseUrl);if(!/(^|\.)staples\.com$/i.test(u.hostname)||!/\/product_\d+\/?$/i.test(u.pathname))return;u.hash='';u.searchParams.delete('akamai-feo');urls.add(u.href);}catch{}};for(const m of html.matchAll(/\bhref\s*=\s*["']([^"']+)["']/gi))add(m[1]??'');for(const m of html.matchAll(/https?:\\?\/\\?\/[^"'<>\s]+\/product_\d+/gi))add(m[0]??'');return [...urls];}
+export function extractStaplesProductUrls(html:string,baseUrl:string){const urls=new Set<string>();const add=(raw:string)=>{try{const u=new URL(decodeHtml(raw).replace(/\\u002f/gi,'/').replace(/\\\//g,'/'),baseUrl);if(!/(^|\.)staples\.com$/i.test(u.hostname)||!/\/product_\d+\/?$/i.test(u.pathname))return;u.hash='';u.search='';urls.add(u.href);}catch{}};for(const m of html.matchAll(/\bhref\s*=\s*["']([^"']+)["']/gi))add(m[1]??'');for(const m of html.matchAll(/https?:\\?\/\\?\/[^"'<>\s]+\/product_\d+/gi))add(m[0]??'');return [...urls];}
 export async function discoverStaplesPage(url:string,maxRows:number){
   let last:unknown;
   for(const zone of zones()){
