@@ -1,0 +1,30 @@
+BEGIN;
+INSERT INTO retail.retail_platforms(platform_code,platform_name,base_url,access_type,status,priority_rank,is_purchase_supported,is_data_collection_supported,robots_policy_url,terms_url,governance_notes)
+VALUES ('staples','Staples','https://www.staples.com','authorized_scraper','active',30,true,true,'https://www.staples.com/robots.txt','https://www.staples.com/hc?id=52e40651-0852-4ad7-a532-45017c287d50','Bright Data Staples PDP dataset with category discovery through tcds_web_unlocker.')
+ON CONFLICT(platform_code) DO UPDATE SET platform_name=EXCLUDED.platform_name,base_url=EXCLUDED.base_url,governance_notes=EXCLUDED.governance_notes,updated_at=now();
+ALTER TABLE retail.raw_product_captures ADD COLUMN IF NOT EXISTS source_platform text;
+UPDATE retail.raw_product_captures r SET source_platform=p.platform_code FROM retail.retail_platforms p WHERE r.platform_id=p.id AND r.source_platform IS NULL;
+ALTER TABLE retail.raw_product_captures ALTER COLUMN source_platform SET DEFAULT 'unknown';
+CREATE INDEX IF NOT EXISTS ix_raw_product_captures_source_platform_captured ON retail.raw_product_captures(source_platform,captured_at DESC);
+CREATE TABLE IF NOT EXISTS retail.ingest_dead_letters(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),platform_id uuid REFERENCES retail.retail_platforms(id),collection_run_id uuid REFERENCES retail.collection_runs(id),source_platform text NOT NULL,payload_hash text NOT NULL,raw_payload jsonb NOT NULL,error_code text NOT NULL,error_message text NOT NULL,attempt_count integer NOT NULL DEFAULT 1 CHECK(attempt_count>=1),status text NOT NULL DEFAULT 'pending' CHECK(status IN('pending','retrying','resolved','abandoned')),first_failed_at timestamptz NOT NULL DEFAULT now(),last_failed_at timestamptz NOT NULL DEFAULT now(),next_retry_at timestamptz,resolved_at timestamptz,resolution_notes text,UNIQUE(source_platform,payload_hash));
+CREATE INDEX IF NOT EXISTS ix_ingest_dlq_retry ON retail.ingest_dead_letters(status,next_retry_at) WHERE status IN('pending','retrying');
+CREATE TABLE IF NOT EXISTS retail.staples_product_parsed(
+ id uuid PRIMARY KEY DEFAULT gen_random_uuid(), raw_capture_id uuid NOT NULL UNIQUE REFERENCES retail.raw_product_captures(id), collection_run_id uuid REFERENCES retail.collection_runs(id), platform_id uuid NOT NULL REFERENCES retail.retail_platforms(id), source_platform text NOT NULL DEFAULT 'staples' CHECK(source_platform='staples'),
+ item_id text NOT NULL, variant_id text, group_id text, mpn text, url text NOT NULL, title text NOT NULL, normalized_title text GENERATED ALWAYS AS(lower(btrim(title))) STORED, description text, brand text, normalized_brand text GENERATED ALWAYS AS(lower(btrim(brand))) STORED,
+ product_category text, category_tree jsonb NOT NULL DEFAULT '[]', category_urls jsonb NOT NULL DEFAULT '[]', image_url text, additional_image_urls jsonb NOT NULL DEFAULT '[]',
+ regular_price numeric(14,2), sale_price numeric(14,2), effective_price numeric(14,2) NOT NULL CHECK(effective_price>=0), currency_code char(3) NOT NULL DEFAULT 'USD', availability text, availability_date text,
+ listing_has_variations boolean NOT NULL DEFAULT false, variant_attributes jsonb NOT NULL DEFAULT '[]', variants jsonb NOT NULL DEFAULT '[]', store_name text, seller_url text, seller_privacy_policy text, seller_tos text, return_policy text, return_window integer,
+ target_countries jsonb NOT NULL DEFAULT '[]', store_country text, star_rating numeric(3,2) CHECK(star_rating IS NULL OR star_rating BETWEEN 0 AND 5), review_count integer CHECK(review_count IS NULL OR review_count>=0), reviews jsonb,
+ source_dataset text NOT NULL DEFAULT 'brightdata_staples', parser_version text NOT NULL DEFAULT 'brightdata_staples_v1', parsed_payload jsonb NOT NULL, payload_hash text NOT NULL, parsed_at timestamptz NOT NULL DEFAULT now(), created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now(),
+ UNIQUE(platform_id,item_id,payload_hash));
+CREATE INDEX IF NOT EXISTS ix_staples_item_latest ON retail.staples_product_parsed(item_id,parsed_at DESC);
+CREATE INDEX IF NOT EXISTS ix_staples_variant_latest ON retail.staples_product_parsed(variant_id,parsed_at DESC) WHERE variant_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS ix_staples_mpn ON retail.staples_product_parsed(mpn) WHERE mpn IS NOT NULL;
+CREATE INDEX IF NOT EXISTS ix_staples_price_availability ON retail.staples_product_parsed(effective_price,availability);
+CREATE INDEX IF NOT EXISTS ix_staples_brand_title ON retail.staples_product_parsed(normalized_brand,normalized_title);
+CREATE INDEX IF NOT EXISTS ix_staples_payload_gin ON retail.staples_product_parsed USING gin(parsed_payload);
+CREATE TABLE IF NOT EXISTS retail.staples_product_images(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),staples_parsed_id uuid NOT NULL REFERENCES retail.staples_product_parsed(id) ON DELETE CASCADE,image_url text NOT NULL,image_rank integer NOT NULL CHECK(image_rank>=1),is_main boolean NOT NULL DEFAULT false,created_at timestamptz NOT NULL DEFAULT now(),UNIQUE(staples_parsed_id,image_url));
+CREATE TABLE IF NOT EXISTS retail.staples_product_categories(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),staples_parsed_id uuid NOT NULL REFERENCES retail.staples_product_parsed(id) ON DELETE CASCADE,category_rank integer NOT NULL CHECK(category_rank>=1),category_name text NOT NULL,category_url text,created_at timestamptz NOT NULL DEFAULT now(),UNIQUE(staples_parsed_id,category_rank));
+CREATE TABLE IF NOT EXISTS retail.staples_unlocker_evidence(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),collection_run_id uuid REFERENCES retail.collection_runs(id),platform_id uuid NOT NULL REFERENCES retail.retail_platforms(id),target_url text NOT NULL,unlocker_zone text NOT NULL CHECK(unlocker_zone IN('tcds_web_unlocker','tcds_premium_unlocker')),content_type text,response_status integer NOT NULL DEFAULT 200,content_hash text NOT NULL UNIQUE,response_body text NOT NULL,captured_at timestamptz NOT NULL DEFAULT now(),evidence_metadata jsonb NOT NULL DEFAULT '{}');
+CREATE INDEX IF NOT EXISTS ix_staples_unlocker_url_time ON retail.staples_unlocker_evidence(target_url,captured_at DESC);
+COMMIT;

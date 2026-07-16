@@ -41,3 +41,12 @@ backups/
 *.bak
 *.bak-*
 *.backup
+
+# Retail ingest generated/private files
+**/node_modules/
+**/dist/
+**/.env
+**/deadletters/
+**/*.log
+.DS_Store
+__MACOSX/

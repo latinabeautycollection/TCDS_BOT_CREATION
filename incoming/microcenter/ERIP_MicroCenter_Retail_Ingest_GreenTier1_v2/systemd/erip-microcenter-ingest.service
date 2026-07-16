@@ -1,0 +1,28 @@
+[Unit]
+Description=ERIP Micro Center Bright Data Retail Ingest
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=erip
+Group=erip
+WorkingDirectory=/srv/erip/microcenter-ingest
+EnvironmentFile=/srv/erip/microcenter-ingest/.env
+ExecStart=/usr/bin/npm run run
+TimeoutStartSec=3h
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/srv/erip/microcenter-ingest
+StandardOutput=journal
+StandardError=journal

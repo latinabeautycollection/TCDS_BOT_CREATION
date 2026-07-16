@@ -1,0 +1,16 @@
+{
+  "input": [
+    {
+      "url": "https://www.microcenter.com/search/search_results.aspx?fq=category:iPads%7C668,Subcategory:iPad"
+    },
+    {
+      "url": "https://www.microcenter.com/search/search_results.aspx?fq=category:Headphones%20%26%20Earbuds%7C599,Series:AirPods%20OR%20AirPods%20Max%20OR%20AirPods%20Pro"
+    },
+    {
+      "url": "https://www.microcenter.com/search/search_results.aspx?fq=category:Cell%20Phones%7C713,Subcategory:Apple%20iPhones"
+    },
+    {
+      "url": "https://www.microcenter.com/search/search_results.aspx?fq=Micro%20Center%20Deals:Top%20Deals"
+    }
+  ]
+}

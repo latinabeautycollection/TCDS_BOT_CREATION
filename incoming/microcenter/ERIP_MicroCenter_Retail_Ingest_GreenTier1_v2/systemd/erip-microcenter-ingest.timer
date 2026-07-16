@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily ERIP Micro Center Retail Ingest
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+Persistent=true
+RandomizedDelaySec=300
+AccuracySec=1min
+Unit=erip-microcenter-ingest.service
+
+[Install]
+WantedBy=timers.target
