@@ -6,5 +6,25 @@ export async function unlockStaplesPage(url:string){let last:unknown;for(const z
 
 function decodeHtml(value:string){return value.replace(/&amp;/gi,'&').replace(/&#x2f;/gi,'/').replace(/&#47;/g,'/').replace(/&quot;/gi,'"').replace(/&#39;/g,"'");}
 export function extractStaplesProductUrls(html:string,baseUrl:string){const urls=new Set<string>();const add=(raw:string)=>{try{const u=new URL(decodeHtml(raw).replace(/\\u002f/gi,'/').replace(/\\\//g,'/'),baseUrl);if(!/(^|\.)staples\.com$/i.test(u.hostname)||!/\/product_\d+\/?$/i.test(u.pathname))return;u.hash='';u.searchParams.delete('akamai-feo');urls.add(u.href);}catch{}};for(const m of html.matchAll(/\bhref\s*=\s*["']([^"']+)["']/gi))add(m[1]??'');for(const m of html.matchAll(/https?:\\?\/\\?\/[^"'<>\s]+\/product_\d+/gi))add(m[0]??'');return [...urls];}
-export async function discoverStaplesPage(url:string,maxRows:number){let last:unknown;for(const zone of zones()){try{const result=await unlock(url,zone);const productUrls=extractStaplesProductUrls(result.body,url).slice(0,maxRows);if(!productUrls.length)throw new Error(`STAPLES_DISCOVERY_EMPTY:${url}:${zone}`);return {...result,productUrls};}catch(e){last=e;}}throw last;}
+export async function discoverStaplesPage(url:string,maxRows:number){
+  let last:unknown;
+  for(const zone of zones()){
+    for(let attempt=1;attempt<=3;attempt++){
+      try{
+        const result=await unlock(url,zone);
+        const productUrls=extractStaplesProductUrls(result.body,url).slice(0,maxRows);
+        if(!productUrls.length){
+          throw new Error(`STAPLES_DISCOVERY_EMPTY:${url}:${zone}:attempt=${attempt}`);
+        }
+        return {...result,productUrls};
+      }catch(e){
+        last=e;
+        if(attempt<3){
+          await new Promise(resolve=>setTimeout(resolve,2000*attempt));
+        }
+      }
+    }
+  }
+  throw last;
+}
 export function parseStaplesJsonLd(html:string):Record<string,unknown>|null{const scripts=[...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];for(const m of scripts){try{const j=JSON.parse(m[1]??'');const arr=Array.isArray(j)?j:[j];for(const x of arr){const nodes=x&&typeof x==='object'&&'@graph' in x&&Array.isArray((x as any)['@graph'])?(x as any)['@graph']:[x];const p=nodes.find((n:any)=>n?.['@type']==='Product');if(p)return p;}}catch{}}return null;}
