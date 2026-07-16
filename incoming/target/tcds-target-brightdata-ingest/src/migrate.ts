@@ -1,0 +1,1 @@
+import fs from 'node:fs/promises'; import { pool } from './db.js'; const sql=await fs.readFile(new URL('../sql/001_target_ingest.sql',import.meta.url),'utf8');try{await pool.query(sql);console.log('Target migration applied');}finally{await pool.end();}
