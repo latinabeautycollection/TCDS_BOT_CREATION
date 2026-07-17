@@ -1,0 +1,19 @@
+[Unit]
+Description=TCDS Adorama Bright Data category ingestion
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=tcds
+WorkingDirectory=/srv/tcds/adorama-brightdata
+EnvironmentFile=/etc/tcds/adorama-brightdata.env
+ExecStart=/usr/bin/npm start
+TimeoutStartSec=3h
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/srv/tcds/adorama-brightdata
+
+[Install]
+WantedBy=multi-user.target

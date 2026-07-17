@@ -1,0 +1,27 @@
+[Unit]
+Description=ERIP B&H Photo Bright Data Retail Ingest
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=oneshot
+User=erip
+Group=erip
+WorkingDirectory=/srv/erip/bhphoto-ingest
+EnvironmentFile=/srv/erip/bhphoto-ingest/.env
+ExecStart=/usr/bin/npm run run
+TimeoutStartSec=3h
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/srv/erip/bhphoto-ingest
+StandardOutput=journal
+StandardError=journal

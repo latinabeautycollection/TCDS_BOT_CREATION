@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily ERIP B&H Photo Retail Ingest
+[Timer]
+OnCalendar=*-*-* 03:35:00
+Persistent=true
+RandomizedDelaySec=300
+AccuracySec=1min
+Unit=erip-bhphoto-ingest.service
+[Install]
+WantedBy=timers.target
