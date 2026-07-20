@@ -1,0 +1,167 @@
+import pg from 'pg';
+import { config } from './config.js';
+import { sha256, stableJson, money, normalizePrices, availability } from './util.js';
+import type { OfficeDepotRecord } from './types.js';
+
+const { Pool } = pg;
+export const pool = new Pool({
+  connectionString: config.DATABASE_URL,
+  max: 10,
+  statement_timeout: 60_000,
+  query_timeout: 65_000,
+  application_name: 'tcds-officedepot-ingest'
+});
+
+export async function platformAndConfig() {
+  const c = await pool.connect();
+  try {
+    await c.query('BEGIN');
+    const p = await c.query(`SELECT id FROM retail.retail_platforms WHERE platform_code='officedepot'`);
+    if (!p.rowCount) throw new Error("Office Depot platform missing; run migration");
+    const cfg = await c.query(
+      `SELECT id FROM retail.platform_collection_configs WHERE platform_id=$1 AND config_name='Office Depot Bright Data category ingest v1' AND is_active LIMIT 1`,
+      [p.rows[0].id]
+    );
+    await c.query('COMMIT');
+    return { platformId: p.rows[0].id as string, configId: cfg.rows[0]?.id as string | undefined };
+  } catch (e) {
+    await c.query('ROLLBACK');
+    throw e;
+  } finally { c.release(); }
+}
+
+export async function createRun(platformId:string, configId:string|undefined, runKey:string, urls:string[]) {
+  const r = await pool.query(
+    `INSERT INTO retail.collection_runs(platform_id,config_id,run_key,status,started_at,requested_by,total_requested,run_metadata)
+     VALUES($1,$2,$3,'running',now(),'officedepot_worker',$4,$5) RETURNING id`,
+    [platformId, configId ?? null, runKey, urls.length, { dataset_id: config.OFFICE_DEPOT_DATASET_ID, seed_urls: urls }]
+  );
+  return r.rows[0].id as string;
+}
+
+export async function finishRun(id:string,status:'completed'|'partial'|'failed',stats:{collected:number;failed:number;skipped:number},reason?:string) {
+  await pool.query(
+    `UPDATE retail.collection_runs SET status=$2::retail.collection_status,completed_at=now(),total_collected=$3,total_failed=$4,total_skipped=$5,failure_reason=$6 WHERE id=$1`,
+    [id,status,stats.collected,stats.failed,stats.skipped,reason??null]
+  );
+}
+
+export async function deadLetter(platformId:string,runId:string|null,payload:unknown,code:string,message:string,retryable=true,attempt=1) {
+  const raw=stableJson(payload), hash=sha256(raw);
+  await pool.query(
+    `INSERT INTO retail.ingest_dead_letters(platform_id,collection_run_id,source_platform,payload_hash,raw_payload,error_code,error_message,attempt_count,status,next_retry_at,resolution_notes)
+     VALUES($1,$2,'officedepot',$3,$4,$5,$6,$7,$8,CASE WHEN $8='abandoned' THEN NULL ELSE now()+interval '15 minutes' END,$9)
+     ON CONFLICT(source_platform,payload_hash) DO UPDATE SET
+       collection_run_id=EXCLUDED.collection_run_id,error_code=EXCLUDED.error_code,error_message=EXCLUDED.error_message,
+       attempt_count=retail.ingest_dead_letters.attempt_count+1,last_failed_at=now(),
+       status=EXCLUDED.status,next_retry_at=EXCLUDED.next_retry_at,resolution_notes=EXCLUDED.resolution_notes`,
+    [platformId,runId,hash,payload,code,message.slice(0,8000),attempt,retryable?'pending':'abandoned',retryable?null:'Non-retryable provider error']
+  );
+}
+
+export async function saveEvidence(platformId:string,runId:string,url:string,zone:string,body:string,contentType:string,status:number,meta:unknown) {
+  await pool.query(
+    `INSERT INTO retail.officedepot_unlocker_evidence(collection_run_id,platform_id,target_url,unlocker_zone,content_type,response_status,content_hash,response_body,evidence_metadata)
+     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(content_hash) DO NOTHING`,
+    [runId,platformId,url,zone,contentType,status,sha256(body),body,meta]
+  );
+}
+
+export async function ingestRecord(platformId:string,runId:string,r:OfficeDepotRecord) {
+  const c=await pool.connect();
+  const raw=stableJson(r), payloadHash=sha256(raw), normalized=normalizePrices(r.price,r.sale_price);
+  const {regular,sale,effective}=normalized;
+  const rawPrice=money(r.price),rawSale=money(r.sale_price);
+  const priceFieldInversion=rawPrice!==null&&rawSale!==null&&rawSale>rawPrice;
+  const productKey=r.variant_id??r.item_id;
+  if(effective===null)throw new Error('Missing valid price');
+  try {
+    await c.query('BEGIN');
+    const rawQ=await c.query(
+      `INSERT INTO retail.raw_product_captures(platform_id,collection_run_id,platform_product_key,source_url,raw_title,raw_brand,raw_category,raw_payload,payload_hash,parser_version,capture_metadata,source_platform)
+       VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,'brightdata_officedepot_v1',$10,'officedepot')
+       ON CONFLICT(platform_id,platform_product_key,payload_hash) DO UPDATE SET captured_at=now() RETURNING id`,
+      [platformId,runId,productKey,r.url,r.title,r.brand??null,r.product_category??null,r,payloadHash,{dataset_id:config.OFFICE_DEPOT_DATASET_ID,variant_id:r.variant_id,item_id:r.item_id}]
+    );
+    const rawId=rawQ.rows[0].id as string;
+
+    const parsed=await c.query(
+      `INSERT INTO retail.officedepot_product_parsed(raw_capture_id,collection_run_id,platform_id,item_id,variant_id,group_id,gtin,mpn,url,title,description,brand,product_category,category_tree,image_url,additional_image_urls,regular_price,sale_price,effective_price,availability,availability_date,listing_has_variations,variant_attributes,variants,store_name,seller_url,seller_privacy_policy,seller_tos,return_policy,return_window,review_count,star_rating,reviews,target_countries,store_country,category_urls,parsed_payload,payload_hash)
+       VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38)
+       ON CONFLICT(raw_capture_id) DO UPDATE SET updated_at=now() RETURNING id`,
+      [rawId,runId,platformId,r.item_id,r.variant_id,r.group_id,r.gtin,r.mpn,r.url,r.title,r.description,r.brand,r.product_category,stableJson(r.category_tree),r.image_url,stableJson(r.additional_image_urls),regular,sale,effective,r.availability,r.availability_date,r.listing_has_variations,stableJson(r.variant_attributes),stableJson(r.variants),r.store_name,r.seller_url,r.seller_privacy_policy,r.seller_tos,r.return_policy,r.return_window,r.review_count,r.star_rating,stableJson(r.reviews),stableJson(r.target_countries),r.store_country,stableJson(r.category_urls),r,payloadHash]
+    );
+    const parsedId=parsed.rows[0].id as string;
+
+    const product=await c.query(
+      `INSERT INTO retail.retail_products(platform_id,platform_product_key,source_url,title,brand,manufacturer,model_number,upc,ean,asin,sku,category_path,image_url,normalized_json)
+       VALUES($1,$2,$3,$4,$5,NULL,$6,$7,NULL,NULL,$8,$9,$10,$11)
+       ON CONFLICT(platform_id,platform_product_key) DO UPDATE SET
+         source_url=EXCLUDED.source_url,title=EXCLUDED.title,brand=EXCLUDED.brand,model_number=EXCLUDED.model_number,
+         sku=EXCLUDED.sku,category_path=EXCLUDED.category_path,image_url=EXCLUDED.image_url,last_seen_at=now(),is_active=true,
+         normalized_json=EXCLUDED.normalized_json,updated_at=now() RETURNING id`,
+      [platformId,productKey,r.url,r.title,r.brand,r.mpn,r.gtin,r.variant_id,r.product_category,r.image_url,{gtin:r.gtin,group_id:r.group_id,item_id:r.item_id,availability_date:r.availability_date,collection_scope:'office_depot_pc_electronics_printer_deals'}]
+    );
+    const productId=product.rows[0].id as string;
+    const av=availability(r.availability);
+    const scopeText = `${r.title} ${r.product_category ?? ''}`.toLowerCase();
+    const expectedScope = /(computer|laptop|desktop|monitor|printer|ink|toner|scanner|electronic|tablet|network|router|storage|hard drive|ssd|keyboard|mouse|webcam|headset|audio|phone|office machine)/.test(scopeText);
+
+    await c.query(
+      `INSERT INTO retail.product_inventory_history(retail_product_id,platform_id,availability,shipping_available,captured_at,raw_capture_id,inventory_metadata)
+       VALUES($1,$2,$3,$4,now(),$5,$6)`,
+      [productId,platformId,av,av==='in_stock',rawId,{raw_availability:r.availability,availability_date:r.availability_date}]
+    );
+
+    {
+      await c.query(
+        `INSERT INTO retail.product_price_history(retail_product_id,platform_id,price_signal_type,currency_code,regular_price,sale_price,effective_price,raw_capture_id,price_metadata)
+         VALUES($1,$2,'regular_price','USD',$3,$4,$5,$6,$7)`,
+        [productId,platformId,regular,sale,effective,rawId,{source:'officedepot',price_field_inversion:priceFieldInversion,effective_price_rule:'lowest_valid_observed_price',collection_scope_match:expectedScope}]
+      );
+      const offerHash=sha256(stableJson({platformId,productId,effective,av,url:r.url}));
+      const offer=await c.query(
+        `INSERT INTO retail.retail_offer_snapshots(retail_product_id,platform_id,effective_price,currency_code,availability,source_url,raw_capture_id,offer_hash,offer_metadata)
+         VALUES($1,$2,$3,'USD',$4,$5,$6,$7,$8)
+         ON CONFLICT(platform_id,offer_hash) DO UPDATE SET captured_at=now() RETURNING id`,
+        [productId,platformId,effective,av,r.url,rawId,offerHash,{officedepot_parsed_id:parsedId,regular_price:regular,sale_price:sale,price_field_inversion:priceFieldInversion,effective_price_rule:'lowest_valid_observed_price',collection_scope_match:expectedScope}]
+      );
+      await c.query(
+        `INSERT INTO retail.current_retail_offers(retail_product_id,platform_id,latest_offer_snapshot_id,effective_price,availability,first_seen_at,last_seen_at,source_url,offer_metadata)
+         VALUES($1,$2,$3,$4,$5,now(),now(),$6,$7)
+         ON CONFLICT(retail_product_id) DO UPDATE SET latest_offer_snapshot_id=EXCLUDED.latest_offer_snapshot_id,
+           effective_price=EXCLUDED.effective_price,availability=EXCLUDED.availability,last_seen_at=now(),
+           seen_count=retail.current_retail_offers.seen_count+1,source_url=EXCLUDED.source_url,
+           offer_metadata=EXCLUDED.offer_metadata,updated_at=now()`,
+        [productId,platformId,offer.rows[0].id,effective,av,r.url,{officedepot_parsed_id:parsedId,price_field_inversion:priceFieldInversion,collection_scope_match:expectedScope}]
+      );
+    }
+
+    if (priceFieldInversion) {
+      await c.query(
+        `INSERT INTO retail.data_quality_events(platform_id,retail_product_id,collection_run_id,event_code,severity,event_message,event_json)
+         VALUES($1,$2,$3,'OFFICE_DEPOT_PRICE_FIELD_INVERSION','high','Office Depot sale_price exceeded price; lowest valid observed price used and anomaly preserved for review',$4)`,
+        [platformId,productId,runId,{item_id:r.item_id,url:r.url,price:r.price,sale_price:r.sale_price,effective_price:effective,raw_capture_id:rawId}]
+      );
+    }
+
+    if (!expectedScope) {
+      await c.query(
+        `INSERT INTO retail.data_quality_events(platform_id,retail_product_id,collection_run_id,event_code,severity,event_message,event_json)
+         VALUES($1,$2,$3,'OFFICE_DEPOT_COLLECTION_SCOPE_MISMATCH','high','Record returned from Office Depot PC/electronics/printer deal seeds does not appear relevant to the configured collection scope',$4)`,
+        [platformId,productId,runId,{item_id:r.item_id,url:r.url,title:r.title,product_category:r.product_category,raw_capture_id:rawId}]
+      );
+    }
+
+    const imgs=[r.image_url,...r.additional_image_urls].filter((x):x is string=>!!x);
+    for(const [i,u] of [...new Set(imgs)].entries())
+      await c.query(`INSERT INTO retail.officedepot_product_images(officedepot_parsed_id,image_url,image_rank,is_main) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`,[parsedId,u,i+1,i===0]);
+    for(const [i,x] of r.category_tree.entries())
+      await c.query(`INSERT INTO retail.officedepot_product_categories(officedepot_parsed_id,category_rank,category_name,category_url) VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING`,[parsedId,i+1,x.name,x.url??null]);
+
+    await c.query('COMMIT');
+  } catch(e) {
+    await c.query('ROLLBACK');
+    throw e;
+  } finally { c.release(); }
+}
