@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "from": "1.1.0",
+  "to": "1.2.0",
+  "milestone": "1B.7",
+  "operations": [
+    "install validation engine",
+    "install contracts",
+    "install schemas",
+    "install health templates",
+    "run validation tests"
+  ],
+  "serviceChanges": false,
+  "rollback": {
+    "strategy": "verified release overlay"
+  }
+}

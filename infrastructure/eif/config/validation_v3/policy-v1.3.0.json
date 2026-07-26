@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "3.0",
+  "engineVersion": "1.3.0",
+  "environment": "production",
+  "failClosed": true,
+  "receiptAuthenticationMode": "required_hmac",
+  "receiptHmacSecretReference": "secret://env/EIF_VALIDATION_HMAC_KEY",
+  "auditRequired": true,
+  "auditCommand": "bin/eif-log-v2",
+  "executionCommand": "bin/eif-exec-v2",
+  "stateCommand": "bin/eif-state-v2",
+  "maxParallelChecks": 4,
+  "maxObservationBytes": 131072,
+  "health": {
+    "failureThreshold": 3,
+    "recoveryThreshold": 2,
+    "degradedThreshold": 1,
+    "staleAfterSeconds": 180,
+    "maintenanceFile": "health_v3/state/maintenance.json"
+  },
+  "http": {
+    "allowedLoopbackPorts": [
+      8088,
+      9901,
+      9090,
+      3000
+    ],
+    "maxBodyBytes": 65536,
+    "allowRedirects": false,
+    "allowedContentTypes": [
+      "application/json",
+      "text/plain",
+      "text/html"
+    ]
+  },
+  "evidence": {
+    "provider": "sqlite",
+    "sqlitePath": "state/pqp-evidence.db",
+    "requiredSources": [
+      "browser_snapshot",
+      "fingerprintjs",
+      "creepjs",
+      "envoy_edge",
+      "suricata_network",
+      "behavior_summary",
+      "challenge",
+      "transaction",
+      "final_score",
+      "evidence_manifest"
+    ],
+    "minimumCompleteness": 100.0,
+    "minimumCorrelationConfidence": 0.9,
+    "maximumClockSkewSeconds": 2.0,
+    "maximumEvidenceAgeSeconds": 900
+  },
+  "phases": [
+    "preflight",
+    "readiness",
+    "liveness",
+    "pre_commit",
+    "post_commit",
+    "continuous_health",
+    "evidence_seal"
+  ],
+  "components": {
+    "envoy": {
+      "phases": {
+        "preflight": [
+          "envoy_binary_trusted",
+          "envoy_config_valid",
+          "envoy_admin_loopback",
+          "envoy_tls_policy",
+          "envoy_public_bypass_closed"
+        ],
+        "readiness": [
+          "envoy_admin_ready",
+          "envoy_listener_inventory",
+          "envoy_cluster_inventory",
+          "envoy_route_inventory",
+          "envoy_metrics_available"
+        ],
+        "pre_commit": [
+          "envoy_config_valid",
+          "envoy_admin_ready",
+          "envoy_inventory_match",
+          "envoy_canary_healthy"
+        ],
+        "post_commit": [
+          "envoy_post_cutover_healthy",
+          "envoy_correlation_headers",
+          "envoy_forwarded_header_sanitization"
+        ],
+        "continuous_health": [
+          "envoy_admin_ready",
+          "envoy_metrics_available",
+          "envoy_upstream_health",
+          "envoy_response_flags"
+        ]
+      }
+    },
+    "suricata": {
+      "phases": {
+        "preflight": [
+          "suricata_binary_trusted",
+          "suricata_config_valid",
+          "suricata_rules_valid",
+          "suricata_capture_interface",
+          "suricata_ja_features"
+        ],
+        "readiness": [
+          "suricata_eve_healthy",
+          "suricata_packet_drop",
+          "suricata_decode_errors",
+          "suricata_sensor_identity"
+        ],
+        "pre_commit": [
+          "suricata_config_valid",
+          "suricata_rules_valid",
+          "suricata_eve_healthy",
+          "suricata_ja_features"
+        ],
+        "post_commit": [
+          "suricata_eve_healthy",
+          "suricata_packet_drop",
+          "suricata_decode_errors"
+        ],
+        "continuous_health": [
+          "suricata_eve_healthy",
+          "suricata_packet_drop",
+          "suricata_decode_errors"
+        ]
+      }
+    },
+    "pqp": {
+      "phases": {
+        "liveness": [
+          "pqp_health"
+        ],
+        "readiness": [
+          "pqp_ready",
+          "pqp_database",
+          "pqp_redis",
+          "pqp_telemetry_spool"
+        ],
+        "pre_commit": [
+          "pqp_ready",
+          "pqp_clock_sync",
+          "pqp_envoy_correlation",
+          "pqp_suricata_correlation"
+        ],
+        "post_commit": [
+          "pqp_browser_ingestion",
+          "pqp_envoy_correlation",
+          "pqp_suricata_correlation",
+          "pqp_telemetry_spool"
+        ],
+        "evidence_seal": [
+          "pqp_evidence_completeness",
+          "pqp_evidence_manifest_sealed",
+          "pqp_remote_export_verified"
+        ],
+        "continuous_health": [
+          "pqp_health",
+          "pqp_ready",
+          "pqp_database",
+          "pqp_redis",
+          "pqp_telemetry_spool"
+        ]
+      }
+    },
+    "postgresql": {
+      "phases": {
+        "readiness": [
+          "postgresql_connectivity",
+          "postgresql_read_only_probe"
+        ],
+        "continuous_health": [
+          "postgresql_connectivity"
+        ]
+      }
+    },
+    "redis": {
+      "phases": {
+        "readiness": [
+          "redis_connectivity",
+          "redis_memory_policy"
+        ],
+        "continuous_health": [
+          "redis_connectivity"
+        ]
+      }
+    },
+    "telemetry": {
+      "phases": {
+        "readiness": [
+          "telemetry_queue_depth",
+          "telemetry_deadletter",
+          "telemetry_export_lag"
+        ],
+        "continuous_health": [
+          "telemetry_queue_depth",
+          "telemetry_deadletter",
+          "telemetry_export_lag"
+        ]
+      }
+    },
+    "clock": {
+      "phases": {
+        "preflight": [
+          "clock_synchronized",
+          "clock_offset_acceptable"
+        ],
+        "continuous_health": [
+          "clock_synchronized",
+          "clock_offset_acceptable"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "requiredContracts": [
+    "installer",
+    "configurator",
+    "validator",
+    "rollback",
+    "health"
+  ],
+  "contractFields": [
+    "entrypoint",
+    "inputs",
+    "outputs",
+    "exitCodes",
+    "events"
+  ],
+  "safety": {
+    "rawServiceRestartForbidden": true,
+    "rawPackageRemovalForbidden": true,
+    "backupBeforeChangeRequired": true,
+    "validationBeforeCommitRequired": true
+  }
+}

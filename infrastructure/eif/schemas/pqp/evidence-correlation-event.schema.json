@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "run_id",
+    "event_time_utc",
+    "source_clock_status",
+    "correlation_method",
+    "correlation_confidence"
+  ],
+  "properties": {
+    "session_id": {},
+    "run_id": {},
+    "event_time_utc": {},
+    "source_clock_status": {},
+    "correlation_method": {},
+    "correlation_confidence": {},
+    "profile_id": {},
+    "request_id": {},
+    "edge_connection_id": {},
+    "sensor_flow_id": {},
+    "monotonic_offset_ms": {}
+  }
+}

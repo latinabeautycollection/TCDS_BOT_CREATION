@@ -1,0 +1,11 @@
+[Unit]
+Description=TCDS EIF verify audit stream %i
+[Service]
+Type=oneshot
+ExecStart=/opt/tcds/TCDS_Enterprise_Infrastructure/bin/eif-log-v2 verify --stream %i
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadOnlyPaths=/opt/tcds/TCDS_Enterprise_Infrastructure/logs/audit/sealed
+ReadWritePaths=/opt/tcds/TCDS_Enterprise_Infrastructure/logs/integrity

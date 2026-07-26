@@ -1,0 +1,100 @@
+{
+  "type": "object",
+  "required": [
+    "framework",
+    "safety",
+    "logging",
+    "deployment"
+  ],
+  "properties": {
+    "framework": {
+      "type": "object",
+      "required": [
+        "name",
+        "versionPolicy",
+        "commandTimeoutSeconds",
+        "lockTimeoutSeconds",
+        "failClosed"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "versionPolicy": {
+          "type": "object",
+          "required": [
+            "minimum"
+          ]
+        },
+        "commandTimeoutSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "lockTimeoutSeconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600
+        },
+        "failClosed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": [
+        "allowServiceRestart",
+        "allowPackageRemoval",
+        "allowFirewallChanges",
+        "requireBackupBeforeChange",
+        "requireValidationBeforeCommit"
+      ]
+    },
+    "logging": {
+      "type": "object",
+      "required": [
+        "level",
+        "structured"
+      ],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "DEBUG",
+            "INFO",
+            "WARN",
+            "ERROR"
+          ]
+        },
+        "structured": {
+          "type": "boolean"
+        }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "required": [
+        "environment"
+      ],
+      "properties": {
+        "environment": {
+          "type": "string",
+          "enum": [
+            "development",
+            "test",
+            "staging",
+            "production"
+          ]
+        }
+      }
+    },
+    "components": {
+      "type": "object"
+    },
+    "render": {
+      "type": "object"
+    }
+  }
+}

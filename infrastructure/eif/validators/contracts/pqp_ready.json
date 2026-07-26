@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "pqp_ready",
+  "component": "pqp",
+  "version": "1.0.0",
+  "description": "Verify the PQP readiness endpoint.",
+  "mode": "http",
+  "timeoutSeconds": 15,
+  "failureClass": "READINESS",
+  "severityOnFailure": "CRITICAL",
+  "command": null,
+  "arguments": [],
+  "environment": {},
+  "successCriteria": {
+    "url": "http://127.0.0.1:8088/ready",
+    "statusCodes": [
+      200
+    ]
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

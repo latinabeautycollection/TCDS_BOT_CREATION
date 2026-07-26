@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "envoy_config_valid",
+  "component": "envoy",
+  "version": "1.0.0",
+  "description": "Validate Envoy candidate configuration with the trusted Envoy binary.",
+  "mode": "command",
+  "timeoutSeconds": 15,
+  "failureClass": "CONFIGURATION",
+  "severityOnFailure": "CRITICAL",
+  "command": "/usr/bin/envoy",
+  "arguments": [
+    "--mode",
+    "validate",
+    "-c",
+    "${ENVOY_CONFIG}"
+  ],
+  "environment": {},
+  "successCriteria": {
+    "exitCodes": [
+      0
+    ]
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "suricata_packet_drop",
+  "component": "suricata",
+  "version": "1.0.0",
+  "phases": [
+    "preflight",
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate Suricata packet drop thresholds.",
+  "failureClass": "NETWORK_SENSOR",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "suricata_packet_drop"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

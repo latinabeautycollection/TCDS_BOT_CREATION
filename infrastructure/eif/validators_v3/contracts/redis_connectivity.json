@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "redis_connectivity",
+  "component": "redis",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "preflight",
+    "continuous_health"
+  ],
+  "mode": "exec",
+  "description": "Validate Redis connectivity through 1B.4.",
+  "failureClass": "DEPENDENCY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": {
+    "command": "redis-ping",
+    "args": []
+  },
+  "criteria": {},
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

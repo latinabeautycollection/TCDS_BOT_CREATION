@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "planId",
+    "backupId",
+    "component",
+    "targetClass",
+    "targetRoot",
+    "mode",
+    "changeId",
+    "transactionId",
+    "createdBy",
+    "createdAtUtc",
+    "status",
+    "planHash",
+    "requiredApprovals",
+    "actions",
+    "preValidationGates",
+    "postValidationGates"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "2.0"
+    },
+    "planId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "backupId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "component": {
+      "type": "string"
+    },
+    "targetClass": {
+      "enum": [
+        "REHEARSAL",
+        "STAGING",
+        "PRODUCTION_IN_PLACE",
+        "DISASTER_RECOVERY"
+      ]
+    },
+    "targetRoot": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "MERGE",
+        "EXACT",
+        "SELECTIVE"
+      ]
+    },
+    "changeId": {
+      "type": "string"
+    },
+    "transactionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "createdAtUtc": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PLANNED",
+        "APPROVAL_PENDING",
+        "APPROVED",
+        "REHEARSED",
+        "EXECUTING",
+        "RESTORED",
+        "FAILED"
+      ]
+    },
+    "planHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "requiredApprovals": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "actions": {
+      "type": "array"
+    },
+    "preValidationGates": {
+      "type": "array"
+    },
+    "postValidationGates": {
+      "type": "array"
+    }
+  }
+}

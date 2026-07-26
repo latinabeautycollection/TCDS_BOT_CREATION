@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "2.0",
+  "engineVersion": "1.5.0",
+  "environment": "production",
+  "mode": "PRODUCTION_CERTIFICATION",
+  "failClosed": true,
+  "requiredMilestones": {
+    "1B.1": "0.1.0",
+    "1B.2": "0.3.0",
+    "1B.3": "0.5.0",
+    "1B.4": "0.7.0",
+    "1B.5": "0.9.0",
+    "1B.6": "1.1.0",
+    "1B.7": "1.3.0"
+  },
+  "requiredSuites": [
+    "framework_core",
+    "configuration",
+    "structured_logging",
+    "execution",
+    "state_transaction",
+    "backup_restore",
+    "validation_health",
+    "security_negative",
+    "framework_concurrency",
+    "failure_injection",
+    "recovery",
+    "cross_milestone_integration",
+    "production_acceptance"
+  ],
+  "thresholds": {
+    "requiredPassPercentage": 100.0,
+    "criticalFailuresAllowed": 0,
+    "highFailuresAllowed": 0,
+    "warningsAllowed": 5,
+    "evidenceCompletenessPercentage": 100.0,
+    "minimumCorrelationConfidence": 0.9,
+    "maximumClockSkewSeconds": 2.0,
+    "maximumDroppedTelemetryEvents": 0,
+    "maximumUnhandledExceptions": 0
+  },
+  "authentication": {
+    "reportHmacSecretReference": "secret://env/EIF_CERTIFICATION_HMAC_KEY",
+    "releasePublicKeyFingerprintEnv": "EIF_TRUSTED_RELEASE_KEY_SHA256"
+  },
+  "acceptance": {
+    "validationCli": "bin/eif-validate-v3",
+    "requiredValidationRuns": [
+      {
+        "component": "envoy",
+        "phase": "preflight"
+      },
+      {
+        "component": "envoy",
+        "phase": "readiness"
+      },
+      {
+        "component": "suricata",
+        "phase": "preflight"
+      },
+      {
+        "component": "suricata",
+        "phase": "readiness"
+      },
+      {
+        "component": "pqp",
+        "phase": "liveness"
+      },
+      {
+        "component": "pqp",
+        "phase": "readiness"
+      },
+      {
+        "component": "pqp",
+        "phase": "evidence_seal"
+      },
+      {
+        "component": "postgresql",
+        "phase": "readiness"
+      },
+      {
+        "component": "redis",
+        "phase": "readiness"
+      },
+      {
+        "component": "telemetry",
+        "phase": "readiness"
+      },
+      {
+        "component": "clock",
+        "phase": "preflight"
+      }
+    ],
+    "remoteExportReceiptRequired": true,
+    "remoteExportMaxAgeSeconds": 86400,
+    "remoteExportReceiptGlob": "backups_v2/exports/*.receipt.json",
+    "dedicatedUsers": [
+      "tcds-validator"
+    ],
+    "requireAppArmorOrEquivalent": true,
+    "requireSystemd": true,
+    "requireNoDroppedTelemetry": true
+  },
+  "reporting": {
+    "maxCapturedOutputBytes": 32768,
+    "redactIpAddresses": true,
+    "remoteImmutableExportRequired": true,
+    "exportHookEnv": "EIF_CERTIFICATION_EXPORT_HOOK"
+  }
+}

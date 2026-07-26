@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "suricata_decode_errors",
+  "component": "suricata",
+  "version": "1.0.0",
+  "phases": [
+    "preflight",
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate Suricata decode error thresholds.",
+  "failureClass": "NETWORK_SENSOR",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "suricata_decode_errors"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

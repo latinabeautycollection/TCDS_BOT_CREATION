@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ROOT="${EIF_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)}"
+ENGINE="$ROOT/framework/execution/execution_engine_v2.py"
+case "${1:-}" in
+  run|validate|reconcile) exec "$ENGINE" --root "$ROOT" "$1" ;;
+  *) echo "Usage: eif-exec-v2 {run|validate|reconcile}" >&2; exit 2 ;;
+esac

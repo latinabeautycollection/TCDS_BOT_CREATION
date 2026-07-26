@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "1.0",
+  "frameworkVersion": "0.6.0",
+  "defaultPolicy": "deny",
+  "maxRequestBytes": 65536,
+  "maxArgCount": 64,
+  "maxArgLength": 4096,
+  "defaultTimeoutSeconds": 60,
+  "maximumTimeoutSeconds": 900,
+  "terminationGraceSeconds": 5,
+  "maximumAttempts": 5,
+  "defaultOutputLimitBytes": 1048576,
+  "cleanEnvironment": true,
+  "allowedEnvironment": [
+    "PATH",
+    "LANG",
+    "LC_ALL",
+    "TZ",
+    "HOME",
+    "USER",
+    "LOGNAME",
+    "TMPDIR",
+    "EIF_RUN_ID",
+    "EIF_CORRELATION_ID",
+    "EIF_DEPLOYMENT_ID"
+  ],
+  "forbiddenExecutables": [
+    "sh",
+    "bash",
+    "dash",
+    "zsh",
+    "fish",
+    "sudo",
+    "su",
+    "env",
+    "xargs",
+    "eval",
+    "nohup",
+    "setsid",
+    "systemctl",
+    "service",
+    "kill",
+    "pkill",
+    "killall",
+    "rm",
+    "mv",
+    "cp",
+    "dd",
+    "mount",
+    "umount",
+    "iptables",
+    "nft",
+    "ufw",
+    "apt",
+    "apt-get",
+    "dpkg",
+    "snap",
+    "docker",
+    "podman"
+  ],
+  "commands": {
+    "true": {
+      "executable": "/usr/bin/true",
+      "idempotent": true,
+      "retryable": false,
+      "allowedExitCodes": [
+        0
+      ],
+      "allowedArgPatterns": [],
+      "requiredEuid": null
+    },
+    "printf": {
+      "executable": "/usr/bin/printf",
+      "idempotent": true,
+      "retryable": false,
+      "allowedExitCodes": [
+        0
+      ],
+      "allowedArgPatterns": [
+        "^[A-Za-z0-9 _.,:/@%+=-]{0,256}$"
+      ],
+      "requiredEuid": null
+    },
+    "sleep": {
+      "executable": "/usr/bin/sleep",
+      "idempotent": true,
+      "retryable": false,
+      "allowedExitCodes": [
+        0
+      ],
+      "allowedArgPatterns": [
+        "^[0-9]+(?:\\.[0-9]+)?$"
+      ],
+      "requiredEuid": null
+    },
+    "python-test": {
+      "executable": "/usr/bin/python3",
+      "idempotent": true,
+      "retryable": true,
+      "allowedExitCodes": [
+        0
+      ],
+      "allowedArgPatterns": [
+        "^-c$",
+        "^[A-Za-z0-9 _.,:;()\"'\\[\\]{}=+*/<>!-]{1,2048}$"
+      ],
+      "requiredEuid": null,
+      "testOnly": true
+    }
+  },
+  "resourceLimits": {
+    "cpuSeconds": 300,
+    "addressSpaceBytes": 1073741824,
+    "fileSizeBytes": 104857600,
+    "openFiles": 256,
+    "processes": 64
+  },
+  "audit": {
+    "required": true,
+    "loggerPath": "bin/eif-log-v2"
+  },
+  "receipts": {
+    "required": true,
+    "immutable": true
+  }
+}

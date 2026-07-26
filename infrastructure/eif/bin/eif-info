@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"; export EIF_ROOT="$ROOT"; source "$ROOT/framework/core/framework.sh"
+printf 'Framework: %s
+Version: %s
+Root: %s
+Environment: %s
+Host: %s
+OS: %s %s
+Run ID: %s
+Resolved config: %s
+' "$EIF_NAME" "$EIF_VERSION" "$EIF_ROOT" "$EIF_ENVIRONMENT" "$EIF_HOSTNAME" "$EIF_OS_ID" "$EIF_OS_VERSION" "$EIF_RUN_ID" "$EIF_RESOLVED_CONFIG"

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "checkId",
+    "component",
+    "version",
+    "phases",
+    "mode",
+    "description",
+    "failureClass",
+    "severityOnFailure",
+    "requiredPrivileges",
+    "sideEffects",
+    "execution",
+    "criteria",
+    "redaction"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "3.0"
+    },
+    "checkId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{1,127}$"
+    },
+    "component": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "version": {
+      "type": "string"
+    },
+    "phases": {
+      "type": "array",
+      "uniqueItems": true
+    },
+    "mode": {
+      "enum": [
+        "exec",
+        "http",
+        "file",
+        "evidence",
+        "sqlite",
+        "composite"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 3
+    },
+    "failureClass": {
+      "enum": [
+        "CONFIGURATION",
+        "DEPENDENCY",
+        "READINESS",
+        "LIVENESS",
+        "SECURITY",
+        "EVIDENCE_COMPLETENESS",
+        "CLOCK_SYNC",
+        "CAPACITY",
+        "TELEMETRY",
+        "NETWORK_SENSOR",
+        "EDGE_GATEWAY",
+        "DATABASE",
+        "UNKNOWN"
+      ]
+    },
+    "severityOnFailure": {
+      "enum": [
+        "WARNING",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "requiredPrivileges": {
+      "enum": [
+        "unprivileged",
+        "root-readonly"
+      ]
+    },
+    "sideEffects": {
+      "const": "none"
+    },
+    "execution": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "criteria": {
+      "type": "object"
+    },
+    "redaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enabled",
+        "piiMode"
+      ],
+      "properties": {
+        "enabled": {
+          "const": true
+        },
+        "piiMode": {
+          "enum": [
+            "none",
+            "mask",
+            "hash"
+          ]
+        }
+      }
+    }
+  }
+}

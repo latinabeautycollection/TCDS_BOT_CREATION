@@ -1,0 +1,78 @@
+{
+  "framework": {
+    "name": "TCDS Enterprise Infrastructure Framework",
+    "versionPolicy": {
+      "minimum": "0.1.0"
+    },
+    "commandTimeoutSeconds": 300,
+    "lockTimeoutSeconds": 30,
+    "failClosed": true
+  },
+  "safety": {
+    "allowServiceRestart": false,
+    "allowPackageRemoval": false,
+    "allowFirewallChanges": false,
+    "requireBackupBeforeChange": true,
+    "requireValidationBeforeCommit": true
+  },
+  "logging": {
+    "level": "INFO",
+    "structured": true,
+    "console": true,
+    "maxEventBytes": 262144,
+    "maxJsonDepth": 12,
+    "redaction": {
+      "enabled": true,
+      "failClosed": true
+    },
+    "audit": {
+      "segmentMaxBytes": 104857600,
+      "segmentMaxEvents": 100000,
+      "retentionDays": 365
+    },
+    "journald": {
+      "policy": "best_effort"
+    },
+    "integrity": {
+      "hashChain": true,
+      "hmacSecretReference": null,
+      "remoteExport": {
+        "policy": "required_for_production",
+        "adapter": "filesystem",
+        "destination": "/var/lib/tcds-evidence-export"
+      }
+    }
+  },
+  "deployment": {
+    "environment": "production"
+  },
+  "telemetry": {
+    "maxEventBytes": 1048576,
+    "maxQueueBytes": 2147483648,
+    "batchSize": 500,
+    "backpressure": "spool_then_dead_letter",
+    "export": {
+      "adapters": [
+        "loki",
+        "otlp",
+        "vector",
+        "fluent-bit"
+      ],
+      "active": "none"
+    },
+    "labelPolicy": {
+      "allowed": [
+        "environment",
+        "component",
+        "event_type",
+        "severity"
+      ],
+      "forbidden": [
+        "session_id",
+        "request_id",
+        "profile_id",
+        "ip"
+      ]
+    }
+  }
+}

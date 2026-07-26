@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_remote_export_verified",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "evidence_seal",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate PQP remote evidence export.",
+  "failureClass": "EVIDENCE_COMPLETENESS",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "pqp_remote_export_verified"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "receiptId",
+    "component",
+    "checkId",
+    "checkVersion",
+    "status",
+    "severity",
+    "failureClass",
+    "startedAtUtc",
+    "finishedAtUtc",
+    "durationMs",
+    "observations",
+    "correlation",
+    "authentication"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "receiptId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "component": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "checkId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{1,127}$"
+    },
+    "checkVersion": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL",
+        "SKIP",
+        "ERROR"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "INFO",
+        "WARNING",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "failureClass": {
+      "enum": [
+        "CONFIGURATION",
+        "DEPENDENCY",
+        "READINESS",
+        "LIVENESS",
+        "SECURITY",
+        "EVIDENCE_COMPLETENESS",
+        "CLOCK_SYNC",
+        "CAPACITY",
+        "TELEMETRY",
+        "NETWORK_SENSOR",
+        "EDGE_GATEWAY",
+        "DATABASE",
+        "UNKNOWN"
+      ]
+    },
+    "startedAtUtc": {
+      "type": "string"
+    },
+    "finishedAtUtc": {
+      "type": "string"
+    },
+    "durationMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "observations": {
+      "type": "object"
+    },
+    "correlation": {
+      "type": "object"
+    },
+    "authentication": {
+      "type": "object"
+    }
+  }
+}

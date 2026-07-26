@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "telemetry_export_lag",
+  "component": "telemetry",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate telemetry export lag.",
+  "failureClass": "TELEMETRY",
+  "severityOnFailure": "HIGH",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "telemetry_export_lag"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

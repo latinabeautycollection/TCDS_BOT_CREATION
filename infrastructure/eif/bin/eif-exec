@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ROOT="${EIF_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)}"
+ENGINE="$ROOT/framework/execution/execution_engine.py"
+case "${1:-}" in
+ run) "$ENGINE" --root "$ROOT" run ;;
+ validate) "$ENGINE" --root "$ROOT" validate ;;
+ *) echo 'Usage: eif-exec {run|validate} < request.json' >&2; exit 2 ;;
+esac

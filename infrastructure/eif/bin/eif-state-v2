@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+R="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+exec "$R/framework/state_v2/state_engine_v2.py" --root "$R" "$@"

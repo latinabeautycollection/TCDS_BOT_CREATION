@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "clock_offset_acceptable",
+  "component": "clock",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "preflight",
+    "continuous_health"
+  ],
+  "mode": "exec",
+  "description": "Validate clock offset through 1B.4.",
+  "failureClass": "CLOCK_SYNC",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": {
+    "command": "clock-offset-status",
+    "args": []
+  },
+  "criteria": {},
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

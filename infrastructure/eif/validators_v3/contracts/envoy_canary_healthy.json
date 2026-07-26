@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "envoy_canary_healthy",
+  "component": "envoy",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate Envoy canary health.",
+  "failureClass": "EDGE_GATEWAY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "envoy_canary_healthy"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "from": "0.2.0",
+  "to": "0.3.0",
+  "operations": [
+    {
+      "type": "createDirectories",
+      "paths": [
+        "registry",
+        "plugins",
+        "events",
+        "migrations",
+        "state/transactions"
+      ]
+    },
+    {
+      "type": "installEnterpriseEngine"
+    },
+    {
+      "type": "buildRegistry"
+    },
+    {
+      "type": "runDoctor"
+    }
+  ],
+  "rollback": {
+    "strategy": "restore-framework-backup"
+  }
+}

@@ -1,0 +1,9 @@
+/opt/tcds/TCDS_Enterprise_Infrastructure/logs/audit/sealed/*.jsonl {
+ weekly
+ rotate 52
+ missingok
+ notifempty
+ compress
+ delaycompress
+ nocreate
+}

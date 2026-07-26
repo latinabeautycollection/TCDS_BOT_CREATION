@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "component"
+  ],
+  "properties": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "versionPolicy",
+        "dependencies",
+        "lifecycle",
+        "contracts",
+        "inventory"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,63}$"
+        },
+        "versionPolicy": {
+          "type": "object"
+        },
+        "dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "lifecycle": {
+          "type": "object",
+          "required": [
+            "initialState"
+          ],
+          "properties": {
+            "initialState": {
+              "enum": [
+                "NEW"
+              ]
+            }
+          }
+        },
+        "contracts": {
+          "type": "object",
+          "required": [
+            "installer",
+            "configurator",
+            "validator",
+            "rollback",
+            "health"
+          ],
+          "properties": {
+            "installer": {
+              "type": "object",
+              "required": [
+                "entrypoint",
+                "inputs",
+                "outputs",
+                "exitCodes",
+                "events"
+              ]
+            },
+            "configurator": {
+              "type": "object",
+              "required": [
+                "entrypoint",
+                "inputs",
+                "outputs",
+                "exitCodes",
+                "events"
+              ]
+            },
+            "validator": {
+              "type": "object",
+              "required": [
+                "entrypoint",
+                "inputs",
+                "outputs",
+                "exitCodes",
+                "events"
+              ]
+            },
+            "rollback": {
+              "type": "object",
+              "required": [
+                "entrypoint",
+                "inputs",
+                "outputs",
+                "exitCodes",
+                "events"
+              ]
+            },
+            "health": {
+              "type": "object",
+              "required": [
+                "entrypoint",
+                "inputs",
+                "outputs",
+                "exitCodes",
+                "events"
+              ]
+            }
+          }
+        },
+        "inventory": {
+          "type": "object",
+          "required": [
+            "packages",
+            "services",
+            "ports",
+            "files",
+            "certificates"
+          ]
+        }
+      }
+    }
+  }
+}

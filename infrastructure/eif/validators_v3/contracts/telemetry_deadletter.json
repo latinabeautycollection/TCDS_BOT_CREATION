@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "telemetry_deadletter",
+  "component": "telemetry",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate telemetry deadletter.",
+  "failureClass": "TELEMETRY",
+  "severityOnFailure": "HIGH",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "telemetry_deadletter"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

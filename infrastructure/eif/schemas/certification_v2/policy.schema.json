@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "engineVersion",
+    "environment",
+    "mode",
+    "failClosed",
+    "requiredMilestones",
+    "requiredSuites",
+    "thresholds",
+    "authentication",
+    "acceptance",
+    "reporting"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "2.0"
+    },
+    "engineVersion": {
+      "const": "1.5.0"
+    },
+    "environment": {
+      "enum": [
+        "development",
+        "test",
+        "staging",
+        "production"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "UNIT_TEST",
+        "STAGING_CERTIFICATION",
+        "PRODUCTION_CERTIFICATION"
+      ]
+    },
+    "failClosed": {
+      "type": "boolean"
+    },
+    "requiredMilestones": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "1B.1",
+        "1B.2",
+        "1B.3",
+        "1B.4",
+        "1B.5",
+        "1B.6",
+        "1B.7"
+      ],
+      "properties": {
+        "1B.1": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "1B.2": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "1B.3": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "1B.4": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "1B.5": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "1B.6": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "1B.7": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "requiredSuites": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 13,
+      "items": {
+        "type": "string"
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requiredPassPercentage",
+        "criticalFailuresAllowed",
+        "highFailuresAllowed",
+        "warningsAllowed",
+        "evidenceCompletenessPercentage",
+        "minimumCorrelationConfidence",
+        "maximumClockSkewSeconds",
+        "maximumDroppedTelemetryEvents",
+        "maximumUnhandledExceptions"
+      ],
+      "properties": {
+        "requiredPassPercentage": {
+          "type": "number",
+          "minimum": 0
+        },
+        "criticalFailuresAllowed": {
+          "type": "number",
+          "minimum": 0
+        },
+        "highFailuresAllowed": {
+          "type": "number",
+          "minimum": 0
+        },
+        "warningsAllowed": {
+          "type": "number",
+          "minimum": 0
+        },
+        "evidenceCompletenessPercentage": {
+          "type": "number",
+          "minimum": 0
+        },
+        "minimumCorrelationConfidence": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maximumClockSkewSeconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maximumDroppedTelemetryEvents": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maximumUnhandledExceptions": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reportHmacSecretReference",
+        "releasePublicKeyFingerprintEnv"
+      ],
+      "properties": {
+        "reportHmacSecretReference": {
+          "type": "string"
+        },
+        "releasePublicKeyFingerprintEnv": {
+          "type": "string"
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validationCli",
+        "requiredValidationRuns",
+        "remoteExportReceiptRequired",
+        "remoteExportMaxAgeSeconds",
+        "remoteExportReceiptGlob",
+        "dedicatedUsers",
+        "requireAppArmorOrEquivalent",
+        "requireSystemd",
+        "requireNoDroppedTelemetry"
+      ],
+      "properties": {
+        "validationCli": {
+          "type": "string"
+        },
+        "requiredValidationRuns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "component",
+              "phase"
+            ],
+            "properties": {
+              "component": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "remoteExportReceiptRequired": {
+          "type": "boolean"
+        },
+        "remoteExportMaxAgeSeconds": {
+          "type": "integer"
+        },
+        "remoteExportReceiptGlob": {
+          "type": "string"
+        },
+        "dedicatedUsers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requireAppArmorOrEquivalent": {
+          "type": "boolean"
+        },
+        "requireSystemd": {
+          "type": "boolean"
+        },
+        "requireNoDroppedTelemetry": {
+          "type": "boolean"
+        }
+      }
+    },
+    "reporting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxCapturedOutputBytes",
+        "redactIpAddresses",
+        "remoteImmutableExportRequired",
+        "exportHookEnv"
+      ],
+      "properties": {
+        "maxCapturedOutputBytes": {
+          "type": "integer"
+        },
+        "redactIpAddresses": {
+          "type": "boolean"
+        },
+        "remoteImmutableExportRequired": {
+          "type": "boolean"
+        },
+        "exportHookEnv": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

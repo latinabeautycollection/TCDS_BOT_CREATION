@@ -1,0 +1,27 @@
+[Unit]
+Description=TCDS EIF health validation for %i
+After=network-online.target
+[Service]
+Type=oneshot
+User=tcds-validator
+Group=tcds-validator
+EnvironmentFile=-/etc/tcds/eif-validation.env
+ExecStart=/opt/tcds/TCDS_Enterprise_Infrastructure/bin/eif-validate-v3 run %i --phase continuous_health
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+ProtectProc=invisible
+ProcSubset=pid
+ReadWritePaths=/opt/tcds/TCDS_Enterprise_Infrastructure/health_v3

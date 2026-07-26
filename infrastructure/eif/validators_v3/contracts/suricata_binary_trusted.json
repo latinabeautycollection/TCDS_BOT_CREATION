@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "suricata_binary_trusted",
+  "component": "suricata",
+  "version": "1.0.0",
+  "phases": [
+    "preflight"
+  ],
+  "mode": "exec",
+  "description": "Verify Suricata binary through 1B.4 trust policy.",
+  "failureClass": "SECURITY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": {
+    "command": "suricata-version",
+    "args": []
+  },
+  "criteria": {},
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

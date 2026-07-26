@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "run_id",
+    "sensor_id",
+    "sensor_flow_id",
+    "event_time_utc",
+    "correlation_confidence"
+  ],
+  "properties": {
+    "session_id": {},
+    "run_id": {},
+    "sensor_id": {},
+    "sensor_flow_id": {},
+    "event_time_utc": {},
+    "correlation_confidence": {},
+    "ja3": {},
+    "ja3s": {},
+    "ja4": {},
+    "ja4s": {},
+    "ja4h": {},
+    "tls_extensions": {},
+    "quic": {},
+    "flow_tuple": {}
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "profile_id",
+    "run_id",
+    "event_time_utc",
+    "browser_build",
+    "declared_os"
+  ],
+  "properties": {
+    "session_id": {},
+    "profile_id": {},
+    "run_id": {},
+    "event_time_utc": {},
+    "browser_build": {},
+    "declared_os": {},
+    "navigator": {},
+    "client_hints": {},
+    "canvas": {},
+    "audio": {},
+    "webgl": {},
+    "webgpu": {},
+    "fonts": {},
+    "screen": {},
+    "timezone": {},
+    "locale": {},
+    "media_devices": {},
+    "webrtc": {},
+    "storage": {},
+    "automation_indicators": {}
+  }
+}

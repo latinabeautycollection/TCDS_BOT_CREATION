@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_telemetry_spool",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "evidence_seal",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate PQP telemetry spool and dead letters.",
+  "failureClass": "TELEMETRY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "pqp_telemetry_spool"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "pqp_health",
+  "component": "pqp",
+  "version": "1.0.0",
+  "description": "Verify the PQP liveness endpoint.",
+  "mode": "http",
+  "timeoutSeconds": 15,
+  "failureClass": "LIVENESS",
+  "severityOnFailure": "CRITICAL",
+  "command": null,
+  "arguments": [],
+  "environment": {},
+  "successCriteria": {
+    "url": "http://127.0.0.1:8088/health",
+    "statusCodes": [
+      200
+    ]
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

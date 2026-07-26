@@ -1,0 +1,10 @@
+[Unit]
+Description=TCDS EIF seal audit stream %i
+[Service]
+Type=oneshot
+ExecStart=/opt/tcds/TCDS_Enterprise_Infrastructure/bin/eif-log-v2 seal --stream %i --hmac-ref secret://env/EIF_LOG_HMAC_KEY
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/tcds/TCDS_Enterprise_Infrastructure/logs /opt/tcds/TCDS_Enterprise_Infrastructure/state/locks

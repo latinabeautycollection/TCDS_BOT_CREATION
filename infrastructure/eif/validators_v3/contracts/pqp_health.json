@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_health",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "liveness",
+    "continuous_health"
+  ],
+  "mode": "http",
+  "description": "Verify PQP health endpoint.",
+  "failureClass": "LIVENESS",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "url": "http://127.0.0.1:8088/health",
+    "statusCodes": [
+      200
+    ]
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

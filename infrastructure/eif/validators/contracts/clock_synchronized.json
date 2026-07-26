@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "clock_synchronized",
+  "component": "clock",
+  "version": "1.0.0",
+  "description": "Verify system clock synchronization status.",
+  "mode": "command",
+  "timeoutSeconds": 15,
+  "failureClass": "CLOCK_SYNC",
+  "severityOnFailure": "HIGH",
+  "command": "/usr/bin/timedatectl",
+  "arguments": [
+    "show",
+    "-p",
+    "NTPSynchronized",
+    "--value"
+  ],
+  "environment": {},
+  "successCriteria": {
+    "exitCodes": [
+      0
+    ],
+    "stdoutRegex": "^yes$"
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportId",
+    "frameworkVersion",
+    "host",
+    "startedAtUtc",
+    "finishedAtUtc",
+    "durationMs",
+    "status",
+    "grade",
+    "summary",
+    "suiteResults",
+    "findings",
+    "evidence",
+    "productionAcceptance",
+    "authentication"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "reportId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "frameworkVersion": {
+      "const": "1.4.0"
+    },
+    "host": {
+      "type": "string"
+    },
+    "startedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "durationMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "INCOMPLETE"
+      ]
+    },
+    "grade": {
+      "enum": [
+        "GREEN_TIER_1",
+        "AMBER",
+        "RED"
+      ]
+    },
+    "summary": {
+      "type": "object"
+    },
+    "suiteResults": {
+      "type": "array"
+    },
+    "findings": {
+      "type": "array"
+    },
+    "evidence": {
+      "type": "array"
+    },
+    "productionAcceptance": {
+      "type": "object"
+    },
+    "authentication": {
+      "type": "object"
+    }
+  }
+}

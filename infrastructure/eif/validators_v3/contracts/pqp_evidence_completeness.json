@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_evidence_completeness",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "evidence_seal"
+  ],
+  "mode": "evidence",
+  "description": "Calculate evidence completeness from authoritative evidence storage.",
+  "failureClass": "EVIDENCE_COMPLETENESS",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "provider": "policy"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

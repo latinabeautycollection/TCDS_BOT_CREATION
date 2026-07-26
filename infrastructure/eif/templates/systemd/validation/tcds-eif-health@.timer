@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic TCDS EIF health validation for %i
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=15s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

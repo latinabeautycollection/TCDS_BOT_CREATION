@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "envoy_tls_policy",
+  "component": "envoy",
+  "version": "1.0.0",
+  "phases": [
+    "preflight"
+  ],
+  "mode": "composite",
+  "description": "Verify TLS 1.0/1.1 disabled and approved certificate policy.",
+  "failureClass": "SECURITY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "envoy_tls_policy"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

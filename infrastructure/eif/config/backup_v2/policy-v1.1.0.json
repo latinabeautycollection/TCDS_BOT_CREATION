@@ -1,0 +1,188 @@
+{
+  "schemaVersion": "2.0",
+  "engineVersion": "1.1.0",
+  "environment": "production",
+  "failClosed": true,
+  "authenticationMode": "required_hmac",
+  "manifestHmacSecretReference": "secret://env/EIF_BACKUP_HMAC_KEY",
+  "releaseTrust": {
+    "required": true,
+    "trustedPublicKeyFingerprintEnv": "EIF_TRUSTED_RELEASE_KEY_SHA256"
+  },
+  "storage": {
+    "root": "backups_v2",
+    "database": "state/backup_v2/backup.db",
+    "minimumFreeReserveBytes": 1073741824,
+    "maxBackupBytes": 4294967296,
+    "maxFileBytes": 536870912,
+    "maxFiles": 50000,
+    "chunkBytes": 1048576,
+    "stagingMaxAgeMinutes": 120
+  },
+  "classifications": [
+    "configuration",
+    "forensic-evidence",
+    "secret",
+    "private-key",
+    "certificate-private"
+  ],
+  "encryption": {
+    "requiredClassifications": [
+      "secret",
+      "private-key",
+      "certificate-private"
+    ],
+    "provider": "external_hook",
+    "hook": null,
+    "keyReference": null,
+    "failIfUnavailable": true
+  },
+  "metadata": {
+    "xattrs": "required_for_sensitive",
+    "acl": "required_for_sensitive",
+    "capabilities": "required_for_sensitive",
+    "selinux": "best_effort",
+    "apparmor": "best_effort"
+  },
+  "retention": {
+    "defaultDays": 30,
+    "protectLatestPerComponent": 3,
+    "minimumAuthoritativeCopies": 1,
+    "legalHoldSupported": true
+  },
+  "approval": {
+    "requiredFor": [
+      "PRODUCTION_IN_PLACE",
+      "DISASTER_RECOVERY"
+    ],
+    "minimumDistinctApprovers": 2,
+    "ttlMinutes": 30,
+    "signatureSecretReference": "secret://env/EIF_APPROVAL_HMAC_KEY"
+  },
+  "remoteExport": {
+    "requiredForAuthoritativeEvidence": true,
+    "authoritativeAdapters": [
+      "external_immutable"
+    ],
+    "minimumAuthoritativeCopies": 1,
+    "sameFilesystemForbidden": true,
+    "hook": null
+  },
+  "transactionIntegration": {
+    "requiredInProduction": true,
+    "stateCli": "bin/eif-state-v2",
+    "requiredTransactionState": "PREPARED"
+  },
+  "restore": {
+    "modes": [
+      "MERGE",
+      "EXACT",
+      "SELECTIVE"
+    ],
+    "targetClasses": [
+      "REHEARSAL",
+      "STAGING",
+      "PRODUCTION_IN_PLACE",
+      "DISASTER_RECOVERY"
+    ],
+    "ownershipFailurePolicy": "fail",
+    "requireRehearsal": true,
+    "requirePreValidation": true,
+    "requirePostValidation": true
+  },
+  "componentContracts": {
+    "envoy": {
+      "roots": [
+        "/etc/envoy",
+        "/etc/systemd/system/envoy.service.d"
+      ],
+      "consistencyProvider": "versioned_config_release",
+      "preBackupGates": [
+        "config_stable",
+        "envoy_config_valid",
+        "admin_inventory_captured"
+      ],
+      "preRestoreGates": [
+        "envoy_candidate_valid",
+        "certificate_key_match",
+        "admin_isolation_valid"
+      ],
+      "postRestoreGates": [
+        "envoy_canary_healthy",
+        "envoy_admin_ready",
+        "envoy_inventory_match",
+        "envoy_post_restore_healthy"
+      ]
+    },
+    "suricata": {
+      "roots": [
+        "/etc/suricata",
+        "/var/lib/suricata/rules"
+      ],
+      "consistencyProvider": "static_file_set",
+      "preBackupGates": [
+        "config_stable",
+        "suricata_config_valid",
+        "rules_inventory_captured"
+      ],
+      "preRestoreGates": [
+        "suricata_config_valid",
+        "suricata_rules_valid",
+        "capture_interface_valid",
+        "ja_features_valid"
+      ],
+      "postRestoreGates": [
+        "suricata_eve_healthy",
+        "packet_drop_acceptable",
+        "decode_errors_acceptable",
+        "sensor_identity_valid"
+      ]
+    },
+    "pqp": {
+      "roots": [
+        "/opt/tcds/pqp/config",
+        "/opt/tcds/pqp/evidence/manifests",
+        "/opt/tcds/pqp/evidence/seals",
+        "/opt/tcds/pqp/telemetry/deadletter",
+        "/opt/tcds/TCDS_Enterprise_Infrastructure/logs/integrity",
+        "/opt/tcds/TCDS_Enterprise_Infrastructure/state/executions"
+      ],
+      "consistencyProvider": "versioned_config_release",
+      "preBackupGates": [
+        "pqp_ready",
+        "clock_sync_healthy",
+        "evidence_segments_sealed"
+      ],
+      "preRestoreGates": [
+        "pqp_config_schema_valid",
+        "database_connectivity",
+        "redis_connectivity",
+        "evidence_schema_compatible",
+        "secrets_resolvable"
+      ],
+      "postRestoreGates": [
+        "pqp_health",
+        "pqp_ready",
+        "browser_ingestion_healthy",
+        "envoy_correlation_healthy",
+        "suricata_correlation_healthy",
+        "telemetry_spool_healthy",
+        "evidence_completeness_pass"
+      ]
+    },
+    "framework": {
+      "roots": [
+        "/opt/tcds/TCDS_Enterprise_Infrastructure/config",
+        "/opt/tcds/TCDS_Enterprise_Infrastructure/templates"
+      ],
+      "consistencyProvider": "static_file_set",
+      "preBackupGates": [],
+      "preRestoreGates": [
+        "framework_release_valid"
+      ],
+      "postRestoreGates": [
+        "framework_doctor_pass"
+      ]
+    }
+  }
+}

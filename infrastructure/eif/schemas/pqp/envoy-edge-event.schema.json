@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "run_id",
+    "request_id",
+    "event_time_utc",
+    "observed_source_ip",
+    "tls_version",
+    "alpn",
+    "http_version",
+    "response_code",
+    "duration_ms"
+  ],
+  "properties": {
+    "session_id": {},
+    "run_id": {},
+    "request_id": {},
+    "event_time_utc": {},
+    "observed_source_ip": {},
+    "tls_version": {},
+    "alpn": {},
+    "http_version": {},
+    "response_code": {},
+    "duration_ms": {},
+    "source_port": {},
+    "listener": {},
+    "cipher": {},
+    "sni": {},
+    "connection_id": {},
+    "route": {},
+    "response_flags": {},
+    "bytes_received": {},
+    "bytes_sent": {},
+    "upstream_cluster": {},
+    "retry_count": {},
+    "termination_reason": {}
+  }
+}

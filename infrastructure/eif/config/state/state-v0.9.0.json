@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "2.0",
+  "database": {
+    "engine": "sqlite",
+    "wal": true,
+    "synchronous": "FULL",
+    "postgresMirror": {
+      "enabled": false,
+      "requiredForAuthoritativeProduction": true
+    }
+  },
+  "checkpoints": {
+    "maxFiles": 10000,
+    "maxFileBytes": 268435456,
+    "maxCheckpointBytes": 2147483648,
+    "minimumFreeBytes": 1073741824,
+    "retentionDays": 30,
+    "encryption": {
+      "requiredForSensitivePaths": true,
+      "provider": "external-hook"
+    }
+  },
+  "leases": {
+    "defaultSeconds": 60,
+    "maxSeconds": 900,
+    "heartbeatSeconds": 20
+  },
+  "journaling": {
+    "transactional": true,
+    "hashChain": true,
+    "remoteExportRequired": true
+  },
+  "recovery": {
+    "automaticReplay": false,
+    "operatorRequired": true
+  }
+}

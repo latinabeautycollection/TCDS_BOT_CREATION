@@ -1,0 +1,442 @@
+{
+  "schemaVersion": "1.0",
+  "release": "1B.6-GT1",
+  "version": "1.0.0",
+  "files": [
+    {
+      "path": "VERSION",
+      "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+      "mode": "0640"
+    },
+    {
+      "path": "bin/eif-backup",
+      "sha256": "c47e6ab84f87e4aa5684a123cdc5dca2ce844ea4f8671439e5f7d3a7569d84b9",
+      "mode": "0750"
+    },
+    {
+      "path": "bin/eif-exec",
+      "sha256": "1ec3637e04fce7bbfbf2c8f98f441afbd150b891c83e15bd4ebc8b64bee11384",
+      "mode": "0750"
+    },
+    {
+      "path": "bin/eif-exec-v2",
+      "sha256": "217151003ee75714ae4cbbacf8609301344296a0a8b6424e468fe6d99fc328de",
+      "mode": "0750"
+    },
+    {
+      "path": "bin/eif-log-v2",
+      "sha256": "acfadaa714fd8e9e8d75d3e7972b88cfbdb3b5c7b79c8927e64ad96a5e2e7a77",
+      "mode": "0750"
+    },
+    {
+      "path": "bin/eif-state",
+      "sha256": "efbde003bb0acab7a31aeb13aa36d5323f8a7586448b913bbdb002e50820bd1a",
+      "mode": "0750"
+    },
+    {
+      "path": "bin/eif-state-v2",
+      "sha256": "276d15a2d424425d7edf1720adfdfd72fbdd24f785948d721151e5770c7e3622",
+      "mode": "0750"
+    },
+    {
+      "path": "config/backup/policy-v1.0.0.json",
+      "sha256": "d5345c45a88fb96bd78cb9127c32610958542cf19a8a6cc0c6945277a7e0e0fb",
+      "mode": "0640"
+    },
+    {
+      "path": "config/components/checkpoint-allowlists.json",
+      "sha256": "748a253a4a62c1afee7a69376243892c8e44b66ba1da006bb6f4755cb5d97ec2",
+      "mode": "0640"
+    },
+    {
+      "path": "config/components/transaction-gates.json",
+      "sha256": "41b3b58103ce80f82fe1c5a6a8d41f0f9330271d1e7cc3f1c04cade53349af91",
+      "mode": "0640"
+    },
+    {
+      "path": "config/execution/policy-v2.json",
+      "sha256": "21093e0310b9b9c9d4538088d41384d3257f31a3e7273062deeceb618c45a205",
+      "mode": "0640"
+    },
+    {
+      "path": "config/state/state-v0.8.0.json",
+      "sha256": "c50b09746cc3a3f5741e29f32c51ed5a42dbae86d95c7960658271efa65c6530",
+      "mode": "0640"
+    },
+    {
+      "path": "config/state/state-v0.9.0.json",
+      "sha256": "d305d5f1fd9da0c9846e945f11f65dd9f087b66ed7441c5c08b26f81e714772d",
+      "mode": "0640"
+    },
+    {
+      "path": "config/transactions/transactions-v0.8.0.json",
+      "sha256": "292aa0ddbe17e3099cc9ba3808d85212a584bfd11275acf3a63a8d07eb0c9819",
+      "mode": "0640"
+    },
+    {
+      "path": "config/upgrade/execution-v0.6.0.json",
+      "sha256": "bd6389345965d56b228c71b256874bc0582396a6d009204976a5e9f10fefa6da",
+      "mode": "0640"
+    },
+    {
+      "path": "config/upgrade/logging-v0.5.0.json",
+      "sha256": "3bb2780a28d55f34c46cf1d66985235d6f8c1dea74d4b16381ae76575cea59e4",
+      "mode": "0640"
+    },
+    {
+      "path": "docs/MILESTONE-1B3-GREEN-TIER1.md",
+      "sha256": "70e9519f0ef9a23619b2f9aaeb4d1c2e118d88bad764c8b858ed45056247e283",
+      "mode": "0640"
+    },
+    {
+      "path": "docs/MILESTONE-1B4-GREEN-TIER1.md",
+      "sha256": "053338e5ffc57b5e27b62ed0db3180387051391f831ac4308bfabbf151f71e27",
+      "mode": "0640"
+    },
+    {
+      "path": "docs/MILESTONE-1B4.md",
+      "sha256": "aab5ab748f9e0f5d3b87ae4ebaee48984b569e4bf2304e6f90e8c7deb249f3b8",
+      "mode": "0640"
+    },
+    {
+      "path": "docs/MILESTONE-1B5-GREEN-TIER1.md",
+      "sha256": "e6ca53363dde59e3ecf8d7c832c5fa10d42dbcb51b072f73bd540e9ab6bad5b0",
+      "mode": "0640"
+    },
+    {
+      "path": "docs/MILESTONE-1B5.md",
+      "sha256": "2f8473c02e87f47d48bb16e27a9297069e89bf092b47b330963097a0c8aa5f13",
+      "mode": "0640"
+    },
+    {
+      "path": "docs/MILESTONE-1B6-GREEN-TIER1.md",
+      "sha256": "9ab35b6017bba404cbd9f79c70498b6f03828494914ec41243ec14869b771444",
+      "mode": "0640"
+    },
+    {
+      "path": "framework/backup/backup_engine.py",
+      "sha256": "93442581323bd3c9b2fefa80bd8b0cbe7e080c106a8629dcd067d14208d29c11",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/execution/build_trust_manifest.py",
+      "sha256": "4567eef5bf13bfbc7d54f720f37045d6e15d189ad4c66a4ab11bf0de19b5f155",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/execution/execution.sh",
+      "sha256": "9b7a2ed9dcec9d5b972e8e3e137d45657b0ab6023e041eb7729602e6eb842ed0",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/execution/execution_engine.py",
+      "sha256": "0c73314387ce834e58a471378cc32b219c5f8eb33ffce35d1a9b91fb8dbc97df",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/execution/execution_engine_v2.py",
+      "sha256": "418d6d5511d38d6a651d2f8c4426bf18e4ad53217858f364f901b8130abe6675",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/logging/log_engine_v2.py",
+      "sha256": "86713000a7191be69596de8b1a72da0490955abcc8e1bb8a76f480d175ac0f35",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/logging/logging_v2.sh",
+      "sha256": "7fc28c739008796174b5410d91089231ace5666cc2ee3dac64c78dbdd69d831a",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/state/state_transaction_engine.py",
+      "sha256": "f3cbf029bb9f9c018fb56f633b6eb8485a0bcec6f8ada1fcba745a1db5b103c3",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/state_v2/state_engine_v2.py",
+      "sha256": "d0e839218fe49873478f66a3f10e249be4b634261156ad0ff50f0a6794ed5007",
+      "mode": "0750"
+    },
+    {
+      "path": "framework/telemetry/telemetry_spool.py",
+      "sha256": "db53316ac3bc4edfe027dc77cccc2382c623925ef1eb817371f96bde0a141706",
+      "mode": "0750"
+    },
+    {
+      "path": "install-milestone-1b3-green-tier1.sh",
+      "sha256": "7ec05e1671f2c8c69552e1083c962804b1db037f065fb0b5fde74f708de48605",
+      "mode": "0750"
+    },
+    {
+      "path": "install-milestone-1b4-green-tier1.sh",
+      "sha256": "f071882980e4413090274a5677a2d0c4492bd943fcc0de75ce81128d2f2daa2d",
+      "mode": "0750"
+    },
+    {
+      "path": "install-milestone-1b4.sh",
+      "sha256": "ce215d7668d46798da073f31a0ed7780ce1fad30fdeb75ad7add2ebbc7a4693a",
+      "mode": "0750"
+    },
+    {
+      "path": "install-milestone-1b5-green-tier1.sh",
+      "sha256": "e53de0737fc5c9c77ec0f60089639e76ce9e39724a7de9ee3469ef010ef981a4",
+      "mode": "0750"
+    },
+    {
+      "path": "install-milestone-1b5.sh",
+      "sha256": "de85995c63594dc54c73148cee70071752be5c208fa74a3340fcbcffc9468aaa",
+      "mode": "0750"
+    },
+    {
+      "path": "install-milestone-1b6.sh",
+      "sha256": "8d425a1cf1a9d9698874681da3ea24102e7fe7e8ecb5f247c5c3c5e21173eccf",
+      "mode": "0750"
+    },
+    {
+      "path": "migrations/0.5.0-to-0.6.0.json",
+      "sha256": "2b6daf0b03cb6b4b5c4238d0dff29c82c4953956d40140fa683739a4ff74ea7a",
+      "mode": "0640"
+    },
+    {
+      "path": "migrations/0.6.0-to-0.7.0.json",
+      "sha256": "08495714c54e13bca95bbb8d7034e1fc14ba28851dd4073cf13a42ee5a7127d8",
+      "mode": "0640"
+    },
+    {
+      "path": "migrations/0.7.0-to-0.8.0.json",
+      "sha256": "32fdcbeee5a462d01fcedbbf65cf55f57fff8265b9ff39a399f13f8251fe1f2e",
+      "mode": "0640"
+    },
+    {
+      "path": "migrations/0.9.0-to-1.0.0.json",
+      "sha256": "0f9e3f93fee32fc395bb6b13919067e852d6061dc49379ee4752f3df79b5f775",
+      "mode": "0640"
+    },
+    {
+      "path": "release/apply_overlay.py",
+      "sha256": "55b95facde742ec1fd5801dbd197780a462fc4af6ad7dd0ebcdc16bf3ee2e2ad",
+      "mode": "0750"
+    },
+    {
+      "path": "release/apply_plan_v0.9.0.py",
+      "sha256": "98248697a882fcfd9175985289e74ffb855e0181b80b3c891352ea2f859f8ea1",
+      "mode": "0750"
+    },
+    {
+      "path": "release/apply_plan_v1.0.0.py",
+      "sha256": "dc82df087b7d9df8f9dc40d47667d89b1062f00bd148838b8407243a2c290a19",
+      "mode": "0750"
+    },
+    {
+      "path": "release/create_backup.py",
+      "sha256": "812a70b1cef11d2c5e95d4aa9205bb6c1c21d51561a1edc83841bb28a959256a",
+      "mode": "0750"
+    },
+    {
+      "path": "release/create_upgrade_plan_v0.9.0.py",
+      "sha256": "3eaab75902cb324d17e9e76b6d48aece18df757d99431a44d677473ec4f24eef",
+      "mode": "0750"
+    },
+    {
+      "path": "release/create_upgrade_plan_v1.0.0.py",
+      "sha256": "902c8b8d208566c8d14257ea2df8a1fd75688314b50079c949ed96fdaf0f3d88",
+      "mode": "0750"
+    },
+    {
+      "path": "release/manifest-v0.9.0.json",
+      "sha256": "ddd299c4cba78e33fb3491b53aaea844184e84cf75c4c59da9a01663bef90ca9",
+      "mode": "0640"
+    },
+    {
+      "path": "release/manifest.json",
+      "sha256": "e86597d5bc1c91bf0b67c52394d2d674c821d8e808fbdd81214227e706c44e8c",
+      "mode": "0640"
+    },
+    {
+      "path": "release/verify_release.py",
+      "sha256": "f2ecdda0a1c8f8af0620d66f2bd6b7aceadc31c818d9fc95e5645b593bee7548",
+      "mode": "0750"
+    },
+    {
+      "path": "release/verify_release_v0.9.0.py",
+      "sha256": "54cef613cf8e8f708ce6b46dbc96b4ab06388d8d6e1c32c0519e14d203ebf270",
+      "mode": "0750"
+    },
+    {
+      "path": "release/verify_release_v1.0.0.py",
+      "sha256": "5b57bf13694ca1956e7fc5313e0704e7f432894a72893c190a1084a22824108b",
+      "mode": "0750"
+    },
+    {
+      "path": "release/verify_upgrade_plan_v1.0.0.py",
+      "sha256": "d0dbdf36080c00a569f8b31ddb1be87aa3b9c6b7ae9b683c0f722528e831f40e",
+      "mode": "0750"
+    },
+    {
+      "path": "rollback-milestone-1b3-green-tier1.sh",
+      "sha256": "77f7592ac5c0b98f969f6a501491de8e168dbf23c27633f6d810df944354af09",
+      "mode": "0750"
+    },
+    {
+      "path": "rollback-milestone-1b4-green-tier1.py",
+      "sha256": "1c331d9128fc61a1c21c1ebde48d5e7dbdaa2b64f445d49ea255f377bf34f3b9",
+      "mode": "0750"
+    },
+    {
+      "path": "rollback-milestone-1b4.sh",
+      "sha256": "c225de20604c812da277883f855f05f12428d47a214695a975dab55aa26a0361",
+      "mode": "0750"
+    },
+    {
+      "path": "rollback-milestone-1b5-green-tier1.sh",
+      "sha256": "5a64199c838e25cd13cb494a50aa0cb488661ab67fee564fcc3a764eca905801",
+      "mode": "0750"
+    },
+    {
+      "path": "rollback-milestone-1b5.py",
+      "sha256": "bcd0a833b9450e3e6e204aea45f81b93f6dc6859038688281950d865b70ad9da",
+      "mode": "0750"
+    },
+    {
+      "path": "rollback-milestone-1b6.sh",
+      "sha256": "138ffd722126b9d436d3abb0c8ae9655a4b0f4a647025bb25bb5d86a3971e2af",
+      "mode": "0750"
+    },
+    {
+      "path": "schemas/backup/backup-policy.schema.json",
+      "sha256": "006c7044b42e01fbe32edddf0c3a82a815c7365cab7916397762138d7e281eca",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/backup/backup-set.schema.json",
+      "sha256": "30bf80273597df6234a3cba6ce56c27a890fdb82548f1386a8f68ef8eb5bc90c",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/backup/restore-plan.schema.json",
+      "sha256": "ba3e97093d2e7672be86b55019c2029eb38cc395b867fc3e9c185a4d074f0443",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/checkpoints/checkpoint.schema.json",
+      "sha256": "629d42ff119a6be8c817ac07ccdb4fd40dfc26526a46cb1fb3929f1ad5dbceb1",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/execution/request-v2.schema.json",
+      "sha256": "3ffb7bf34d9d8cc2957b472f488371c53ecab29ae1bbc4f5ac7c11149720e7c6",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/execution/request.schema.json",
+      "sha256": "b32a100df0f22184c99fd38613889f1cf9e95b9766fa35676d120d5a15720861",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/pqp/behavior-summary-event.schema.json",
+      "sha256": "553eaab40b0afc42e43f9e398884db202612f51c1bec29380c66ea3c26ddfb8d",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/pqp/browser-evidence-event.schema.json",
+      "sha256": "69d53fd1afcf7a75063c3e3d9b8b01d1abf689c1ca0619e27f7a6b6b530a5b66",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/pqp/envoy-edge-event.schema.json",
+      "sha256": "4d704a9574b19fd572e9f76e4056af56addbf54a5244c20fb2d1494b049777b5",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/pqp/evidence-correlation-event.schema.json",
+      "sha256": "33d068dee54f8f6253191f9c76d0c0533a9031253e91085d85654aedf404ea81",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/pqp/network-fingerprint-event.schema.json",
+      "sha256": "7402b6e0cb296408127c39aa0e77539a38ff8880ad9a728a201446dede40ef11",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/state/component-state.schema.json",
+      "sha256": "bbc0159dcd5f18c8621975beab6f34763446e696f2c0f2e8ede1c5b95ccdf822",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/transactions/checkpoint-v2.schema.json",
+      "sha256": "fef974bf60f425c9b5aac171ab1899026ed0a3c44dc447dd564e66d85f123cbf",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/transactions/event-v2.schema.json",
+      "sha256": "fef974bf60f425c9b5aac171ab1899026ed0a3c44dc447dd564e66d85f123cbf",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/transactions/saga-v1.schema.json",
+      "sha256": "fef974bf60f425c9b5aac171ab1899026ed0a3c44dc447dd564e66d85f123cbf",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/transactions/transaction-v2.schema.json",
+      "sha256": "fef974bf60f425c9b5aac171ab1899026ed0a3c44dc447dd564e66d85f123cbf",
+      "mode": "0640"
+    },
+    {
+      "path": "schemas/transactions/transaction.schema.json",
+      "sha256": "5bb26ae7e11766f9ac155abd352ae0c54355c032644189b7cf5507f23b9136ac",
+      "mode": "0640"
+    },
+    {
+      "path": "templates/logrotate/tcds-eif-sealed",
+      "sha256": "c923bd913384651eaca6f5c88c104d4dc6118c6f0caa4fe47c97ebafeaea9bec",
+      "mode": "0640"
+    },
+    {
+      "path": "templates/systemd/tcds-eif-log-seal.timer",
+      "sha256": "69620500df7f6299f94754d796cc7e9a11d2a47b0669a651523730bde9ceadef",
+      "mode": "0640"
+    },
+    {
+      "path": "templates/systemd/tcds-eif-log-seal@.service",
+      "sha256": "93a4c6fc75a0431501cd8853acdfcf2c53e9994bdf3fa32dd4f0f45d0ee43cb7",
+      "mode": "0640"
+    },
+    {
+      "path": "templates/systemd/tcds-eif-log-verify@.service",
+      "sha256": "819309942ac7ee50ad933d45b5ed1ab264628320272a1167af50017797d24cbe",
+      "mode": "0640"
+    },
+    {
+      "path": "tests/backup/test-all.sh",
+      "sha256": "8a3339b07683e688313c9023ddcf90f07fe29cd29f7b7c61f070fbc19a0f0d4f",
+      "mode": "0750"
+    },
+    {
+      "path": "tests/execution/test-all.sh",
+      "sha256": "63135f8a6db566e6c27a186f92340047eaca0bdd9cb08da491993bddd3ad227d",
+      "mode": "0750"
+    },
+    {
+      "path": "tests/execution/test-green-tier1.sh",
+      "sha256": "2d7cdad1999cca4ab2fdc5f9195a0a90b47b10de9e6adda7197bbe67177b79b3",
+      "mode": "0750"
+    },
+    {
+      "path": "tests/green-tier1/test-all.sh",
+      "sha256": "91943747e7893911b9a8e22789a2e4f098c2c08c9b13391bdc4bd03faf55cfe1",
+      "mode": "0750"
+    },
+    {
+      "path": "tests/state/test-all.sh",
+      "sha256": "ce48b494380a7aaf7966ad184cd91cf75758d5003c31b2deb29d7a9cc5ac6d25",
+      "mode": "0750"
+    },
+    {
+      "path": "tests/state_v2/test-all.sh",
+      "sha256": "03573ff125bebe6b5a899e30beb74f7c234a032380aed0f7d8b283aafc21566e",
+      "mode": "0750"
+    }
+  ]
+}

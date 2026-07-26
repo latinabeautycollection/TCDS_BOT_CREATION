@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "engineVersion",
+    "environment",
+    "failClosed",
+    "reportAuthenticationMode",
+    "reportHmacSecretReference",
+    "requiredMilestones",
+    "suites",
+    "certificationThresholds",
+    "productionAcceptance",
+    "evidenceRetention"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "engineVersion": {
+      "const": "1.4.0"
+    },
+    "environment": {
+      "enum": [
+        "development",
+        "test",
+        "staging",
+        "production"
+      ]
+    },
+    "failClosed": {
+      "type": "boolean"
+    },
+    "reportAuthenticationMode": {
+      "const": "required_hmac"
+    },
+    "reportHmacSecretReference": {
+      "type": "string",
+      "pattern": "^secret://env/[A-Z0-9_]+$"
+    },
+    "requiredMilestones": {
+      "type": "object",
+      "minProperties": 7
+    },
+    "suites": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 10
+    },
+    "certificationThresholds": {
+      "type": "object"
+    },
+    "productionAcceptance": {
+      "type": "object"
+    },
+    "evidenceRetention": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "receiptId",
+    "runId",
+    "component",
+    "phase",
+    "checkId",
+    "status",
+    "severity",
+    "failureClass",
+    "startedAtUtc",
+    "finishedAtUtc",
+    "durationMs",
+    "observations",
+    "linkage",
+    "authentication"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "3.0"
+    },
+    "receiptId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "component": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string"
+    },
+    "checkId": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL",
+        "ERROR",
+        "DENIED",
+        "SKIP"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "INFO",
+        "WARNING",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "failureClass": {
+      "type": "string"
+    },
+    "startedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finishedAtUtc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "durationMs": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "observations": {
+      "type": "object"
+    },
+    "linkage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "transactionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "changeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "executionReceiptId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "executionReceiptHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "auditEventId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidenceManifestId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sessionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "profileId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cohortId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "keyReference",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "const": "HMAC-SHA256"
+        },
+        "keyReference": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

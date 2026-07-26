@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "envoy_config_valid",
+  "component": "envoy",
+  "version": "1.0.0",
+  "phases": [
+    "preflight",
+    "pre_commit"
+  ],
+  "mode": "exec",
+  "description": "Validate Envoy configuration through 1B.4.",
+  "failureClass": "CONFIGURATION",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": {
+    "command": "envoy-validate-config",
+    "args": []
+  },
+  "criteria": {},
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

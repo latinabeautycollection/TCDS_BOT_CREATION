@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+export EIF_ROOT="$ROOT"
+source "$ROOT/framework/core/framework.sh"
+cmd="${1:-doctor}"; shift || true
+case "$cmd" in
+  doctor) framework::doctor ;;
+  registry-build) framework::registry::build ;;
+  registry-order) framework::registry::order "$@" ;;
+  state-get) framework::state::get "$@" ;;
+  state-transition) framework::state::transition "$@" ;;
+  inventory) framework::inventory::create "${1:-}" ;;
+  drift-baseline) name="$1"; shift; framework::drift::baseline "$name" "$@" ;;
+  drift-check) framework::drift::check "$1" ;;
+  transaction-begin) framework::transaction::begin "$1" "$2" ;;
+  transaction-update) framework::transaction::update "$1" "$2" "$3" "${4:-}" ;;
+  transaction-finish) framework::transaction::finish "$1" "$2" ;;
+  *) echo "Unknown command: $cmd" >&2; exit 2 ;;
+esac

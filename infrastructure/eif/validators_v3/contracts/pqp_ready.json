@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_ready",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "continuous_health"
+  ],
+  "mode": "http",
+  "description": "Verify PQP readiness endpoint.",
+  "failureClass": "READINESS",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "url": "http://127.0.0.1:8088/ready",
+    "statusCodes": [
+      200
+    ]
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

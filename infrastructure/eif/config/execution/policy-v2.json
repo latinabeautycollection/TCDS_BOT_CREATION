@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "2.0",
+  "environment": "production",
+  "maxRequestBytes": 65536,
+  "maxArgCount": 32,
+  "maxArgLength": 1024,
+  "defaultTimeoutSeconds": 30,
+  "maximumTimeoutSeconds": 300,
+  "maximumAttempts": 3,
+  "terminationGraceSeconds": 3,
+  "defaultOutputLimitBytes": 1048576,
+  "audit": {
+    "required": true,
+    "loggerPath": "bin/eif-log-v2"
+  },
+  "receipt": {
+    "hmacSecretReference": "secret://env/EIF_RECEIPT_HMAC_KEY",
+    "remoteExportRequired": false
+  },
+  "immutableEnvironment": {
+    "PATH": "/usr/sbin:/usr/bin:/sbin:/bin",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "TZ": "UTC",
+    "HOME": "/nonexistent",
+    "USER": "tcds-eif",
+    "LOGNAME": "tcds-eif",
+    "TMPDIR": "/var/tmp/tcds-eif"
+  },
+  "resourceLimits": {
+    "cpuSeconds": 60,
+    "addressSpaceBytes": 536870912,
+    "fileSizeBytes": 16777216,
+    "openFiles": 128,
+    "processes": 64
+  },
+  "commands": {
+    "true": {
+      "executable": "/usr/bin/true",
+      "package": "coreutils",
+      "ownerUid": 0,
+      "groupGid": 0,
+      "maxMode": "0755",
+      "allowedArgs": [],
+      "allowedExitCodes": [
+        0
+      ],
+      "idempotent": true,
+      "retryable": false,
+      "requiredEuid": null,
+      "runAsUid": 65534,
+      "runAsGid": 65534,
+      "stdinPolicy": "none",
+      "sandboxProfile": "restricted"
+    },
+    "sleep": {
+      "executable": "/usr/bin/sleep",
+      "package": "coreutils",
+      "ownerUid": 0,
+      "groupGid": 0,
+      "maxMode": "0755",
+      "argPatterns": [
+        "^[0-9]{1,3}$"
+      ],
+      "allowedExitCodes": [
+        0
+      ],
+      "idempotent": true,
+      "retryable": true,
+      "requiredEuid": null,
+      "runAsUid": 65534,
+      "runAsGid": 65534,
+      "stdinPolicy": "none",
+      "sandboxProfile": "restricted"
+    },
+    "envoy-validate-config": {
+      "executable": "/usr/bin/envoy",
+      "package": "envoy",
+      "ownerUid": 0,
+      "groupGid": 0,
+      "maxMode": "0755",
+      "fixedArgs": [
+        "--mode",
+        "validate",
+        "-c"
+      ],
+      "argPatterns": [
+        "^/etc/envoy/[A-Za-z0-9._/-]{1,240}\\.ya?ml$"
+      ],
+      "allowedExitCodes": [
+        0
+      ],
+      "idempotent": true,
+      "retryable": false,
+      "requiredEuid": 0,
+      "runAsUid": 65534,
+      "runAsGid": 65534,
+      "stdinPolicy": "none",
+      "sandboxProfile": "network-readonly",
+      "optional": true
+    }
+  }
+}

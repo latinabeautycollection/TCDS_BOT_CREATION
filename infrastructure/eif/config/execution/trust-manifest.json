@@ -1,0 +1,18 @@
+{
+  "/usr/bin/true": {
+    "sha256": "4b5a5694e3c0e8b1d58fc52ac6ef076e55e72c2f53195243ac86d5ff517cc2f6",
+    "inode": 15822,
+    "device": 2048,
+    "uid": 0,
+    "gid": 0,
+    "mode": "0o755"
+  },
+  "/usr/bin/sleep": {
+    "sha256": "a65efec857cfac0d4f43fc53affa73794ff1d1fdcb547931d4b92a98bda8e646",
+    "inode": 15807,
+    "device": 2048,
+    "uid": 0,
+    "gid": 0,
+    "mode": "0o755"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "envoy": {
+    "requiredBeforeApply": [
+      "checkpoint_verified",
+      "change_plan_approved",
+      "execution_authorized",
+      "dependencies_healthy"
+    ],
+    "requiredBeforeCommit": [
+      "validator_passed",
+      "health_passed",
+      "rollback_eligible",
+      "envoy_config_valid",
+      "envoy_canary_healthy",
+      "envoy_admin_ready",
+      "envoy_inventory_match",
+      "envoy_post_cutover_healthy"
+    ]
+  },
+  "suricata": {
+    "requiredBeforeCommit": [
+      "validator_passed",
+      "health_passed",
+      "rollback_eligible",
+      "suricata_config_valid",
+      "suricata_rules_valid",
+      "suricata_eve_healthy",
+      "suricata_packet_drop_acceptable",
+      "suricata_ja_features_verified"
+    ]
+  },
+  "pqp": {
+    "requiredBeforeCommit": [
+      "validator_passed",
+      "health_passed",
+      "rollback_eligible",
+      "pqp_ready",
+      "clock_sync_healthy",
+      "evidence_complete",
+      "correlation_confidence_pass",
+      "evidence_manifest_sealed",
+      "evidence_export_verified"
+    ]
+  }
+}

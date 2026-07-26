@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "telemetry_queue_depth",
+  "component": "telemetry",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate telemetry queue depth.",
+  "failureClass": "TELEMETRY",
+  "severityOnFailure": "HIGH",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "telemetry_queue_depth"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

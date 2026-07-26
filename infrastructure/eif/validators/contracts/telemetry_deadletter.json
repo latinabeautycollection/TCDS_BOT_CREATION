@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "telemetry_deadletter",
+  "component": "telemetry",
+  "version": "1.0.0",
+  "description": "Verify telemetry dead-letter volume is below the configured threshold.",
+  "mode": "file",
+  "timeoutSeconds": 15,
+  "failureClass": "TELEMETRY",
+  "severityOnFailure": "HIGH",
+  "command": null,
+  "arguments": [],
+  "environment": {},
+  "successCriteria": {
+    "path": "${EIF_ROOT}/backups_v2/deadletter",
+    "maxEntries": 0
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

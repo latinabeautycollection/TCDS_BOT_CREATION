@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0",
+  "engineVersion": "1.2.0",
+  "environment": "production",
+  "failClosed": true,
+  "receiptAuthenticationMode": "required_hmac",
+  "receiptHmacSecretReference": "secret://env/EIF_VALIDATION_HMAC_KEY",
+  "maxParallelChecks": 4,
+  "defaultTimeoutSeconds": 15,
+  "maxOutputBytes": 65536,
+  "continuousHealth": {
+    "enabled": false,
+    "intervalSeconds": 60,
+    "staleAfterSeconds": 180,
+    "failureThreshold": 3,
+    "recoveryThreshold": 2
+  },
+  "failureClasses": [
+    "CONFIGURATION",
+    "DEPENDENCY",
+    "READINESS",
+    "LIVENESS",
+    "SECURITY",
+    "EVIDENCE_COMPLETENESS",
+    "CLOCK_SYNC",
+    "CAPACITY",
+    "TELEMETRY",
+    "NETWORK_SENSOR",
+    "EDGE_GATEWAY",
+    "DATABASE",
+    "UNKNOWN"
+  ],
+  "severityLevels": [
+    "INFO",
+    "WARNING",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "components": {
+    "envoy": {
+      "requiredChecks": [
+        "envoy_binary_trusted",
+        "envoy_config_valid",
+        "envoy_admin_loopback",
+        "envoy_admin_ready",
+        "envoy_listener_inventory",
+        "envoy_cluster_inventory",
+        "envoy_route_inventory",
+        "envoy_tls_policy",
+        "envoy_metrics_available"
+      ],
+      "commitChecks": [
+        "envoy_config_valid",
+        "envoy_admin_ready",
+        "envoy_inventory_match",
+        "envoy_canary_healthy",
+        "envoy_post_cutover_healthy"
+      ]
+    },
+    "suricata": {
+      "requiredChecks": [
+        "suricata_binary_trusted",
+        "suricata_config_valid",
+        "suricata_rules_valid",
+        "suricata_eve_healthy",
+        "suricata_capture_interface",
+        "suricata_packet_drop",
+        "suricata_decode_errors",
+        "suricata_ja_features"
+      ],
+      "commitChecks": [
+        "suricata_config_valid",
+        "suricata_rules_valid",
+        "suricata_eve_healthy",
+        "suricata_packet_drop",
+        "suricata_ja_features"
+      ]
+    },
+    "pqp": {
+      "requiredChecks": [
+        "pqp_health",
+        "pqp_ready",
+        "pqp_database",
+        "pqp_redis",
+        "pqp_browser_ingestion",
+        "pqp_envoy_correlation",
+        "pqp_suricata_correlation",
+        "pqp_telemetry_spool",
+        "pqp_evidence_completeness",
+        "pqp_clock_sync"
+      ],
+      "commitChecks": [
+        "pqp_ready",
+        "pqp_evidence_completeness",
+        "pqp_clock_sync",
+        "pqp_envoy_correlation",
+        "pqp_suricata_correlation"
+      ]
+    },
+    "postgresql": {
+      "requiredChecks": [
+        "postgresql_connectivity",
+        "postgresql_read_only_probe"
+      ],
+      "commitChecks": []
+    },
+    "redis": {
+      "requiredChecks": [
+        "redis_connectivity",
+        "redis_memory_policy"
+      ],
+      "commitChecks": []
+    },
+    "telemetry": {
+      "requiredChecks": [
+        "telemetry_queue_depth",
+        "telemetry_deadletter",
+        "telemetry_export_lag"
+      ],
+      "commitChecks": []
+    },
+    "clock": {
+      "requiredChecks": [
+        "clock_synchronized",
+        "clock_offset_acceptable"
+      ],
+      "commitChecks": []
+    }
+  },
+  "evidenceCompleteness": {
+    "requiredSources": [
+      "browser_snapshot",
+      "fingerprintjs",
+      "creepjs",
+      "envoy_edge",
+      "suricata_network",
+      "behavior_summary",
+      "challenge",
+      "transaction",
+      "final_score",
+      "evidence_manifest"
+    ],
+    "minimumPercentage": 100,
+    "minimumCorrelationConfidence": 0.9,
+    "clockSkewMaxSeconds": 2
+  }
+}

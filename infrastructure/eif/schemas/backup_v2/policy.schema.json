@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "engineVersion",
+    "environment",
+    "failClosed",
+    "authenticationMode",
+    "manifestHmacSecretReference",
+    "releaseTrust",
+    "storage",
+    "classifications",
+    "encryption",
+    "metadata",
+    "retention",
+    "approval",
+    "remoteExport",
+    "transactionIntegration",
+    "restore",
+    "componentContracts"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "2.0"
+    },
+    "engineVersion": {
+      "const": "1.1.0"
+    },
+    "environment": {
+      "enum": [
+        "development",
+        "test",
+        "staging",
+        "production"
+      ]
+    },
+    "failClosed": {
+      "type": "boolean"
+    },
+    "authenticationMode": {
+      "enum": [
+        "required_hmac",
+        "optional_hmac",
+        "development_hash_only"
+      ]
+    },
+    "manifestHmacSecretReference": {
+      "type": "string",
+      "pattern": "^secret://env/[A-Z0-9_]+$"
+    },
+    "releaseTrust": {
+      "type": "object"
+    },
+    "storage": {
+      "type": "object"
+    },
+    "classifications": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "configuration",
+          "forensic-evidence",
+          "secret",
+          "private-key",
+          "certificate-private"
+        ]
+      }
+    },
+    "encryption": {
+      "type": "object"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "retention": {
+      "type": "object"
+    },
+    "approval": {
+      "type": "object"
+    },
+    "remoteExport": {
+      "type": "object"
+    },
+    "transactionIntegration": {
+      "type": "object"
+    },
+    "restore": {
+      "type": "object"
+    },
+    "componentContracts": {
+      "type": "object",
+      "minProperties": 1
+    }
+  }
+}

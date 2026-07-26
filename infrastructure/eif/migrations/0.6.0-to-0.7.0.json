@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0",
+  "from": "0.6.0",
+  "to": "0.7.0",
+  "milestone": "1B.4-GT1",
+  "changes": [
+    "production/test policy separation",
+    "strict runtime schema validation",
+    "hashed lock filenames",
+    "descriptor no-follow path checks",
+    "executable trust manifest",
+    "streamed output limits",
+    "mandatory audit",
+    "tamper-evident receipt chain",
+    "denial receipts",
+    "global idempotency locks",
+    "crash journals and reconciliation",
+    "parent-death signal",
+    "uid/gid drop",
+    "immutable environment",
+    "protected stdin fd",
+    "attempt history",
+    "stable exit taxonomy"
+  ]
+}

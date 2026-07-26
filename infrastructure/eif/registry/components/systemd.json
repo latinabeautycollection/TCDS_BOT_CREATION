@@ -1,0 +1,93 @@
+{
+  "component": {
+    "name": "systemd",
+    "versionPolicy": {
+      "strategy": "system"
+    },
+    "dependencies": [
+      "packages"
+    ],
+    "lifecycle": {
+      "initialState": "NEW"
+    },
+    "contracts": {
+      "installer": {
+        "entrypoint": "plugins/systemd/installer.sh",
+        "inputs": [],
+        "outputs": [],
+        "exitCodes": [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "events": []
+      },
+      "configurator": {
+        "entrypoint": "plugins/systemd/configurator.sh",
+        "inputs": [],
+        "outputs": [],
+        "exitCodes": [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "events": []
+      },
+      "validator": {
+        "entrypoint": "plugins/systemd/validator.sh",
+        "inputs": [],
+        "outputs": [],
+        "exitCodes": [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "events": []
+      },
+      "rollback": {
+        "entrypoint": "plugins/systemd/rollback.sh",
+        "inputs": [],
+        "outputs": [],
+        "exitCodes": [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "events": []
+      },
+      "health": {
+        "entrypoint": "plugins/systemd/health.sh",
+        "inputs": [],
+        "outputs": [],
+        "exitCodes": [
+          0,
+          3,
+          5,
+          6,
+          7,
+          8
+        ],
+        "events": []
+      }
+    },
+    "inventory": {
+      "packages": [],
+      "services": [],
+      "ports": [],
+      "files": [],
+      "certificates": []
+    }
+  }
+}

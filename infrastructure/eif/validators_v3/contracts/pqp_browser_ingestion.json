@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_browser_ingestion",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "evidence_seal",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate PQP browser evidence ingestion.",
+  "failureClass": "TELEMETRY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "pqp_browser_ingestion"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

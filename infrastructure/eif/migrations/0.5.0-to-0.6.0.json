@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "from": "0.5.0",
+  "to": "0.6.0",
+  "milestone": "1B.4",
+  "operations": [
+    "install execution engine",
+    "install deny-by-default command policy",
+    "install execution API and CLI",
+    "install schemas and tests"
+  ],
+  "serviceChanges": false,
+  "processSignals": "child-process-group-only-on-timeout",
+  "rollback": {
+    "strategy": "restore-verified-framework-backup"
+  }
+}

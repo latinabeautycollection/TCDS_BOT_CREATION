@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "pqp_evidence_manifest_sealed",
+  "component": "pqp",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "post_commit",
+    "evidence_seal",
+    "continuous_health"
+  ],
+  "mode": "composite",
+  "description": "Validate PQP evidence manifest seal.",
+  "failureClass": "EVIDENCE_COMPLETENESS",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "pqp_evidence_manifest_sealed"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "envoy_admin_ready",
+  "component": "envoy",
+  "version": "1.0.0",
+  "phases": [
+    "readiness",
+    "pre_commit",
+    "continuous_health"
+  ],
+  "mode": "http",
+  "description": "Verify Envoy admin readiness.",
+  "failureClass": "READINESS",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "url": "http://127.0.0.1:9901/ready",
+    "statusCodes": [
+      200
+    ],
+    "bodyRegex": "LIVE|ready|OK"
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

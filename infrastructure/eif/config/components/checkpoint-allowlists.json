@@ -1,0 +1,18 @@
+{
+  "envoy": [
+    "/etc/envoy",
+    "/etc/systemd/system/envoy.service.d"
+  ],
+  "suricata": [
+    "/etc/suricata",
+    "/var/lib/suricata/rules"
+  ],
+  "pqp": [
+    "/opt/tcds/pqp/config",
+    "/opt/tcds/TCDS_Enterprise_Infrastructure/tmp/pqp-test"
+  ],
+  "framework": [
+    "/opt/tcds/TCDS_Enterprise_Infrastructure/config",
+    "/opt/tcds/TCDS_Enterprise_Infrastructure/tmp"
+  ]
+}

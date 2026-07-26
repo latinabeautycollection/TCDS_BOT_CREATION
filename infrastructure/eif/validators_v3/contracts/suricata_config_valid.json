@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "suricata_config_valid",
+  "component": "suricata",
+  "version": "1.0.0",
+  "phases": [
+    "preflight",
+    "pre_commit"
+  ],
+  "mode": "exec",
+  "description": "Run Suricata configuration test through 1B.4.",
+  "failureClass": "CONFIGURATION",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": {
+    "command": "suricata-test-config",
+    "args": []
+  },
+  "criteria": {},
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

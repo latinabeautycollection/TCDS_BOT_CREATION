@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "envoy_admin_ready",
+  "component": "envoy",
+  "version": "1.0.0",
+  "description": "Verify the loopback Envoy admin readiness endpoint.",
+  "mode": "http",
+  "timeoutSeconds": 15,
+  "failureClass": "READINESS",
+  "severityOnFailure": "CRITICAL",
+  "command": null,
+  "arguments": [],
+  "environment": {},
+  "successCriteria": {
+    "url": "http://127.0.0.1:9901/ready",
+    "statusCodes": [
+      200
+    ],
+    "bodyRegex": "LIVE|ready|OK"
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

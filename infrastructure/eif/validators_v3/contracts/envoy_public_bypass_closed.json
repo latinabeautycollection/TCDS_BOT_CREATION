@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "3.0",
+  "checkId": "envoy_public_bypass_closed",
+  "component": "envoy",
+  "version": "1.0.0",
+  "phases": [
+    "preflight"
+  ],
+  "mode": "composite",
+  "description": "Verify direct public access to PQP port 8088 is blocked.",
+  "failureClass": "SECURITY",
+  "severityOnFailure": "CRITICAL",
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none",
+  "execution": null,
+  "criteria": {
+    "probe": "socket_public_bind",
+    "port": 8088
+  },
+  "redaction": {
+    "enabled": true,
+    "piiMode": "mask"
+  }
+}

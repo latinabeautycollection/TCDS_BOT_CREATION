@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "engineVersion",
+    "environment",
+    "failClosed",
+    "receiptAuthenticationMode",
+    "receiptHmacSecretReference",
+    "auditRequired",
+    "auditCommand",
+    "executionCommand",
+    "stateCommand",
+    "maxParallelChecks",
+    "maxObservationBytes",
+    "health",
+    "http",
+    "evidence",
+    "phases",
+    "components"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "3.0"
+    },
+    "engineVersion": {
+      "const": "1.3.0"
+    },
+    "environment": {
+      "enum": [
+        "development",
+        "test",
+        "staging",
+        "production"
+      ]
+    },
+    "failClosed": {
+      "type": "boolean"
+    },
+    "receiptAuthenticationMode": {
+      "enum": [
+        "required_hmac"
+      ]
+    },
+    "receiptHmacSecretReference": {
+      "type": "string",
+      "pattern": "^secret://env/[A-Z0-9_]+$"
+    },
+    "auditRequired": {
+      "type": "boolean"
+    },
+    "auditCommand": {
+      "type": "string"
+    },
+    "executionCommand": {
+      "type": "string"
+    },
+    "stateCommand": {
+      "type": "string"
+    },
+    "maxParallelChecks": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 16
+    },
+    "maxObservationBytes": {
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 1048576
+    },
+    "health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failureThreshold",
+        "recoveryThreshold",
+        "degradedThreshold",
+        "staleAfterSeconds",
+        "maintenanceFile"
+      ],
+      "properties": {
+        "failureThreshold": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "recoveryThreshold": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "degradedThreshold": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "staleAfterSeconds": {
+          "type": "integer",
+          "minimum": 30
+        },
+        "maintenanceFile": {
+          "type": "string"
+        }
+      }
+    },
+    "http": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedLoopbackPorts",
+        "maxBodyBytes",
+        "allowRedirects",
+        "allowedContentTypes"
+      ],
+      "properties": {
+        "allowedLoopbackPorts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65535
+          }
+        },
+        "maxBodyBytes": {
+          "type": "integer"
+        },
+        "allowRedirects": {
+          "const": false
+        },
+        "allowedContentTypes": {
+          "type": "array"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "sqlitePath",
+        "requiredSources",
+        "minimumCompleteness",
+        "minimumCorrelationConfidence",
+        "maximumClockSkewSeconds",
+        "maximumEvidenceAgeSeconds"
+      ],
+      "properties": {
+        "provider": {
+          "enum": [
+            "sqlite",
+            "postgresql"
+          ]
+        },
+        "sqlitePath": {
+          "type": "string"
+        },
+        "requiredSources": {
+          "type": "array",
+          "uniqueItems": true
+        },
+        "minimumCompleteness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "minimumCorrelationConfidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "maximumClockSkewSeconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maximumEvidenceAgeSeconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "uniqueItems": true
+    },
+    "components": {
+      "type": "object",
+      "minProperties": 1
+    }
+  }
+}

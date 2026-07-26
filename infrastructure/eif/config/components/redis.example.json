@@ -1,0 +1,29 @@
+{
+  "component": {
+    "name": "redis",
+    "versionPolicy": {
+      "strategy": "minimum",
+      "version": "7.0"
+    },
+    "dependencies": [],
+    "validation": {
+      "binary": "redis-server"
+    },
+    "healthChecks": [
+      {
+        "type": "tcp",
+        "host": "127.0.0.1",
+        "port": 6379
+      }
+    ],
+    "backup": {
+      "paths": [
+        "/etc/redis/redis.conf"
+      ]
+    },
+    "rollback": {
+      "strategy": "restore-files-and-reload",
+      "service": "redis-server"
+    }
+  }
+}

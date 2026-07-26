@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+R="$(cd "$(dirname "${BASH_SOURCE[0]}")/.."&&pwd -P)";c="${1:?}";shift
+case "$c" in emit)l="$1";shift;"$R/framework/logging/log_engine_v2.py" --root "$R" emit --level "$l" "$@";;seal|verify)"$R/framework/logging/log_engine_v2.py" --root "$R" "$c" "$@";;telemetry)"$R/framework/telemetry/telemetry_spool.py" --root "$R" "$@";;*)exit 2;;esac

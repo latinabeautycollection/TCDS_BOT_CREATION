@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "backupId",
+    "component",
+    "name",
+    "classification",
+    "environment",
+    "transactionId",
+    "changeId",
+    "operatorId",
+    "reason",
+    "createdAtUtc",
+    "status",
+    "consistencyProvider",
+    "entries",
+    "totalBytes",
+    "fileCount",
+    "treeHash",
+    "authentication",
+    "linkage"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "2.0"
+    },
+    "backupId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "component": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,63}$"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"
+    },
+    "classification": {
+      "enum": [
+        "configuration",
+        "forensic-evidence",
+        "secret",
+        "private-key",
+        "certificate-private"
+      ]
+    },
+    "environment": {
+      "enum": [
+        "development",
+        "test",
+        "staging",
+        "production"
+      ]
+    },
+    "transactionId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "changeId": {
+      "type": "string"
+    },
+    "operatorId": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 1024
+    },
+    "createdAtUtc": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ALLOCATED",
+        "CAPTURING",
+        "MANIFEST_STAGED",
+        "VERIFYING",
+        "COMMITTED",
+        "FAILED"
+      ]
+    },
+    "consistencyProvider": {
+      "enum": [
+        "static_file_set",
+        "application_quiesce",
+        "filesystem_snapshot",
+        "database_snapshot",
+        "versioned_config_release"
+      ]
+    },
+    "entries": {
+      "type": "array"
+    },
+    "totalBytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "fileCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "treeHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "authentication": {
+      "type": "object"
+    },
+    "linkage": {
+      "type": "object"
+    }
+  }
+}

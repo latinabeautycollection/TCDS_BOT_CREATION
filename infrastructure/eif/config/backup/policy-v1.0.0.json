@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0",
+  "engineVersion": "1.0.0",
+  "failClosed": true,
+  "storage": {
+    "blobRoot": "backups/blobs",
+    "setRoot": "backups/sets",
+    "database": "state/backup/backup.db",
+    "minimumFreeReserveBytes": 536870912,
+    "maxBackupBytes": 2147483648,
+    "maxFileBytes": 268435456,
+    "maxFiles": 20000,
+    "chunkBytes": 1048576
+  },
+  "retention": {
+    "defaultDays": 30,
+    "minimumVerifiedCopies": 1,
+    "protectLatestPerComponent": 3,
+    "deleteUnverified": false
+  },
+  "security": {
+    "rejectSymlinks": true,
+    "rejectSpecialFiles": true,
+    "stayOnFilesystem": true,
+    "captureXattrs": true,
+    "encryption": {
+      "mode": "external-hook",
+      "requiredClassifications": [
+        "secret",
+        "private-key",
+        "certificate-private"
+      ],
+      "hookCommand": null
+    },
+    "manifestHmacSecretReference": "secret://env/EIF_BACKUP_HMAC_KEY"
+  },
+  "restore": {
+    "requireVerified": true,
+    "requireRehearsal": true,
+    "requireApprovalChallenge": true,
+    "ownershipFailurePolicy": "fail",
+    "allowRemap": false
+  },
+  "remoteExport": {
+    "requiredForAuthoritativeEvidence": true,
+    "adapters": [
+      "file",
+      "external-hook"
+    ],
+    "hookCommand": null,
+    "immutableRetentionRequired": true
+  },
+  "componentRoots": {
+    "envoy": [
+      "/etc/envoy",
+      "/etc/systemd/system/envoy.service.d"
+    ],
+    "suricata": [
+      "/etc/suricata",
+      "/var/lib/suricata/rules"
+    ],
+    "pqp": [
+      "/opt/tcds/pqp/config"
+    ],
+    "framework": [
+      "/opt/tcds/TCDS_Enterprise_Infrastructure/config",
+      "/opt/tcds/TCDS_Enterprise_Infrastructure/templates"
+    ]
+  }
+}

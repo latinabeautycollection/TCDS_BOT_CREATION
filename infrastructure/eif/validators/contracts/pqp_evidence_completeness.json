@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "pqp_evidence_completeness",
+  "component": "pqp",
+  "version": "1.0.0",
+  "description": "Evaluate same-session PQP evidence completeness and correlation confidence.",
+  "mode": "evidence",
+  "timeoutSeconds": 15,
+  "failureClass": "EVIDENCE_COMPLETENESS",
+  "severityOnFailure": "CRITICAL",
+  "command": null,
+  "arguments": [],
+  "environment": {},
+  "successCriteria": {
+    "policyRef": "evidenceCompleteness"
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}

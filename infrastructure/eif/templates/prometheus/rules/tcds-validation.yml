@@ -1,0 +1,18 @@
+groups:
+- name: tcds-validation
+  rules:
+  - alert: TCDSComponentUnhealthy
+    expr: tcds_validation_component_health{state="UNHEALTHY"} == 1
+    for: 2m
+    labels: {severity: critical}
+    annotations: {summary: "TCDS component unhealthy", description: "{{ $labels.component }} failed enterprise validation"}
+  - alert: TCDSComponentStale
+    expr: tcds_validation_component_health{state="STALE"} == 1
+    for: 3m
+    labels: {severity: high}
+    annotations: {summary: "TCDS health validation stale"}
+  - alert: TCDSComponentDegraded
+    expr: tcds_validation_component_health{state="DEGRADED"} == 1
+    for: 5m
+    labels: {severity: warning}
+    annotations: {summary: "TCDS component degraded"}

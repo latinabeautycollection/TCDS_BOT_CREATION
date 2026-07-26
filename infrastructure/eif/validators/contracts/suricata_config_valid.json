@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0",
+  "checkId": "suricata_config_valid",
+  "component": "suricata",
+  "version": "1.0.0",
+  "description": "Validate Suricata configuration without starting or restarting the sensor.",
+  "mode": "command",
+  "timeoutSeconds": 15,
+  "failureClass": "CONFIGURATION",
+  "severityOnFailure": "CRITICAL",
+  "command": "/usr/bin/suricata",
+  "arguments": [
+    "-T",
+    "-c",
+    "${SURICATA_CONFIG}"
+  ],
+  "environment": {},
+  "successCriteria": {
+    "exitCodes": [
+      0
+    ]
+  },
+  "redaction": {
+    "enabled": true
+  },
+  "requiredPrivileges": "unprivileged",
+  "sideEffects": "none"
+}
