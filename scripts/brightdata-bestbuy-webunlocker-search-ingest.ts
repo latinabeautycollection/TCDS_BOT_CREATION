@@ -19,16 +19,16 @@ const ENV = {
   RETRY_TIMEOUT_ROWS: process.env.BESTBUY_RETRY_TIMEOUT_ROWS === "true",
 };
 const LOCK_KEY = 913_880_221;
+const BESTBUY_TEST_URL =
+  process.env.BESTBUY_TEST_URL?.trim();
+
 const payload = {
-  input: [
-    {
-      url: "https://www.bestbuy.com/site/searchpage.jsp?browsedCategory=pcmcat1632941704767&id=pcat17071&qp=currentoffers_facet%3DCurrent+Deals%7ETop+Deal%5Ecurrentoffers_facet%3DCurrent+Deals%7EClearance%5Ecurrentoffers_facet%3DCurrent+Deals%7EPackage+Deals%5Ecurrentprice_facet%3DPrice%7E1+to+500%5Esystemmemoryram_facet%3DSystem+Memory+%28RAM%29%7E32+gigabytes%5Esystemmemoryram_facet%3DSystem+Memory+%28RAM%29%7E64+gigabytes%5Esystemmemoryram_facet%3DSystem+Memory+%28RAM%29%7E24+gigabytes%5Esystemmemoryram_facet%3DSystem+Memory+%28RAM%29%7E16+gigabytes&st=pcmcat1632941704767_categoryid%24abcat0500000",
-    },
-    {
-      url: "https://www.bestbuy.com/site/searchpage.jsp?browsedCategory=pcmcat1720706915460&id=pcat17071&qp=currentoffers_facet%3DCurrent+Deals%7EClearance%5Ecurrentoffers_facet%3DCurrent+Deals%7EPackage+Deals%5Ecurrentoffers_facet%3DCurrent+Deals%7ETop+Deal%5Ecurrentoffers_facet%3DCurrent+Deals%7EPlus+%26+Total+Member+Deals%5Ecurrentprice_facet%3DPrice%7E1+to+500%5Epercentdiscount_facet%3DDiscount%7EAll+Discounted+Items&st=pcmcat1720706915460_categoryid%24abcat0204000",
-    },
-  ],
-  limit_per_input: Number(process.env.BESTBUY_LIMIT_PER_INPUT ?? 2000),
+  input: BESTBUY_TEST_URL
+    ? [{ url: BESTBUY_TEST_URL }]
+    : [],
+  limit_per_input: Number(
+    process.env.BESTBUY_LIMIT_PER_INPUT ?? 50
+  ),
 };
 type RunStatus = "completed" | "partial" | "failed";
 type DeadLetterClass =
@@ -515,6 +515,18 @@ class SnapshotValidator {
     if (!sourceUrl || !sourceUrl.includes("bestbuy.com")) {
       throw new Error("VALIDATION: Invalid Best Buy source URL");
     }
+
+    const declaredSku = String(
+      row.sku || row.skuId || row.sku_id || ""
+    ).trim();
+    const urlSku = this.extractSkuFromUrl(sourceUrl);
+
+    if (declaredSku && urlSku && declaredSku !== urlSku) {
+      throw new Error(
+        "VALIDATION: Best Buy payload SKU does not match source URL"
+      );
+    }
+
     if (!this.extractTitle(row)) {
       throw new Error("VALIDATION: Missing product title");
     }
@@ -540,8 +552,25 @@ class SnapshotValidator {
   }
   private extractProductKey(row: BestBuyRow): string {
     const url = String(row.url || row.product_url || "");
-    const skuFromUrl = url.match(/skuId=(\d+)/)?.[1];
-    return String(row.product_id || row.sku || row.skuId || row.sku_id || row.id || skuFromUrl || "").trim();
+    const skuFromUrl = this.extractSkuFromUrl(url);
+
+    return String(
+      row.product_id ||
+      row.sku ||
+      row.skuId ||
+      row.sku_id ||
+      row.id ||
+      skuFromUrl ||
+      ""
+    ).trim();
+  }
+
+  private extractSkuFromUrl(url: string): string | null {
+    return (
+      url.match(/[?&]skuId=(\d+)(?:[&#]|$)/i)?.[1] ??
+      url.match(/\/sku\/(\d+)(?:[/?#]|$)/i)?.[1] ??
+      null
+    );
   }
   private extractUrl(row: BestBuyRow, productKey: string): string {
     return String(row.url || row.product_url || `https://www.bestbuy.com/site/.p?skuId=${productKey}`).trim();
