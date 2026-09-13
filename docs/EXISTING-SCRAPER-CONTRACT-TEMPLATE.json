@@ -1,0 +1,32 @@
+{
+  "contract_version": "1",
+  "discovery_type": "unknown",
+  "transport": "env",
+  "compile_modes": [],
+  "field_map": {},
+  "required_fields": [],
+  "supports_keyword_search": false,
+  "supports_category_search": false,
+  "supports_product_url": false,
+  "supports_store_id": false,
+  "supports_postal_code": false,
+  "supports_region": false,
+  "supports_result_limit": false,
+  "collection_methods": [],
+  "source_types": [],
+  "brightdata_dataset_ids": [],
+  "brightdata_unlocker_zones": [],
+  "db_ingest_targets": [
+    "retail.raw_product_captures"
+  ],
+  "test_only": false,
+  "interface_evidence": {
+    "source_files": [],
+    "readme_sections": [],
+    "test_files": [],
+    "execution_examples": [],
+    "notes": "Populate only from actual existing scraper source/tests. DB ingest targets must already exist in retail schema."
+  },
+  "supports_all_collection_methods": false,
+  "supports_all_source_types": false
+}

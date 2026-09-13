@@ -1,0 +1,4 @@
+Error: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string
+    at /srv/tcds-retail-bot-repo-clean/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async main (/srv/tcds-retail-bot-repo-clean/scripts/retail-automation/r1c/adversarial-tests.ts:36:11)

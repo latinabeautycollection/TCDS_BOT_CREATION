@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0",
+  "evidenceType": "r1c_v3_compiler_bootstrap_qa_amendment",
+  "result": "PASS",
+  "generatedAtUtc": "2026-09-13T15:03:30Z",
+  "replacementCompiler": {
+    "id": "5287b6f1-bf17-48f4-9a29-d4c3bc991010",
+    "version": "3.0.1"
+  },
+  "supersededCompiler": {
+    "id": "fa0ed79e-b687-4059-a20d-eb1ef6b17794",
+    "version": "3",
+    "functionsCurrent": false
+  },
+  "previousEvidence": {
+    "path": "evidence/retail-automation/r1c/r1c-v3-compiler-bootstrap-qa-v2.json",
+    "sha256": "ed8ade4e50a5416a0fbdec873021f37453ca6f0e2553a605f5a70ac09ba69e3e"
+  },
+  "compatibilityMigration": {
+    "path": "database/migrations/036e_r1c_typed_profile_rows.sql",
+    "sha256": "e05bb93c5d385f4a198d0004335f39f7d8806e44b4714b69e520251e11bb1ede"
+  },
+  "assertions": {
+    "previousBootstrapQaPassed": true,
+    "replacementCompilerUncertified": true,
+    "priorCompilerDetectedStale": true,
+    "nineActiveProfilesPreserved": true,
+    "failedCompileInsertedNoJobs": true,
+    "profileAndCompilerRowsTyped": true
+  },
+  "provenance": {
+    "gitCommit": "992a56943c9fb6aadb7d6e611892351f2559b255"
+  },
+  "scope": {
+    "finalFreezeCertification": false,
+    "fullAdversarialSuitePending": true
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "adapter": {
+    "adapterCode": "bestbuy_brightdata_search",
+    "adapterVersion": "3",
+    "id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+    "implementationRef": "scripts/brightdata-bestbuy-webunlocker-search-ingest.ts",
+    "implementationSha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+    "platformCode": "best_buy"
+  },
+  "assertions": {
+    "deadLetters": 0,
+    "ingestionFailures": 0,
+    "offerSnapshots": 10,
+    "parsedRows": 10,
+    "providerFailures": 0,
+    "qualityEvents": 0,
+    "rawCaptures": 10,
+    "runCompleted": true,
+    "skippedRows": 0,
+    "skuUrlMismatches": 0
+  },
+  "evidenceType": "r1b_v4_scraper_authority_qa",
+  "generatedAtUtc": "2026-09-12T18:35:01Z",
+  "integrityControls": {
+    "mismatchBehavior": "fail_closed",
+    "pathSkuSupported": true,
+    "payloadSkuMustMatchSourceUrlSku": true,
+    "queryParameterSkuSupported": true
+  },
+  "provenance": {
+    "baseGitCommit": "188e2a828a93d94419d940eee216450315414d84",
+    "qaLog": "/tmp/r1b-bestbuy-v2-final-qa.log",
+    "qaLogSha256": "559edf0af2313ce2a91d4e4618700acc7b0665b13fde23aadafc790c157f21e6"
+  },
+  "qaExecution": {
+    "collected": 10,
+    "collectionMethods": [
+      "brightdata_unlocker",
+      "brightdata_dataset"
+    ],
+    "inputMode": "governed_keyword",
+    "keywords": [
+      "Apple iPhone 15 Pro A3102"
+    ],
+    "requested": 10,
+    "runId": "3a39c1d7-9260-4182-9057-0ecd254e83c1",
+    "snapshotId": "sd_mtypprfp1beo37d3vk"
+  },
+  "result": "PASS",
+  "schemaVersion": "1.0",
+  "scope": {
+    "doesNotProve": [
+      "R1A target identity qualification",
+      "condition qualification",
+      "purchase price qualification"
+    ],
+    "downstreamAuthority": "R1E qualification layer",
+    "proves": [
+      "keyword discovery",
+      "Web Unlocker product URL discovery",
+      "Bright Data detail collection",
+      "SKU-to-source-URL integrity",
+      "canonical database persistence"
+    ]
+  },
+  "scraperAuthority": {
+    "assetId": "0c87e6a9-61e4-472a-b035-f2910b2127e6",
+    "authorityType": "file",
+    "implementationSha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+    "qaInheritance": "The v3 adapter governs the identical immutable implementation tested by the v2 QA run; no new scraping execution is claimed.",
+    "contractId": "06d1fde7-9835-4e3c-9751-f750225af1b0",
+    "contractVersion": "1",
+    "contractSha256": "833b438bd86ff0643a0cab132c10314a19ec154306eaa28ec7a423c44ce36f71"
+  }
+}

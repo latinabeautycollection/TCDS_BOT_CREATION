@@ -1,0 +1,239 @@
+{
+  "manifest": {
+    "certificationVersion": "r1b-v4.0.0",
+    "processRunId": "588c44f8-08f2-40a1-b182-465ce81e2f7e",
+    "correlationId": "c81b3dd6-9db0-4d85-8a39-04f364de0b22",
+    "createdAt": "2026-09-13T11:37:56.477Z",
+    "r1aBinding": {
+      "singleton": true,
+      "r1a_schema_version": "2.0.0",
+      "r1a_package_sha256": "7ab0e11def5a8ceb7b5e3bcfbe3fc0f62ed8c756fee75ef302652b5ce2c58400",
+      "r1a_certification_evidence_sha256": "fedb62dcb1bca4e546c9d98c403364cf608e173a6ca4ebd33ad4ca1a814fd70a",
+      "r1a_effective_view_sha256": "80bedae3a69ade03a65bbf04ec370f867716e344dd29790eb6d77cf37698c596",
+      "bound_by": "tictac",
+      "bound_at": "2026-09-12T17:00:21.460Z"
+    },
+    "packageSha256": "d57272c08c13da150eeb41795585e47b64398b466a94fb49f87a0db7f0133f21",
+    "scraperReadiness": {
+      "verified": 21,
+      "test_only": 1,
+      "inventoried": 21,
+      "unidentified": 1,
+      "expected_known": 21,
+      "expected_total": 22,
+      "certified_for_r1": 1,
+      "full_22_identified": false,
+      "required_platforms": 1,
+      "all_known_inventoried": true,
+      "production_scope_ready": true,
+      "required_platforms_ready": 1,
+      "production_scope_nonempty": true,
+      "nonempty_production_universe": true
+    },
+    "latestScraperIntegrationCertification": {
+      "run_id": "12fe2739-4ae6-4ca0-87d3-a317fbb6d793",
+      "status": "SUCCEEDED",
+      "certification_status": "CERTIFIED",
+      "completed_at": "2026-09-13T11:37:35.073Z"
+    },
+    "staticChecks": [
+      {
+        "name": "r1a_binding_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "latest_scraper_integration_certified",
+        "ok": true,
+        "detail": {
+          "run_id": "12fe2739-4ae6-4ca0-87d3-a317fbb6d793",
+          "status": "SUCCEEDED",
+          "certification_status": "CERTIFIED",
+          "completed_at": "2026-09-13T11:37:35.073Z"
+        }
+      },
+      {
+        "name": "production_scraper_scope_nonempty",
+        "ok": true,
+        "detail": {
+          "verified": 21,
+          "test_only": 1,
+          "inventoried": 21,
+          "unidentified": 1,
+          "expected_known": 21,
+          "expected_total": 22,
+          "certified_for_r1": 1,
+          "full_22_identified": false,
+          "required_platforms": 1,
+          "all_known_inventoried": true,
+          "production_scope_ready": true,
+          "required_platforms_ready": 1,
+          "production_scope_nonempty": true,
+          "nonempty_production_universe": true
+        }
+      },
+      {
+        "name": "production_scraper_scope_ready",
+        "ok": true,
+        "detail": {
+          "verified": 21,
+          "test_only": 1,
+          "inventoried": 21,
+          "unidentified": 1,
+          "expected_known": 21,
+          "expected_total": 22,
+          "certified_for_r1": 1,
+          "full_22_identified": false,
+          "required_platforms": 1,
+          "all_known_inventoried": true,
+          "production_scope_ready": true,
+          "required_platforms_ready": 1,
+          "production_scope_nonempty": true,
+          "nonempty_production_universe": true
+        }
+      },
+      {
+        "name": "nonempty_production_scraper_universe",
+        "ok": true,
+        "detail": {
+          "verified": 21,
+          "test_only": 1,
+          "inventoried": 21,
+          "unidentified": 1,
+          "expected_known": 21,
+          "expected_total": 22,
+          "certified_for_r1": 1,
+          "full_22_identified": false,
+          "required_platforms": 1,
+          "all_known_inventoried": true,
+          "production_scope_ready": true,
+          "required_platforms_ready": 1,
+          "production_scope_nonempty": true,
+          "nonempty_production_universe": true
+        }
+      },
+      {
+        "name": "no_stale_certified_adapters",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "no_fail_open_empty_collection_capabilities",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "no_fail_open_empty_source_capabilities",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "all_approved_routes_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "effective_routes_nonempty",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "execution_ready_adapters_nonempty",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "asset_evidence_hashes_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "contract_hashes_reproducible",
+        "ok": true,
+        "detail": {}
+      }
+    ],
+    "activeNegativeTests": {
+      "activeNegativeTests": [
+        {
+          "name": "certified_adapter_implementation_mutation",
+          "ok": true,
+          "detail": "Certified adapter version is immutable. Create a new adapter_version for implementation/contract/capability changes."
+        },
+        {
+          "name": "certified_adapter_capability_mutation",
+          "ok": true,
+          "detail": "Certified adapter version is immutable. Create a new adapter_version for implementation/contract/capability changes."
+        },
+        {
+          "name": "runtime_wrong_sha_rejected",
+          "ok": true,
+          "detail": "R1B runtime attestation blocked: deployed scraper artifact/package SHA mismatch"
+        },
+        {
+          "name": "route_business_mutation",
+          "ok": true,
+          "detail": "R1B route authority is immutable; create a new route"
+        }
+      ],
+      "skippedBecauseNoFixture": {
+        "certifiedAdapter": false,
+        "approvedRoute": false,
+        "approvedStore": true
+      },
+      "allExecutedPassed": true
+    },
+    "scraperAuthorityNegativeTests": {
+      "allPassed": true,
+      "gates": [
+        {
+          "name": "execution_ready_fixture",
+          "ok": true
+        },
+        {
+          "name": "verified_asset_content_immutable",
+          "ok": true,
+          "detail": "Verified scraper asset content is immutable; inventory a new asset version"
+        },
+        {
+          "name": "certified_contract_content_immutable",
+          "ok": true,
+          "detail": "Verified scraper contract content is immutable; register a new contract_version"
+        },
+        {
+          "name": "certified_adapter_retrofit_blocked",
+          "ok": true,
+          "detail": "Certified adapter version is immutable. Create a new adapter_version for implementation/contract/capability changes."
+        },
+        {
+          "name": "cross_platform_ingest_target_blocked",
+          "ok": true,
+          "detail": "Cross-platform ingest target blocked. platform=best_buy target=retail.target_product_parsed"
+        },
+        {
+          "name": "route_currentness_requires_execution_ready",
+          "ok": true,
+          "detail": {
+            "n": 0
+          }
+        },
+        {
+          "name": "route_hash_binds_scraper_authority",
+          "ok": true,
+          "detail": {
+            "n": 0
+          }
+        },
+        {
+          "name": "evidence_hashes_reproducible",
+          "ok": true,
+          "detail": {
+            "asset_bad": 0,
+            "contract_bad": 0
+          }
+        }
+      ]
+    }
+  },
+  "evidenceManifestSha256": "0db5f5387339395c413a470cd4b370f17230392e1e90b27687a8835b3f18bbc6"
+}

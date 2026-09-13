@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0",
+  "evidenceType": "r1c_v3_compiler_bootstrap_qa_amendment",
+  "result": "PASS",
+  "generatedAtUtc": "2026-09-13T14:47:54Z",
+  "compilerId": "fa0ed79e-b687-4059-a20d-eb1ef6b17794",
+  "previousEvidence": {
+    "path": "evidence/retail-automation/r1c/r1c-v3-compiler-bootstrap-qa.json",
+    "sha256": "2dd1a009225be91085a44c43d010da1c224f366708a708b7ee3a6a40a515b1e6"
+  },
+  "compatibilityMigration": {
+    "path": "database/migrations/036d_r1c_typed_compiler_rows.sql",
+    "sha256": "06d3e949e0ad0c544a686b3be340da01b8d3907d20f50712b6856d82e50e686c",
+    "reason": "Typed compiler records for PostgreSQL composite-function compatibility"
+  },
+  "assertions": {
+    "previousBootstrapQaPassed": true,
+    "migrationDryRunPassed": true,
+    "migrationApplied": true,
+    "certificationFailureRolledBack": true,
+    "compilerRemainsUncertifiedBeforeRetry": true,
+    "typedCompilerRowsVerified": true
+  },
+  "provenance": {
+    "gitCommit": "992a56943c9fb6aadb7d6e611892351f2559b255"
+  },
+  "scope": {
+    "finalFreezeCertification": false,
+    "fullAdversarialSuitePending": true
+  }
+}

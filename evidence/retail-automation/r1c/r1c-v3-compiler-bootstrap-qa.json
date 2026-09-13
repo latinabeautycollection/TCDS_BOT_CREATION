@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0",
+  "evidenceType": "r1c_v3_compiler_bootstrap_qa",
+  "result": "PASS",
+  "generatedAtUtc": "2026-09-13T14:41:49.129Z",
+  "compiler": {
+    "id": "fa0ed79e-b687-4059-a20d-eb1ef6b17794",
+    "code": "deterministic_route_compiler",
+    "version": "3"
+  },
+  "artifacts": {
+    "paths": {
+      "wrapper": "scripts/retail-automation/r1c/compile-route.ts",
+      "baseMigration": "database/migrations/036_r1c_search_job_compiler_v2.sql",
+      "parameterCompatibility": "database/migrations/036a_r1c_validator_parameter_compat.sql",
+      "hardeningMigration": "database/migrations/036b_r1c_v3_scraper_authority_alignment.sql",
+      "jsonbCompatibility": "database/migrations/036c_r1c_jsonb_object_compat.sql"
+    },
+    "sha256": {
+      "wrapper": "fd76ce788acc48eeca7179f4903198dde55be506f4d2a4dadc2ace1e1e76f7a3",
+      "baseMigration": "07474da57438e8183cb8038c6a57659a4658cdc2f33e0578666ae734c2ca9d3e",
+      "parameterCompatibility": "b56a33fe44fdf8baddba62833a132ad580bb02badd05dec175866d8c2f939cf2",
+      "hardeningMigration": "a5fba76505b2cf5319b3b0e438290990a4cf1473baa45aaf03893737e548e1db",
+      "jsonbCompatibility": "be1aa1dc4f3c0d8581c4cb159a21f5ce5c551e06c61baeaadf5dac618c499c32"
+    }
+  },
+  "assertions": {
+    "r1bBindingCurrent": true,
+    "r1cV3Installed": true,
+    "validatorPresent": true,
+    "digestWrapperPresent": true,
+    "validContractAccepted": true,
+    "emptyFieldMapRejected": true,
+    "typescriptTypecheckPassed": true,
+    "migrationDryRunsPassed": true,
+    "wrapperHashMatches": true,
+    "baseMigrationHashMatches": true,
+    "hardeningMigrationHashMatches": true
+  },
+  "provenance": {
+    "gitCommit": "992a56943c9fb6aadb7d6e611892351f2559b255"
+  },
+  "scope": {
+    "finalFreezeCertification": false,
+    "fullAdversarialSuitePending": true
+  }
+}

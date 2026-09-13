@@ -1,0 +1,17 @@
+{
+  "adapter_type": "search",
+  "adapter_code": "replace_me",
+  "adapter_version": "v2",
+  "supports_keyword_search": false,
+  "supports_product_url": false,
+  "supports_category_search": false,
+  "supports_store_id": false,
+  "supports_postal_code": false,
+  "supports_region": false,
+  "supports_result_limit": false,
+  "supported_collection_methods": [],
+  "supports_all_collection_methods": false,
+  "supported_source_types": [],
+  "supports_all_source_types": false,
+  "input_contract_json": {}
+}

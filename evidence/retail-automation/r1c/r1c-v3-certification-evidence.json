@@ -1,0 +1,796 @@
+{
+  "manifest": {
+    "certificationVersion": "r1c-v3.0.0",
+    "processRunId": "16cc6c46-8e54-4284-9a88-9f084102720c",
+    "correlationId": "da4e66d1-ac13-47bf-bdcb-c467a478c257",
+    "createdAt": "2026-09-13T15:35:59.514Z",
+    "r1bBinding": {
+      "singleton": true,
+      "r1b_schema_version": "3.0.0",
+      "r1b_certification_run_id": "0fb0e6f7-f809-44f7-a12e-44f91e8a6ddd",
+      "r1b_package_sha256": "d57272c08c13da150eeb41795585e47b64398b466a94fb49f87a0db7f0133f21",
+      "r1b_evidence_manifest_sha256": "0db5f5387339395c413a470cd4b370f17230392e1e90b27687a8835b3f18bbc6",
+      "r1b_effective_routes_view_sha256": "ebef56cb91885565babbeca1dbc53b98fdea5f7f5539e235a733cc72fdf2783e",
+      "bound_by": "tictac",
+      "bound_at": "2026-09-13T13:08:24.721Z",
+      "r1b_scraper_hardening_version": "4.0.0",
+      "r1b_certification_version": "r1b-v4.0.0",
+      "source_process_run_id": "85b74917-c8e2-4791-9335-72d868a14fc8",
+      "source_correlation_id": "bb3914a6-5b32-425e-bb55-dda7cd9f428d",
+      "updated_at": "2026-09-13T13:08:24.721Z",
+      "certification_status": "CERTIFIED",
+      "certification_version": "r1b-v4.0.0"
+    },
+    "r1bCertificationVersion": "r1b-v4.0.0",
+    "r1bScraperHardeningVersion": "4.0.0",
+    "r1cPackageSha256": "66644976d2ba032c9e0a53794cbf0e0ac6f92f9f91e40e602152644d34945411",
+    "compilerAuthoritySha256": "897ff9d9986ae0f0a9d2739ce9b4511c3f127193e267cdb6d51fcba9f763a130",
+    "compilerHardeningMigrationSha256": "a5fba76505b2cf5319b3b0e438290990a4cf1473baa45aaf03893737e548e1db",
+    "passiveResults": [
+      {
+        "name": "r1b_v4_binding_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "r1b_scraper_hardening_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "compiler_authority_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "compiler_functions_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "name": "all_compiled_jobs_current",
+        "ok": true,
+        "detail": {
+          "n": 0
+        }
+      },
+      {
+        "name": "effective_jobs_nonempty",
+        "ok": true,
+        "detail": {
+          "count": 9
+        }
+      },
+      {
+        "name": "certified_scraper_execution_fixture_nonempty",
+        "ok": true,
+        "detail": {
+          "count": 9
+        }
+      },
+      {
+        "name": "explicit_scraper_authority_evidence_complete",
+        "ok": true,
+        "detail": {
+          "bad": 0
+        }
+      }
+    ],
+    "adversarialResults": [
+      {
+        "gate": 1,
+        "name": "r1b_v4_hardening_present",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 2,
+        "name": "r1b_execution_ready_function_present",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 3,
+        "name": "exact_r1b_v4_binding_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 4,
+        "name": "bound_certification_is_v4",
+        "ok": true,
+        "detail": {
+          "singleton": true,
+          "r1b_schema_version": "3.0.0",
+          "r1b_certification_run_id": "0fb0e6f7-f809-44f7-a12e-44f91e8a6ddd",
+          "r1b_package_sha256": "d57272c08c13da150eeb41795585e47b64398b466a94fb49f87a0db7f0133f21",
+          "r1b_evidence_manifest_sha256": "0db5f5387339395c413a470cd4b370f17230392e1e90b27687a8835b3f18bbc6",
+          "r1b_effective_routes_view_sha256": "ebef56cb91885565babbeca1dbc53b98fdea5f7f5539e235a733cc72fdf2783e",
+          "bound_by": "tictac",
+          "bound_at": "2026-09-13T13:08:24.721Z",
+          "r1b_scraper_hardening_version": "4.0.0",
+          "r1b_certification_version": "r1b-v4.0.0",
+          "source_process_run_id": "85b74917-c8e2-4791-9335-72d868a14fc8",
+          "source_correlation_id": "bb3914a6-5b32-425e-bb55-dda7cd9f428d",
+          "updated_at": "2026-09-13T13:08:24.721Z",
+          "certification_version": "r1b-v4.0.0",
+          "certification_status": "CERTIFIED"
+        }
+      },
+      {
+        "gate": 5,
+        "name": "nonlatest_r1b_rebind_rejected",
+        "ok": true,
+        "detail": "R1C bind blocked: supplied R1B certification is not latest"
+      },
+      {
+        "gate": 6,
+        "name": "certified_v3_compiler_fixture",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 7,
+        "name": "effective_r1b_route_fixture",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 8,
+        "name": "active_profile_fixture",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 9,
+        "name": "effective_compiled_job_fixture",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 10,
+        "name": "certified_scraper_authority_fixture",
+        "ok": true,
+        "detail": {
+          "id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+          "implementation_authority_type": "file",
+          "expected_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662"
+        }
+      },
+      {
+        "gate": 11,
+        "name": "certified_compiler_contract_immutable",
+        "ok": true,
+        "detail": "Certified compiler authority immutable; create new version"
+      },
+      {
+        "gate": 12,
+        "name": "certified_wrapper_sha_immutable",
+        "ok": true,
+        "detail": "Certified compiler authority immutable; create new version"
+      },
+      {
+        "gate": 13,
+        "name": "certified_v3_migration_sha_immutable",
+        "ok": true,
+        "detail": "Certified compiler authority immutable; create new version"
+      },
+      {
+        "gate": 14,
+        "name": "wrong_runtime_compiler_sha_rejected",
+        "ok": true,
+        "detail": "R1C V3 runtime compiler artifact SHA mismatch"
+      },
+      {
+        "gate": 15,
+        "name": "compiler_authority_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 16,
+        "name": "argv_transport_accepted",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 17,
+        "name": "missing_compile_modes_fail_closed",
+        "ok": true,
+        "detail": "compile_modes must be a non-empty array"
+      },
+      {
+        "gate": 18,
+        "name": "missing_required_mapping_fail_closed",
+        "ok": true,
+        "detail": "Required field postal_code lacks certified mapping"
+      },
+      {
+        "gate": 19,
+        "name": "legacy_env_alias_fail_closed",
+        "ok": true,
+        "detail": "Legacy *_env mappings prohibited; use canonical field_map"
+      },
+      {
+        "gate": 20,
+        "name": "overlapping_query_tokens_deduplicated",
+        "ok": true,
+        "detail": {
+          "actual": "Dell Latitude 7450 16GB"
+        }
+      },
+      {
+        "gate": 21,
+        "name": "query_replay_deterministic",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 22,
+        "name": "query_policy_changes_behavior",
+        "ok": true,
+        "detail": {
+          "actual": "a b c"
+        }
+      },
+      {
+        "gate": 23,
+        "name": "profile_binds_contract_required_fields",
+        "ok": true,
+        "detail": {
+          "profile": [
+            "query",
+            "result_limit"
+          ],
+          "contract": [
+            "query",
+            "result_limit"
+          ]
+        }
+      },
+      {
+        "gate": 24,
+        "name": "profile_cannot_weaken_required_fields",
+        "ok": true,
+        "detail": {
+          "contractReq": [
+            "query",
+            "result_limit"
+          ],
+          "effective": [
+            "query",
+            "result_limit"
+          ]
+        }
+      },
+      {
+        "gate": 25,
+        "name": "profile_hash_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 26,
+        "name": "active_profile_business_content_immutable",
+        "ok": true,
+        "detail": "R1C compile profile content is immutable; create a new profile_version"
+      },
+      {
+        "gate": 27,
+        "name": "unsupported_postal_not_emitted",
+        "ok": true,
+        "detail": {
+          "supports": false,
+          "payload": {
+            "transport": "env",
+            "collection": {
+              "dataset_id": "gd_ltre1jqe1jfr7cccf",
+              "source_url": "https://www.bestbuy.com/site/searchpage.jsp",
+              "unlocker_zone": "tcds_web_unlocker",
+              "collection_method": "brightdata_unlocker",
+              "pagination_policy": {
+                "mode": "result_limit",
+                "default_limit": 50
+              },
+              "request_overrides": {
+                "keyword_source": "retail.effective_search_targets",
+                "manual_url_override": "qa_only",
+                "detail_collection_method": "brightdata_dataset"
+              }
+            },
+            "parameters": {
+              "BESTBUY_KEYWORDS": "Apple iphone 12 128 gb a2342 pro_max smartphone",
+              "BESTBUY_MAX_ROWS": 100
+            },
+            "constraints": {
+              "exclude_terms": [
+                "activation locked",
+                "case only",
+                "dummy phone",
+                "empty box",
+                "for parts",
+                "icloud locked",
+                "parts only",
+                "screen protector"
+              ],
+              "allowed_product_conditions": [
+                "new",
+                "open_box",
+                "refurbished"
+              ],
+              "discovery_price_ceiling_usd": 143
+            },
+            "compile_mode": "keyword"
+          }
+        }
+      },
+      {
+        "gate": 28,
+        "name": "unsupported_store_not_emitted",
+        "ok": true,
+        "detail": {
+          "supports": false,
+          "payload": {
+            "transport": "env",
+            "collection": {
+              "dataset_id": "gd_ltre1jqe1jfr7cccf",
+              "source_url": "https://www.bestbuy.com/site/searchpage.jsp",
+              "unlocker_zone": "tcds_web_unlocker",
+              "collection_method": "brightdata_unlocker",
+              "pagination_policy": {
+                "mode": "result_limit",
+                "default_limit": 50
+              },
+              "request_overrides": {
+                "keyword_source": "retail.effective_search_targets",
+                "manual_url_override": "qa_only",
+                "detail_collection_method": "brightdata_dataset"
+              }
+            },
+            "parameters": {
+              "BESTBUY_KEYWORDS": "Apple iphone 12 128 gb a2342 pro_max smartphone",
+              "BESTBUY_MAX_ROWS": 100
+            },
+            "constraints": {
+              "exclude_terms": [
+                "activation locked",
+                "case only",
+                "dummy phone",
+                "empty box",
+                "for parts",
+                "icloud locked",
+                "parts only",
+                "screen protector"
+              ],
+              "allowed_product_conditions": [
+                "new",
+                "open_box",
+                "refurbished"
+              ],
+              "discovery_price_ceiling_usd": 143
+            },
+            "compile_mode": "keyword"
+          }
+        }
+      },
+      {
+        "gate": 29,
+        "name": "unsupported_region_not_emitted",
+        "ok": true,
+        "detail": {
+          "supports": false,
+          "payload": {
+            "transport": "env",
+            "collection": {
+              "dataset_id": "gd_ltre1jqe1jfr7cccf",
+              "source_url": "https://www.bestbuy.com/site/searchpage.jsp",
+              "unlocker_zone": "tcds_web_unlocker",
+              "collection_method": "brightdata_unlocker",
+              "pagination_policy": {
+                "mode": "result_limit",
+                "default_limit": 50
+              },
+              "request_overrides": {
+                "keyword_source": "retail.effective_search_targets",
+                "manual_url_override": "qa_only",
+                "detail_collection_method": "brightdata_dataset"
+              }
+            },
+            "parameters": {
+              "BESTBUY_KEYWORDS": "Apple iphone 12 128 gb a2342 pro_max smartphone",
+              "BESTBUY_MAX_ROWS": 100
+            },
+            "constraints": {
+              "exclude_terms": [
+                "activation locked",
+                "case only",
+                "dummy phone",
+                "empty box",
+                "for parts",
+                "icloud locked",
+                "parts only",
+                "screen protector"
+              ],
+              "allowed_product_conditions": [
+                "new",
+                "open_box",
+                "refurbished"
+              ],
+              "discovery_price_ceiling_usd": 143
+            },
+            "compile_mode": "keyword"
+          }
+        }
+      },
+      {
+        "gate": 30,
+        "name": "unsupported_result_limit_not_emitted",
+        "ok": true,
+        "detail": {
+          "supports": true,
+          "map": "BESTBUY_MAX_ROWS",
+          "payload": {
+            "transport": "env",
+            "collection": {
+              "dataset_id": "gd_ltre1jqe1jfr7cccf",
+              "source_url": "https://www.bestbuy.com/site/searchpage.jsp",
+              "unlocker_zone": "tcds_web_unlocker",
+              "collection_method": "brightdata_unlocker",
+              "pagination_policy": {
+                "mode": "result_limit",
+                "default_limit": 50
+              },
+              "request_overrides": {
+                "keyword_source": "retail.effective_search_targets",
+                "manual_url_override": "qa_only",
+                "detail_collection_method": "brightdata_dataset"
+              }
+            },
+            "parameters": {
+              "BESTBUY_KEYWORDS": "Apple iphone 12 128 gb a2342 pro_max smartphone",
+              "BESTBUY_MAX_ROWS": 100
+            },
+            "constraints": {
+              "exclude_terms": [
+                "activation locked",
+                "case only",
+                "dummy phone",
+                "empty box",
+                "for parts",
+                "icloud locked",
+                "parts only",
+                "screen protector"
+              ],
+              "allowed_product_conditions": [
+                "new",
+                "open_box",
+                "refurbished"
+              ],
+              "discovery_price_ceiling_usd": 143
+            },
+            "compile_mode": "keyword"
+          }
+        }
+      },
+      {
+        "gate": 31,
+        "name": "all_effective_required_fields_materialized",
+        "ok": true,
+        "detail": {
+          "field": "query",
+          "mapped": "BESTBUY_KEYWORDS",
+          "payload": {
+            "transport": "env",
+            "collection": {
+              "dataset_id": "gd_ltre1jqe1jfr7cccf",
+              "source_url": "https://www.bestbuy.com/site/searchpage.jsp",
+              "unlocker_zone": "tcds_web_unlocker",
+              "collection_method": "brightdata_unlocker",
+              "pagination_policy": {
+                "mode": "result_limit",
+                "default_limit": 50
+              },
+              "request_overrides": {
+                "keyword_source": "retail.effective_search_targets",
+                "manual_url_override": "qa_only",
+                "detail_collection_method": "brightdata_dataset"
+              }
+            },
+            "parameters": {
+              "BESTBUY_KEYWORDS": "Apple iphone 12 128 gb a2342 pro_max smartphone",
+              "BESTBUY_MAX_ROWS": 100
+            },
+            "constraints": {
+              "exclude_terms": [
+                "activation locked",
+                "case only",
+                "dummy phone",
+                "empty box",
+                "for parts",
+                "icloud locked",
+                "parts only",
+                "screen protector"
+              ],
+              "allowed_product_conditions": [
+                "new",
+                "open_box",
+                "refurbished"
+              ],
+              "discovery_price_ceiling_usd": 143
+            },
+            "compile_mode": "keyword"
+          }
+        }
+      },
+      {
+        "gate": 32,
+        "name": "payload_deterministic",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 33,
+        "name": "normalized_job_deterministic",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 34,
+        "name": "normalized_job_exposes_scraper_authority",
+        "ok": true,
+        "detail": {
+          "adapter_id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+          "contract_status": "certified_for_r1",
+          "execution_ready": true,
+          "scraper_asset_id": "0c87e6a9-61e4-472a-b035-f2910b2127e6",
+          "entrypoint_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+          "implementation_root": "scripts/brightdata-bestbuy-webunlocker-search-ingest.ts",
+          "package_tree_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+          "scraper_contract_id": "06d1fde7-9835-4e3c-9751-f750225af1b0",
+          "scraper_contract_sha256": "833b438bd86ff0643a0cab132c10314a19ec154306eaa28ec7a423c44ce36f71",
+          "contract_required_fields": [
+            "query",
+            "result_limit"
+          ],
+          "scraper_contract_version": "1",
+          "interface_evidence_sha256": "e3912e49602cb1e54407b6219924ef09f8f236ac039cc66d0f597bd1a6f4cfa2",
+          "verification_evidence_sha256": "8010f59631804364d748ff8fda024685218bb69c8d32f5fef099657a9335a317",
+          "implementation_authority_type": "file"
+        }
+      },
+      {
+        "gate": 35,
+        "name": "route_adapter_execution_ready",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 36,
+        "name": "scraper_authority_wrong_sha_rejected",
+        "ok": true,
+        "detail": "R1B runtime attestation blocked: deployed scraper artifact/package SHA mismatch"
+      },
+      {
+        "gate": 37,
+        "name": "scraper_authority_expected_sha_current",
+        "ok": true,
+        "detail": {
+          "id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+          "implementation_authority_type": "file",
+          "expected_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662"
+        }
+      },
+      {
+        "gate": 38,
+        "name": "normalized_hash_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 39,
+        "name": "payload_hash_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 40,
+        "name": "evidence_hash_reproducible",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 41,
+        "name": "evidence_has_scraper_asset_identity",
+        "ok": true,
+        "detail": {
+          "adapter_id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+          "contract_status": "certified_for_r1",
+          "execution_ready": true,
+          "scraper_asset_id": "0c87e6a9-61e4-472a-b035-f2910b2127e6",
+          "entrypoint_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+          "implementation_root": "scripts/brightdata-bestbuy-webunlocker-search-ingest.ts",
+          "package_tree_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+          "scraper_contract_id": "06d1fde7-9835-4e3c-9751-f750225af1b0",
+          "scraper_contract_sha256": "833b438bd86ff0643a0cab132c10314a19ec154306eaa28ec7a423c44ce36f71",
+          "contract_required_fields": [
+            "query",
+            "result_limit"
+          ],
+          "scraper_contract_version": "1",
+          "interface_evidence_sha256": "e3912e49602cb1e54407b6219924ef09f8f236ac039cc66d0f597bd1a6f4cfa2",
+          "verification_evidence_sha256": "8010f59631804364d748ff8fda024685218bb69c8d32f5fef099657a9335a317",
+          "implementation_authority_type": "file"
+        }
+      },
+      {
+        "gate": 42,
+        "name": "evidence_has_scraper_contract_identity",
+        "ok": true,
+        "detail": {
+          "adapter_id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+          "contract_status": "certified_for_r1",
+          "execution_ready": true,
+          "scraper_asset_id": "0c87e6a9-61e4-472a-b035-f2910b2127e6",
+          "entrypoint_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+          "implementation_root": "scripts/brightdata-bestbuy-webunlocker-search-ingest.ts",
+          "package_tree_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+          "scraper_contract_id": "06d1fde7-9835-4e3c-9751-f750225af1b0",
+          "scraper_contract_sha256": "833b438bd86ff0643a0cab132c10314a19ec154306eaa28ec7a423c44ce36f71",
+          "contract_required_fields": [
+            "query",
+            "result_limit"
+          ],
+          "scraper_contract_version": "1",
+          "interface_evidence_sha256": "e3912e49602cb1e54407b6219924ef09f8f236ac039cc66d0f597bd1a6f4cfa2",
+          "verification_evidence_sha256": "8010f59631804364d748ff8fda024685218bb69c8d32f5fef099657a9335a317",
+          "implementation_authority_type": "file"
+        }
+      },
+      {
+        "gate": 43,
+        "name": "evidence_scraper_authority_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 44,
+        "name": "compiled_content_immutable",
+        "ok": true,
+        "detail": "Compiled job content is immutable"
+      },
+      {
+        "gate": 45,
+        "name": "compiled_delete_blocked",
+        "ok": true,
+        "detail": "Compiled jobs cannot be deleted"
+      },
+      {
+        "gate": 46,
+        "name": "compilation_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 47,
+        "name": "process_run_bound",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 48,
+        "name": "correlation_bound",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 49,
+        "name": "no_scheduler_budget_dispatch_purchase_authority",
+        "ok": true,
+        "detail": []
+      },
+      {
+        "gate": 50,
+        "name": "effective_view_exists",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 51,
+        "name": "binding_history_exists",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 52,
+        "name": "v3_state_current",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 53,
+        "name": "public_compile_execute_revoked",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 54,
+        "name": "public_bind_execute_revoked",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 55,
+        "name": "r1c_certification_table_exists",
+        "ok": true,
+        "detail": {}
+      },
+      {
+        "gate": 56,
+        "name": "audit_binding_trigger_present",
+        "ok": true,
+        "detail": {}
+      }
+    ],
+    "replayResults": {
+      "count": 9,
+      "allByteEquivalent": true,
+      "rows": [
+        {
+          "id": "bb58fc10-7f07-401d-aa21-7688241a6265",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "4a2d75db-8d51-4754-b479-7c89e52cc1b8",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "f6d2a74f-54fc-4fe6-a391-863b044c8284",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "e9222549-bd84-4739-ac06-64f67672f018",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "baa0963f-1c2a-4378-abd1-1b4675e84948",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "85124460-0b05-4922-9fe3-c4b3223fc675",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "e860687f-eb38-429b-a4d0-7b5ad6b17384",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "d72a35db-b6ff-4254-af9c-92fc451ee97e",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        },
+        {
+          "id": "625a1081-d84f-4e2c-ab0d-9a1614c6151d",
+          "normalized_same": true,
+          "payload_same": true,
+          "scraper_same": true
+        }
+      ]
+    }
+  },
+  "evidenceManifestSha256": "bd27ec47254170da0a2d535cc33c0e08a2d6ce68e85d0c2ee328f7927cbca908"
+}
