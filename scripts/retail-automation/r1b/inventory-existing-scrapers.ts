@@ -196,9 +196,61 @@ async function main(){
           platform_code=excluded.platform_code,
           implementation_root=excluded.implementation_root,
           inventory_status='verified',
+          adapter_id=
+            case
+              when retail.r1b_adapter_integration_matrix.scraper_asset_id
+                     is distinct from excluded.scraper_asset_id
+                or not exists(
+                  select 1
+                  from retail.retail_search_adapters linked_adapter
+                  where linked_adapter.id=
+                          retail.r1b_adapter_integration_matrix.adapter_id
+                    and linked_adapter.scraper_asset_id=
+                          excluded.scraper_asset_id
+                )
+              then null
+              else retail.r1b_adapter_integration_matrix.adapter_id
+            end,
+          scraper_contract_id=
+            case
+              when retail.r1b_adapter_integration_matrix.scraper_asset_id
+                     is distinct from excluded.scraper_asset_id
+                or not exists(
+                  select 1
+                  from retail.retail_scraper_contracts linked_contract
+                  where linked_contract.id=
+                          retail.r1b_adapter_integration_matrix.scraper_contract_id
+                    and linked_contract.scraper_asset_id=
+                          excluded.scraper_asset_id
+                )
+              then null
+              else retail.r1b_adapter_integration_matrix.scraper_contract_id
+            end,
           r1b_certification_status=
-            case when excluded.platform_code='walmart' then 'test_only'
-                 else retail.r1b_adapter_integration_matrix.r1b_certification_status end,
+            case
+              when excluded.platform_code='walmart'
+                then 'test_only'
+              when retail.r1b_adapter_integration_matrix.scraper_asset_id
+                     is distinct from excluded.scraper_asset_id
+                or not exists(
+                  select 1
+                  from retail.retail_search_adapters linked_adapter
+                  where linked_adapter.id=
+                          retail.r1b_adapter_integration_matrix.adapter_id
+                    and linked_adapter.scraper_asset_id=
+                          excluded.scraper_asset_id
+                )
+                or not exists(
+                  select 1
+                  from retail.retail_scraper_contracts linked_contract
+                  where linked_contract.id=
+                          retail.r1b_adapter_integration_matrix.scraper_contract_id
+                    and linked_contract.scraper_asset_id=
+                          excluded.scraper_asset_id
+                )
+              then 'inventory_pending'
+              else retail.r1b_adapter_integration_matrix.r1b_certification_status
+            end,
           notes=excluded.notes,updated_at=now()
       `,[
         platform.id,asset.rows[0].id,e.expected_slot,e.platform_code,
