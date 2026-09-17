@@ -1,0 +1,56 @@
+{
+  "evidenceType": "r1b_target_v2_adapter_qa",
+  "schemaVersion": "1.0",
+  "result": "PASS",
+  "generatedAtUtc": "2026-09-17T08:02:27.840Z",
+  "adapter": {
+    "id": "c6a5071a-121e-4a1c-8fa6-e31971976840",
+    "version": "2",
+    "implementationSha256": "e8b241399bc573d0d1535faa6d44b03f7edd20af2bb5ae72e203a1188d264537",
+    "gitCommitSha": "c1fb0ed8865ac4f7eaacdbd28b3db54bf3c473b9",
+    "assetId": "ec6f2b9f-6879-43ef-b39e-5a20b4ad9c1e"
+  },
+  "contract": {
+    "id": "d8f4bc4b-a291-46ce-87cd-d2f8d403458a",
+    "contractSha256": "89618be743e8b653f3e7f84398c49b14845c72e72522547099e5032266d27dfc",
+    "interfaceEvidenceSha256": "793cc585b63bd6445bfde4f3bf8e0d16ce5a3d3010b2b46b9b480f39a4face7b",
+    "status": "certified_for_r1"
+  },
+  "qa": {
+    "runId": "00fe3dfe-9672-48a9-93fe-0903945bcb08",
+    "requestedZip": "10001",
+    "requestedRows": 2,
+    "collectedRows": 2,
+    "failedRows": 0,
+    "skippedRows": 0,
+    "rawCaptures": 2,
+    "requestedZipCaptures": 2,
+    "locationEvidenceCaptures": 2,
+    "parsedRows": 2,
+    "deadLetters": 0,
+    "qualityEvents": 0
+  },
+  "checks": {
+    "expectedVersion": true,
+    "assetVerified": true,
+    "hashMatches": true,
+    "contractCertified": true,
+    "adapterPrepared": true,
+    "cleanQa": true,
+    "requestedZipDeclared": true,
+    "requestedZipPreserved": true,
+    "locationEvidencePreserved": true,
+    "parsed": true,
+    "noDeadLetters": true,
+    "noQualityEvents": true
+  },
+  "locationSemantics": {
+    "classification": "requested_postal_code",
+    "observedStoreIdProven": false,
+    "note": "Requested ZIP provenance is preserved but is not proof of a retailer store or store-specific inventory."
+  },
+  "scope": {
+    "proves": "Bounded Target keyword discovery with requested ZIP provenance",
+    "doesNotProve": "Observed Target store identity, nationwide store-level inventory, exact product qualification, or purchase eligibility"
+  }
+}
