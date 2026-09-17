@@ -36,7 +36,7 @@ BEGIN
     ruleset_version, entity_type, idempotency_key
   )
   VALUES (
-    'RETAIL_R1B_AMAZON_V3_ROLLBACK',
+    'RETAIL_R1B_SCRAPER_CONTRACT_BLOCK',
     'EXECUTE', 'STARTED', correlation_id,
     'user', 'tictac', 'Tictac',
     'r1b-amazon-v3-rollback', 'r1b-v4-3',
