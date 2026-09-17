@@ -1,0 +1,56 @@
+{
+  "evidenceType": "r1b_harborfreight_category_qa",
+  "schemaVersion": "1.0",
+  "result": "PASS",
+  "generatedAtUtc": "2026-09-17T09:36:08.345Z",
+  "adapter": {
+    "id": "f43093e9-2713-4e50-85ff-2c47cfc1b4c6",
+    "version": "1",
+    "assetId": "e9e1fc56-3b92-4720-9266-228e8ebac20d",
+    "implementationSha256": "ca819ec5e7fdb63a4459ff361fc9bdf3130c69c8a00d21d8d4a7e99be3545b08",
+    "gitCommitSha": "992a56943c9fb6aadb7d6e611892351f2559b255"
+  },
+  "contract": {
+    "id": "72b0897c-5ae9-4911-a4d2-3b81f9a1bfd2",
+    "status": "certified_for_r1",
+    "contractSha256": "79ff433289d50f0e4977bcfbbb669b76c7a4d5b96fc2bbd3fc91c97060bf6d6e",
+    "interfaceEvidenceSha256": "e603d4ee4595e340752382683d6ad417888ed2239727c2d5ca9a72c36cf086f7"
+  },
+  "qa": {
+    "runId": "ff2dbe27-dc13-419c-a676-39d35ef5d0e4",
+    "requestedInputs": 1,
+    "collectedRows": 1,
+    "failedRows": 0,
+    "skippedRows": 0,
+    "captures": 1,
+    "parsedRows": 1,
+    "promotedOffers": 0,
+    "deadLetters": 0,
+    "noDiscountEvents": 1
+  },
+  "checks": {
+    "expectedVersion": true,
+    "assetVerified": true,
+    "hashMatches": true,
+    "contractCertified": true,
+    "adapterPrepared": true,
+    "cleanCollection": true,
+    "capturePersisted": true,
+    "parsedPersisted": true,
+    "noDeadLetters": true,
+    "noDiscountGuardApplied": true
+  },
+  "locationSemantics": {
+    "classification": "national_online",
+    "postalCodeSupported": false,
+    "storeIdSupported": false
+  },
+  "economicSemantics": {
+    "resultWasDiscountQualified": false,
+    "note": "Collection succeeded, but the item was not promoted as an offer because the no-discount guard applied."
+  },
+  "scope": {
+    "proves": "Bounded Harbor Freight category-URL collection and guarded canonical persistence",
+    "doesNotProve": "ZIP/store-local inventory, discount availability, exact product qualification, or purchase eligibility"
+  }
+}
