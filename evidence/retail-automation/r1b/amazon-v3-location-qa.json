@@ -1,0 +1,46 @@
+{
+  "evidenceType": "r1b_amazon_v3_adapter_qa",
+  "schemaVersion": "1.0",
+  "result": "PASS",
+  "generatedAtUtc": "2026-09-17T07:56:59.023Z",
+  "adapter": {
+    "id": "9ccbdc20-98af-45c0-940b-3fb4993db4ea",
+    "version": "3",
+    "implementationSha256": "3f02ff894985065658f24cffe2c012fb7b8070a8ad95821bdd1cf4abc7f65b0f",
+    "gitCommitSha": "c1397e5cbfa0be314aa203d86cef2d7ca7113ffd",
+    "assetId": "e0445442-080c-4d7d-8c4e-105d271cb041"
+  },
+  "contract": {
+    "id": "9e9cce49-ff62-44d7-9cce-80c8f968347d",
+    "contractSha256": "fb72d03c97cbc91eda356117ebfd7817ac547becf99345780ee0e11179767ab5",
+    "interfaceEvidenceSha256": "4172c1ca1a42ec85497340951e0dd083f8458cb6b7470f4a3b1b9b88051db501",
+    "status": "certified_for_r1"
+  },
+  "qa": {
+    "runId": "e6764287-daaf-4a4f-8158-172b0d50fe81",
+    "requestedZip": "10001",
+    "requestedInputs": 1,
+    "collectedRows": 2,
+    "failedRows": 0,
+    "skippedRows": 0,
+    "rawCaptures": 2,
+    "zipProvenanceCaptures": 2,
+    "parsedRows": 2,
+    "deadLetters": 0
+  },
+  "checks": {
+    "finalVersion": true,
+    "assetVerified": true,
+    "hashMatches": true,
+    "contractCertified": true,
+    "adapterPrepared": true,
+    "cleanQa": true,
+    "zipProvenance": true,
+    "parsed": true,
+    "noDeadLetters": true
+  },
+  "scope": {
+    "proves": "Bounded keyword discovery and requested ZIP provenance for Amazon",
+    "doesNotProve": "Retailer store-ID support, nationwide store-level inventory, exact product qualification, or purchase eligibility"
+  }
+}
