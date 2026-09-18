@@ -1,4 +1,5 @@
 import { Pool, PoolClient } from "pg";
+import { buildWalmartInput } from "./walmart-brightdata-input.js";
 
 const BRIGHTDATA_TOKEN = process.env.BRIGHTDATA_TOKEN!;
 const DATABASE_URL = process.env.DATABASE_URL!;
@@ -8,11 +9,16 @@ const BASE_URL = "https://api.brightdata.com";
 
 const pool = new Pool({ connectionString: DATABASE_URL });
 
-const input = [
+const defaultInput = [
   {
     url: "https://www.walmart.com/ip/Marketside-Fresh-Organic-Bananas-Bunch/51259338",
   },
 ];
+
+const requestedInput = buildWalmartInput(
+  process.env.WALMART_PRODUCT_URL ?? defaultInput[0]!.url,
+  process.env.WALMART_ZIPCODE
+)[0]!;
 
 function assertEnv() {
   if (!BRIGHTDATA_TOKEN) throw new Error("Missing BRIGHTDATA_TOKEN");
@@ -73,6 +79,11 @@ async function brightDataFetch<T>(
 }
 
 async function triggerBrightData(): Promise<string> {
+  const input = buildWalmartInput(
+    process.env.WALMART_PRODUCT_URL ?? defaultInput[0]!.url,
+    process.env.WALMART_ZIPCODE
+  );
+
   const url =
     `${BASE_URL}/datasets/v3/trigger` +
     `?dataset_id=${DATASET_ID}` +
@@ -137,9 +148,15 @@ async function createCollectionRun(client: PoolClient): Promise<string> {
       null,
       'brightdata_test_worker',
       'typescript_fetch_test',
-      '{"source":"brightdata","mode":"end_to_end_test"}'::jsonb
+      $1::jsonb
     ) as run_id
-    `
+    `,
+    [JSON.stringify({
+      source: "brightdata",
+      mode: "end_to_end_test",
+      requested_zipcode: requestedInput.zipcode,
+      requested_product_url: requestedInput.url,
+    })]
   );
 
   return result.rows[0].run_id;
@@ -175,7 +192,11 @@ async function completeCollectionRun(
       totalCollected,
       totalFailed,
       failureReason || null,
-      JSON.stringify({ snapshot_id: snapshotId }),
+      JSON.stringify({
+        snapshot_id: snapshotId,
+        requested_zipcode: requestedInput.zipcode,
+        requested_product_url: requestedInput.url,
+      }),
     ]
   );
 }
@@ -239,7 +260,7 @@ async function ingestOneRow(
       $6::text,
       $7::jsonb,
       'brightdata_walmart_v1',
-      '{"source":"brightdata","retailer":"walmart"}'::jsonb
+      $8::jsonb
     ) as raw_capture_id
     `,
     [
@@ -250,6 +271,15 @@ async function ingestOneRow(
       row.brand || null,
       row.product_category || row.category_name || row.breadcrumb_text || null,
       JSON.stringify(row),
+      JSON.stringify({
+        source: "brightdata",
+        retailer: "walmart",
+        requested_zipcode: requestedInput.zipcode,
+        requested_product_url: requestedInput.url,
+        observed_store_id: row.store_id ?? null,
+        observed_store_name: row.store_name ?? null,
+        observed_store_location: row.store_location ?? null,
+      }),
     ]
   );
 
@@ -303,6 +333,21 @@ if (snapshotId) {
   await waitForSnapshot(snapshotId);
 }
 
+    const inputResponse = await fetch(
+      `${BASE_URL}/datasets/v3/snapshot/${snapshotId}/input`,
+      {
+        headers: { Authorization: `Bearer ${BRIGHTDATA_TOKEN}` },
+        signal: AbortSignal.timeout(60000),
+      }
+    );
+    if (!inputResponse.ok) {
+      throw new Error(`Snapshot input HTTP ${inputResponse.status}`);
+    }
+    const inputLines = (await inputResponse.text()).trim().split(/\r?\n/);
+    const expectedInput = `${requestedInput.url},,${requestedInput.zipcode},`;
+    if (inputLines.length !== 2 || inputLines[1] !== expectedInput) {
+      throw new Error("Snapshot input does not match requested URL and ZIP");
+    }
     rows = await downloadSnapshot(snapshotId);
 
     console.log(`Downloaded ${rows.length} Walmart rows.`);

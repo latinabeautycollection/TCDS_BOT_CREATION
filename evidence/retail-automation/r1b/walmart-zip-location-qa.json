@@ -1,0 +1,52 @@
+{
+  "evidenceType": "walmart_zip_localization_qa",
+  "datasetId": "gd_l95fol7l1ru6rlo116",
+  "productUrl": "https://www.walmart.com/ip/Marketside-Fresh-Organic-Bananas-Bunch/51259338",
+  "generatedAtUtc": "2026-09-18T09:46:03.278Z",
+  "result": "PASS",
+  "proves": [
+    "Bright Data recorded each requested ZIP",
+    "returned store ID differs by ZIP"
+  ],
+  "doesNotProve": [
+    "ZIP-dependent pricing",
+    "explicit store_id input",
+    "adapter certification"
+  ],
+  "results": [
+    {
+      "requestedZip": "10001",
+      "snapshotId": "sd_mu6r90tg1u1qgudfb3",
+      "inputSha256": "303cb6f1b2c58efdc2a1d7e1213aa064f3ca61f0a07db3378e2d48aadb467467",
+      "outputSha256": "befe6c4bc7d24e15b7b1b8cec38c83353c3e37827b5b58cdf2205052703e302e",
+      "storeId": 3520,
+      "storeName": "Secaucus Supercenter",
+      "storeLocation": "New York, 10001",
+      "finalPrice": 1.74,
+      "availability": "in_stock"
+    },
+    {
+      "requestedZip": "90210",
+      "snapshotId": "sd_mu6ra04984d5gd4nb",
+      "inputSha256": "b9b4f062dc100734a56912a3120e502b6368788c83501a8fcd457003a7874be6",
+      "outputSha256": "75ccc0429293f327edbe19426401dfa78da83151a5efb8b3de13c8fd156fe2c3",
+      "storeId": 5686,
+      "storeName": "Burbank Supercenter",
+      "storeLocation": "Beverly Hills, 90210",
+      "finalPrice": 1.74,
+      "availability": "in_stock"
+    }
+  ],
+  "persistenceQa": {
+    "runId": "e64b5888-d77b-4aa4-b10d-2e32caaad5ea",
+    "snapshotId": "sd_mu6r90tg1u1qgudfb3",
+    "requestedZip": "10001",
+    "observedStoreId": 3520,
+    "observedStoreLocation": "New York, 10001",
+    "collected": 1,
+    "failed": 0,
+    "implementationRef": "scripts/test-walmart-brightdata-ingest.ts",
+    "implementationSha256": "7bc735cb1a38bc88bc8037004fa2ce168d5799bcad06d53b731e1d76a4240388",
+    "verifiedAtUtc": "2026-09-18T17:19:47.479Z"
+  }
+}
