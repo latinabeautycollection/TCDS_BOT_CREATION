@@ -1,0 +1,43 @@
+{
+  "qa_at": "2026-09-12T18:27:54.413531Z",
+  "runner": {
+    "kind": "tsx_file",
+    "entrypoint": "scripts/brightdata-bestbuy-webunlocker-search-ingest.ts",
+    "max_concurrency": 2,
+    "timeout_seconds": 3600
+  },
+  "qa_actor": "Tictac",
+  "transport": "env",
+  "adapter_id": "d6b3a286-4ebc-45ff-94e8-39beeb79c5f0",
+  "exit_status": 0,
+  "test_result": "PASS",
+  "evidence_scope": "Bounded Best Buy ingest QA plus R1D two-worker dispatch concurrency proof",
+  "artifact_sha256": "69248ce08ff890335c6532cc5382c4d54c765c23b393518264312f524d3dd662",
+  "db_ingest_proof": {
+    "status": "completed",
+    "dead_letters": 0,
+    "raw_captures": 10,
+    "total_failed": 0,
+    "total_skipped": 0,
+    "total_collected": 10,
+    "total_requested": 10,
+    "collection_run_id": "3a39c1d7-9260-4182-9057-0ecd254e83c1"
+  },
+  "scraper_asset_id": "0c87e6a9-61e4-472a-b035-f2910b2127e6",
+  "scraper_contract_id": "06d1fde7-9835-4e3c-9751-f750225af1b0",
+  "inherited_environment": [
+    "DATABASE_URL",
+    "BRIGHTDATA_TOKEN",
+    "BRIGHTDATA_WEB_UNLOCKER_ZONE"
+  ],
+  "fixture_payload_sha256": "8e066a7fb5c4877966980eb4ce490937a8481d6159561567f24dc17311ae1d33",
+  "qualification_boundary": "Dispatch evidence only; product qualification remains R1E authority",
+  "concurrency_proof": {
+    "process_run_id": "11107965-4715-4a9c-be0c-5366d5fb4c6e",
+    "tested_binding_id": "6df2e4b4-3138-4628-b543-898b75407360",
+    "workers": 8,
+    "claimed": 2,
+    "all_passed": true,
+    "verified_at": "2026-09-19T17:51:40Z"
+  }
+}

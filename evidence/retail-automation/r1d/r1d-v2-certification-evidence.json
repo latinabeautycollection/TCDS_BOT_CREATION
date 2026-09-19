@@ -1,0 +1,422 @@
+{
+  "manifest": {
+    "adversarialResults": [
+      {
+        "detail": {},
+        "gate": 1,
+        "name": "v2_state",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 2,
+        "name": "r1c_binding_current",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 3,
+        "name": "global_daily_budget_exactly_one",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 4,
+        "name": "global_monthly_budget_exactly_one",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 5,
+        "name": "active_cost_profiles_have_max",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 6,
+        "name": "no_cost_model_violations",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 7,
+        "name": "all_effective_platforms_have_rate_policy",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 8,
+        "name": "no_nullable_failopen_rate_policy",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 9,
+        "name": "certified_bindings_unique_per_adapter",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 10,
+        "name": "no_legacy_node_file_certified",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 11,
+        "name": "all_certified_bindings_current",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 12,
+        "name": "binding_evidence_nonempty",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 13,
+        "name": "no_stale_queued_jobs",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 14,
+        "name": "outbox_attempt_uniqueness",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 15,
+        "name": "outbox_message_uniqueness",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 16,
+        "name": "no_reserved_rates_for_terminal_jobs",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 17,
+        "name": "no_reserved_budget_for_terminal_jobs",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 18,
+        "name": "halfopen_has_token",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 19,
+        "name": "open_breaker_has_deadline",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 20,
+        "name": "geo_transition_rules_present",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 21,
+        "name": "no_direct_route_creation_authority",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 22,
+        "name": "certification_guard_present",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 23,
+        "name": "certification_insert_validation_present",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 24,
+        "name": "budget_ledger_appendonly",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 25,
+        "name": "binding_history_appendonly",
+        "ok": true
+      },
+      {
+        "detail": "Actual cost must be nonnegative",
+        "gate": 26,
+        "name": "negative_actual_cost_rejected",
+        "ok": true
+      },
+      {
+        "detail": "Geo escalation max_children must be 1..100",
+        "gate": 27,
+        "name": "invalid_geo_fanout_rejected",
+        "ok": true
+      },
+      {
+        "detail": "Unsupported runner_policy_json field shell",
+        "gate": 28,
+        "name": "invalid_runner_policy_rejected",
+        "ok": true
+      },
+      {
+        "detail": "External completion outbox/lease mismatch",
+        "gate": 29,
+        "name": "invalid_external_completion_rejected",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 30,
+        "name": "certification_scoped_claim_function_exists",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 31,
+        "name": "public_v2_claim_revoked",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 32,
+        "name": "public_external_finish_revoked",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 33,
+        "name": "public_stale_reconcile_revoked",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 34,
+        "name": "attempt_rate_ledger_exists",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 35,
+        "name": "cost_violation_ledger_exists",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 36,
+        "name": "v2_cert_text_column_exists",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 37,
+        "name": "qa_jobs_isolated",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 38,
+        "name": "no_buy_authority_columns",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 39,
+        "name": "r1c_v3_only_upstream",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "gate": 40,
+        "name": "effective_dispatch_view_exists",
+        "ok": true
+      }
+    ],
+    "certificationFixturePreparation": {
+      "event": "r1d_certification_fixtures_prepared",
+      "fixtureIds": [
+        "ed51fa48-88bc-4892-b852-0737202a3f62",
+        "3d7d299b-e8f7-4755-84af-e718eb216b3c",
+        "ed5f5184-22fb-4cb2-a098-45e5847375aa",
+        "23fc409a-c636-4bea-ad89-c016467eb89c",
+        "71befc17-a272-4e7c-9a59-09699fcede69",
+        "f7475673-38e3-4d16-a8ef-5a4217cbd28d",
+        "547f5a6b-6016-45f5-9bee-d7f6438280b4",
+        "72698158-0521-41ad-b3c0-0de4e423cf56"
+      ],
+      "processRunId": "8c70fa0e-c9ff-4f52-9e4b-6db9ec3a34f6"
+    },
+    "certificationVersion": "r1d-v2.0.0",
+    "concurrencyResults": {
+      "allPassed": true,
+      "claimed": 2,
+      "gates": [
+        {
+          "detail": {
+            "claimed": 2,
+            "workers": 8
+          },
+          "name": "qa_only_claims",
+          "ok": true
+        },
+        {
+          "detail": {
+            "ids": [
+              "23fc409a-c636-4bea-ad89-c016467eb89c",
+              "71befc17-a272-4e7c-9a59-09699fcede69"
+            ]
+          },
+          "name": "no_duplicate_job_lease",
+          "ok": true
+        },
+        {
+          "detail": {
+            "n": 0
+          },
+          "name": "no_production_job_claimed",
+          "ok": true
+        },
+        {
+          "detail": [
+            {
+              "dispatch_binding_id": "30624eec-d1b6-411c-9dae-73c81e311d2f",
+              "max_concurrency": 2,
+              "n": 2
+            }
+          ],
+          "name": "binding_concurrency_not_exceeded",
+          "ok": true
+        },
+        {
+          "detail": [
+            {
+              "max_parallel": 2,
+              "n": 2,
+              "platform_id": "77767aea-d12c-4aa7-a707-4188585759b9"
+            }
+          ],
+          "name": "platform_concurrency_not_exceeded",
+          "ok": true
+        },
+        {
+          "detail": {
+            "n": 0
+          },
+          "name": "qa_cleanup_releases_budget",
+          "ok": true
+        },
+        {
+          "detail": {
+            "n": 0
+          },
+          "name": "qa_cleanup_releases_rate_slots",
+          "ok": true
+        },
+        {
+          "detail": {
+            "n": 0
+          },
+          "name": "qa_cleanup_releases_leases",
+          "ok": true
+        }
+      ],
+      "workers": 8
+    },
+    "correlationId": "fa2094e6-5b19-4b85-8aba-1b1f0b0379f9",
+    "createdAt": "2026-09-19T17:53:59.379Z",
+    "passiveResults": [
+      {
+        "detail": {},
+        "name": "r1d_v2_state",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "r1c_v3_binding_current",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "global_daily_budget_exactly_one",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "global_monthly_budget_exactly_one",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "active_cost_profiles_bounded",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "no_cost_model_violations",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "all_effective_platforms_rate_governed",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "current_dispatch_bindings_nonempty",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "no_legacy_certified_node_file",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "effective_compiled_jobs_nonempty",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "schedule_state_complete",
+        "ok": true
+      },
+      {
+        "detail": {},
+        "name": "no_stale_production_queue",
+        "ok": true
+      }
+    ],
+    "processRunId": "625747e3-9a57-4e6e-96dc-347c943d1fa7",
+    "r1cBinding": {
+      "bound_at": {},
+      "bound_by": "Tictac",
+      "certification_status": "CERTIFIED",
+      "certification_version": "r1c-v3.0.0",
+      "compiler_authority_sha256": "897ff9d9986ae0f0a9d2739ce9b4511c3f127193e267cdb6d51fcba9f763a130",
+      "compiler_version_id": "5287b6f1-bf17-48f4-9a29-d4c3bc991010",
+      "r1c_certification_run_id": "edbbbb98-b276-4278-b353-eb2f871ea0b2",
+      "r1c_certification_version": "r1c-v3.0.0",
+      "r1c_effective_jobs_view_sha256": "b578b454499f20ba5ce20009a60d7d12511d2f8fa648b0eaa1faca67b15ad6ee",
+      "r1c_evidence_manifest_sha256": "bd27ec47254170da0a2d535cc33c0e08a2d6ce68e85d0c2ee328f7927cbca908",
+      "r1c_package_sha256": "66644976d2ba032c9e0a53794cbf0e0ac6f92f9f91e40e602152644d34945411",
+      "singleton": true,
+      "source_correlation_id": "62dacbab-d7a8-4042-80ea-f54f5a5313a9",
+      "source_process_run_id": "ff6971de-7250-4716-a8ca-e2d1a9844038",
+      "updated_at": {}
+    },
+    "r1dReleaseZip": "TCDS_Retail_R1D_GREEN_TIER1_CERTIFICATION_FINAL.zip",
+    "r1dReleaseZipSha256": "ee41698d0ffc7177ea61b44431a55c7db2b5cdddeb2a1c4496ac1d0c134741ad"
+  },
+  "canonicalManifestText": "{\"adversarialResults\":[{\"detail\":{},\"gate\":1,\"name\":\"v2_state\",\"ok\":true},{\"detail\":{},\"gate\":2,\"name\":\"r1c_binding_current\",\"ok\":true},{\"detail\":{},\"gate\":3,\"name\":\"global_daily_budget_exactly_one\",\"ok\":true},{\"detail\":{},\"gate\":4,\"name\":\"global_monthly_budget_exactly_one\",\"ok\":true},{\"detail\":{},\"gate\":5,\"name\":\"active_cost_profiles_have_max\",\"ok\":true},{\"detail\":{},\"gate\":6,\"name\":\"no_cost_model_violations\",\"ok\":true},{\"detail\":{},\"gate\":7,\"name\":\"all_effective_platforms_have_rate_policy\",\"ok\":true},{\"detail\":{},\"gate\":8,\"name\":\"no_nullable_failopen_rate_policy\",\"ok\":true},{\"detail\":{},\"gate\":9,\"name\":\"certified_bindings_unique_per_adapter\",\"ok\":true},{\"detail\":{},\"gate\":10,\"name\":\"no_legacy_node_file_certified\",\"ok\":true},{\"detail\":{},\"gate\":11,\"name\":\"all_certified_bindings_current\",\"ok\":true},{\"detail\":{},\"gate\":12,\"name\":\"binding_evidence_nonempty\",\"ok\":true},{\"detail\":{},\"gate\":13,\"name\":\"no_stale_queued_jobs\",\"ok\":true},{\"detail\":{},\"gate\":14,\"name\":\"outbox_attempt_uniqueness\",\"ok\":true},{\"detail\":{},\"gate\":15,\"name\":\"outbox_message_uniqueness\",\"ok\":true},{\"detail\":{},\"gate\":16,\"name\":\"no_reserved_rates_for_terminal_jobs\",\"ok\":true},{\"detail\":{},\"gate\":17,\"name\":\"no_reserved_budget_for_terminal_jobs\",\"ok\":true},{\"detail\":{},\"gate\":18,\"name\":\"halfopen_has_token\",\"ok\":true},{\"detail\":{},\"gate\":19,\"name\":\"open_breaker_has_deadline\",\"ok\":true},{\"detail\":{},\"gate\":20,\"name\":\"geo_transition_rules_present\",\"ok\":true},{\"detail\":{},\"gate\":21,\"name\":\"no_direct_route_creation_authority\",\"ok\":true},{\"detail\":{},\"gate\":22,\"name\":\"certification_guard_present\",\"ok\":true},{\"detail\":{},\"gate\":23,\"name\":\"certification_insert_validation_present\",\"ok\":true},{\"detail\":{},\"gate\":24,\"name\":\"budget_ledger_appendonly\",\"ok\":true},{\"detail\":{},\"gate\":25,\"name\":\"binding_history_appendonly\",\"ok\":true},{\"detail\":\"Actual cost must be nonnegative\",\"gate\":26,\"name\":\"negative_actual_cost_rejected\",\"ok\":true},{\"detail\":\"Geo escalation max_children must be 1..100\",\"gate\":27,\"name\":\"invalid_geo_fanout_rejected\",\"ok\":true},{\"detail\":\"Unsupported runner_policy_json field shell\",\"gate\":28,\"name\":\"invalid_runner_policy_rejected\",\"ok\":true},{\"detail\":\"External completion outbox/lease mismatch\",\"gate\":29,\"name\":\"invalid_external_completion_rejected\",\"ok\":true},{\"detail\":{},\"gate\":30,\"name\":\"certification_scoped_claim_function_exists\",\"ok\":true},{\"detail\":{},\"gate\":31,\"name\":\"public_v2_claim_revoked\",\"ok\":true},{\"detail\":{},\"gate\":32,\"name\":\"public_external_finish_revoked\",\"ok\":true},{\"detail\":{},\"gate\":33,\"name\":\"public_stale_reconcile_revoked\",\"ok\":true},{\"detail\":{},\"gate\":34,\"name\":\"attempt_rate_ledger_exists\",\"ok\":true},{\"detail\":{},\"gate\":35,\"name\":\"cost_violation_ledger_exists\",\"ok\":true},{\"detail\":{},\"gate\":36,\"name\":\"v2_cert_text_column_exists\",\"ok\":true},{\"detail\":{},\"gate\":37,\"name\":\"qa_jobs_isolated\",\"ok\":true},{\"detail\":{},\"gate\":38,\"name\":\"no_buy_authority_columns\",\"ok\":true},{\"detail\":{},\"gate\":39,\"name\":\"r1c_v3_only_upstream\",\"ok\":true},{\"detail\":{},\"gate\":40,\"name\":\"effective_dispatch_view_exists\",\"ok\":true}],\"certificationFixturePreparation\":{\"event\":\"r1d_certification_fixtures_prepared\",\"fixtureIds\":[\"ed51fa48-88bc-4892-b852-0737202a3f62\",\"3d7d299b-e8f7-4755-84af-e718eb216b3c\",\"ed5f5184-22fb-4cb2-a098-45e5847375aa\",\"23fc409a-c636-4bea-ad89-c016467eb89c\",\"71befc17-a272-4e7c-9a59-09699fcede69\",\"f7475673-38e3-4d16-a8ef-5a4217cbd28d\",\"547f5a6b-6016-45f5-9bee-d7f6438280b4\",\"72698158-0521-41ad-b3c0-0de4e423cf56\"],\"processRunId\":\"8c70fa0e-c9ff-4f52-9e4b-6db9ec3a34f6\"},\"certificationVersion\":\"r1d-v2.0.0\",\"concurrencyResults\":{\"allPassed\":true,\"claimed\":2,\"gates\":[{\"detail\":{\"claimed\":2,\"workers\":8},\"name\":\"qa_only_claims\",\"ok\":true},{\"detail\":{\"ids\":[\"23fc409a-c636-4bea-ad89-c016467eb89c\",\"71befc17-a272-4e7c-9a59-09699fcede69\"]},\"name\":\"no_duplicate_job_lease\",\"ok\":true},{\"detail\":{\"n\":0},\"name\":\"no_production_job_claimed\",\"ok\":true},{\"detail\":[{\"dispatch_binding_id\":\"30624eec-d1b6-411c-9dae-73c81e311d2f\",\"max_concurrency\":2,\"n\":2}],\"name\":\"binding_concurrency_not_exceeded\",\"ok\":true},{\"detail\":[{\"max_parallel\":2,\"n\":2,\"platform_id\":\"77767aea-d12c-4aa7-a707-4188585759b9\"}],\"name\":\"platform_concurrency_not_exceeded\",\"ok\":true},{\"detail\":{\"n\":0},\"name\":\"qa_cleanup_releases_budget\",\"ok\":true},{\"detail\":{\"n\":0},\"name\":\"qa_cleanup_releases_rate_slots\",\"ok\":true},{\"detail\":{\"n\":0},\"name\":\"qa_cleanup_releases_leases\",\"ok\":true}],\"workers\":8},\"correlationId\":\"fa2094e6-5b19-4b85-8aba-1b1f0b0379f9\",\"createdAt\":\"2026-09-19T17:53:59.379Z\",\"passiveResults\":[{\"detail\":{},\"name\":\"r1d_v2_state\",\"ok\":true},{\"detail\":{},\"name\":\"r1c_v3_binding_current\",\"ok\":true},{\"detail\":{},\"name\":\"global_daily_budget_exactly_one\",\"ok\":true},{\"detail\":{},\"name\":\"global_monthly_budget_exactly_one\",\"ok\":true},{\"detail\":{},\"name\":\"active_cost_profiles_bounded\",\"ok\":true},{\"detail\":{},\"name\":\"no_cost_model_violations\",\"ok\":true},{\"detail\":{},\"name\":\"all_effective_platforms_rate_governed\",\"ok\":true},{\"detail\":{},\"name\":\"current_dispatch_bindings_nonempty\",\"ok\":true},{\"detail\":{},\"name\":\"no_legacy_certified_node_file\",\"ok\":true},{\"detail\":{},\"name\":\"effective_compiled_jobs_nonempty\",\"ok\":true},{\"detail\":{},\"name\":\"schedule_state_complete\",\"ok\":true},{\"detail\":{},\"name\":\"no_stale_production_queue\",\"ok\":true}],\"processRunId\":\"625747e3-9a57-4e6e-96dc-347c943d1fa7\",\"r1cBinding\":{\"bound_at\":{},\"bound_by\":\"Tictac\",\"certification_status\":\"CERTIFIED\",\"certification_version\":\"r1c-v3.0.0\",\"compiler_authority_sha256\":\"897ff9d9986ae0f0a9d2739ce9b4511c3f127193e267cdb6d51fcba9f763a130\",\"compiler_version_id\":\"5287b6f1-bf17-48f4-9a29-d4c3bc991010\",\"r1c_certification_run_id\":\"edbbbb98-b276-4278-b353-eb2f871ea0b2\",\"r1c_certification_version\":\"r1c-v3.0.0\",\"r1c_effective_jobs_view_sha256\":\"b578b454499f20ba5ce20009a60d7d12511d2f8fa648b0eaa1faca67b15ad6ee\",\"r1c_evidence_manifest_sha256\":\"bd27ec47254170da0a2d535cc33c0e08a2d6ce68e85d0c2ee328f7927cbca908\",\"r1c_package_sha256\":\"66644976d2ba032c9e0a53794cbf0e0ac6f92f9f91e40e602152644d34945411\",\"singleton\":true,\"source_correlation_id\":\"62dacbab-d7a8-4042-80ea-f54f5a5313a9\",\"source_process_run_id\":\"ff6971de-7250-4716-a8ca-e2d1a9844038\",\"updated_at\":{}},\"r1dReleaseZip\":\"TCDS_Retail_R1D_GREEN_TIER1_CERTIFICATION_FINAL.zip\",\"r1dReleaseZipSha256\":\"ee41698d0ffc7177ea61b44431a55c7db2b5cdddeb2a1c4496ac1d0c134741ad\"}",
+  "evidenceManifestSha256": "d21706ed18f469c09e13a51f717c9a97303494e1c93199dca98b7f5864bc29b2"
+}
