@@ -292,6 +292,15 @@ async function buildOne(
     }
   };
 
+  // PostgreSQL rows contain explicit nulls, while JSON.stringify omits
+  // top-level undefined properties. Normalize those fields before comparison.
+  const candidateBusinessDocument = Object.fromEntries(
+    Object.entries(candidate).map(([key, value]) => [
+      key,
+      value === undefined ? null : value
+    ])
+  );
+
   // PostgreSQL JSONB equality avoids JavaScript key-order and type coercion churn.
   const previous = await c.query(
     `select
@@ -320,7 +329,7 @@ async function buildOne(
      where r.target_id = $1
      order by r.revision_no desc
      limit 1`,
-    [t.id, JSON.stringify(candidate)]
+    [t.id, JSON.stringify(candidateBusinessDocument)]
   );
 
   if (previous.rowCount) {
