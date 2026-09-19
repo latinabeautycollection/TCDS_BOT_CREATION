@@ -1,5 +1,4 @@
 import { randomUUID } from 'node:crypto';
-import { isDeepStrictEqual } from 'node:util';
 import { Pool, PoolClient } from 'pg';
 import type { ArbWatchlistRow, PriorityTier } from './types';
 
@@ -237,23 +236,6 @@ async function buildOne(
     )
   ).rows[0].n);
 
-  // We first compare a deterministic business signature in DB so identical
-  // upstream intent does not create revision churn.
-  const previous = await c.query(
-    `select
-       r.*,
-       r.search_policy - 'category_rank' as stable_search_policy,
-       retail.r1a_stable_upstream_document(r.upstream_snapshot) =
-         retail.r1a_stable_upstream_document(
-           retail.r1a_current_upstream_document(r.upstream_watchlist_id)
-         ) as upstream_snapshot_current
-       from retail.search_target_revisions r
-      where r.target_id=$1
-      order by r.revision_no desc
-      limit 1`,
-    [t.id]
-  );
-
   const candidate = {
     upstream_watchlist_id: w.id,
     upstream_strategy_id: w.strategy_id,
@@ -310,35 +292,41 @@ async function buildOne(
     }
   };
 
+  // PostgreSQL JSONB equality avoids JavaScript key-order and type coercion churn.
+  const previous = await c.query(
+    `select
+       r.*,
+       (
+         (
+           retail.r1a_revision_business_document(r)
+           - ARRAY[
+               'target_id',
+               'revision_no',
+               'upstream_snapshot_hash'
+             ]
+         )
+         || jsonb_build_object(
+              'search_policy',
+              r.search_policy - 'category_rank'
+            )
+       ) = $2::jsonb as business_same,
+       retail.r1a_stable_upstream_document(r.upstream_snapshot) =
+         retail.r1a_stable_upstream_document(
+           retail.r1a_current_upstream_document(
+             r.upstream_watchlist_id
+           )
+         ) as upstream_snapshot_current
+     from retail.search_target_revisions r
+     where r.target_id = $1
+     order by r.revision_no desc
+     limit 1`,
+    [t.id, JSON.stringify(candidate)]
+  );
+
   if (previous.rowCount) {
     const p = previous.rows[0];
     const same =
-      Number(p.upstream_watchlist_id) === Number(candidate.upstream_watchlist_id) &&
-      (p.upstream_strategy_id == null ? null : Number(p.upstream_strategy_id)) ===
-        (candidate.upstream_strategy_id == null ? null : Number(candidate.upstream_strategy_id)) &&
-      p.category_key === candidate.category_key &&
-      p.family_key === candidate.family_key &&
-      p.family_name === candidate.family_name &&
-      p.canonical_product_key === candidate.canonical_product_key &&
-      p.brand === candidate.brand &&
-      p.model_family === candidate.model_family &&
-      p.normalized_product_type === candidate.normalized_product_type &&
-      p.normalized_model_token === candidate.normalized_model_token &&
-      p.normalized_generation === candidate.normalized_generation &&
-      p.normalized_variant === candidate.normalized_variant &&
-      p.normalized_storage === candidate.normalized_storage &&
-      p.normalized_platform === candidate.normalized_platform &&
-      String(p.upstream_identity_confidence ?? '') === String(candidate.upstream_identity_confidence ?? '') &&
-      p.keyword_fingerprint === candidate.keyword_fingerprint &&
-      JSON.stringify(p.include_terms) === JSON.stringify(candidate.include_terms) &&
-      JSON.stringify(p.exclude_terms) === JSON.stringify(candidate.exclude_terms) &&
-      JSON.stringify(p.allowed_conditions) === JSON.stringify(candidate.allowed_conditions) &&
-      JSON.stringify(p.desired_source_types) === JSON.stringify(candidate.desired_source_types) &&
-      JSON.stringify(p.desired_discount_signals) === JSON.stringify(candidate.desired_discount_signals) &&
-      String(p.discovery_price_ceiling_usd ?? '') === String(candidate.discovery_price_ceiling_usd ?? '') &&
-      Number(p.discovery_result_limit) === candidate.discovery_result_limit &&
-      p.priority_tier === candidate.priority_tier &&
-      isDeepStrictEqual(p.stable_search_policy, candidate.search_policy) &&
+      p.business_same === true &&
       p.upstream_snapshot_current === true;
 
     if (same) {
