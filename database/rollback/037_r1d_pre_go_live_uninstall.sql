@@ -1,0 +1,72 @@
+BEGIN;
+-- PRE-GO-LIVE ONLY. Do not use after R1D evidence is relied upon.
+
+DROP VIEW IF EXISTS retail.r1d_effective_dispatch_jobs;
+
+DROP TRIGGER IF EXISTS trg_r1d_audit_geo_events ON retail.r1d_geo_activation_events;
+DROP TRIGGER IF EXISTS trg_r1d_audit_schedule_policies ON retail.r1d_schedule_policies;
+DROP TRIGGER IF EXISTS trg_r1d_audit_budget_policies ON retail.r1d_budget_policies;
+DROP TRIGGER IF EXISTS trg_r1d_audit_cost_profiles ON retail.r1d_cost_profiles;
+DROP TRIGGER IF EXISTS trg_r1d_audit_schedule_state ON retail.r1d_compilation_schedule_state;
+DROP TRIGGER IF EXISTS trg_r1d_audit_jobs ON retail.r1d_dispatch_jobs;
+DROP TRIGGER IF EXISTS trg_r1d_audit_dispatch_binding ON retail.r1d_dispatch_bindings;
+DROP TRIGGER IF EXISTS trg_r1d_audit_binding ON retail.r1d_r1c_certification_binding;
+DROP TRIGGER IF EXISTS trg_r1d_dispatch_job_guard ON retail.r1d_dispatch_jobs;
+DROP TRIGGER IF EXISTS trg_r1d_dispatch_binding_guard ON retail.r1d_dispatch_bindings;
+DROP TRIGGER IF EXISTS trg_r1d_prepare_dispatch_binding ON retail.r1d_dispatch_bindings;
+DROP TRIGGER IF EXISTS trg_r1d_cost_policy_immutable ON retail.r1d_cost_profiles;
+DROP TRIGGER IF EXISTS trg_r1d_schedule_policy_immutable ON retail.r1d_schedule_policies;
+DROP TRIGGER IF EXISTS trg_r1d_budget_policy_immutable ON retail.r1d_budget_policies;
+DROP TRIGGER IF EXISTS trg_r1d_prepare_cost_profile ON retail.r1d_cost_profiles;
+
+DROP FUNCTION IF EXISTS retail.r1d_reap_expired_leases(timestamptz,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_finish_job(uuid,uuid,boolean,numeric,text,text,text,jsonb,integer,text,text,text,text,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_fail_pre_dispatch(uuid,uuid,text,text,boolean,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_mark_dispatching(uuid,uuid);
+DROP FUNCTION IF EXISTS retail.r1d_claim_next_job(text,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_materialize_due_jobs(timestamptz,integer,uuid,text,text);
+DROP FUNCTION IF EXISTS retail.r1d_estimate_cost(uuid,uuid);
+DROP FUNCTION IF EXISTS retail.r1d_resolve_cost_profile(uuid,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_release_budget(uuid,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_settle_budget(uuid,numeric,text,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_reserve_budget_for_job(uuid,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_reserve_rate_slot(uuid,timestamptz);
+DROP FUNCTION IF EXISTS retail.r1d_circuit_allows(uuid,uuid,timestamptz);
+DROP FUNCTION IF EXISTS retail.r1d_activate_geo_children(uuid,text,numeric,text,integer,text,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_set_geo_activation(uuid,text,text,numeric,text);
+DROP FUNCTION IF EXISTS retail.r1d_sync_schedule_state(timestamptz,uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_certify_dispatch_binding(uuid,jsonb,text);
+DROP FUNCTION IF EXISTS retail.r1d_register_dispatch_binding(uuid,text,text,text,integer,integer,jsonb,text);
+DROP FUNCTION IF EXISTS retail.r1d_dispatch_binding_is_current(uuid);
+DROP FUNCTION IF EXISTS retail.r1d_dispatch_binding_guard();
+DROP FUNCTION IF EXISTS retail.r1d_prepare_dispatch_binding();
+DROP FUNCTION IF EXISTS retail.r1d_dispatch_binding_document(retail.r1d_dispatch_bindings);
+DROP FUNCTION IF EXISTS retail.r1d_active_policy_immutable();
+DROP FUNCTION IF EXISTS retail.r1d_resolve_schedule_policy(uuid,text);
+DROP FUNCTION IF EXISTS retail.r1d_prepare_cost_profile();
+DROP FUNCTION IF EXISTS retail.r1d_bind_r1c_certification(uuid,uuid,text,text);
+DROP FUNCTION IF EXISTS retail.r1d_r1c_binding_is_current();
+DROP FUNCTION IF EXISTS retail.r1d_sha256_jsonb(jsonb);
+DROP FUNCTION IF EXISTS retail.r1d_sha256_text(text);
+DROP FUNCTION IF EXISTS retail_audit.r1d_log_retail_change();
+
+DROP TABLE IF EXISTS retail.r1d_certification_runs;
+DROP TABLE IF EXISTS retail.r1d_dead_letters;
+DROP TABLE IF EXISTS retail.r1d_dispatch_outbox;
+DROP TABLE IF EXISTS retail.r1d_dispatch_attempts;
+DROP TABLE IF EXISTS retail.r1d_budget_ledger;
+DROP TABLE IF EXISTS retail.r1d_budget_reservations;
+DROP TABLE IF EXISTS retail.r1d_rate_usage;
+DROP TABLE IF EXISTS retail.r1d_dispatch_jobs;
+DROP TABLE IF EXISTS retail.r1d_circuit_breakers;
+DROP TABLE IF EXISTS retail.r1d_geo_activation_events;
+DROP TABLE IF EXISTS retail.r1d_compilation_schedule_state;
+DROP TABLE IF EXISTS retail.r1d_dispatch_bindings;
+DROP TABLE IF EXISTS retail.r1d_schedule_policies;
+DROP TABLE IF EXISTS retail.r1d_budget_policies;
+DROP TABLE IF EXISTS retail.r1d_cost_profiles;
+DROP TABLE IF EXISTS retail.r1d_r1c_binding_history;
+DROP TABLE IF EXISTS retail.r1d_r1c_certification_binding;
+DROP TABLE IF EXISTS retail.r1d_schema_state;
+
+COMMIT;

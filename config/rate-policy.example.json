@@ -1,0 +1,7 @@
+{
+  "platform_id": "<uuid>",
+  "hourly_limit": 500,
+  "daily_limit": 5000,
+  "hourly_unlimited": false,
+  "daily_unlimited": false
+}

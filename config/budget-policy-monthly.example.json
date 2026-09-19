@@ -1,0 +1,6 @@
+{
+  "policy_code": "R1D_GLOBAL_MONTHLY_V2",
+  "scope_type": "GLOBAL",
+  "period_kind": "MONTHLY",
+  "daily_limit_usd": 300.0
+}

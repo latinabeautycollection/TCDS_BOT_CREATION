@@ -1,0 +1,13 @@
+{
+  "policy_code": "R1D_STORE_ESCALATED_V1",
+  "platform_id": null,
+  "location_type": "store",
+  "min_interval_seconds": 3600,
+  "initially_active": false,
+  "max_parallel": 8,
+  "max_attempts": 5,
+  "base_backoff_seconds": 60,
+  "max_backoff_seconds": 21600,
+  "lease_seconds": 900,
+  "priority": 80
+}

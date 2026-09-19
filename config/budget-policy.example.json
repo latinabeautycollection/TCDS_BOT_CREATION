@@ -1,0 +1,5 @@
+{
+  "policy_code": "R1D_GLOBAL_DAILY_V1",
+  "scope_type": "GLOBAL",
+  "daily_limit_usd": 10.0
+}

@@ -1,0 +1,13 @@
+{
+  "policy_code": "R1D_NATIONAL_BASELINE_V1",
+  "platform_id": null,
+  "location_type": "national",
+  "min_interval_seconds": 21600,
+  "initially_active": true,
+  "max_parallel": 4,
+  "max_attempts": 5,
+  "base_backoff_seconds": 60,
+  "max_backoff_seconds": 21600,
+  "lease_seconds": 900,
+  "priority": 50
+}

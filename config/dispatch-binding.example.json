@@ -1,0 +1,14 @@
+{
+  "runner_kind": "npm_script",
+  "npm_script": "start",
+  "payload_delivery": "env",
+  "timeout_seconds": 900,
+  "max_concurrency": 2,
+  "runner_policy_json": {
+    "inherited_env_allowlist": [
+      "DATABASE_URL",
+      "BRIGHTDATA_API_TOKEN"
+    ],
+    "graceful_kill_seconds": 5
+  }
+}

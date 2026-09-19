@@ -1,0 +1,25 @@
+{
+  "platform_id": "<uuid>",
+  "collection_source_id": "<uuid-or-null>",
+  "collection_method": "brightdata_dataset",
+  "cost_version": "v2",
+  "unit_type": "per_record",
+  "unit_cost_usd": 0.0015,
+  "fixed_cost_usd": 0,
+  "safety_multiplier": 1.2,
+  "max_execution_cost_usd": 2.0,
+  "cost_model_json": {
+    "fixed_usd": 0,
+    "components": [
+      {
+        "name": "records",
+        "max_units_source": "target.discovery_result_limit",
+        "unit_cost_usd": 0.0015
+      }
+    ],
+    "retry_allowance_multiplier": 1.2
+  },
+  "evidence": {
+    "source": "Replace with current verified provider billing evidence before certification"
+  }
+}
