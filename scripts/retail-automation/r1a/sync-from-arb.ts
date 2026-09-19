@@ -239,7 +239,9 @@ async function buildOne(
   // We first compare a deterministic business signature in DB so identical
   // upstream intent does not create revision churn.
   const previous = await c.query(
-    `select r.*
+    `select
+       r.*,
+       r.search_policy - 'category_rank' as stable_search_policy,
        from retail.search_target_revisions r
       where r.target_id=$1
       order by r.revision_no desc
@@ -295,7 +297,6 @@ async function buildOne(
       source_condition_text: w.cohort_condition_text,
       match_class: w.cohort_match_class,
       match_score: Number(w.cohort_best_match_score),
-      category_rank: Number(w.category_rank),
       category_limit: Number(w.max_products_per_run),
       purchase_authority: false,
       capital_authority: false,
@@ -332,7 +333,7 @@ async function buildOne(
       String(p.discovery_price_ceiling_usd ?? '') === String(candidate.discovery_price_ceiling_usd ?? '') &&
       Number(p.discovery_result_limit) === candidate.discovery_result_limit &&
       p.priority_tier === candidate.priority_tier &&
-      JSON.stringify(p.search_policy) === JSON.stringify(candidate.search_policy) &&
+      JSON.stringify(p.stable_search_policy) === JSON.stringify(candidate.search_policy) &&
       p.upstream_snapshot_hash === authority.rows[0].hash;
 
     if (same) {
