@@ -308,25 +308,51 @@ async function collectChild(
 }
 
 async function processOne(){
-  const claim=await pool.query(`
-    select * from retail.r1d_claim_next_job_v2($1,null,null,$2)
-  `,[workerId,certificationOnly]);
+  const candidate=await pool.query(`
+    select exists(
+      select 1
+      from retail.r1d_dispatch_jobs
+      where certification_fixture=$1
+        and status in('queued','retry_wait')
+        and next_attempt_at<=now()
+    ) as available
+  `,[certificationOnly]);
 
-  if(!claim.rowCount) return false;
+  if(candidate.rows[0]?.available!==true) return false;
 
-  const job=claim.rows[0] as ClaimedJobV2;
   const run=await startPersistentRun(
     pool,'RETAIL_R1D_DISPATCH','worker',
     workerId,workerId,'retail.r1d_dispatch_jobs'
   );
 
-  await pool.query(`
-    select retail.r1d_attach_claim_provenance(
-      $1,$2,$3,$4
-    )
-  `,[job.job_id,job.attempt_no,run.runId,run.correlationId]);
+  let claim;
+  try{
+    claim=await pool.query(`
+      select * from retail.r1d_claim_next_job_v2($1,$2,$3,$4)
+    `,[workerId,run.runId,run.correlationId,certificationOnly]);
+  }catch(e){
+    await finishPersistentRun(
+      pool,run.runId,'FAILED',{seen:0,succeeded:0,failed:1},e
+    );
+    throw e;
+  }
+
+  if(!claim.rowCount){
+    await finishPersistentRun(
+      pool,run.runId,'SUCCEEDED',{seen:0,succeeded:0,failed:0}
+    );
+    return false;
+  }
+
+  const job=claim.rows[0] as ClaimedJobV2;
 
   try{
+    await pool.query(`
+      select retail.r1d_attach_claim_provenance(
+        $1,$2,$3,$4
+      )
+    `,[job.job_id,job.attempt_no,run.runId,run.correlationId]);
+
     let auth:any;
     try{
       auth=await runtimeAuthority(job);
