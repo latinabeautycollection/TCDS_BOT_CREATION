@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import { isDeepStrictEqual } from 'node:util';
 import { Pool, PoolClient } from 'pg';
 import type { ArbWatchlistRow, PriorityTier } from './types';
 
@@ -337,7 +338,7 @@ async function buildOne(
       String(p.discovery_price_ceiling_usd ?? '') === String(candidate.discovery_price_ceiling_usd ?? '') &&
       Number(p.discovery_result_limit) === candidate.discovery_result_limit &&
       p.priority_tier === candidate.priority_tier &&
-      JSON.stringify(p.stable_search_policy) === JSON.stringify(candidate.search_policy) &&
+      isDeepStrictEqual(p.stable_search_policy, candidate.search_policy) &&
       p.upstream_snapshot_current === true;
 
     if (same) {
