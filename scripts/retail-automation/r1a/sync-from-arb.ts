@@ -237,8 +237,9 @@ async function buildOne(
   ).rows[0].n);
 
   const candidate = {
-    upstream_watchlist_id: w.id,
-    upstream_strategy_id: w.strategy_id,
+    upstream_watchlist_id: Number(w.id),
+    upstream_strategy_id:
+      w.strategy_id == null ? null : Number(w.strategy_id),
     category_key: w.category_key,
     family_key: w.cohort_product_key,
     family_name: norm(w.cohort_title) || w.family_name,
@@ -259,7 +260,9 @@ async function buildOne(
     normalized_platform:
       w.cohort_normalized_platform ?? w.normalized_platform,
     upstream_identity_confidence:
-      w.cohort_identity_confidence ?? w.identity_confidence,
+      (w.cohort_identity_confidence ?? w.identity_confidence) == null
+        ? null
+        : Number(w.cohort_identity_confidence ?? w.identity_confidence),
     keyword_fingerprint: includeTerms.join('|'),
     include_terms: includeTerms,
     exclude_terms: excludeTerms,
