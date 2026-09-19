@@ -241,7 +241,7 @@ async function buildOne(
   const previous = await c.query(
     `select
        r.*,
-       r.search_policy - 'category_rank' as stable_search_policy,
+       r.search_policy - 'category_rank' as stable_search_policy
        from retail.search_target_revisions r
       where r.target_id=$1
       order by r.revision_no desc
