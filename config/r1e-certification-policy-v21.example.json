@@ -1,0 +1,25 @@
+{
+  "minimum_total_fixtures": 1200,
+  "class_minimums": {
+    "positive_identity": 150,
+    "wrong_brand": 100,
+    "wrong_model": 150,
+    "wrong_variant": 200,
+    "accessory": 150,
+    "condition": 100,
+    "duplicate": 150,
+    "incomplete": 100,
+    "bundle_variant": 100
+  },
+  "minimum_decision_accuracy": 98.0,
+  "maximum_false_positive_rate": 5.0,
+  "minimum_positive_precision": 98.0,
+  "minimum_positive_recall": 98.0,
+  "maximum_wrong_variant_fpr": 1.0,
+  "minimum_duplicate_accuracy": 99.9,
+  "minimum_reason_family_accuracy": 100.0,
+  "minimum_evidence_coverage": 100.0,
+  "minimum_replay_coverage": 100.0,
+  "minimum_e2e_fixtures": 100,
+  "minimum_e2e_accuracy": 100.0
+}

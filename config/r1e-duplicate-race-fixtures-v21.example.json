@@ -1,0 +1,8 @@
+[
+  {
+    "fixture_code": "RACE_SAME_OBSERVATION_001",
+    "capture_a_id": "<qa-raw-capture-uuid-a>",
+    "capture_b_id": "<qa-raw-capture-uuid-b>",
+    "ruleset_code": "returned_product_match"
+  }
+]

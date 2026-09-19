@@ -1,0 +1,64 @@
+{
+  "identity": {
+    "min_score": 80,
+    "require_brand_match": true,
+    "min_model_score": 70,
+    "weights": {
+      "brand": 0.25,
+      "model": 0.35,
+      "title": 0.3,
+      "identifier": 0.1
+    },
+    "min_title_score": 55,
+    "hard_variant_keys": [
+      "normalized_model_token",
+      "generation",
+      "variant",
+      "storage",
+      "ram",
+      "platform"
+    ],
+    "hard_include_terms": false
+  },
+  "accessory": {
+    "reject_threshold": 80,
+    "terms": [
+      "case",
+      "cover",
+      "charger",
+      "charging cable",
+      "cable",
+      "adapter",
+      "mount",
+      "stand",
+      "screen protector",
+      "replacement battery",
+      "replacement remote",
+      "carrying bag",
+      "sleeve",
+      "skin",
+      "dock only",
+      "keyboard cover"
+    ]
+  },
+  "bundle": {
+    "reject": false,
+    "terms": [
+      "bundle",
+      "kit",
+      "2 pack",
+      "3 pack",
+      "4 pack",
+      "lot of"
+    ]
+  },
+  "condition": {
+    "strategy": "r1a_allowed_conditions"
+  },
+  "confidence": {
+    "algorithm": "weighted_identity_penalized"
+  },
+  "duplicate": {
+    "scope": "execution_observation"
+  }
+}

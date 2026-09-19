@@ -1,0 +1,218 @@
+[
+  {
+    "fixture_code": "LAPTOP_POSITIVE_DELL_7450",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "exclude_terms": [
+        "case",
+        "charger"
+      ],
+      "allowed_conditions": [
+        "new",
+        "open box"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Dell Latitude 7450 Laptop 16GB 512GB SSD",
+      "brand": "Dell",
+      "model_number": "Latitude 7450",
+      "sku": "ABC123",
+      "condition": "new"
+    },
+    "expected_decision": "QUALIFIED",
+    "fixture_class": "positive_identity"
+  },
+  {
+    "fixture_code": "LAPTOP_WRONG_BRAND",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "exclude_terms": [],
+      "allowed_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "HP EliteBook 840 G11 Laptop",
+      "brand": "HP",
+      "model_number": "840 G11",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_IDENTITY",
+    "fixture_class": "wrong_brand",
+    "expected_reason_family": "BRAND_MISMATCH"
+  },
+  {
+    "fixture_code": "LAPTOP_ACCESSORY_CASE",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "exclude_terms": [
+        "case"
+      ],
+      "allowed_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Protective Case for Dell Latitude 7450",
+      "brand": "Generic",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_ACCESSORY",
+    "fixture_class": "accessory",
+    "expected_reason_family": "ACCESSORY"
+  },
+  {
+    "fixture_code": "LAPTOP_BAD_CONDITION",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "exclude_terms": [],
+      "allowed_conditions": [
+        "new",
+        "open box"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Dell Latitude 7450 Laptop",
+      "brand": "Dell",
+      "model_number": "Latitude 7450",
+      "condition": "used"
+    },
+    "expected_decision": "REJECTED_CONDITION",
+    "fixture_class": "condition",
+    "expected_reason_family": "CONDITION"
+  },
+  {
+    "fixture_code": "LAPTOP_DUPLICATE",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "exclude_terms": [],
+      "allowed_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Dell Latitude 7450 Laptop",
+      "brand": "Dell",
+      "model_number": "Latitude 7450",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_DUPLICATE",
+    "fixture_class": "duplicate",
+    "expected_reason_family": "DUPLICATE"
+  },
+  {
+    "fixture_code": "INCOMPLETE_TITLE",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "exclude_terms": [],
+      "allowed_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "brand": "Dell",
+      "model_number": "Latitude 7450",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_INCOMPLETE",
+    "fixture_class": "incomplete",
+    "expected_reason_family": "MISSING_RETURNED_TITLE"
+  },
+  {
+    "fixture_code": "IPHONE_STORAGE_WRONG_VARIANT",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Apple",
+      "model_family": "iPhone 15 Pro Max",
+      "canonical_product_key": "apple:iphone15promax:256gb",
+      "normalized_identity": {
+        "normalized_model_token": "iphone 15 pro max",
+        "generation": "15",
+        "variant": "pro max",
+        "storage": "256gb",
+        "platform": "ios"
+      },
+      "allowed_product_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Apple iPhone 15 Pro Max 128GB",
+      "brand": "Apple",
+      "model_number": "iPhone 15 Pro Max",
+      "storage": "128gb",
+      "generation": "15",
+      "variant": "pro max",
+      "platform": "ios",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_IDENTITY",
+    "fixture_class": "wrong_variant",
+    "expected_reason_family": "VARIANT_MISMATCH"
+  },
+  {
+    "fixture_code": "MACBOOK_RAM_WRONG_VARIANT",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Apple",
+      "model_family": "MacBook Pro M3",
+      "normalized_identity": {
+        "normalized_model_token": "macbook pro m3",
+        "generation": "m3",
+        "ram": "16gb",
+        "storage": "512gb"
+      },
+      "allowed_product_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Apple MacBook Pro M3 8GB 512GB",
+      "brand": "Apple",
+      "model_number": "MacBook Pro M3",
+      "generation": "m3",
+      "ram": "8gb",
+      "storage": "512gb",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_IDENTITY",
+    "fixture_class": "wrong_variant",
+    "expected_reason_family": "VARIANT_MISMATCH"
+  },
+  {
+    "fixture_code": "IDENTIFIER_MISMATCH",
+    "ruleset_code": "returned_product_match",
+    "target_identity_json": {
+      "brand": "Dell",
+      "model_family": "Latitude 7450",
+      "identifiers": {
+        "upc": "111111111111"
+      },
+      "allowed_product_conditions": [
+        "new"
+      ]
+    },
+    "returned_identity_json": {
+      "title": "Dell Latitude 7450",
+      "brand": "Dell",
+      "model_number": "Latitude 7450",
+      "upc": "222222222222",
+      "condition": "new"
+    },
+    "expected_decision": "REJECTED_IDENTITY",
+    "fixture_class": "wrong_variant",
+    "expected_reason_family": "IDENTIFIER_MISMATCH"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "fixture_code": "E2E_POSITIVE_001",
+    "raw_capture_id": "<qa-raw-capture-uuid>",
+    "ruleset_code": "returned_product_match",
+    "fixture_class": "positive_identity",
+    "expected_decision": "QUALIFIED",
+    "expected_reason_family": null,
+    "sequence_no": 1
+  },
+  {
+    "fixture_code": "E2E_WRONG_VARIANT_001",
+    "raw_capture_id": "<qa-raw-capture-uuid>",
+    "ruleset_code": "returned_product_match",
+    "fixture_class": "wrong_variant",
+    "expected_decision": "REJECTED_IDENTITY",
+    "expected_reason_family": "VARIANT_MISMATCH",
+    "sequence_no": 2
+  }
+]
