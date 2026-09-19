@@ -4,6 +4,10 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { startPersistentRun,finishPersistentRun } from './provenance';
 import { attestableSha,shaFile } from './artifact-hash';
+import {
+  extractWorkerMetrics,
+  requireCertificationCollectionRunId
+} from './worker-lineage';
 import type { ClaimedJobV2 } from './types';
 
 const pool=new Pool({
@@ -16,6 +20,14 @@ const workerId=process.env.R1D_WORKER_ID||
 const repoRoot=path.resolve(process.env.RETAIL_REPO_ROOT||process.cwd());
 const idleMinMs=Number(process.env.R1D_IDLE_MIN_MS??'1000');
 const idleMaxMs=Number(process.env.R1D_IDLE_MAX_MS??'5000');
+const certificationOnly=process.env.R1D_CERTIFICATION_ONLY==='true';
+
+if(
+  process.env.R1D_CERTIFICATION_ONLY!==undefined &&
+  !['true','false'].includes(process.env.R1D_CERTIFICATION_ONLY)
+){
+  throw new Error('R1D_CERTIFICATION_ONLY must be true or false');
+}
 
 const r1cWrapper=process.env.R1C_COMPILER_WRAPPER;
 const r1cBaseMigration=process.env.R1C_BASE_MIGRATION;
@@ -108,16 +120,6 @@ function buildArgv(
 function tailAppend(current:string,chunk:string){
   const x=current+chunk;
   return x.length<=MAX_TAIL?x:x.slice(x.length-MAX_TAIL);
-}
-
-function extractMetrics(stdout:string){
-  for(const line of stdout.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).reverse()){
-    try{
-      const x=JSON.parse(line);
-      if(x&&typeof x==='object'&&x.r1d_metrics) return x.r1d_metrics;
-    }catch{}
-  }
-  return {};
 }
 
 async function runtimeAuthority(job:ClaimedJobV2){
@@ -296,7 +298,7 @@ async function collectChild(
         code,signal,stdoutTail,stderrTail,
         stdoutSha:stdoutHash.digest('hex'),
         stderrSha:stderrHash.digest('hex'),
-        metrics:extractMetrics(stdoutTail)
+        metrics:extractWorkerMetrics(stdoutTail)
       });
     });
 
@@ -307,8 +309,8 @@ async function collectChild(
 
 async function processOne(){
   const claim=await pool.query(`
-    select * from retail.r1d_claim_next_job_v2($1,null,null,false)
-  `,[workerId]);
+    select * from retail.r1d_claim_next_job_v2($1,null,null,$2)
+  `,[workerId,certificationOnly]);
 
   if(!claim.rowCount) return false;
 
@@ -402,26 +404,63 @@ async function processOne(){
       launched.gracefulKillSeconds
     );
 
-    const success=result.code===0;
+    let success=result.code===0;
+    let errorCode=success?null:'WORKER_EXIT_NONZERO';
+    let errorMessage=success?null:
+      `Worker exit code=${result.code} signal=${result.signal}`;
+    let collectionRunId:string|null=null;
+
+    if(success&&certificationOnly){
+      try{
+        collectionRunId=requireCertificationCollectionRunId(result.metrics);
+      }catch(e){
+        success=false;
+        errorCode='CERTIFICATION_LINEAGE_MISSING';
+        errorMessage=String((e as Error).message??e);
+      }
+    }
     const reported=Number(result.metrics?.actual_cost_usd);
     const hasActual=Number.isFinite(reported)&&reported>=0;
     const actualCost=hasActual?reported:Number(job.estimated_cost_usd);
     const costBasis=hasActual?'actual':'estimated';
 
-    await pool.query(`
+    const finishSql=`
       select retail.r1d_finish_job(
         $1,$2,$3,$4,$5,$6,$7,$8::jsonb,$9,$10,$11,$12,$13,$14,$15
       )
-    `,[
+    `;
+    const finishArgs=()=>[
       job.job_id,job.lease_token,success,
       actualCost,costBasis,
-      success?null:'WORKER_EXIT_NONZERO',
-      success?null:`Worker exit code=${result.code} signal=${result.signal}`,
+      errorCode,errorMessage,
       JSON.stringify(result.metrics||{}),
       result.code,result.stdoutTail,result.stderrTail,
       result.stdoutSha,result.stderrSha,
       run.runId,run.correlationId
-    ]);
+    ];
+
+    if(success&&certificationOnly&&collectionRunId){
+      const completion=await pool.connect();
+      try{
+        await completion.query('begin');
+        await completion.query(finishSql,finishArgs());
+        await completion.query(
+          `select retail.r1d_mark_r1e_qa_captures($1,$2)`,
+          [job.job_id,collectionRunId]
+        );
+        await completion.query('commit');
+      }catch(e){
+        await completion.query('rollback').catch(()=>undefined);
+        success=false;
+        errorCode='CERTIFICATION_LINEAGE_INVALID';
+        errorMessage=String((e as Error).message??e);
+        await completion.query(finishSql,finishArgs());
+      }finally{
+        completion.release();
+      }
+    }else{
+      await pool.query(finishSql,finishArgs());
+    }
 
     await finishPersistentRun(
       pool,run.runId,
