@@ -241,7 +241,11 @@ async function buildOne(
   const previous = await c.query(
     `select
        r.*,
-       r.search_policy - 'category_rank' as stable_search_policy
+       r.search_policy - 'category_rank' as stable_search_policy,
+       retail.r1a_stable_upstream_document(r.upstream_snapshot) =
+         retail.r1a_stable_upstream_document(
+           retail.r1a_current_upstream_document(r.upstream_watchlist_id)
+         ) as upstream_snapshot_current
        from retail.search_target_revisions r
       where r.target_id=$1
       order by r.revision_no desc
@@ -334,7 +338,7 @@ async function buildOne(
       Number(p.discovery_result_limit) === candidate.discovery_result_limit &&
       p.priority_tier === candidate.priority_tier &&
       JSON.stringify(p.stable_search_policy) === JSON.stringify(candidate.search_policy) &&
-      p.upstream_snapshot_hash === authority.rows[0].hash;
+      p.upstream_snapshot_current === true;
 
     if (same) {
       await c.query(
