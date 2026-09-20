@@ -26,6 +26,29 @@ export function extractWorkerMetrics(stdout: string): JsonRecord {
           records_failed: parsed.failed
         };
       }
+      // The certified Target package emits a Pino terminal event.
+      if (
+        parsed.msg === 'Target ingest completed' &&
+        typeof parsed.runId === 'string'
+      ) {
+        const collected =
+          typeof parsed.collected === 'number' ? parsed.collected : 0;
+        const failed =
+          typeof parsed.failed === 'number' ? parsed.failed : 0;
+        const skipped =
+          typeof parsed.skipped === 'number' ? parsed.skipped : 0;
+
+        return {
+          collection_run_id: parsed.runId,
+          records_requested: collected + failed + skipped,
+          records_collected: collected,
+          records_failed: failed,
+          records_skipped: skipped,
+          records_recovered:
+            typeof parsed.recovered === 'number' ? parsed.recovered : 0
+        };
+      }
+
     } catch {
       // Non-JSON application output is retained in stdout evidence but ignored here.
     }

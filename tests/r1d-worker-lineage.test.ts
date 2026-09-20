@@ -31,6 +31,35 @@ test('adapts the certified Best Buy terminal event',()=>{
   });
 });
 
+test('adapts the certified Target Pino terminal event',()=>{
+  const stdout=[
+    JSON.stringify({
+      level:30,
+      snapshot:'sd_test',
+      records:100,
+      msg:'Target snapshot downloaded'
+    }),
+    JSON.stringify({
+      level:30,
+      runId,
+      collected:82,
+      failed:17,
+      skipped:1,
+      recovered:17,
+      msg:'Target ingest completed'
+    })
+  ].join('\n');
+
+  assert.deepEqual(extractWorkerMetrics(stdout),{
+    collection_run_id:runId,
+    records_requested:100,
+    records_collected:82,
+    records_failed:17,
+    records_skipped:1,
+    records_recovered:17
+  });
+});
+
 test('certification lineage rejects absent and malformed run IDs',()=>{
   assert.throws(
     ()=>requireCertificationCollectionRunId({}),
