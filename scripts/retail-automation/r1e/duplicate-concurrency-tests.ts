@@ -27,6 +27,117 @@ async function main(){
   if(!binding.rowCount) throw new Error('current R1D binding required');
   const upstream=binding.rows[0].r1d_certification_run_id;
 
+  // Certification retries reuse an immutable successful race proof instead of
+  // requiring another billable scraper execution.
+  const provenFixture=await pool.query(`
+    select f.*
+    from retail.r1e_duplicate_race_fixtures f
+    where f.active=true
+      and f.ruleset_code=$1
+      and (
+        select count(*)
+        from retail.r1e_qualification_results q
+        where q.raw_capture_id in(f.capture_a_id,f.capture_b_id)
+          and q.ruleset_id=$2
+          and q.r1d_certification_run_id=$3
+          and q.engine_version='r1e-v2.1.0'
+      )=2
+      and exists(
+        select 1
+        from retail.r1e_qualification_results qualified
+        join retail.r1e_qualification_results duplicate
+          on duplicate.duplicate_of_result_id=qualified.id
+         and duplicate.observation_fingerprint=
+             qualified.observation_fingerprint
+        where qualified.raw_capture_id in(f.capture_a_id,f.capture_b_id)
+          and duplicate.raw_capture_id in(f.capture_a_id,f.capture_b_id)
+          and qualified.ruleset_id=$2
+          and duplicate.ruleset_id=$2
+          and qualified.r1d_certification_run_id=$3
+          and duplicate.r1d_certification_run_id=$3
+          and qualified.engine_version='r1e-v2.1.0'
+          and duplicate.engine_version='r1e-v2.1.0'
+          and qualified.decision='QUALIFIED'
+          and duplicate.decision='REJECTED_DUPLICATE'
+          and duplicate.reason_codes ? 'DUPLICATE_OBSERVATION'
+      )
+    order by f.created_at,f.id
+    limit 1
+  `,[code,rulesetId,upstream]);
+
+  if(provenFixture.rowCount){
+    const f=provenFixture.rows[0];
+    const proof=await pool.query(`
+      select id,raw_capture_id,decision,reason_codes,
+             observation_fingerprint,duplicate_of_result_id,
+             evidence_sha256,engine_version
+      from retail.r1e_qualification_results
+      where raw_capture_id in($1,$2)
+        and ruleset_id=$3
+        and r1d_certification_run_id=$4
+        and engine_version='r1e-v2.1.0'
+      order by qualified_at,id
+    `,[f.capture_a_id,f.capture_b_id,rulesetId,upstream]);
+
+    const rows=proof.rows;
+    const qualified=rows.filter(x=>x.decision==='QUALIFIED');
+    const duplicates=rows.filter(x=>x.decision==='REJECTED_DUPLICATE');
+    const gates=[
+      {name:'persisted_concurrency_proof_reused',ok:true},
+      {
+        name:'two_full_evaluator_results_created',
+        ok:rows.length===2,
+        detail:rows
+      },
+      {
+        name:'same_observation_fingerprint',
+        ok:rows.length===2
+          && rows[0].observation_fingerprint===
+             rows[1].observation_fingerprint,
+        detail:rows.map(x=>x.observation_fingerprint)
+      },
+      {
+        name:'exactly_one_qualified',
+        ok:qualified.length===1
+      },
+      {
+        name:'exactly_one_rejected_duplicate',
+        ok:duplicates.length===1
+      },
+      {
+        name:'duplicate_reason_correct',
+        ok:duplicates.length===1
+          && duplicates[0].reason_codes.includes(
+            'DUPLICATE_OBSERVATION'
+          )
+      },
+      {
+        name:'duplicate_points_to_qualified',
+        ok:duplicates.length===1
+          && qualified.length===1
+          && duplicates[0].duplicate_of_result_id===qualified[0].id
+      },
+      {
+        name:'both_v21_engine',
+        ok:rows.every(x=>x.engine_version==='r1e-v2.1.0')
+      }
+    ];
+    const pass=gates.every(x=>x.ok);
+
+    console.log(JSON.stringify({
+      allPassed:pass,
+      reusedPersistedProof:true,
+      fixtureCode:f.fixture_code,
+      fixtureSha256:f.fixture_sha256,
+      results:rows,
+      gates
+    },null,2));
+
+    await pool.end();
+    if(!pass) process.exitCode=2;
+    return;
+  }
+
   // Require a fresh pair so the real production persistence path is exercised.
   const fixture=await pool.query(`
     select f.*
