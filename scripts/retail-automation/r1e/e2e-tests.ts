@@ -64,6 +64,12 @@ async function main(){
             q.id,q.raw_capture_id,q.decision,q.reason_codes,
             q.evidence_sha256,q.evidence_json,
             q.r1d_attempt_evidence_sha256,q.r1d_attempt_evidence_json,
+            q.evidence_sha256=
+              retail.r1e_sha256_jsonb(q.evidence_json)
+              as evidence_hash_valid,
+            q.r1d_attempt_evidence_sha256=
+              retail.r1e_sha256_jsonb(q.r1d_attempt_evidence_json)
+              as attempt_evidence_hash_valid,
             q.observation_fingerprint,q.engine_version,
             q.r1d_certification_run_id,q.r1d_package_sha256,
             retail.r1e_result_is_current(q.id) result_current
@@ -76,18 +82,11 @@ async function main(){
           f.expected_reason_family,
           Array.isArray(q.reason_codes)?q.reason_codes:[]
         );
-        const evidenceOk=
-          q.evidence_sha256===
-          (await pool.query(
-            `select retail.r1e_sha256_jsonb($1::jsonb) h`,
-            [JSON.stringify(q.evidence_json)]
-          )).rows[0].h;
+        // Hash stored JSONB directly; a JavaScript round-trip can alter
+        // PostgreSQL numeric lexical forms without changing the document.
+        const evidenceOk=q.evidence_hash_valid===true;
         const attemptEvidenceOk=
-          q.r1d_attempt_evidence_sha256===
-          (await pool.query(
-            `select retail.r1e_sha256_jsonb($1::jsonb) h`,
-            [JSON.stringify(q.r1d_attempt_evidence_json)]
-          )).rows[0].h;
+          q.attempt_evidence_hash_valid===true;
 
         const ok=
           decisionOk&&reasonOk&&evidenceOk&&attemptEvidenceOk
