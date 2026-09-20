@@ -1,0 +1,27 @@
+{
+  "minimum_total_fixtures": 625,
+  "class_minimums": {
+    "high_opportunity": 75,
+    "low_opportunity": 75,
+    "insufficient_sample": 75,
+    "high_cost": 75,
+    "strong_bargain": 75,
+    "weak_availability": 75,
+    "exploration": 50,
+    "nationwide_ranking": 50,
+    "strategy_convergence": 50
+  },
+  "minimum_e2e_scenarios": 10,
+  "minimum_e2e_jobs": 50,
+  "minimum_e2e_accuracy": 100.0,
+  "minimum_score_accuracy": 100.0,
+  "minimum_recommendation_accuracy": 100.0,
+  "minimum_ranking_accuracy": 100.0,
+  "minimum_convergence_accuracy": 100.0,
+  "minimum_replay_coverage": 100.0,
+  "minimum_fact_hash_coverage": 100.0,
+  "minimum_snapshot_hash_coverage": 100.0,
+  "minimum_recommendation_hash_coverage": 100.0,
+  "minimum_actual_cost_coverage_pct": 80.0,
+  "minimum_local_timezone_coverage_pct": 95.0
+}

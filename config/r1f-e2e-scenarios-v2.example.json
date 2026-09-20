@@ -1,0 +1,33 @@
+[
+  {
+    "scenario_code": "E2E_GEO_ECON_001",
+    "scenario_type": "E2E",
+    "job_ids": [
+      "<qa-r1d-job-uuid-1>",
+      "<qa-r1d-job-uuid-2>",
+      "<qa-r1d-job-uuid-3>",
+      "<qa-r1d-job-uuid-4>",
+      "<qa-r1d-job-uuid-5>"
+    ],
+    "intelligence_policy_id": "<certified-r1f-v2-policy-uuid>",
+    "window_end": "<qa-window-end-iso>",
+    "expected_top_location_fingerprint": "<expected-top-location-sha256>",
+    "expected_minimum_facts": 5,
+    "expected_minimum_snapshots": 2,
+    "expected_minimum_recommendations": 2
+  },
+  {
+    "scenario_code": "CONCURRENCY_REC_001",
+    "scenario_type": "CONCURRENCY",
+    "job_ids": [
+      "<qa-r1d-job-uuid-a>",
+      "<qa-r1d-job-uuid-b>"
+    ],
+    "intelligence_policy_id": "<certified-r1f-v2-policy-uuid>",
+    "window_end": "<fresh-qa-window-end-iso>",
+    "expected_top_location_fingerprint": null,
+    "expected_minimum_facts": 2,
+    "expected_minimum_snapshots": 1,
+    "expected_minimum_recommendations": 1
+  }
+]

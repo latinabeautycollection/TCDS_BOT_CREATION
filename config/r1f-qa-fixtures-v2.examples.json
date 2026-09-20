@@ -1,0 +1,473 @@
+[
+  {
+    "fixture_code": "HIGH_OPPORTUNITY_V2_001",
+    "fixture_class": "high_opportunity",
+    "input_json": {
+      "metrics": {
+        "total_observations": 100,
+        "qualified_observations": 80,
+        "cost_per_qualified_usd": 0.02,
+        "relative_bargain_pct": 0.3,
+        "available_qualified": 75,
+        "freshness_age_days": 0.2,
+        "actual_cost_coverage_pct": 1
+      },
+      "snapshot": {
+        "sample_sufficiency": "SUFFICIENT",
+        "location": {
+          "location_type": "store"
+        }
+      }
+    },
+    "expected_json": {
+      "recommendation_type": "INCREASE_FREQUENCY",
+      "minimum_opportunity_score": 75
+    }
+  },
+  {
+    "fixture_code": "LOW_OPPORTUNITY_V2_001",
+    "fixture_class": "low_opportunity",
+    "input_json": {
+      "metrics": {
+        "total_observations": 100,
+        "qualified_observations": 1,
+        "cost_per_qualified_usd": 1.0,
+        "relative_bargain_pct": 0,
+        "available_qualified": 0,
+        "freshness_age_days": 7,
+        "actual_cost_coverage_pct": 1
+      },
+      "snapshot": {
+        "sample_sufficiency": "SUFFICIENT",
+        "location": {
+          "location_type": "store"
+        }
+      }
+    },
+    "expected_json": {
+      "recommendation_type": "DECREASE_FREQUENCY",
+      "maximum_opportunity_score": 25
+    }
+  },
+  {
+    "fixture_code": "INSUFFICIENT_V2_001",
+    "fixture_class": "insufficient_sample",
+    "input_json": {
+      "metrics": {
+        "total_observations": 2,
+        "qualified_observations": 2,
+        "cost_per_qualified_usd": 0.02,
+        "relative_bargain_pct": 0.3,
+        "available_qualified": 2,
+        "freshness_age_days": 0,
+        "actual_cost_coverage_pct": 1
+      },
+      "snapshot": {
+        "sample_sufficiency": "INSUFFICIENT",
+        "location": {
+          "location_type": "store"
+        }
+      }
+    },
+    "expected_json": {
+      "recommendation_type": "EXPLORATION_SAMPLE"
+    }
+  },
+  {
+    "fixture_code": "HIGH_COST_V2_001",
+    "fixture_class": "high_cost",
+    "input_json": {
+      "metrics": {
+        "total_observations": 100,
+        "qualified_observations": 20,
+        "cost_per_qualified_usd": 0.5,
+        "relative_bargain_pct": 0.01,
+        "available_qualified": 10,
+        "freshness_age_days": 2,
+        "actual_cost_coverage_pct": 1
+      },
+      "snapshot": {
+        "sample_sufficiency": "SUFFICIENT",
+        "location": {
+          "location_type": "store"
+        }
+      }
+    },
+    "expected_json": {
+      "maximum_cost_efficiency_score": 0
+    }
+  },
+  {
+    "fixture_code": "STRONG_BARGAIN_V2_001",
+    "fixture_class": "strong_bargain",
+    "input_json": {
+      "metrics": {
+        "total_observations": 100,
+        "qualified_observations": 60,
+        "cost_per_qualified_usd": 0.03,
+        "relative_bargain_pct": 0.3,
+        "available_qualified": 55,
+        "freshness_age_days": 0.5,
+        "actual_cost_coverage_pct": 1
+      },
+      "snapshot": {
+        "sample_sufficiency": "SUFFICIENT",
+        "location": {
+          "location_type": "postal_code"
+        }
+      }
+    },
+    "expected_json": {
+      "minimum_bargain_score": 100,
+      "recommendation_type": "EXPAND_GEO_CHILDREN"
+    }
+  },
+  {
+    "fixture_code": "WEAK_AVAIL_V2_001",
+    "fixture_class": "weak_availability",
+    "input_json": {
+      "metrics": {
+        "total_observations": 100,
+        "qualified_observations": 60,
+        "cost_per_qualified_usd": 0.05,
+        "relative_bargain_pct": 0.1,
+        "available_qualified": 0,
+        "freshness_age_days": 1,
+        "actual_cost_coverage_pct": 1
+      },
+      "snapshot": {
+        "sample_sufficiency": "SUFFICIENT",
+        "location": {
+          "location_type": "store"
+        }
+      }
+    },
+    "expected_json": {
+      "maximum_availability_score": 0
+    }
+  },
+  {
+    "fixture_code": "EXPLORATION_V2_001",
+    "fixture_class": "exploration",
+    "input_json": {
+      "metrics": {
+        "total_observations": 1,
+        "qualified_observations": 0,
+        "cost_per_qualified_usd": null,
+        "relative_bargain_pct": 0,
+        "available_qualified": 0,
+        "freshness_age_days": 0,
+        "actual_cost_coverage_pct": 0
+      },
+      "snapshot": {
+        "sample_sufficiency": "INSUFFICIENT",
+        "location": {
+          "location_type": "postal_code"
+        }
+      }
+    },
+    "expected_json": {
+      "recommendation_type": "EXPLORATION_SAMPLE"
+    }
+  },
+  {
+    "fixture_code": "NATIONWIDE_RANK_V2_001",
+    "fixture_class": "nationwide_ranking",
+    "input_json": {
+      "locations": [
+        {
+          "location_code": "VA",
+          "metrics": {
+            "total_observations": 100,
+            "qualified_observations": 70,
+            "cost_per_qualified_usd": 0.03,
+            "relative_bargain_pct": 0.05,
+            "available_qualified": 65,
+            "freshness_age_days": 1,
+            "actual_cost_coverage_pct": 1
+          }
+        },
+        {
+          "location_code": "TX",
+          "metrics": {
+            "total_observations": 100,
+            "qualified_observations": 70,
+            "cost_per_qualified_usd": 0.03,
+            "relative_bargain_pct": 0.12,
+            "available_qualified": 65,
+            "freshness_age_days": 1,
+            "actual_cost_coverage_pct": 1
+          }
+        },
+        {
+          "location_code": "FL",
+          "metrics": {
+            "total_observations": 100,
+            "qualified_observations": 70,
+            "cost_per_qualified_usd": 0.03,
+            "relative_bargain_pct": 0.2,
+            "available_qualified": 65,
+            "freshness_age_days": 1,
+            "actual_cost_coverage_pct": 1
+          }
+        },
+        {
+          "location_code": "GA",
+          "metrics": {
+            "total_observations": 100,
+            "qualified_observations": 70,
+            "cost_per_qualified_usd": 0.03,
+            "relative_bargain_pct": 0.3,
+            "available_qualified": 65,
+            "freshness_age_days": 1,
+            "actual_cost_coverage_pct": 1
+          }
+        }
+      ]
+    },
+    "expected_json": {
+      "ordered_location_codes": [
+        "GA",
+        "FL",
+        "TX",
+        "VA"
+      ]
+    }
+  },
+  {
+    "fixture_code": "STRATEGY_CONVERGENCE_V2_001",
+    "fixture_class": "strategy_convergence",
+    "input_json": {
+      "cycles": [
+        {
+          "locations": [
+            {
+              "location_code": "A",
+              "metrics": {
+                "total_observations": 2,
+                "qualified_observations": 2,
+                "cost_per_qualified_usd": 0.03,
+                "relative_bargain_pct": 0.3,
+                "available_qualified": 2,
+                "freshness_age_days": 0,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "INSUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            },
+            {
+              "location_code": "B",
+              "metrics": {
+                "total_observations": 2,
+                "qualified_observations": 1,
+                "cost_per_qualified_usd": 0.05,
+                "relative_bargain_pct": 0.1,
+                "available_qualified": 1,
+                "freshness_age_days": 0,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "INSUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "location_code": "A",
+              "metrics": {
+                "total_observations": 100,
+                "qualified_observations": 80,
+                "cost_per_qualified_usd": 0.02,
+                "relative_bargain_pct": 0.3,
+                "available_qualified": 75,
+                "freshness_age_days": 0.2,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "SUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            },
+            {
+              "location_code": "B",
+              "metrics": {
+                "total_observations": 2,
+                "qualified_observations": 1,
+                "cost_per_qualified_usd": 0.05,
+                "relative_bargain_pct": 0.1,
+                "available_qualified": 1,
+                "freshness_age_days": 0,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "INSUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "location_code": "A1",
+              "metrics": {
+                "total_observations": 100,
+                "qualified_observations": 85,
+                "cost_per_qualified_usd": 0.02,
+                "relative_bargain_pct": 0.3,
+                "available_qualified": 80,
+                "freshness_age_days": 0.2,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "SUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            },
+            {
+              "location_code": "A2",
+              "metrics": {
+                "total_observations": 100,
+                "qualified_observations": 20,
+                "cost_per_qualified_usd": 0.15,
+                "relative_bargain_pct": 0.02,
+                "available_qualified": 10,
+                "freshness_age_days": 2,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "SUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            },
+            {
+              "location_code": "C",
+              "metrics": {
+                "total_observations": 1,
+                "qualified_observations": 0,
+                "cost_per_qualified_usd": null,
+                "relative_bargain_pct": 0,
+                "available_qualified": 0,
+                "freshness_age_days": 0,
+                "actual_cost_coverage_pct": 0
+              },
+              "snapshot": {
+                "sample_sufficiency": "INSUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "location_code": "A1",
+              "metrics": {
+                "total_observations": 100,
+                "qualified_observations": 5,
+                "cost_per_qualified_usd": 0.3,
+                "relative_bargain_pct": 0,
+                "available_qualified": 1,
+                "freshness_age_days": 6,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "SUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            },
+            {
+              "location_code": "C",
+              "metrics": {
+                "total_observations": 100,
+                "qualified_observations": 80,
+                "cost_per_qualified_usd": 0.02,
+                "relative_bargain_pct": 0.3,
+                "available_qualified": 75,
+                "freshness_age_days": 0.2,
+                "actual_cost_coverage_pct": 1
+              },
+              "snapshot": {
+                "sample_sufficiency": "SUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            },
+            {
+              "location_code": "D",
+              "metrics": {
+                "total_observations": 1,
+                "qualified_observations": 0,
+                "cost_per_qualified_usd": null,
+                "relative_bargain_pct": 0,
+                "available_qualified": 0,
+                "freshness_age_days": 0,
+                "actual_cost_coverage_pct": 0
+              },
+              "snapshot": {
+                "sample_sufficiency": "INSUFFICIENT",
+                "location": {
+                  "location_type": "store"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "expected_json": {
+      "expected_cycle_recommendations": [
+        {
+          "cycle": 1,
+          "top_location_code": "A",
+          "top_recommendation": "EXPLORATION_SAMPLE",
+          "exploration_candidates": 2,
+          "exploration_retained": true
+        },
+        {
+          "cycle": 2,
+          "top_location_code": "A",
+          "top_recommendation": "INCREASE_FREQUENCY",
+          "exploration_candidates": 1,
+          "exploration_retained": true
+        },
+        {
+          "cycle": 3,
+          "top_location_code": "A1",
+          "top_recommendation": "INCREASE_FREQUENCY",
+          "exploration_candidates": 1,
+          "exploration_retained": true
+        },
+        {
+          "cycle": 4,
+          "top_location_code": "C",
+          "top_recommendation": "INCREASE_FREQUENCY",
+          "exploration_candidates": 1,
+          "exploration_retained": true
+        }
+      ]
+    }
+  }
+]

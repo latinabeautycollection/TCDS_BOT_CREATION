@@ -1,0 +1,28 @@
+{
+  "lookback_days": 30,
+  "minimum_sample_jobs": 5,
+  "score_weights": {
+    "qualification_yield": 0.25,
+    "relative_bargain": 0.35,
+    "cost_efficiency": 0.15,
+    "availability": 0.15,
+    "freshness": 0.1
+  },
+  "bargain_pct_for_full_score": 0.3,
+  "max_cost_per_qualified_usd": 0.25,
+  "freshness_days_for_zero": 7,
+  "increase_frequency_score": 75,
+  "decrease_frequency_score": 25,
+  "high_opportunity_interval_seconds": 3600,
+  "low_opportunity_interval_seconds": 604800,
+  "exploration_interval_seconds": 86400,
+  "max_geo_fanout": 10,
+  "recommendation_ttl_days": 7,
+  "max_exploration_recommendations_per_run": 100,
+  "allowed_future_clock_skew_seconds": 300,
+  "minimum_actual_cost_coverage_to_score": 0.5,
+  "actual_cost_coverage_for_full_score": 0.9,
+  "currency_mode": "USD_ONLY",
+  "condition_baseline_mode": "EXACT_CONDITION",
+  "fulfillment_baseline_mode": "EXACT_FULFILLMENT"
+}
