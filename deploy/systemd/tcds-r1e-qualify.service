@@ -1,0 +1,18 @@
+[Unit]
+Description=TCDS R1E production qualification batch
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/srv/tcds-retail-bot-repo-clean
+Environment=R1E_BATCH_LIMIT=25
+ExecStart=/srv/tcds-retail-bot-repo-clean/scripts/retail-automation/r1e/run-production-batch.sh
+TimeoutStartSec=30min
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+UMask=0027
