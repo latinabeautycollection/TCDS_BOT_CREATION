@@ -36,6 +36,7 @@ async function main(){
         and q.ruleset_id=$1
         and q.r1d_certification_run_id=$2
         and q.engine_version='r1e-v2.1.0'
+        and q.certification_fixture=false
     )
     order by p.captured_at,p.raw_capture_id
     limit $3
