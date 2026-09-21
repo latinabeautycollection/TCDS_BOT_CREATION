@@ -1,0 +1,34 @@
+{
+  "build": "R1F V2.2 Financial Consumption Hardened Freeze Candidate",
+  "base_release": "r1f-v2.0.0",
+  "financial_layer_version": "2.2.0",
+  "static_checks": {
+    "configuration_json_parse": "PASS",
+    "typescript_syntax_scan": "PASS_NO_SYNTAX_DIAGNOSTICS",
+    "security_definer_public_execute_revocations_present": "PASS",
+    "generic_worker_financial_dml_revoked": "PASS",
+    "zone_cost_raw_projection_logic_present": "PASS",
+    "cost_breakdown_adapter_present": "PASS",
+    "cost_breakdown_daily_total_runtime_tests": "PASS_4_OF_4",
+    "dynamic_zone_account_key_runtime_test": "PASS",
+    "dataset_day_complete_coverage_gate_present": "PASS",
+    "snapshot_one_to_one_direct_attribution_gate_present": "PASS",
+    "current_r1d_scope_fail_closed_discovery_present": "PASS",
+    "current_r1d_scope_allocation_certification_gate_present": "PASS",
+    "postgres_numeric_settlement_present": "PASS",
+    "shared_period_locking_present": "PASS"
+  },
+  "runtime_checks_required": [
+    "Apply migrations through 039d to the target PostgreSQL instance",
+    "Run scraper discovery against the exact production TCDS_BOT_CREATION checkout and current certified/effective R1D authority",
+    "Register authoritative platform/provider/billing identities for every current-scope scraper",
+    "Capture at least one provider execution receipt for every scraper",
+    "Capture live Bright Data /zone/cost and/or /costs/export/json evidence according to each scraper billing authority",
+    "Allocate and reconcile provider cost for every current-scope scraper",
+    "Run financial-adversarial-tests-v22.ts",
+    "Run certify-financial-consumption-v22.ts",
+    "Run the full R1F certify.ts suite against the exact packaged release"
+  ],
+  "status": "STATICALLY_HARDENED_RUNTIME_CERTIFICATION_PENDING",
+  "note": "TypeScript was syntax-scanned in the artifact environment. Host module/type resolution (pg and Node ambient types) belongs to the production repository toolchain and must be executed there."
+}

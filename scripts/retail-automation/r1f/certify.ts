@@ -383,7 +383,7 @@ async function main(){
           where collection_reconciliation_status='MATCHED'
         )::numeric/nullif(count(*),0) reconciliation_coverage,
         count(*) filter(
-          where cost_basis='actual'
+          where cost_basis in('actual','allocated_provider')
         )::numeric/nullif(count(*),0) actual_cost_coverage,
         count(*) filter(
           where (
@@ -404,6 +404,128 @@ async function main(){
       Number(quality.actual_cost_coverage)>=
         Number(cp.minimum_actual_cost_coverage_pct)/100,
       quality);
+
+    const financial=(await c.query(`
+      with cf as (
+        select * from retail.r1f_job_facts
+        where engine_version='r1f-v2.0.0'
+          and certification_fixture=true
+      ), used_periods as (
+        select distinct a.authority_period_id
+        from cf f
+        join retail.r1f_provider_job_cost_allocations_v22 a
+          on a.r1d_job_id=f.r1d_job_id
+        where f.cost_authority in(
+          'BRIGHT_DATA_ZONE_COST','BRIGHT_DATA_COST_BREAKDOWN',
+          'BRIGHT_DATA_SNAPSHOT_DIRECT'
+        )
+      ), balances as (
+        select p.id period_id,p.billed_cost_usd,
+               coalesce(sum(a.allocated_provider_cost_usd),0)::numeric allocated_cost_usd
+        from retail.r1f_provider_cost_authority_periods p
+        join used_periods u on u.authority_period_id=p.id
+        left join retail.r1f_provider_job_cost_allocations_v22 a
+          on a.authority_period_id=p.id
+        group by p.id,p.billed_cost_usd
+      )
+      select
+        count(*)::int total_jobs,
+        count(*) filter(where cost_authority in('BRIGHT_DATA_ZONE_COST','BRIGHT_DATA_COST_BREAKDOWN','BRIGHT_DATA_SNAPSHOT_DIRECT'))::int provider_reconciled_jobs,
+        count(*) filter(where cost_authority in('BRIGHT_DATA_ZONE_COST','BRIGHT_DATA_COST_BREAKDOWN','BRIGHT_DATA_SNAPSHOT_DIRECT'))::numeric/nullif(count(*),0) provider_reconciled_coverage,
+        count(*) filter(where provider_financial_verification_status='PROVIDER_PAID_COST_RECONCILED')::int paid_provider_jobs,
+        count(*) filter(where provider_financial_verification_status='PROVIDER_ZERO_COST_CONFIRMED')::int zero_cost_provider_jobs,
+        count(*) filter(where provider_usage_verification_status in('PROVIDER_USAGE_CONFIRMED','PROVIDER_USAGE_ZERO'))::numeric/nullif(count(*),0) provider_usage_verified_coverage,
+        (select count(*) from balances)::int used_provider_periods,
+        (select count(*) from balances where round(billed_cost_usd,8)=round(allocated_cost_usd,8))::int balanced_provider_periods,
+        case when (select count(*) from balances)=0 then 0
+             else (select count(*) from balances where round(billed_cost_usd,8)=round(allocated_cost_usd,8))::numeric/(select count(*) from balances) end reconciliation_balance_coverage
+      from cf
+    `)).rows[0];
+
+    gate('provider_reconciled_cost_coverage',
+      Number(financial.provider_reconciled_coverage)>=
+        Number(cp.minimum_provider_reconciled_cost_coverage_pct)/100,
+      financial);
+    gate('provider_reconciliation_balance',
+      Number(financial.reconciliation_balance_coverage)>=
+        Number(cp.minimum_provider_reconciliation_balance_pct)/100,
+      financial);
+    gate('provider_usage_verified_coverage_100',
+      Number(financial.provider_usage_verified_coverage)===1,
+      financial);
+    gate('provider_paid_cost_sample',
+      Number(financial.paid_provider_jobs)>=
+        Number(cp.minimum_provider_paid_cost_sample_jobs??1),
+      financial);
+
+    const finIntegrity=(await c.query(`
+      select
+        count(*)::int reconciled,
+        count(*) filter(where
+          (
+            (p.authority_source_type='ZONE_COST'
+              and e.id is not null
+              and b.id is not null
+              and e.raw_payload_sha256=retail.r1f_sha256_jsonb(e.raw_payload)
+              and b.bucket_sha256=retail.r1f_sha256_jsonb(b.bucket_document))
+            or
+            (p.authority_source_type='COST_BREAKDOWN'
+              and ce.id is not null
+              and dr.id is not null
+              and ce.raw_payload_sha256=retail.r1f_sha256_jsonb(ce.raw_payload)
+              and dr.resource_sha256=retail.r1f_sha256_jsonb(dr.resource_document))
+          )
+          and p.semantics_sha256=retail.r1f_sha256_jsonb(p.semantics_evidence)
+          and p.authority_sha256=retail.r1f_sha256_jsonb(p.authority_document)
+          and x.allocation_sha256=retail.r1f_sha256_jsonb(x.allocation_document)
+          and r.receipt_sha256=retail.r1f_sha256_jsonb(r.receipt_document)
+          and s.financial_identity_sha256=retail.r1f_sha256_jsonb(s.financial_identity_document)
+        )::int valid
+      from retail.r1f_provider_job_cost_allocations_v22 x
+      join retail.r1f_provider_cost_authority_periods p on p.id=x.authority_period_id
+      left join retail.r1f_provider_cost_evidence e on e.id=p.evidence_id
+      left join retail.r1f_provider_cost_buckets b on b.id=p.bucket_id
+      left join retail.r1f_provider_cost_breakdown_evidence ce on ce.id=p.cost_breakdown_evidence_id
+      left join retail.r1f_provider_daily_resource_costs dr on dr.id=p.daily_resource_cost_id
+      join retail.r1f_job_provider_execution_receipts r on r.id=x.execution_receipt_id
+      join retail.r1f_scraper_financial_registry s on s.id=x.scraper_registry_id
+      join retail.r1f_job_facts f on f.r1d_job_id=x.r1d_job_id
+      where f.engine_version='r1f-v2.0.0'
+        and f.certification_fixture=true
+        and f.cost_authority in(
+          'BRIGHT_DATA_ZONE_COST','BRIGHT_DATA_COST_BREAKDOWN',
+          'BRIGHT_DATA_SNAPSHOT_DIRECT'
+        )
+    `)).rows[0];
+    gate('provider_financial_evidence_hash_integrity_100',
+      Number(finIntegrity.reconciled)>0
+      &&Number(finIntegrity.valid)===Number(finIntegrity.reconciled),
+      finIntegrity);
+
+    const finGlobal=(await c.query(`
+      select * from retail.r1f_financial_v22_global_integrity
+    `)).rows[0];
+    const expectedScrapers=Number(finGlobal?.expected_scraper_count);
+    gate('current_r1d_scraper_scope_complete',
+      expectedScrapers>0
+      &&Number(finGlobal?.discovered_scraper_count)===expectedScrapers
+      &&Number(finGlobal?.active_scrapers)===expectedScrapers,
+      finGlobal);
+    gate('scraper_registry_hash_integrity_100',
+      Number(finGlobal?.registry_hash_valid)===expectedScrapers,
+      finGlobal);
+    gate('all_current_scrapers_have_execution_receipts',
+      Number(finGlobal?.scrapers_with_receipts)===expectedScrapers,
+      finGlobal);
+    gate('all_current_scrapers_have_provider_cost_allocations',
+      Number(finGlobal?.scrapers_with_allocations)===expectedScrapers,
+      finGlobal);
+    gate('financial_global_hygiene',
+      Number(finGlobal?.orphan_unreconciled_bindings)===0
+      &&Number(finGlobal?.unreconciled_authority_periods)===0
+      &&Number(finGlobal?.provider_periods)>0
+      &&Number(finGlobal?.balanced_provider_periods)===Number(finGlobal?.provider_periods),
+      finGlobal);
     gate('local_timezone_coverage',
       Number(quality.timezone_coverage)>=
         Number(cp.minimum_local_timezone_coverage_pct)/100,
@@ -480,7 +602,7 @@ async function main(){
         e2eAccuracy,
         factHashCoverage,
         snapshotHashCoverage,
-        recommendationHashCoverage
+        recommendationHashCoverage:recHashCoverage
       },
       passiveResults:passive,
       adversarialResults:adversarial.gates??[],

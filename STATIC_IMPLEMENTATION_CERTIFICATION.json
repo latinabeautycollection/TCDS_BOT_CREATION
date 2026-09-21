@@ -1,0 +1,48 @@
+{
+  "certification_type": "STATIC_IMPLEMENTATION_CERTIFICATION",
+  "component": "TCDS Retail R1F Financial Consumption",
+  "base_release": "r1f-v2.0.0",
+  "financial_consumption_layer_release": "2.2.0",
+  "designation": "HARDENED GREEN TIER 1 FREEZE CANDIDATE",
+  "runtime_certification_status": "PENDING_QA_EXECUTION",
+  "peer_review_remediation": "P0/HIGH/MEDIUM findings from V2.1 adversarial review implemented in V2.2 design",
+  "production_scraper_governance": {
+    "expected_count": "CURRENT_CERTIFIED_EFFECTIVE_R1D_SCOPE",
+    "discovery": "COMMIT_BOUND_FAIL_CLOSED",
+    "source_sha256_required": true,
+    "platform_mapping_required": true,
+    "provider_billing_identity_required": true,
+    "execution_receipt_required_for_every_scraper": true,
+    "provider_cost_allocation_required_for_every_scraper": true
+  },
+  "bright_data_authority_paths": [
+    "GET /zone/cost",
+    "POST /costs/export/json: web_apis",
+    "POST /costs/export/json: collectors",
+    "POST /costs/export/json: ws_api_snaps"
+  ],
+  "security": {
+    "direct_generic_worker_financial_dml": "REVOKED",
+    "financial_roles_separated": true,
+    "security_definer_public_execute": "REVOKED",
+    "caller_membership_check": "SESSION_USER",
+    "append_only_financial_evidence": true
+  },
+  "financial_integrity": {
+    "raw_to_normalized_provider_binding": "DATABASE_ENFORCED",
+    "single_effective_cost_authority_per_job": "DATABASE_UNIQUE",
+    "temporal_provider_binding": "DATABASE_ENFORCED",
+    "provider_scope_binding": "DATABASE_ENFORCED",
+    "overlap_prevention": "LOCKED_PROVIDER_SCOPE",
+    "currency_math": "POSTGRESQL_NUMERIC",
+    "provider_total_conservation": "DATABASE_RECONCILIATION",
+    "provider_total_daily_crosscheck": "DATABASE_ENFORCED",
+    "dataset_day_execution_coverage": "DATABASE_ENFORCED",
+    "snapshot_job_cardinality": "ONE_TO_ONE_DIRECT",
+    "dataset_day_cost_label": "ALLOCATED_PROVIDER",
+    "zero_cost_distinct_from_paid_cost": true,
+    "global_financial_debris_gate": true
+  },
+  "runtime_freeze_authority": "retail.r1f_certification_runs plus V2.2 financial adversarial certification",
+  "statement": "Static implementation hardening is complete. This artifact must not be called runtime certified or freeze approved until it is installed against the target database, discovers and registers the exact current certified/effective R1D scraper scope from the production commit, exercises every scraper financial path with live provider evidence, and passes all financial and base R1F runtime gates."
+}

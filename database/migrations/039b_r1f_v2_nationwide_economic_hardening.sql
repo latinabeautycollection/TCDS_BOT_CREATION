@@ -1420,9 +1420,9 @@ BEGIN
           WHEN sum(f.qualified_observations)>0
           THEN sum(f.actual_cost_usd)/sum(f.qualified_observations)
         END cost_per_qualified_usd,
-        count(*) filter(where f.cost_basis='actual')::int actual_cost_jobs,
+        count(*) filter(where f.cost_basis in('actual','allocated_provider'))::int actual_cost_jobs,
         count(*) filter(where f.cost_basis='estimated')::int estimated_cost_jobs,
-        count(*) filter(where f.cost_basis='actual')::numeric/
+        count(*) filter(where f.cost_basis in('actual','allocated_provider'))::numeric/
           count(*) actual_cost_coverage_pct,
         max(f.completed_at) last_completed_at
       FROM retail.r1f_job_facts f
@@ -1993,7 +1993,7 @@ SELECT
          sum(f.observations_total)
   END qualification_rate,
   sum(f.actual_cost_usd) total_cost_usd,
-  count(*) filter(where f.cost_basis='actual')::numeric/
+  count(*) filter(where f.cost_basis in('actual','allocated_provider'))::numeric/
     count(*) actual_cost_coverage_pct,
   CASE
     WHEN sum(f.qualified_observations)=0 THEN NULL
