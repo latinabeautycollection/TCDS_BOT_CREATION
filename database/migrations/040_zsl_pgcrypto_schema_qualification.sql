@@ -143,4 +143,3 @@ END
 $regression$;
 
 COMMIT;
-

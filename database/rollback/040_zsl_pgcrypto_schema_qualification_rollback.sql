@@ -95,4 +95,3 @@ CREATE OR REPLACE FUNCTION zsl.zsl4_revoke_active(p_actor text, p_evidence jsonb
 AS $function$DECLARE s zsl.zsl4_authority_state%ROWTYPE;ev bigint;BEGIN PERFORM pg_advisory_xact_lock(hashtextextended('TCDS:ZSL4:ACTIVATE',0));SELECT * INTO s FROM zsl.zsl4_authority_state WHERE singleton FOR UPDATE;IF s.build_run_id IS NULL THEN RAISE EXCEPTION 'ZSL4_NO_ACTIVE_AUTHORITY';END IF;INSERT INTO zsl.zsl4_authority_events(event_type,build_run_id,certification_run_id,actor,evidence,evidence_sha256) VALUES('REVOKED',s.build_run_id,s.certification_run_id,p_actor,p_evidence,encode(digest(convert_to(p_evidence::text,'UTF8'),'sha256'),'hex')) RETURNING authority_event_id INTO ev;UPDATE zsl.zsl4_authority_state SET build_run_id=NULL,certification_run_id=NULL,authority_event_id=ev,updated_at=now() WHERE singleton;RETURN ev;END$function$;
 
 COMMIT;
-
