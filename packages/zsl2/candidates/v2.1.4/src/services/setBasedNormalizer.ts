@@ -130,15 +130,50 @@ export async function processGazetteerPageSetBased(c:PoolClient,runId:string,pag
 }
 
 export async function processHudPageSetBased(c:PoolClient,runId:string,source:string,page:CertifiedRawRecord[],record:OperationRecorder):Promise<BulkPageResult>{
- const postalInputs=page.map(normalizeHudPostalLocation); await bulkLocations(c,runId,postalInputs,record);
- const outside:CertifiedRawRecord[]=[]; const normal:CertifiedRawRecord[]=[];
- for(const r of page){if(source==='HUD_USPS_ZIP_CBSA'&&String(r.record.geoid??'')==='99999')outside.push(r);else normal.push(r);}
+ const postalInputs=page.map(normalizeHudPostalLocation);
+ const postalLocationIds=await bulkLocations(c,runId,postalInputs,record);
+ const outside:CertifiedRawRecord[]=[]; const areaRows:CertifiedRawRecord[]=[]; const normal:CertifiedRawRecord[]=[];
+ const areaCodes:Record<string,string>={AS:'60',FM:'64',MH:'68',PW:'70'};
+ for(const r of page){
+  const state=String(r.record.state??'').trim().toUpperCase();
+  const geoid=String(r.record.geoid??'').trim();
+  if(source==='HUD_USPS_ZIP_CBSA'&&geoid==='99999')outside.push(r);
+  else if(source==='HUD_USPS_ZIP_COUNTY'&&areaCodes[state]===geoid)areaRows.push(r);
+  else normal.push(r);
+ }
  if(outside.length){
   const zipKeys=outside.map(r=>`US:ZIP:${String(r.record.zip)}`);const ratios=outside.map(hudRatios);const docs=outside.map((r,i)=>({authority:'HUD_USPS',relationship_type:'POSTAL_OUTSIDE_CBSA',postal_key:zipKeys[i],ratios:ratios[i],source_record_sha256:r.record_sha256}));
   await timed(c,record,'HUD_OUTSIDE_CBSA_BULK_INSERT',outside.length,`insert into zsl.zsl2_postal_outside_cbsa_facts(normalization_run_id,postal_location_id,res_ratio,bus_ratio,oth_ratio,tot_ratio,source_release_id,source_ingest_run_id,source_record_sha256,evidence_document,evidence_sha256)
   select $1,l.location_id,x.res::numeric,x.bus::numeric,x.oth::numeric,x.tot::numeric,x.release_id::uuid,x.ingest_run_id::uuid,x.record_sha256,x.doc::jsonb,x.sha from unnest($2::text[],$3::text[],$4::text[],$5::text[],$6::text[],$7::text[],$8::text[],$9::text[],$10::text[],$11::text[])x(zip_key,res,bus,oth,tot,release_id,ingest_run_id,record_sha256,doc,sha) join zsl.locations l on l.canonical_key=x.zip_key on conflict(normalization_run_id,source_record_sha256) do nothing`,[runId,zipKeys,ratios.map(x=>x.res),ratios.map(x=>x.bus),ratios.map(x=>x.oth),ratios.map(x=>x.tot),outside.map(r=>r.release_id),outside.map(r=>r.ingest_run_id),outside.map(r=>r.record_sha256),docs.map(d=>JSON.stringify(d)),docs.map(sha256Json)]);
   await timed(c,record,'LINEAGE_BULK_INSERT',outside.length,`insert into zsl.zsl2_record_lineage(normalization_run_id,source_key,release_id,ingest_run_id,raw_record_id,raw_record_sha256,disposition,disposition_reason)
   select $1,x.source_key,x.release_id::uuid,x.ingest_run_id::uuid,x.raw_record_id::uuid,x.record_sha256,'IGNORED_BY_POLICY','HUD_CBSA_99999_OUTSIDE_CBSA' from unnest($2::text[],$3::text[],$4::text[],$5::text[],$6::text[])x(source_key,release_id,ingest_run_id,raw_record_id,record_sha256) on conflict(normalization_run_id,source_key,raw_record_id) do nothing`,[runId,outside.map(r=>r.source_key),outside.map(r=>r.release_id),outside.map(r=>r.ingest_run_id),outside.map(r=>r.record_id),outside.map(r=>r.record_sha256)]);
+ }
+ if(areaRows.length){
+  const facts=areaRows.map(rr=>{
+   const zip=String(rr.record.zip??'').trim();
+   const state=String(rr.record.state??'').trim().toUpperCase();
+   const area=String(rr.record.geoid??'').trim();
+   const areaCodes:Record<string,string>={AS:'60',FM:'64',MH:'68',PW:'70'};
+   if(!/^[0-9]{5}$/.test(zip)||areaCodes[state]!==area)throw new Error(`HUD_TERRITORIAL_AREA_IDENTITY_INVALID:${rr.record_id}`);
+   const postalKey=`US:ZIP:${zip}`;
+   const postalLocationId=postalLocationIds.get(postalKey);
+   if(!postalLocationId)throw new Error(`HUD_TERRITORIAL_POSTAL_LOCATION_MISSING:${rr.record_id}`);
+   const ratios=hudRatios(rr);
+   const evidence={ratios,area_code:area,postal_key:postalKey,state_code:state,classification:'HUD_TERRITORIAL_AREA_NOT_COUNTY',source_record_sha256:rr.record_sha256};
+   return {rr,zip,state,area,postalLocationId,ratios,evidence,evidenceSha:sha256Json(evidence)};
+  });
+  await timed(c,record,'HUD_TERRITORIAL_AREA_EVIDENCE_BULK_INSERT',facts.length,
+   `insert into zsl.zsl2_postal_territorial_area_evidence_v214(normalization_run_id,source_key,release_id,ingest_run_id,raw_record_id,source_record_sha256,postal_location_id,postal_code,state_code,area_code,res_ratio,bus_ratio,oth_ratio,tot_ratio,evidence_document,evidence_sha256)
+    select $1,x.source_key,x.release_id::uuid,x.ingest_run_id::uuid,x.raw_record_id::uuid,x.record_sha256,x.postal_location_id::uuid,x.postal_code,x.state_code,x.area_code,x.res::numeric,x.bus::numeric,x.oth::numeric,x.tot::numeric,x.evidence::jsonb,x.evidence_sha256
+    from unnest($2::text[],$3::text[],$4::text[],$5::text[],$6::text[],$7::text[],$8::text[],$9::text[],$10::text[],$11::text[],$12::text[],$13::text[],$14::text[],$15::text[],$16::text[]) x(source_key,release_id,ingest_run_id,raw_record_id,record_sha256,postal_location_id,postal_code,state_code,area_code,res,bus,oth,tot,evidence,evidence_sha256)
+    on conflict(normalization_run_id,source_key,raw_record_id) do nothing`,
+   [runId,facts.map(x=>x.rr.source_key),facts.map(x=>x.rr.release_id),facts.map(x=>x.rr.ingest_run_id),facts.map(x=>x.rr.record_id),facts.map(x=>x.rr.record_sha256),facts.map(x=>x.postalLocationId),facts.map(x=>x.zip),facts.map(x=>x.state),facts.map(x=>x.area),facts.map(x=>x.ratios.res),facts.map(x=>x.ratios.bus),facts.map(x=>x.ratios.oth),facts.map(x=>x.ratios.tot),facts.map(x=>JSON.stringify(x.evidence)),facts.map(x=>x.evidenceSha)]);
+  await timed(c,record,'LINEAGE_BULK_INSERT',facts.length,
+   `insert into zsl.zsl2_record_lineage(normalization_run_id,source_key,release_id,ingest_run_id,raw_record_id,raw_record_sha256,canonical_location_id,disposition,disposition_reason)
+    select $1,x.source_key,x.release_id::uuid,x.ingest_run_id::uuid,x.raw_record_id::uuid,x.record_sha256,x.location_id::uuid,'IGNORED_BY_POLICY','HUD_TERRITORIAL_AREA_NOT_COUNTY'
+    from unnest($2::text[],$3::text[],$4::text[],$5::text[],$6::text[],$7::text[]) x(source_key,release_id,ingest_run_id,raw_record_id,record_sha256,location_id)
+    on conflict(normalization_run_id,source_key,raw_record_id) do nothing`,
+   [runId,facts.map(x=>x.rr.source_key),facts.map(x=>x.rr.release_id),facts.map(x=>x.rr.ingest_run_id),facts.map(x=>x.rr.record_id),facts.map(x=>x.rr.record_sha256),facts.map(x=>x.postalLocationId)]);
  }
  const relInputs=normal.map(r=>normalizeHudRelationship(r));
  const parentKeys=[...new Set(relInputs.map(r=>r.parentKey))];
@@ -170,5 +205,5 @@ export async function processHudPageSetBased(c:PoolClient,runId:string,source:st
  const missingIds=new Set(missingCounty.map(x=>x.recordId)); const good=relInputs.filter(x=>!missingIds.has(x.recordId));
  const rels:RelationshipStage[]=good.map(x=>{const ev={parent:x.parentKey,child:x.childKey,ratios:x.ratios,authority:x.authority,relationship_type:x.relationshipType,source_release_id:x.releaseId};return{source_key:x.sourceKey,release_id:x.releaseId,ingest_run_id:x.ingestRunId,raw_record_id:x.recordId,record_sha256:x.recordSha256,parent_key:x.parentKey,child_key:x.childKey,relationship_type:x.relationshipType,authority:x.authority,ratios:x.ratios,evidence_document:ev,evidence_sha256:sha256Json(ev)}});
  const relationships=await bulkRelationships(c,runId,rels,record,true);
- return {records:page.length,locations:page.length+missingCbsa.length,relationships,lineage:outside.length+missingCounty.length+relationships};
+ return {records:page.length,locations:page.length+missingCbsa.length,relationships,lineage:outside.length+areaRows.length+missingCounty.length+relationships};
 }

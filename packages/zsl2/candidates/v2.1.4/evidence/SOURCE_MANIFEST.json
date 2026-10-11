@@ -119,6 +119,11 @@
       "bytes": 3114
     },
     {
+      "path": "database/migrations/017_zsl2_v2_1_4_hud_territorial_area_evidence.sql",
+      "sha256": "297cfd78d42885e5d38acb8362a78ae97184efa211b9930bcb649736a23e4b92",
+      "bytes": 2134
+    },
+    {
       "path": "database/rollback/001_zsl2_non_destructive_rollback.sql",
       "sha256": "1269b9d4cbc05449b950e3a3894964b45812de5465ddcd9a343cdd8bed043878",
       "bytes": 507
@@ -385,8 +390,8 @@
     },
     {
       "path": "src/services/certification.service.ts",
-      "sha256": "10fa75ded761e249fc02c2af0d7b1301d8eda84019f3cbd67166e35787328237",
-      "bytes": 16478
+      "sha256": "54556577a8c8af8cc3265eb4d3d3d61d7c76478a3ad150a8ad312122f9522367",
+      "bytes": 18413
     },
     {
       "path": "src/services/normalize.service.ts",
@@ -400,8 +405,8 @@
     },
     {
       "path": "src/services/setBasedNormalizer.ts",
-      "sha256": "f2c48f3d25f735d99e0b4d8ec312cb110870cb479a8d74730c4847a988c959ec",
-      "bytes": 28713
+      "sha256": "09a3becb7d88c6bcf29cb271896cf89cfb3d9963a5bd20247880e981f3cbb8d2",
+      "bytes": 32333
     },
     {
       "path": "src/services/zsl1Authority.service.ts",
@@ -415,8 +420,8 @@
     },
     {
       "path": "tests/freeze-hardening.test.ts",
-      "sha256": "f49bdfdb6c1521efc68ad69b648397aa0149e7b5c090f9a6488ef62eab3a2ed6",
-      "bytes": 2581
+      "sha256": "e026e7acf66c8fd5bea4c00d16f1d823128bfc73eb697904c3f1d68767bb2856",
+      "bytes": 2633
     },
     {
       "path": "tests/normalizers.test.ts",
@@ -425,8 +430,8 @@
     },
     {
       "path": "tests/static-sql.test.ts",
-      "sha256": "5c151bb52e3a44dbe47ab85dc6b2f4c01986664b74d5ca4d7f9105efccdf4809",
-      "bytes": 1488
+      "sha256": "585c6efc3393ea59a7c8c59463ebe9463f0c7fad452db5a593a3f6173a586b31",
+      "bytes": 1557
     },
     {
       "path": "tests/v214-production-aligned-remediation.test.ts",
