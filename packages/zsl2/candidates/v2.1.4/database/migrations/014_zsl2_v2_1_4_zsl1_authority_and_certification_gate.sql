@@ -37,7 +37,7 @@ $$;
 
 CREATE OR REPLACE FUNCTION zsl.zsl2_zsl1_authority_release_count_v214(p_package_sha text)
 RETURNS integer LANGUAGE sql STABLE SECURITY DEFINER SET search_path=pg_catalog,zsl AS $$
- SELECT count(DISTINCT (source_key,release_id))::integer
+ SELECT count(DISTINCT (cr.source_key,cr.release_id))::integer
  FROM zsl.certified_release_records cr JOIN zsl.ingest_runs ir ON ir.ingest_run_id=cr.ingest_run_id
  WHERE ir.package_sha256=p_package_sha
 $$;

@@ -1,6 +1,6 @@
 {
-  "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_3_PERFORMANCE_REMEDIATION_FINAL_FREEZE_CANDIDATE",
-  "releaseVersion": "2.1.3",
+  "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_4_PRODUCTION_ALIGNED_PERFORMANCE_CERTIFICATION_FINAL_FREEZE_CANDIDATE",
+  "releaseVersion": "2.1.4",
   "runtimeEngineCompatibility": "zsl2-v2.1.0",
   "files": [
     {
@@ -105,8 +105,8 @@
     },
     {
       "path": "database/migrations/014_zsl2_v2_1_4_zsl1_authority_and_certification_gate.sql",
-      "sha256": "cc0c4c0fa68415bd37f22425f6a1af6b48e82618eed57bd375fd93075c80c858",
-      "bytes": 4078
+      "sha256": "bb1ea4110c90518d53b6d1b2782d65f12f5c2885b4c58e670195839766c33dd1",
+      "bytes": 4084
     },
     {
       "path": "database/migrations/015_zsl2_v2_1_4_certification_authority_hardening.sql",
@@ -270,8 +270,8 @@
     },
     {
       "path": "scripts/generate-source-manifest.mjs",
-      "sha256": "58ea31b1fb45319e73b12909cec7c1e9b6ccce7d6ae1581401223bf437b24de8",
-      "bytes": 1297
+      "sha256": "46e9b061545feb27804dd30b4ab9136010d873801756b3902645643b23519e20",
+      "bytes": 1326
     },
     {
       "path": "scripts/install.sh",
@@ -425,8 +425,8 @@
     },
     {
       "path": "tests/v214-production-aligned-remediation.test.ts",
-      "sha256": "04967db6ddf6960388f31fa4fb4bdf465d773869732e407b475cf1331b2c69fd",
-      "bytes": 2133
+      "sha256": "7afdd80c83e553ba871abf69a65b49ac1d2640cf576f910d93ae3653878a64d8",
+      "bytes": 2393
     },
     {
       "path": "tsconfig.json",

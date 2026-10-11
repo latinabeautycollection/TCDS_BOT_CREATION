@@ -13,6 +13,11 @@ test('historical package migrations stop at 008 and remediation starts at 011',a
  assert(files.some((x:string)=>x.startsWith('016_')));
 });
 
+test('ZSL1 release count qualifies columns shared by joined relations',async()=>{
+ const s=await txt('database/migrations/014_zsl2_v2_1_4_zsl1_authority_and_certification_gate.sql');
+ assert.match(s,/count\(DISTINCT \(cr\.source_key,cr\.release_id\)\)/);
+});
+
 test('set based normalizer preserves territorial missing county as pending evidence',async()=>{
  const s=await txt('src/services/setBasedNormalizer.ts');
  assert.match(s,/HUD_TERRITORIAL_PENDING_BULK_INSERT/);
