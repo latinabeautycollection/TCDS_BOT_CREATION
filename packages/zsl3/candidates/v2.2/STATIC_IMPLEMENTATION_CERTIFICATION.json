@@ -11,7 +11,7 @@
     "typescriptBuild": "PASS",
     "tests": {
       "status": "PASS",
-      "passed": 38,
+      "passed": 40,
       "failed": 0
     },
     "jsonValidation": "PASS",
@@ -20,9 +20,9 @@
     "forbiddenArtifactScan": "PASS",
     "sourceManifest": "PASS",
     "migrationManifest": "PASS",
-    "dependencyLock": "PENDING_CONNECTED_BUILDER"
+    "dependencyLock": "PASS"
   },
-  "sourceManifestSha256": "655df41f386af9b496b58ea96803698e97bb7e2dfcc449867425d5e1eeed4dd1",
+  "sourceManifestSha256": "b594ff26a8c08a42decc35d3fa2cae8b4f808c5334db809d59f3407e85b83222",
   "migrationManifestSha256": "8f9b622e166bad6c09ed7a1a5aef2c054b4ba0670ea052f8ac25b5272e5a494a",
   "hardeningDoctrine": "No certification control may PASS by assertion. Runtime certification must be measured from persisted evidence.",
   "knownRuntimePrerequisites": [
