@@ -42,7 +42,14 @@ async function bulkLocations(c:PoolClient,runId:string,inputs:CanonicalLocationI
   ingest_run_id:rows.map(r=>r.x.ingestRunId),raw_record_id:rows.map(r=>r.x.recordId),record_sha256:rows.map(r=>r.x.recordSha256)
  };
  await timed(c,record,'LOCATION_STAGE_LOAD',rows.length,`insert into zsl2_location_stage(location_type,canonical_key,display_name,authority_status,identity_document,identity_sha256,revision_document,revision_sha256,latitude,longitude,source_key,release_id,ingest_run_id,raw_record_id,record_sha256)
- select * from unnest($1::text[],$2::text[],$3::text[],$4::text[],$5::text[],$6::text[],$7::text[],$8::text[],$9::text[],$10::text[],$11::text[],$12::text[],$13::text[],$14::text[],$15::text[])
+ select
+ x.location_type,x.canonical_key,x.display_name,x.authority_status,
+ x.identity_document::jsonb,x.identity_sha256,
+ x.revision_document::jsonb,x.revision_sha256,
+ x.latitude::numeric(9,6),x.longitude::numeric(9,6),
+ x.source_key,x.release_id::uuid,x.ingest_run_id::uuid,
+ x.raw_record_id::uuid,x.record_sha256
+ from unnest($1::text[],$2::text[],$3::text[],$4::text[],$5::text[],$6::text[],$7::text[],$8::text[],$9::text[],$10::text[],$11::text[],$12::text[],$13::text[],$14::text[],$15::text[])
  as x(location_type,canonical_key,display_name,authority_status,identity_document,identity_sha256,revision_document,revision_sha256,latitude,longitude,source_key,release_id,ingest_run_id,raw_record_id,record_sha256)`,[
   cols.location_type,cols.canonical_key,cols.display_name,cols.authority_status,cols.identity_document,cols.identity_sha256,cols.revision_document,cols.revision_sha256,cols.latitude,cols.longitude,cols.source_key,cols.release_id,cols.ingest_run_id,cols.raw_record_id,cols.record_sha256]);
  const drift=await timed(c,record,'LOCATION_IDENTITY_DRIFT_CHECK',rows.length,`select count(*)::text n from zsl2_location_stage s join zsl.locations l using(canonical_key) where l.identity_sha256<>s.identity_sha256`);
