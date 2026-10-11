@@ -1,0 +1,3 @@
+import { readFile } from "node:fs/promises";import { sha256Canonical } from "./hash.js";
+export interface SchemaContract{sourceKey:string;contractVersion:string;required:string[];allowExtraFields?:boolean;[k:string]:unknown}
+export async function loadSchemaContract(sourceKey:string,path="config/schema-contracts.json"):Promise<{contract:SchemaContract;sha256:string}>{const doc=JSON.parse(await readFile(path,"utf8")) as {contracts:SchemaContract[]};const c=doc.contracts.find(x=>x.sourceKey===sourceKey);if(!c)throw new Error(`SCHEMA_CONTRACT_NOT_FOUND:${sourceKey}`);return{contract:c,sha256:sha256Canonical(c)}}

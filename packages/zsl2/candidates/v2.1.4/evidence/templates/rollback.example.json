@@ -1,0 +1,8 @@
+{
+  "pass": false,
+  "scenario": "V2.1 active -> V2.1.2 install failure -> non-destructive authority rollback",
+  "database_snapshot_sha256": "<64-hex>",
+  "historical_evidence_preserved": false,
+  "previous_authority_restored": false,
+  "notes": "Must be produced from a disposable staging database."
+}

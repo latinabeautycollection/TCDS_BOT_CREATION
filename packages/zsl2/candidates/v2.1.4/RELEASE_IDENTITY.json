@@ -1,0 +1,19 @@
+{
+  "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_4_PRODUCTION_ALIGNED_PERFORMANCE_CERTIFICATION_FINAL_FREEZE_CANDIDATE",
+  "version": "2.1.4",
+  "engineCompatibility": "zsl2-v2.1.0",
+  "purpose": "production-aligned set-based normalizer + territorial pending evidence + signed ZSL1 certified-release authority gate",
+  "zsl1ForwardAuthoritySha256": "8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c",
+  "zsl1AuthorityModel": "CERTIFIED_RELEASE_VIEW",
+  "zsl1GovernedReleaseCount": 13,
+  "historicalMigrations001to008": "PRESERVED_BYTE_FOR_BYTE",
+  "productionMigrations009to010": "SERVER_AUTHORITY_NOT_REPLACED",
+  "historicalRev9PerformanceEvidence": "PRESERVED_FAILED",
+  "performancePolicy": {
+    "pageP99MaxMs": 60000,
+    "pageHardMaxMs": 120000,
+    "relaxed": false
+  },
+  "runtimeCertification": "NOT_EXECUTED",
+  "productionActivationAuthorized": false
+}

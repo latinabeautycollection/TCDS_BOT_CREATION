@@ -1,0 +1,17 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';
+const read=(p:string)=>fs.readFileSync(p,'utf8');
+test('ACS metadata comes from schema validation evidence',()=>{const s=read('src/metadata/acs-metadata.service.ts');assert.match(s,/schema_validation_runs/);assert.match(s,/variableMetadata/);assert.doesNotMatch(s,/natural_key=\$3/)});
+test('certification has no hard coded runtime PASS helper',()=>{const s=read('src/certification/certification.service.ts');assert.doesNotMatch(s,/exact_zsl2_package'[^;]*true/);assert.doesNotMatch(s,/naics_vocabulary_valid'[^;]*true/);assert.match(s,/NOT_EXECUTED/)});
+test('exact ZSL2 package queried from authority',()=>{const s=read('src/certification/certification.service.ts');assert.match(s,/zsl2_normalization_runs/);assert.match(s,/package_sha256/);assert.match(s,/engine_version/)});
+test('percentile replay recomputes cohort and rank',()=>{const s=read('src/replay/replay.service.ts');assert.match(s,/rank\(\) OVER/);assert.match(s,/cohort_n/);assert.match(s,/minimumPercentileCohortSize/)});
+test('confidence replay invokes confidence engine',()=>{const s=read('src/replay/replay.service.ts');assert.match(s,/confidence\(/);assert.match(s,/computeCoverage/)});
+test('derived freshness uses exact lineage',()=>{const s=read('src/replay/replay.service.ts')+read('src/snapshots/snapshot.service.ts');assert.match(s,/sourceInputsForDerived/);assert.match(s,/aggregateFreshness/)});
+test('coverage is contextual and separate',()=>{const s=read('src/snapshots/coverage.service.ts');assert.match(s,/requiredSourcesExpected/);assert.match(s,/sourceFactCoveragePct/);assert.match(s,/derivedFeatureCoveragePct/);assert.match(s,/locationCoveragePct/)});
+test('snapshots persist nonempty source vintage set',()=>{const s=read('src/snapshots/snapshot.service.ts');assert.match(s,/sourceVintageSet/);assert.match(s,/ZSL3_EMPTY_SOURCE_VINTAGE_SET/)});
+test('ACS semantic certification compares expected labels',()=>{const s=read('src/certification/certification.service.ts');assert.match(s,/expectedLabelContains/);assert.match(s,/semanticBad/)});
+test('BEA MSA reconciliation is explicit',()=>{const s=read('src/normalizers/bea.ts');assert.match(s,/zsl3_bea_msa_reconciliation/);assert.match(s,/PENDING_ZSL2_AUTHORITY/);assert.match(s,/UNRESOLVED/)});
+test('real validating stage is executed',()=>{const s=read('src/cli/build.ts');assert.match(s,/validateBuild/);assert.match(s,/VALIDATING/);assert.match(s,/DERIVING/)});
+test('runtime checks are attempt scoped',()=>{const s=read('database/migrations/007_zsl3_certification.sql');assert.match(s,/zsl3_runtime_check_runs/);assert.match(s,/runtime_check_run_id/);assert.doesNotMatch(s,/UNIQUE\(build_run_id,check_code\)/)});
+test('certification binds exact passing check run',()=>{const s=read('database/migrations/010_zsl3_certification_guard.sql');assert.match(s,/runtime_check_run_id/);assert.match(s,/NOT_EXECUTED/)});
+test('RBAC does not revoke all ZSL upstream tables',()=>{const s=read('database/migrations/009_zsl3_guards_rbac.sql');assert.doesNotMatch(s,/REVOKE ALL ON ALL TABLES IN SCHEMA zsl/);assert.match(s,/tablename LIKE 'zsl3_%'/)});
+test('missing ACS values are preserved as evidence',()=>{const s=read('src/normalizers/acs.ts');assert.match(s,/INVALID_SOURCE_VALUE/);assert.match(s,/MISSING/);assert.doesNotMatch(s,/if\(raw\.record\[v\.variableCode\].*continue/)});

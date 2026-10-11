@@ -1,0 +1,33 @@
+{
+  "version": "2.1.0",
+  "requiredChecks": [
+    "reconciled",
+    "artifactSha",
+    "nonzero",
+    "membershipMatches",
+    "distinctCountSane",
+    "policySha",
+    "adapterVersion",
+    "applicationVersion",
+    "gitIdentity",
+    "packageIdentity",
+    "schemaValidation",
+    "parserReplay",
+    "auditCoverage",
+    "secretLeakage",
+    "releaseIdentity",
+    "artifactImmutable",
+    "configBound"
+  ],
+  "requirements": {
+    "sourceArtifactToRecordLineagePercent": 100,
+    "recordToReleaseMembershipPercent": 100,
+    "auditCoveragePercent": 100,
+    "parserReplayPercent": 100,
+    "schemaValidationPassPercent": 100,
+    "secretLeakageAllowed": false,
+    "requireGitSha": true,
+    "requirePackageSha": true,
+    "requireExactPackageShaEnvironmentMatch": true
+  }
+}

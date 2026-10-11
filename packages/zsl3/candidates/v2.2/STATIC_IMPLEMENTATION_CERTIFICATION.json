@@ -1,0 +1,35 @@
+{
+  "package": "TCDS_ZSL3_GREEN_TIER1_ECONOMIC_INTELLIGENCE_V2_2_FREEZE_FINAL",
+  "version": "2.2.0",
+  "engineVersion": "zsl3-v2.2.0",
+  "classification": "GREEN_TIER_1_IMPLEMENTATION_FINAL_SOURCE_CANDIDATE",
+  "runtimeCertified": false,
+  "productionFreezeApproved": false,
+  "safeForZsl4RuntimeDependency": false,
+  "staticChecks": {
+    "typescriptNoEmit": "PASS",
+    "typescriptBuild": "PASS",
+    "tests": {
+      "status": "PASS",
+      "passed": 38,
+      "failed": 0
+    },
+    "jsonValidation": "PASS",
+    "shellSyntax": "PASS",
+    "sqlStaticSafety": "PASS",
+    "forbiddenArtifactScan": "PASS",
+    "sourceManifest": "PASS",
+    "migrationManifest": "PASS",
+    "dependencyLock": "PENDING_CONNECTED_BUILDER"
+  },
+  "sourceManifestSha256": "655df41f386af9b496b58ea96803698e97bb7e2dfcc449867425d5e1eeed4dd1",
+  "migrationManifestSha256": "8f9b622e166bad6c09ed7a1a5aef2c054b4ba0670ea052f8ac25b5272e5a494a",
+  "hardeningDoctrine": "No certification control may PASS by assertion. Runtime certification must be measured from persisted evidence.",
+  "knownRuntimePrerequisites": [
+    "Resolve and seal complete npm transitive dependency lock on approved connected builder.",
+    "ZSL1 must ingest and certify CENSUS_CBP and CENSUS_ZBP.",
+    "Execute migrations and adversarial runtime checks against real Supabase/PostgreSQL.",
+    "Record measured rollback QA evidence.",
+    "Obtain a PASS runtime_check_run, insert CERTIFIED, and explicitly ACTIVATE."
+  ]
+}

@@ -1,0 +1,2 @@
+# Feature Governance
+Every derived feature is registered in `zsl.zsl3_feature_definitions` with formula version, formula document, inputs, parameters, SHA, minimum inputs, and minimum sample size. Runtime derivation and replay both bind the exact definition. `economic_pressure_index` is implemented and certifiable. Percentile indices require the configured cohort minimum and are scoped by geography/type/vintage cohort.

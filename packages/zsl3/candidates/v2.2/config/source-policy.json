@@ -1,0 +1,111 @@
+{
+  "version": "2.2.0",
+  "engineVersion": "zsl3-v2.2.0",
+  "failClosed": true,
+  "requiredSources": [
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "dataset": "ACS",
+      "geographies": [
+        "STATE",
+        "COUNTY",
+        "PLACE",
+        "ZCTA"
+      ],
+      "required": true
+    },
+    {
+      "sourceKey": "BEA_REGIONAL_RPP",
+      "dataset": "BEA_RPP",
+      "geographies": [
+        "STATE"
+      ],
+      "required": true
+    },
+    {
+      "sourceKey": "BEA_REGIONAL_RPP",
+      "dataset": "BEA_RPP",
+      "geographies": [
+        "MSA"
+      ],
+      "required": false,
+      "requiresAuthoritativeMetroMapping": true
+    },
+    {
+      "sourceKey": "CENSUS_CBP",
+      "dataset": "CBP",
+      "geographies": [
+        "STATE",
+        "COUNTY"
+      ],
+      "required": true
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "dataset": "ZBP",
+      "geographies": [
+        "POSTAL_CODE"
+      ],
+      "required": true
+    }
+  ],
+  "evidenceClasses": [
+    "SOURCE_FACT",
+    "DERIVED_FEATURE"
+  ],
+  "forbiddenEvidenceClasses": [
+    "MODEL_PRIOR",
+    "PREDICTION",
+    "DEAL_SCORE"
+  ],
+  "allowFuzzyGeographyMatch": false,
+  "requireExactUpstreamPackages": true,
+  "requireCurrentUpstreamCertifications": true,
+  "vintageCoherence": {
+    "ACS": "SAME_YEAR_ALL_GRAINS",
+    "BEA_RPP": "SAME_YEAR_REQUIRED_GRAINS",
+    "CBP_ZBP": "COMPATIBLE_YEAR_AND_NAICS"
+  },
+  "coverageExpectations": {
+    "STATE": {
+      "requiredSources": [
+        "ACS_STATE",
+        "BEA_RPP_STATE",
+        "CBP_STATE"
+      ],
+      "optionalSources": []
+    },
+    "COUNTY": {
+      "requiredSources": [
+        "ACS_COUNTY",
+        "CBP_COUNTY"
+      ],
+      "optionalSources": []
+    },
+    "PLACE": {
+      "requiredSources": [
+        "ACS_PLACE"
+      ],
+      "optionalSources": []
+    },
+    "ZCTA": {
+      "requiredSources": [
+        "ACS_ZCTA"
+      ],
+      "optionalSources": []
+    },
+    "POSTAL_CODE": {
+      "requiredSources": [
+        "ZBP_POSTAL_CODE"
+      ],
+      "optionalSources": []
+    }
+  },
+  "locationCoverageMinimumPct": {
+    "STATE": 100,
+    "COUNTY": 95,
+    "PLACE": 90,
+    "ZCTA": 90,
+    "POSTAL_CODE": 90
+  }
+}

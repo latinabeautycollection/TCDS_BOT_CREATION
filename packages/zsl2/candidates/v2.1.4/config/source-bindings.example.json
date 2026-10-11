@@ -1,0 +1,10 @@
+{
+  "sources": [
+    {"source_key":"CENSUS_GAZETTEER_STATE","release_id":"<uuid>","release_key":"<key>","ingest_run_id":"<uuid>","certification_run_id":"<uuid>","certification_created_at":"<ISO8601>"},
+    {"source_key":"CENSUS_GAZETTEER_COUNTY","release_id":"<uuid>","release_key":"<key>","ingest_run_id":"<uuid>","certification_run_id":"<uuid>","certification_created_at":"<ISO8601>"},
+    {"source_key":"CENSUS_GAZETTEER_PLACE","release_id":"<uuid>","release_key":"<key>","ingest_run_id":"<uuid>","certification_run_id":"<uuid>","certification_created_at":"<ISO8601>"},
+    {"source_key":"CENSUS_GAZETTEER_ZCTA","release_id":"<uuid>","release_key":"<key>","ingest_run_id":"<uuid>","certification_run_id":"<uuid>","certification_created_at":"<ISO8601>"},
+    {"source_key":"HUD_USPS_ZIP_COUNTY","release_id":"<uuid>","release_key":"<key>","ingest_run_id":"<uuid>","certification_run_id":"<uuid>","certification_created_at":"<ISO8601>"},
+    {"source_key":"HUD_USPS_ZIP_CBSA","release_id":"<uuid>","release_key":"<key>","ingest_run_id":"<uuid>","certification_run_id":"<uuid>","certification_created_at":"<ISO8601>"}
+  ]
+}

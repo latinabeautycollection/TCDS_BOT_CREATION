@@ -1,0 +1,62 @@
+{
+  "version": "2.2.0",
+  "requireExplicitVocabulary": true,
+  "allowImplicitCrosswalk": false,
+  "featureGroups": [
+    {
+      "groupCode": "ELECTRONICS_RETAIL",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "443142"
+      ]
+    },
+    {
+      "groupCode": "GENERAL_MERCHANDISE",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "452210",
+        "452311",
+        "452319"
+      ]
+    },
+    {
+      "groupCode": "WAREHOUSE_CLUB",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "452311"
+      ]
+    },
+    {
+      "groupCode": "HOME_IMPROVEMENT",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "444110"
+      ]
+    },
+    {
+      "groupCode": "AUTOMOTIVE_PARTS",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "441310"
+      ]
+    },
+    {
+      "groupCode": "WAREHOUSING_STORAGE",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "493110",
+        "493120",
+        "493130",
+        "493190"
+      ]
+    },
+    {
+      "groupCode": "TRANSPORTATION_LOGISTICS",
+      "targetVocabulary": "NAICS2017",
+      "codes": [
+        "488510",
+        "492110"
+      ]
+    }
+  ]
+}

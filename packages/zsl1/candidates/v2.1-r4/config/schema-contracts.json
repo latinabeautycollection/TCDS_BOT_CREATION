@@ -1,0 +1,206 @@
+{
+  "version": "2.1.0",
+  "contracts": [
+    {
+      "sourceKey": "CENSUS_GAZETTEER_STATE",
+      "contractVersion": "2.1.0",
+      "required": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "CENSUS_GAZETTEER_COUNTY",
+      "contractVersion": "2.1.0",
+      "required": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "CENSUS_GAZETTEER_PLACE",
+      "contractVersion": "2.1.0",
+      "required": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "CENSUS_GAZETTEER_ZCTA",
+      "contractVersion": "2.1.0",
+      "required": [
+        "GEOID",
+        "GEOIDFQ",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "HUD_USPS_ZIP_CBSA",
+      "contractVersion": "2.1.0",
+      "required": [
+        "zip",
+        "geoid",
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ],
+      "allowExtraFields": true,
+      "releaseIdentity": [
+        "year",
+        "quarter"
+      ],
+      "envelope": {
+        "year": "requested",
+        "quarter": "requested",
+        "crosswalk_type": "zip-cbsa"
+      },
+      "patterns": {
+        "zip": "^[0-9]{5}$",
+        "geoid": "^[0-9]{5}$"
+      },
+      "ratioFields": [
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ]
+    },
+    {
+      "sourceKey": "HUD_USPS_ZIP_COUNTY",
+      "contractVersion": "2.1.1",
+      "required": [
+        "zip",
+        "geoid",
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ],
+      "allowExtraFields": true,
+      "releaseIdentity": [
+        "year",
+        "quarter"
+      ],
+      "envelope": {
+        "year": "requested",
+        "quarter": "requested",
+        "crosswalk_type": "zip-county"
+      },
+      "patterns": {
+        "zip": "^[0-9]{5}$",
+        "geoid": "^(?:[0-9]{5}|60|64|68|70)$"
+      },
+      "ratioFields": [
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ]
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "contractVersion": "2.1.0",
+      "required": [
+        "NAME"
+      ],
+      "allowExtraFields": true,
+      "metadataBindingRequired": true,
+      "variableMetadataFields": [
+        "label",
+        "concept",
+        "predicateType",
+        "group"
+      ]
+    },
+    {
+      "sourceKey": "BEA_REGIONAL_RPP",
+      "contractVersion": "2.1.0",
+      "required": [
+        "GeoFIPS",
+        "GeoName",
+        "LineCode",
+        "TimePeriod",
+        "DataValue"
+      ],
+      "allowExtraFields": true,
+      "metadataBindingRequired": true,
+      "dataValueNumericRequired": true
+    },
+    {
+      "sourceKey": "BTS_FAF6_REGIONAL",
+      "contractVersion": "2.1.0",
+      "required": [
+        "dms_orig",
+        "dms_dest",
+        "sctg2",
+        "trade_type",
+        "dms_mode"
+      ],
+      "allowExtraFields": true,
+      "csvHeaderAliases": {
+        "trade_type": [
+          "trade_type"
+        ],
+        "dms_orig": [
+          "dms_orig"
+        ],
+        "dms_dest": [
+          "dms_dest"
+        ],
+        "sctg2": [
+          "sctg2"
+        ],
+        "dms_mode": [
+          "dms_mode"
+        ]
+      }
+    }
+  ]
+}

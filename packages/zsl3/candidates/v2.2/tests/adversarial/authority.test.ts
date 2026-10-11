@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const s=fs.readFileSync('database/migrations/011_zsl3_authority_functions.sql','utf8');test('old build cannot revoke active by id',()=>{assert.match(s,/zsl3_revoke_active/);assert.match(s,/authority_state/)})

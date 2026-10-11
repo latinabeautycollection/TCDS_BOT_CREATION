@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const s=fs.readFileSync('src/replay/replay.service.ts','utf8');test('feature replay not snapshot-only',()=>{assert.match(s,/economic_pressure_index/);assert.match(s,/feature_lineage/);assert.match(s,/freshness/);assert.match(s,/confidence/)});

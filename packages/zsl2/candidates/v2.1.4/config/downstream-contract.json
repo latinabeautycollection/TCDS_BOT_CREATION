@@ -1,0 +1,14 @@
+{
+  "engineVersion": "zsl2-v2.1.0",
+  "views": {
+    "certified_canonical_locations": [
+      "location_id","location_type","country_code","canonical_key","display_name","authority_status","active","identity_document","identity_sha256","valid_from","valid_to","created_at","normalization_run_id","certification_run_id","latitude","longitude","point"
+    ],
+    "certified_canonical_relationships": [
+      "relationship_id","parent_location_id","child_location_id","relationship_type","authority","res_ratio","bus_ratio","oth_ratio","tot_ratio","source_release_id","source_ingest_run_id","source_record_sha256","evidence_document","evidence_sha256","active","created_at","normalization_run_id","certification_run_id"
+    ],
+    "r1b_location_candidates": [
+      "zsl_location_id","canonical_key","location_type","country_code","display_name","state_code","postal_code","cbsa_code","metro_name","latitude","longitude","r1b_eligible_location_type","zsl_identity_sha256","normalization_run_id","certification_run_id"
+    ]
+  }
+}

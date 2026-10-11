@@ -1,0 +1,1 @@
+import{pool}from'../repositories/db.js';await pool.query(`SELECT zsl.zsl3_revoke_active($1,$2::jsonb)`,[process.env.ZSL3_ACTOR??'zsl3-release',JSON.stringify({reason:process.argv.slice(2).join(' ')||'manual revocation'})]);await pool.end();

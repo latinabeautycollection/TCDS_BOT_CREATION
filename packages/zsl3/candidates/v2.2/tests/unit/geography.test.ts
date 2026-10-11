@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const s=fs.readFileSync('src/normalizers/geography.ts','utf8');test('ZBP ZIP maps postal',()=>{assert.match(s,/POSTAL_CODE/);assert.match(s,/ZIPCODE/);assert.match(s,/US:ZIP:/)});test('ZCTA remains separate',()=>assert.match(s,/US:ZCTA:/));

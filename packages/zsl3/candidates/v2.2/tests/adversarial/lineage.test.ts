@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const f=fs.readFileSync('src/normalizers/facts.ts','utf8');const e=fs.readFileSync('src/features/feature-engine.ts','utf8');test('source fact lineage',()=>assert.match(f,/zsl3_fact_lineage/));test('derived feature lineage',()=>assert.match(e,/zsl3_feature_lineage/));

@@ -1,0 +1,350 @@
+{
+  "version": "2.1.0",
+  "sources": {
+    "CENSUS_GAZETTEER_STATE": {
+      "sourceKey": "CENSUS_GAZETTEER_STATE",
+      "enabled": true,
+      "allowedHosts": [
+        "www2.census.gov"
+      ],
+      "maxArtifactBytes": 200000000,
+      "maxExpandedBytes": 1000000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 1000000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 50,
+        "max": 100
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_GAZETTEER_COUNTY": {
+      "sourceKey": "CENSUS_GAZETTEER_COUNTY",
+      "enabled": true,
+      "allowedHosts": [
+        "www2.census.gov"
+      ],
+      "maxArtifactBytes": 200000000,
+      "maxExpandedBytes": 1000000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 1000000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 3000,
+        "max": 4000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_GAZETTEER_PLACE": {
+      "sourceKey": "CENSUS_GAZETTEER_PLACE",
+      "enabled": true,
+      "allowedHosts": [
+        "www2.census.gov"
+      ],
+      "maxArtifactBytes": 200000000,
+      "maxExpandedBytes": 1000000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 1000000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 25000,
+        "max": 50000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_GAZETTEER_ZCTA": {
+      "sourceKey": "CENSUS_GAZETTEER_ZCTA",
+      "enabled": true,
+      "allowedHosts": [
+        "www2.census.gov"
+      ],
+      "maxArtifactBytes": 200000000,
+      "maxExpandedBytes": 1000000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 1000000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 30000,
+        "max": 40000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "GEOID",
+        "GEOIDFQ",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "HUD_USPS_ZIP_CBSA": {
+      "sourceKey": "HUD_USPS_ZIP_CBSA",
+      "enabled": true,
+      "allowedHosts": [
+        "www.huduser.gov"
+      ],
+      "maxArtifactBytes": 500000000,
+      "maxExpandedBytes": 500000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 500000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 15000,
+        "max": 100000
+      },
+      "expectedContentTypes": [
+        "json"
+      ],
+      "requiredFields": [
+        "zip",
+        "geoid",
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "HUD_USPS_ZIP_COUNTY": {
+      "sourceKey": "HUD_USPS_ZIP_COUNTY",
+      "enabled": true,
+      "allowedHosts": [
+        "www.huduser.gov"
+      ],
+      "maxArtifactBytes": 500000000,
+      "maxExpandedBytes": 500000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 500000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 30000,
+        "max": 120000
+      },
+      "expectedContentTypes": [
+        "json"
+      ],
+      "requiredFields": [
+        "zip",
+        "geoid",
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_ACS5_PROFILE": {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "enabled": true,
+      "allowedHosts": [
+        "api.census.gov"
+      ],
+      "maxArtifactBytes": 200000000,
+      "maxExpandedBytes": 200000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 200000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 50,
+        "max": 100000
+      },
+      "expectedContentTypes": [
+        "json"
+      ],
+      "requiredFields": [
+        "NAME"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "BEA_REGIONAL_RPP": {
+      "sourceKey": "BEA_REGIONAL_RPP",
+      "enabled": true,
+      "allowedHosts": [
+        "apps.bea.gov"
+      ],
+      "maxArtifactBytes": 200000000,
+      "maxExpandedBytes": 200000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 200000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 50,
+        "max": 5000
+      },
+      "expectedContentTypes": [
+        "json"
+      ],
+      "requiredFields": [
+        "GeoFIPS",
+        "GeoName",
+        "LineCode",
+        "TimePeriod",
+        "DataValue"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "BTS_FAF6_REGIONAL": {
+      "sourceKey": "BTS_FAF6_REGIONAL",
+      "enabled": true,
+      "allowedHosts": [
+        "faf.ornl.gov",
+        "www.bts.gov",
+        "faf.bts.gov"
+      ],
+      "maxArtifactBytes": 2000000000,
+      "maxExpandedBytes": 10000000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 10000000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 1000,
+        "max": 50000000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "dms_orig",
+        "dms_dest",
+        "sctg2",
+        "trade_type",
+        "dms_mode"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    }
+  }
+}

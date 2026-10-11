@@ -1,0 +1,13 @@
+{
+  "package": "tcds-zsl1-green-tier1-hardened-v2-1-freeze",
+  "version": "2.1.0",
+  "status": "CONNECTED_BUILD_PASS",
+  "dependencyLock": "PASS",
+  "dependencyLockSha256": "1da13bce781a210305379dbb6b7deeb6b2b9cda5653873093c40b992377d8aa4",
+  "typecheck": "PASS",
+  "build": "PASS",
+  "tests": "PASS",
+  "combinedMigrationDryRun": "PASS",
+  "runtimeCertified": false,
+  "runtimeCertificationStatus": "PENDING"
+}

@@ -1,0 +1,2 @@
+8972ae96691d6f6d4c9415269074e35c2ab158524dcba2da983341d27ca30099  database/migrations/001_zsl1_green_tier1_v2.sql
+21015dada0f6fd171c5b05d514118d51d074526737aca04569683437cbcb6a57  database/migrations/002_zsl1_v21_freeze_hardening.sql

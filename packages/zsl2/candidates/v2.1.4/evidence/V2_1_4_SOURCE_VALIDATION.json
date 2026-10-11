@@ -1,0 +1,67 @@
+{
+  "release": "2.1.4",
+  "engine": "zsl2-v2.1.0",
+  "source_test_count": 40,
+  "source_tests_passed": 40,
+  "typescript_noemit": "PASS_WITH_VALIDATION_SHIMS",
+  "typescript_build": "PASS_WITH_VALIDATION_SHIMS",
+  "historical_migrations_001_008": [
+    {
+      "migration": "001_zsl2_preflight.sql",
+      "sha256": "ed11d7b0a62ea4243c085a69d2aef8e268e1e27ae4149684fedf58942192cc7e",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "002_zsl2_canonical_geography.sql",
+      "sha256": "945aa1f327c9d00cdebf668aad4807439b8d08cd98b587a7fb7f094f6c1f4f9d",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "003_zsl2_normalization_authority.sql",
+      "sha256": "cba920a4249d5e609a6c1d1c499bea603d12a3fb64d84408be54d4340022e771",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "004_zsl2_spatial_services_and_r1b_contract.sql",
+      "sha256": "e7f977cbfa6eb3dc6a6f85db179501b87baf7cb1f0523982f5aed94e0cc25b70",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "005_zsl2_certification.sql",
+      "sha256": "46f84a946c793eb349a2eb7e61fc88932b7b26f5e411ad7188215dc8c1b19373",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "006_zsl2_v2_1_freeze_hardening.sql",
+      "sha256": "9b5232069bbec11729a47537d0484efaea0ea50932666128ba74373b654c3822",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "007_zsl2_v2_1_certification_hardening.sql",
+      "sha256": "6cccafb6fac4d49711dd368afc9d0085a32763631dfabb20ee34528e635474db",
+      "matches_synchronized_baseline": true
+    },
+    {
+      "migration": "008_zsl2_v2_1_rbac.sql",
+      "sha256": "873ee4e2f9a2d17ebcd123dc9ee85ffa1c7cf7c261e7b95ec48c7a987c17df74",
+      "matches_synchronized_baseline": true
+    }
+  ],
+  "conflicting_009_010_shipped": false,
+  "forward_migrations": [
+    "011",
+    "012",
+    "013",
+    "014",
+    "015",
+    "016"
+  ],
+  "performance_policy": {
+    "page_p99_ms": 60000,
+    "page_hard_max_ms": 120000,
+    "relaxed": false
+  },
+  "postgres_runtime": "NOT_EXECUTED",
+  "production_scale_performance": "NOT_EXECUTED",
+  "production_activation_authorized": false
+}

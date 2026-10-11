@@ -1,0 +1,437 @@
+{
+  "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_3_PERFORMANCE_REMEDIATION_FINAL_FREEZE_CANDIDATE",
+  "releaseVersion": "2.1.3",
+  "runtimeEngineCompatibility": "zsl2-v2.1.0",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "3b55738836b44f3b0bb068f64ed81428be242ef6bd6ff6d18eb0890956e28456",
+      "bytes": 723
+    },
+    {
+      "path": "README.md",
+      "sha256": "5ea7bfbbe65f7bdff6d890b5f3f99736b1ecd5387f86f91d1c5e5ce20f05f3b6",
+      "bytes": 2036
+    },
+    {
+      "path": "RELEASE_IDENTITY.json",
+      "sha256": "de4f276bb2f36b140d44affa3dbbb82c0f3d637dbd6481205111f74b0d8ba806",
+      "bytes": 895
+    },
+    {
+      "path": "V2_1_4_PERFORMANCE_CERTIFICATION_RUNBOOK.md",
+      "sha256": "aeb75dadf5e7fd9d543aa62a64b5eb09f00fe3b19ae231bd1472ed099e72e0fa",
+      "bytes": 966
+    },
+    {
+      "path": "ZSL2_V2_1_4_PRODUCTION_ALIGNED_HARDENING_REPORT.md",
+      "sha256": "128bf2b7b57f894b49c1bba65fe99ef93945d158b871744b2a671bec72f2928a",
+      "bytes": 2458
+    },
+    {
+      "path": "config/downstream-contract.json",
+      "sha256": "b22725e8567d7a5691b6f739572d792ede1bd81182e4a8c0ddc2ec2fc59c65a6",
+      "bytes": 1027
+    },
+    {
+      "path": "config/normalization-policy.json",
+      "sha256": "2ea61302e7bf05aa9a2d75e9369189a6c643dab5dfffc93e8714d64a44950365",
+      "bytes": 2683
+    },
+    {
+      "path": "config/source-bindings.example.json",
+      "sha256": "0dff331dc14888203268e7084e7bfae88c004687651770ca171b70830484ae4b",
+      "bytes": 1124
+    },
+    {
+      "path": "config/upstream-package-bindings.json",
+      "sha256": "6500d068a9d1a00d1f920ebefabc3457901d0bac57cdc186153632ebda3ba0ec",
+      "bytes": 555
+    },
+    {
+      "path": "database/migrations/001_zsl2_preflight.sql",
+      "sha256": "ed11d7b0a62ea4243c085a69d2aef8e268e1e27ae4149684fedf58942192cc7e",
+      "bytes": 1318
+    },
+    {
+      "path": "database/migrations/002_zsl2_canonical_geography.sql",
+      "sha256": "945aa1f327c9d00cdebf668aad4807439b8d08cd98b587a7fb7f094f6c1f4f9d",
+      "bytes": 7094
+    },
+    {
+      "path": "database/migrations/003_zsl2_normalization_authority.sql",
+      "sha256": "cba920a4249d5e609a6c1d1c499bea603d12a3fb64d84408be54d4340022e771",
+      "bytes": 4034
+    },
+    {
+      "path": "database/migrations/004_zsl2_spatial_services_and_r1b_contract.sql",
+      "sha256": "e7f977cbfa6eb3dc6a6f85db179501b87baf7cb1f0523982f5aed94e0cc25b70",
+      "bytes": 3561
+    },
+    {
+      "path": "database/migrations/005_zsl2_certification.sql",
+      "sha256": "46f84a946c793eb349a2eb7e61fc88932b7b26f5e411ad7188215dc8c1b19373",
+      "bytes": 3969
+    },
+    {
+      "path": "database/migrations/006_zsl2_v2_1_freeze_hardening.sql",
+      "sha256": "9b5232069bbec11729a47537d0484efaea0ea50932666128ba74373b654c3822",
+      "bytes": 17149
+    },
+    {
+      "path": "database/migrations/007_zsl2_v2_1_certification_hardening.sql",
+      "sha256": "6cccafb6fac4d49711dd368afc9d0085a32763631dfabb20ee34528e635474db",
+      "bytes": 3968
+    },
+    {
+      "path": "database/migrations/008_zsl2_v2_1_rbac.sql",
+      "sha256": "873ee4e2f9a2d17ebcd123dc9ee85ffa1c7cf7c261e7b95ec48c7a987c17df74",
+      "bytes": 2985
+    },
+    {
+      "path": "database/migrations/011_zsl2_v2_1_4_live_checkpoint_performance_compat.sql",
+      "sha256": "2b2cfdb47519ce9c351d77373528d36145d5ce4ac9a6f0bb32d6a2a4e4eff74e",
+      "bytes": 12305
+    },
+    {
+      "path": "database/migrations/012_zsl2_v2_1_4_set_based_performance_indexes.sql",
+      "sha256": "b4c366e497fa8c839f4729a0271180bdf220aa216080749e8198aed21ecbe690",
+      "bytes": 1855
+    },
+    {
+      "path": "database/migrations/013_zsl2_v2_1_4_territorial_pending_evidence.sql",
+      "sha256": "46ed1804510f645c05ea8653432fa00c79f97f6e93896a590383b13b9857c0f5",
+      "bytes": 2297
+    },
+    {
+      "path": "database/migrations/014_zsl2_v2_1_4_zsl1_authority_and_certification_gate.sql",
+      "sha256": "cc0c4c0fa68415bd37f22425f6a1af6b48e82618eed57bd375fd93075c80c858",
+      "bytes": 4078
+    },
+    {
+      "path": "database/migrations/015_zsl2_v2_1_4_certification_authority_hardening.sql",
+      "sha256": "e3f8eb437a94f7619c873d2f334cb814d84b51f1f43070e38ecfe89fd0a5ed6b",
+      "bytes": 9830
+    },
+    {
+      "path": "database/migrations/016_zsl2_v2_1_4_activation_functions.sql",
+      "sha256": "5fb7b2e4a95f665bd32f4ca0a9c3e5cf8020d9ba846e7298361d00aceec06ebf",
+      "bytes": 3114
+    },
+    {
+      "path": "database/rollback/001_zsl2_non_destructive_rollback.sql",
+      "sha256": "1269b9d4cbc05449b950e3a3894964b45812de5465ddcd9a343cdd8bed043878",
+      "bytes": 507
+    },
+    {
+      "path": "database/rollback/002_zsl2_v2_1_non_destructive_rollback.sql",
+      "sha256": "a90cde4dd71010a1e47a95b05eb178e039d5e7d76f1aaf13f9ef29fe41ff5d29",
+      "bytes": 477
+    },
+    {
+      "path": "database/runtime/000_register_attestation_key.sql",
+      "sha256": "a3f9465979aef953b8c96c10073ba5a2a4769fca6516f3ce8cb30f61e9883205",
+      "bytes": 417
+    },
+    {
+      "path": "database/runtime/001_query_plan_capture.sql",
+      "sha256": "03207afd82ac79f710af3a307f0b5b5e3054e8e850e354c1188b7420bfd0a385",
+      "bytes": 983
+    },
+    {
+      "path": "database/runtime/002_rbac_negative_tests.sql",
+      "sha256": "b21b43463dc705a131fcca33a20f0816f6c4938db1d3be9b4be116309c879d8a",
+      "bytes": 674
+    },
+    {
+      "path": "database/runtime/003_checkpoint_truth_and_snapshot.sql",
+      "sha256": "1eae14c5f0a965a154e150ec95e7ff1e19792386ab7b0bc1a20f627e86d83ad7",
+      "bytes": 450
+    },
+    {
+      "path": "database/runtime/004_v2_1_3_set_based_performance_profile.sql",
+      "sha256": "34d190a445d20ac973e84d70e512450a2422863ebd3dcf94bece352211eef8f8",
+      "bytes": 1061
+    },
+    {
+      "path": "database/runtime/005_v2_1_4_performance_plans.sql",
+      "sha256": "4fdc08b9c696e9ae3aed6c2039779bbf98bc0a75bf855e9ae6cb3911a2bd1729",
+      "bytes": 1168
+    },
+    {
+      "path": "docs/AUTHORITY-GAPS.md",
+      "sha256": "7d0f040161fca6ab97cee42d93073ab7c249915ded22aed7bfc80a956f05bd53",
+      "bytes": 1444
+    },
+    {
+      "path": "docs/CERTIFICATION.md",
+      "sha256": "48218bc38f244aaf8364ebc38d6beb88b83d6c87d5d7d8fdb6bce18bd3e4f1a8",
+      "bytes": 669
+    },
+    {
+      "path": "docs/DEPENDENCY-FREEZE-GATE.md",
+      "sha256": "64d5cf1b776ab9ed6116167694f5a2d894ce9f81b2538ec2fbb0811d012b33b4",
+      "bytes": 501
+    },
+    {
+      "path": "docs/DOMAIN-CONTRACT.md",
+      "sha256": "90b2f1152778f02ef6b53613798bc0b00d8950392dccfc7e4089b7eec8f1a2f3",
+      "bytes": 1142
+    },
+    {
+      "path": "docs/FINAL-FREEZE-DOCTRINE.md",
+      "sha256": "3f75ca221732c2029409df8273c2325e8ac0113ce8a9e7f532141918c9c62e17",
+      "bytes": 1001
+    },
+    {
+      "path": "docs/FINAL-PEER-REVIEW-REMEDIATION.md",
+      "sha256": "b46a419ccf37eb18dd61c0b9642be4dfc31ef8f8a1ba52cc4b9aa96b81c258b5",
+      "bytes": 3543
+    },
+    {
+      "path": "docs/FINAL_FREEZE_127_POINT_REMEDIATION.md",
+      "sha256": "2451ef896c15eb6cda952cb289714ea6f759cb581f0fdf83ebce80947962c806",
+      "bytes": 14964
+    },
+    {
+      "path": "docs/OWNERSHIP_COLLISION_MATRIX.md",
+      "sha256": "73346a56d428e2176c09063381bb31478a88c345df1227fb9ae9242fc06f136b",
+      "bytes": 2070
+    },
+    {
+      "path": "docs/PEER-REVIEW-SCORECARD.md",
+      "sha256": "006948d77f6ced23109923a4e6c06c978c83e9f9ec256144d99e7d860c2948ba",
+      "bytes": 1091
+    },
+    {
+      "path": "docs/PERFORMANCE_CERTIFICATION.md",
+      "sha256": "5fa77a23df150f008c1d7c290b199852dc26114283ab41de9dd48fddb46c5bfb",
+      "bytes": 1162
+    },
+    {
+      "path": "docs/POSTGRES_RUNTIME_CERTIFICATION_RUNBOOK.md",
+      "sha256": "10a70a636b250e47f721746e368a01fe31522866098620f87344bae911dffe39",
+      "bytes": 3579
+    },
+    {
+      "path": "docs/R1B-INTEGRATION.md",
+      "sha256": "114d5d1e0a11d9d366cc251b73a84e109aa79aad344a448251eaa78b0e46c774",
+      "bytes": 874
+    },
+    {
+      "path": "docs/SYNCHRONIZED-DEPENDENCY-CONTRACT.md",
+      "sha256": "0647d97a9a71606dfb47f2176a46b1cfb4c21ee476e639c02495a23d8f9c2ead",
+      "bytes": 1245
+    },
+    {
+      "path": "docs/V2_1_1_CHECKPOINT_HARDENING.md",
+      "sha256": "ec8dfa851ae877b797b34c2d2422de9319496b2c79ac628423bb0068b7b54dd1",
+      "bytes": 1867
+    },
+    {
+      "path": "docs/V2_1_4_PRODUCTION_ALIGNED_PERFORMANCE_CERTIFICATION.md",
+      "sha256": "29e78919b67f0d6c16dc295a31eff6145d0212542f5cb3f292b0009ca69c9b49",
+      "bytes": 1645
+    },
+    {
+      "path": "evidence/SBOM_DIRECT.json",
+      "sha256": "ccac280f92ccecacf6f12992333da40bdd4499780e92e226e58c4d5c22c6fd77",
+      "bytes": 558
+    },
+    {
+      "path": "evidence/V2_1_4_SOURCE_VALIDATION.json",
+      "sha256": "5fe0dc4f5e3d99828b13994eb5353482e83efbb53b9bdd6388f101bbb5a8b2df",
+      "bytes": 2204
+    },
+    {
+      "path": "evidence/templates/performance.example.json",
+      "sha256": "c7c746cb852cc709d685363087a1772eb1bdd82c67630d4275c9f91087b375cc",
+      "bytes": 311
+    },
+    {
+      "path": "evidence/templates/postgres-integration.example.json",
+      "sha256": "c63da54ae20df108b765440754e82de8bf35d65099031db4e1b1cc53460b3563",
+      "bytes": 349
+    },
+    {
+      "path": "evidence/templates/rollback.example.json",
+      "sha256": "204a4a65ef0af64ea0f8acc42fa388cd945df883e467f67f0da1cbe5f72c569c",
+      "bytes": 304
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "a2859a28c6847b1e17ff7f4aa551db90f2d06b7714c100f53242662582bd365e",
+      "bytes": 878
+    },
+    {
+      "path": "package.json",
+      "sha256": "9dcf5fc9b3834fe5fed144de622bc3e191acccb4dd71ef909938f7ed1982d4a6",
+      "bytes": 1114
+    },
+    {
+      "path": "scripts/generate-source-manifest.mjs",
+      "sha256": "58ea31b1fb45319e73b12909cec7c1e9b6ccce7d6ae1581401223bf437b24de8",
+      "bytes": 1297
+    },
+    {
+      "path": "scripts/install.sh",
+      "sha256": "bbe59ded4c6766ac5148ff30a7f634c38ba3ac1a457dea34f7f57196ecf05b89",
+      "bytes": 236
+    },
+    {
+      "path": "scripts/migrate.sh",
+      "sha256": "57b00425e8367289df3c3abce12c8185843a1bae459f1ecf855bd55f26cceca1",
+      "bytes": 1061
+    },
+    {
+      "path": "scripts/package-deterministic.py",
+      "sha256": "0481e6b4adf3af75e44f39fb7ce44c6f5d7c499f803e3810bfea5a67f5a4ecb7",
+      "bytes": 741
+    },
+    {
+      "path": "scripts/resolve-lock-connected.sh",
+      "sha256": "3c7d81763abd028928f75985479e5bb8cea24277e3339e5cc97dcdbca6ec8144",
+      "bytes": 415
+    },
+    {
+      "path": "scripts/verify-lock.mjs",
+      "sha256": "e24e56c714efb9a84f6ea58ecf8d40850b7a104857f7dd2232cdc70e204d44b7",
+      "bytes": 449
+    },
+    {
+      "path": "scripts/verify-source-manifest.mjs",
+      "sha256": "732fb061392eba5d7e9039df2725822271abe310de3dbe234023b8bbb77f57d6",
+      "bytes": 612
+    },
+    {
+      "path": "src/cli/activate.ts",
+      "sha256": "4433149f9c1cb47e8b0a8f488556b21e68fe8acb7e4a330e9b6905fc2c73a0d1",
+      "bytes": 781
+    },
+    {
+      "path": "src/cli/build-r1b-proposals.ts",
+      "sha256": "e5255dbee4a299dc3ac2b818eb09ebb46f32b6e7f18c12ccf4767a312aca4c17",
+      "bytes": 1594
+    },
+    {
+      "path": "src/cli/certify.ts",
+      "sha256": "40004602c696457d84a26e788a52b7ead7457e48f28e3c521f167f5660110759",
+      "bytes": 2926
+    },
+    {
+      "path": "src/cli/normalize.ts",
+      "sha256": "fd9744396515e02e27e5ff0014994d9e2c03158d8cd7a43760cf1c608f61ecfc",
+      "bytes": 6558
+    },
+    {
+      "path": "src/cli/performance-plan.ts",
+      "sha256": "facc585a744196bbe4ef900950b1a70b78930de1ed252d4191030c77fab5332f",
+      "bytes": 918
+    },
+    {
+      "path": "src/cli/revoke.ts",
+      "sha256": "a1829bda9896a8697526ee1f6ec0f6c0f734bcba644113166f0f5e4554a81d3e",
+      "bytes": 805
+    },
+    {
+      "path": "src/cli/runtime-certify.ts",
+      "sha256": "580d54b8e63d068b26cbd8696190ce4fd3f4c92f4dc45126afb4dabc01770525",
+      "bytes": 8259
+    },
+    {
+      "path": "src/cli/status.ts",
+      "sha256": "b2bc9e2982bdf372fc285aa6886354ce5fe8518c467d3848fd8c462d483c7930",
+      "bytes": 781
+    },
+    {
+      "path": "src/cli/verify-boundary.ts",
+      "sha256": "29a179ba6f0450a96aecb90f3b7c3f67c468ceaca24c853501afe9d94dd9288a",
+      "bytes": 1128
+    },
+    {
+      "path": "src/core/domain-boundary.ts",
+      "sha256": "24b04219f6b53d6b33a969650f9e263d6f646a59df0da322969ebc8f2a2359a2",
+      "bytes": 948
+    },
+    {
+      "path": "src/core/exact.ts",
+      "sha256": "21af009a00e81468cdb4434a479369919c3af956846db7b120c6e216fc95cc88",
+      "bytes": 1539
+    },
+    {
+      "path": "src/core/hash.ts",
+      "sha256": "cd575479b0247dfa2afba7b96986c71c00a6b0ae00d23018a9716b0b40dae6aa",
+      "bytes": 697
+    },
+    {
+      "path": "src/core/types.ts",
+      "sha256": "99b313002a9fe2473691ae4a383f8e7aaf8b110f70e1261a5a98544477cb48e1",
+      "bytes": 1046
+    },
+    {
+      "path": "src/normalizers/gazetteer.ts",
+      "sha256": "dc0ddd70485ad573bdee4b0c273e1efa972e667585871bc461543c5295326e24",
+      "bytes": 2548
+    },
+    {
+      "path": "src/normalizers/hud.ts",
+      "sha256": "daeb4d491dc93aef85f0ca1c33c5304ef79588504613106c7696629025bddfbb",
+      "bytes": 1846
+    },
+    {
+      "path": "src/repositories/db.ts",
+      "sha256": "d4fd2436387678a3ba3632a2064cb1136783944d523ace7ad6726db297f3bda5",
+      "bytes": 246
+    },
+    {
+      "path": "src/services/certification.service.ts",
+      "sha256": "10fa75ded761e249fc02c2af0d7b1301d8eda84019f3cbd67166e35787328237",
+      "bytes": 16478
+    },
+    {
+      "path": "src/services/normalize.service.ts",
+      "sha256": "703d01984965e3ad0f55d91034889672bb1b35bebc684dfc706ecb6c9726ad29",
+      "bytes": 24493
+    },
+    {
+      "path": "src/services/replay.service.ts",
+      "sha256": "c12ea27c85c0982f9dc14eef77bada2998c11bd469904d48f3e58f212160180f",
+      "bytes": 5114
+    },
+    {
+      "path": "src/services/setBasedNormalizer.ts",
+      "sha256": "1a4cda4ac6b398c2d5d359b1ecc257681d439eeb52863b8f08e1da2b729cbecb",
+      "bytes": 28404
+    },
+    {
+      "path": "src/services/zsl1Authority.service.ts",
+      "sha256": "5de568370931b72414d27050e11bc3d3d637e85ddd67c70818dd7b3fe9e213e2",
+      "bytes": 3634
+    },
+    {
+      "path": "tests/freeze-hardening.test.ts",
+      "sha256": "f49bdfdb6c1521efc68ad69b648397aa0149e7b5c090f9a6488ef62eab3a2ed6",
+      "bytes": 2581
+    },
+    {
+      "path": "tests/normalizers.test.ts",
+      "sha256": "1b240d93fdd7523fa799bcd3e0671cc39caab41624fba175ca96a10e388215f3",
+      "bytes": 2372
+    },
+    {
+      "path": "tests/static-sql.test.ts",
+      "sha256": "5c151bb52e3a44dbe47ab85dc6b2f4c01986664b74d5ca4d7f9105efccdf4809",
+      "bytes": 1488
+    },
+    {
+      "path": "tests/v214-production-aligned-remediation.test.ts",
+      "sha256": "04967db6ddf6960388f31fa4fb4bdf465d773869732e407b475cf1331b2c69fd",
+      "bytes": 2133
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "26dfd1a5192cbf2a08b71b3ca16b790508888ab1cdd13e960793a0689f525e86",
+      "bytes": 390
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "version": "2.2.0",
+  "thresholdDays": {
+    "ACS": {
+      "current": 550,
+      "aging": 730,
+      "stale": 1095
+    },
+    "BEA_RPP": {
+      "current": 550,
+      "aging": 730,
+      "stale": 1095
+    },
+    "CBP": {
+      "current": 550,
+      "aging": 730,
+      "stale": 1095
+    },
+    "ZBP": {
+      "current": 550,
+      "aging": 730,
+      "stale": 1095
+    }
+  },
+  "states": [
+    "CURRENT",
+    "AGING",
+    "STALE",
+    "EXPIRED",
+    "UNKNOWN"
+  ]
+}

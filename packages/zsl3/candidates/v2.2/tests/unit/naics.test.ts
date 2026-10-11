@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const p=JSON.parse(fs.readFileSync('config/naics-policy.json','utf8'));test('no implicit crosswalk',()=>assert.equal(p.allowImplicitCrosswalk,false));test('target vocabulary explicit',()=>assert.ok(p.featureGroups.every((x:any)=>x.targetVocabulary)));
