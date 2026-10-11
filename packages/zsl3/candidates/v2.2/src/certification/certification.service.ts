@@ -1,5 +1,5 @@
 import type{PoolClient}from'pg';import{sha256Canonical}from'../core/hash.js';import{replayAll}from'../replay/replay.service.js';
-import{migrationManifest,dependencyLockEvidence}from'./artifact-integrity.js';
+import{migrationManifest,dependencyLockEvidence}from'./artifact-integrity.js';import{expectedZsl1PackageSha256}from'../upstream/zsl1-package-policy.js';
 
 async function add(c:PoolClient,checkRun:string,build:string,code:string,status:'PASS'|'FAIL'|'NOT_EXECUTED',evidence:any,checked=0,failed=0,expected:any={},actual:any={}){
  await c.query(`INSERT INTO zsl.zsl3_runtime_checks(runtime_check_run_id,build_run_id,check_code,status,checked_count,failed_count,expected_value,actual_value,evidence,evidence_sha256)
@@ -15,7 +15,7 @@ export async function runChecks(c:PoolClient,run:string,p:any):Promise<string>{
  let anyFail=false;
  const emit=async(code:string,ok:boolean,evidence:any,checked=1,failed=ok?0:1,expected:any={},actual:any={})=>{if(!ok)anyFail=true;await add(c,checkRun,run,code,pass(ok),evidence,checked,failed,expected,actual)};
  const binds=(await c.query<any>(`SELECT * FROM zsl.zsl3_source_bindings WHERE build_run_id=$1`,[run])).rows;
- const z1m=binds.filter((b:any)=>b.upstream_package_sha256!==p.upstream.zsl1.sha256);await emit('exact_zsl1_package',binds.length>0&&z1m.length===0,{bindings:binds.map((b:any)=>({role:b.release_role,ingestRunId:b.ingest_run_id,actual:b.upstream_package_sha256,expected:p.upstream.zsl1.sha256,match:b.upstream_package_sha256===p.upstream.zsl1.sha256}))},binds.length,z1m.length,{sha:p.upstream.zsl1.sha256},{mismatches:z1m.length});
+ const z1checks=binds.map((b:any)=>{const expected=expectedZsl1PackageSha256(p,b.source_key);return{sourceKey:b.source_key,role:b.release_role,ingestRunId:b.ingest_run_id,actual:b.upstream_package_sha256,expected,match:!!expected&&b.upstream_package_sha256===expected}});const z1m=z1checks.filter((b:any)=>!b.match);await emit('exact_zsl1_package',binds.length>0&&z1m.length===0,{bindings:z1checks},binds.length,z1m.length,{sha256BySourceKey:p.upstream.zsl1.sha256BySourceKey},{mismatches:z1m.length});
  let z2:any=null;try{z2=(await c.query<any>(`SELECT a.normalization_run_id::text,a.certification_run_id::text,n.package_sha256,n.engine_version FROM zsl.zsl2_current_authority a JOIN zsl.zsl2_normalization_runs n ON n.normalization_run_id=a.normalization_run_id WHERE a.normalization_run_id=$1 AND a.certification_run_id=$2 LIMIT 1`,[br.zsl2_normalization_run_id,br.zsl2_certification_run_id])).rows[0]}catch(e:any){}
  const z2ok=!!z2&&z2.package_sha256===p.upstream.zsl2.sha256&&z2.engine_version===p.upstream.zsl2.engineVersion;
  await emit('exact_zsl2_package',z2ok,{boundNormalizationRun:br.zsl2_normalization_run_id,boundCertificationRun:br.zsl2_certification_run_id,row:z2??null},1,z2ok?0:1,{sha:p.upstream.zsl2.sha256,engine:p.upstream.zsl2.engineVersion},{sha:z2?.package_sha256??null,engine:z2?.engine_version??null});

@@ -1,5 +1,5 @@
 import type{PoolClient}from'pg';
-import{sha256Canonical}from'../core/hash.js';
+import{sha256Canonical}from'../core/hash.js';import{expectedZsl1PackageSha256}from'../upstream/zsl1-package-policy.js';
 
 export async function validateBuild(c:PoolClient,run:string,p:any){
  const failures:any[]=[];const details:any={};
@@ -7,7 +7,7 @@ export async function validateBuild(c:PoolClient,run:string,p:any){
  details.bindingCount=binds.length;if(!binds.length)failures.push({code:'NO_SOURCE_BINDINGS'});
  const expected=p.source.requiredSources.flatMap((s:any)=>s.geographies.filter((g:string)=>s.required).map((g:string)=>`${s.dataset}_${g}`));
  const roles=new Set(binds.map((b:any)=>b.release_role));const missing=expected.filter((x:string)=>!roles.has(x));details.missingBindings=missing;if(missing.length)failures.push({code:'MISSING_REQUIRED_BINDINGS',missing});
- const badPkg=binds.filter((b:any)=>b.upstream_package_sha256!==p.upstream.zsl1.sha256);details.zsl1PackageMismatches=badPkg.length;if(badPkg.length)failures.push({code:'ZSL1_PACKAGE_MISMATCH',count:badPkg.length});
+ const packageChecks=binds.map((b:any)=>{const expected=expectedZsl1PackageSha256(p,b.source_key);return{sourceKey:b.source_key,actual:b.upstream_package_sha256,expected,match:!!expected&&b.upstream_package_sha256===expected}});const badPkg=packageChecks.filter((x:any)=>!x.match);details.zsl1PackageChecks=packageChecks;details.zsl1PackageMismatches=badPkg.length;if(badPkg.length)failures.push({code:'ZSL1_PACKAGE_MISMATCH',count:badPkg.length,details:badPkg});
  const md=Number((await c.query<any>(`SELECT count(*) n FROM zsl.zsl3_acs_variable_metadata WHERE build_run_id=$1`,[run])).rows[0]?.n??0);
  const acsBinds=binds.filter((b:any)=>b.source_dataset==='ACS').length;const expectedMd=acsBinds*p.feature.acsVariableBindings.length;details.acsMetadata={actual:md,expected:expectedMd};if(md!==expectedMd)failures.push({code:'ACS_METADATA_INCOMPLETE',actual:md,expected:expectedMd});
  const dup=Number((await c.query<any>(`SELECT count(*) n FROM(SELECT location_id,feature_code,source_binding_id,COALESCE(source_variable_code,''),source_record_id,count(*) c FROM zsl.zsl3_source_facts WHERE build_run_id=$1 GROUP BY 1,2,3,4,5 HAVING count(*)>1)x`,[run])).rows[0]?.n??0);details.duplicateFacts=dup;if(dup)failures.push({code:'DUPLICATE_FACTS',count:dup});

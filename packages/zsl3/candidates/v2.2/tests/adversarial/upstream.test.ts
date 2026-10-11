@@ -1,1 +1,11 @@
-import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const b=fs.readFileSync('src/bindings/source-binding.service.ts','utf8');const sql=fs.readFileSync('database/migrations/008_zsl3_upstream_validity.sql','utf8');test('package mismatch fails',()=>assert.match(b,/ZSL3_ZSL1_PACKAGE_MISMATCH/));test('revocation propagates',()=>assert.match(sql,/latest_ingest_certification/));
+import test from'node:test';
+import assert from'node:assert/strict';
+import fs from'node:fs';
+import{expectedZsl1PackageSha256,isExactZsl1Package}from'../../src/upstream/zsl1-package-policy.js';
+const b=fs.readFileSync('src/bindings/source-binding.service.ts','utf8');
+const sql=fs.readFileSync('database/migrations/008_zsl3_upstream_validity.sql','utf8');
+const policy={upstream:{zsl1:{sha256BySourceKey:{CENSUS_ACS5_PROFILE:'8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c',BEA_REGIONAL_RPP:'8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c',CENSUS_CBP:'23491f53f2ded221ce0b881dcbca11254a26edfc972bf76e222c4f6f7f3394b5',CENSUS_ZBP:'23491f53f2ded221ce0b881dcbca11254a26edfc972bf76e222c4f6f7f3394b5'}}}};
+test('package mismatch fails closed',()=>assert.match(b,/ZSL3_ZSL1_PACKAGE_MISMATCH/));
+test('revocation propagates',()=>assert.match(sql,/latest_ingest_certification/));
+test('each required ZSL1 source uses its exact configured package',()=>{for(const key of ['CENSUS_ACS5_PROFILE','BEA_REGIONAL_RPP'])assert.equal(isExactZsl1Package(policy,key,'8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c'),true);for(const key of ['CENSUS_CBP','CENSUS_ZBP'])assert.equal(isExactZsl1Package(policy,key,'23491f53f2ded221ce0b881dcbca11254a26edfc972bf76e222c4f6f7f3394b5'),true)});
+test('wrong source package, missing mapping, and malformed mapping fail closed',()=>{assert.equal(isExactZsl1Package(policy,'CENSUS_CBP','8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c'),false);assert.equal(isExactZsl1Package(policy,'UNKNOWN_SOURCE','23491f53f2ded221ce0b881dcbca11254a26edfc972bf76e222c4f6f7f3394b5'),false);assert.equal(expectedZsl1PackageSha256({upstream:{zsl1:{sha256BySourceKey:{CENSUS_CBP:'bad'}}}},'CENSUS_CBP'),null)});
