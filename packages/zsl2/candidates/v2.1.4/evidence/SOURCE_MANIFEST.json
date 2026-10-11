@@ -355,8 +355,8 @@
     },
     {
       "path": "src/core/exact.ts",
-      "sha256": "21af009a00e81468cdb4434a479369919c3af956846db7b120c6e216fc95cc88",
-      "bytes": 1539
+      "sha256": "ceadcf91ea3789286ada5823168d4057595989e959d0a2b24f81a70bc1012cee",
+      "bytes": 1856
     },
     {
       "path": "src/core/hash.ts",
@@ -407,6 +407,11 @@
       "path": "src/services/zsl1Authority.service.ts",
       "sha256": "5de568370931b72414d27050e11bc3d3d637e85ddd67c70818dd7b3fe9e213e2",
       "bytes": 3634
+    },
+    {
+      "path": "tests/exact.test.ts",
+      "sha256": "c79dcf3d51c369b077a33c83023155d29c542e228388f5d565eda0dddae652fe",
+      "bytes": 801
     },
     {
       "path": "tests/freeze-hardening.test.ts",

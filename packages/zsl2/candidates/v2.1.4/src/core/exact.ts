@@ -21,8 +21,14 @@ export function normalizeDecimal(v: unknown, field: string, scale = 9): string |
   let i = parts[0] ?? '0';
   let f = parts[1] ?? '';
   i = i.replace(/^0+(?=\d)/, '') || '0';
-  f = f.slice(0, scale).padEnd(scale, '0');
-  const out = `${neg ? '-' : ''}${i}.${f}`;
+  const factor = 10n ** BigInt(scale);
+  const keptFraction = f.slice(0, scale).padEnd(scale, '0');
+  let scaled = BigInt(i) * factor + BigInt(keptFraction || '0');
+  if ((f[scale] ?? '0') >= '5') scaled += 1n;
+  i = (scaled / factor).toString();
+  f = (scaled % factor).toString().padStart(scale, '0');
+  const roundedToZero = scaled === 0n;
+  const out = `${neg && !roundedToZero ? '-' : ''}${i}.${f}`;
   return /^-?0\.0+$/.test(out) ? `0.${'0'.repeat(scale)}` : out;
 }
 
