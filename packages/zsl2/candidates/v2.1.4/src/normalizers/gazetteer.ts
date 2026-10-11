@@ -1,6 +1,6 @@
 import type {CertifiedRawRecord,CanonicalLocationInput} from '../core/types.js';
 
-const coord=(v:unknown,name:string,min:number,max:number)=>{const s=String(v??'').trim();if(!/^-?(?:\d+)(?:\.\d+)?$/.test(s))throw new Error(`INVALID_${name}:${s}`);const n=Number(s);if(!Number.isFinite(n)||n<min||n>max)throw new Error(`INVALID_${name}:${s}`);return n};
+const coord=(v:unknown,name:string,min:number,max:number)=>{const s=String(v??'').trim();if(!/^[+-]?(?:\d+)(?:\.\d+)?$/.test(s))throw new Error(`INVALID_${name}:${s}`);const n=Number(s);if(!Number.isFinite(n)||n<min||n>max)throw new Error(`INVALID_${name}:${s}`);return n};
 const text=(v:unknown,name:string)=>{const s=String(v??'').normalize('NFC').trim();if(!s)throw new Error(`MISSING_${name}`);return s};
 
 export function normalizeGazetteer(r:CertifiedRawRecord):CanonicalLocationInput{
