@@ -1,6 +1,6 @@
 {
   "manifestVersion": "2.1.0",
-  "generatedAt": "2026-09-23T14:03:05.457Z",
+  "generatedAt": "2026-10-11T17:50:13.285Z",
   "entries": [
     {
       "path": ".env.example",
@@ -19,8 +19,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 5949,
-      "sha256": "764b2e9c77fe546759aafffdeec79d1c4425fde1330268edc40fc431ef1a79a2"
+      "bytes": 7220,
+      "sha256": "caadd3d4d8c53d78177919bef49bcee499f137fd743a0115bc53a74672b9a3a4"
+    },
+    {
+      "path": "config/cbp-zbp-selection.json",
+      "bytes": 222,
+      "sha256": "63d8d79d91115d49c813d1e44714c0a2cbf9fed832777c1949a012f9da2bfd89"
     },
     {
       "path": "config/certification-policy.json",
@@ -29,13 +34,13 @@
     },
     {
       "path": "config/schema-contracts.json",
-      "bytes": 4474,
-      "sha256": "2b044c06c3c4b819c3b3505a229dd5d9369d5b87e72e64bde862bce40f8d9430"
+      "bytes": 5114,
+      "sha256": "de0cffeb3d1afca51be2ba9cd21d691a9d489d0e289f9257f29bb7e994601225"
     },
     {
       "path": "config/source-policy.json",
-      "bytes": 8338,
-      "sha256": "7c949d08d35416e13c6087cb6ae1cabd310f50864dfc58a998909cf90c500553"
+      "bytes": 9768,
+      "sha256": "0a4d55b4605202ff8ed8e8e0c047a5ee63c690eb6bc983ebab1c7f20f8e74330"
     },
     {
       "path": "database/migrations/001_zsl1_green_tier1_v2.sql",
@@ -46,6 +51,11 @@
       "path": "database/migrations/002_zsl1_v21_freeze_hardening.sql",
       "bytes": 10210,
       "sha256": "21015dada0f6fd171c5b05d514118d51d074526737aca04569683437cbcb6a57"
+    },
+    {
+      "path": "database/migrations/003_zsl1_cbp_zbp_sources.sql",
+      "bytes": 503,
+      "sha256": "67d7562cef6d2315f1f974ded30d15a4b75e0c1d0a0c940a16e1a14dc9cb53cb"
     },
     {
       "path": "database/rollback/001_zsl1_v2_non_destructive_rollback.sql",
@@ -104,8 +114,8 @@
     },
     {
       "path": "evidence/CONFIG_SHA256.txt",
-      "bytes": 286,
-      "sha256": "e8799a55e659d84ef00c890a36b37bc52cfbb7cee6cae2d4ec83f288c56bbfe9"
+      "bytes": 382,
+      "sha256": "420763bae7c71b84c26dbe27a8d7e2ac18ec2b919dd7273509eb4915c2fc590b"
     },
     {
       "path": "evidence/SBOM_DIRECT_DEPENDENCIES.json",
@@ -168,6 +178,11 @@
       "sha256": "3bf76af0ce09da3dc8a534c6bb5d3ced3171fabc008b3b6c53b9ccc041e897db"
     },
     {
+      "path": "src/adapters/census-business-patterns.adapter.ts",
+      "bytes": 9588,
+      "sha256": "fb262bc3c925a99a3cf507e4f5a1c7e0e486cc48e6153eae0f2c4b8b3e129592"
+    },
+    {
       "path": "src/adapters/census-gazetteer.adapter.ts",
       "bytes": 6038,
       "sha256": "9dd204cfc716b7cae68de02d3964d61a6b7ba642fd666981ddd4b588ac8d6c0d"
@@ -194,8 +209,8 @@
     },
     {
       "path": "src/cli/ingest.ts",
-      "bytes": 2617,
-      "sha256": "b109095262e0df84022b97f48b6bb50132aadf142274434651d00fa5382788c2"
+      "bytes": 3017,
+      "sha256": "259ab73b566a4cc541ff6ea3afdba8b17f625703dc18254c86efeb8e58868557"
     },
     {
       "path": "src/cli/manifest.ts",
@@ -214,8 +229,8 @@
     },
     {
       "path": "src/core/archive.ts",
-      "bytes": 1544,
-      "sha256": "f7a4065b51cf671f6e574a36d0d70c871d9a627974626902ad4edacaead6b386"
+      "bytes": 1566,
+      "sha256": "73565b450fa732ec15ffbd304948fd0b96c95a621213df31da20a43bbe59cb6f"
     },
     {
       "path": "src/core/contracts.ts",
@@ -281,6 +296,11 @@
       "path": "tests/bea-official-response.test.ts",
       "bytes": 1259,
       "sha256": "ab8174850131a9d90893b42750dca8d17cfe5f4a45db99ee9ff57a9135cb0547"
+    },
+    {
+      "path": "tests/cbp-zbp.test.ts",
+      "bytes": 2893,
+      "sha256": "5dca54b240445f2ef81370725a08ca1dc6fb6f4aa956c44c14822700f542f231"
     },
     {
       "path": "tests/delimited.test.ts",

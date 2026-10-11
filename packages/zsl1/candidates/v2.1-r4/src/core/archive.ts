@@ -7,7 +7,7 @@ export async function inspectZip(path:string, policy:SourcePolicy):Promise<ZipMe
   const {stdout}=await exec("unzip",["-lv",path],{maxBuffer:16*1024*1024});
   const members:ZipMember[]=[];
   for(const line of stdout.split(/\r?\n/)){
-    const m=line.match(/^\s*(\d+)\s+\S+\s+(\d+)\s+\S+\s+\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}\s+[0-9a-fA-F]+\s+(.+)$/);
+    const m=line.match(/^\s*(\d+)\s+\S+\s+(\d+)\s+\S+\s+(?:\d{4}-\d{2}-\d{2}|\d{2}-\d{2}-\d{4})\s+\d{2}:\d{2}\s+[0-9a-fA-F]+\s+(.+)$/);
     if(!m)continue;
     const expandedBytes=Number(m[1]),compressedBytes=Number(m[2]),name=m[3]!.trim();
     if(name.includes("..")||name.startsWith("/")||name.includes("\\")||/^[A-Za-z]:/.test(name))throw new Error("UNSAFE_ARCHIVE_MEMBER_PATH");

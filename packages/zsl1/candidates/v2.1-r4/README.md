@@ -17,6 +17,27 @@ ZSL1 does **not** normalize ZIP/ZCTA geography, own PostGIS, select stores, rank
 4. BEA Regional Price Parities — State / MSA
 5. BTS Freight Analysis Framework 6 — governed Regional release
 
+## CBP/ZBP forward candidate (not part of the V2.1 freeze)
+
+The forward-only migration `003_zsl1_cbp_zbp_sources.sql` registers `CENSUS_CBP` and
+`CENSUS_ZBP`. The new `cbp-state`, `cbp-county`, and `zbp-postal` ingest commands
+accept the 2023 vintage only. They download and preserve Census's original state,
+county, and ZIP-industry ZIP archives, then ingest only the exact six-digit
+NAICS2017 codes listed in `config/cbp-zbp-selection.json`. Each selected record
+retains its original CSV columns, archive member, and source row number, plus
+the explicit field aliases needed by ZSL3.
+
+State rows use the all-legal-forms total (`lfo=-`); county and ZIP detail rows
+have no legal-form dimension. ZIP detail does not publish employment or annual
+payroll in this bulk file, so those fields remain null rather than being
+inferred. ZIP is an operational postal code, not a ZCTA. The source policy and
+new contracts have version `2.1.1`; applied migration bytes 001-002 are unchanged.
+
+This candidate must be resealed to a new package SHA, bootstrapped, and tested
+against staging before any runtime certification. ZSL3's upstream binding
+policy also needs an explicit update for mixed ZSL1 package identities; do
+not weaken its exact-package or current-certification gates.
+
 ## V2.1 final-freeze hardening
 
 - Corrected Census Gazetteer format handling: auto-detect tab or pipe-delimited national files.

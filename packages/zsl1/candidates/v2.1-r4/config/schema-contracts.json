@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0",
+  "version": "2.1.1",
   "contracts": [
     {
       "sourceKey": "CENSUS_GAZETTEER_STATE",
@@ -172,6 +172,26 @@
       "allowExtraFields": true,
       "metadataBindingRequired": true,
       "dataValueNumericRequired": true
+    },
+    {
+      "sourceKey": "CENSUS_CBP",
+      "contractVersion": "2.1.1",
+      "required": ["state", "NAICS2017", "ESTAB"],
+      "allowExtraFields": true,
+      "vintage": 2023,
+      "naicsVocabulary": "NAICS2017",
+      "selectionFile": "config/cbp-zbp-selection.json",
+      "geographies": ["STATE", "COUNTY"]
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "contractVersion": "2.1.1",
+      "required": ["ZIPCODE", "NAICS2017", "ESTAB"],
+      "allowExtraFields": true,
+      "vintage": 2023,
+      "naicsVocabulary": "NAICS2017",
+      "selectionFile": "config/cbp-zbp-selection.json",
+      "geographies": ["POSTAL_CODE"]
     },
     {
       "sourceKey": "BTS_FAF6_REGIONAL",

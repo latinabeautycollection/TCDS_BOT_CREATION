@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0",
+  "version": "2.1.1",
   "sources": {
     "CENSUS_GAZETTEER_STATE": {
       "sourceKey": "CENSUS_GAZETTEER_STATE",
@@ -299,6 +299,46 @@
         "TimePeriod",
         "DataValue"
       ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_CBP": {
+      "sourceKey": "CENSUS_CBP",
+      "enabled": true,
+      "allowedHosts": ["www2.census.gov"],
+      "maxArtifactBytes": 50000000,
+      "maxExpandedBytes": 150000000,
+      "maxMembers": 1,
+      "maxMemberBytes": 150000000,
+      "maxCompressionRatio": 200,
+      "retry": {"attempts": 4, "baseDelayMs": 500, "maxDelayMs": 8000},
+      "rowCount": {"min": 1, "max": 100000},
+      "expectedContentTypes": ["zip", "octet-stream"],
+      "requiredFields": ["naics", "est"],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_ZBP": {
+      "sourceKey": "CENSUS_ZBP",
+      "enabled": true,
+      "allowedHosts": ["www2.census.gov"],
+      "maxArtifactBytes": 50000000,
+      "maxExpandedBytes": 400000000,
+      "maxMembers": 1,
+      "maxMemberBytes": 400000000,
+      "maxCompressionRatio": 200,
+      "retry": {"attempts": 4, "baseDelayMs": 500, "maxDelayMs": 8000},
+      "rowCount": {"min": 1, "max": 1000000},
+      "expectedContentTypes": ["zip", "octet-stream"],
+      "requiredFields": ["zip", "naics", "est"],
       "allowExtraFields": true,
       "requireContentType": true,
       "requireArtifactMagic": true,

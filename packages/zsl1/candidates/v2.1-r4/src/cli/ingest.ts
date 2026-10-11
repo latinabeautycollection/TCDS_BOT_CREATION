@@ -4,6 +4,7 @@ import { HudUspsAdapter } from "../adapters/hud-usps.adapter.js";
 import { CensusAcsAdapter } from "../adapters/census-acs.adapter.js";
 import { BeaRegionalRppAdapter } from "../adapters/bea-regional.adapter.js";
 import { BtsFafAdapter } from "../adapters/bts-faf.adapter.js";
+import { CensusBusinessPatternsAdapter } from "../adapters/census-business-patterns.adapter.js";
 import { redact } from "../core/redaction.js";
 
 const [source,...rest]=process.argv.slice(2);if(!source)throw new Error("Usage: ingest <source> [args]");
@@ -22,6 +23,9 @@ switch(source){
  case "bea-rpp-state":{const year=Number(rest[0]);const table=rest[1];const line=rest[2];if(!year||!table||!line)throw new Error("Usage: ingest bea-rpp-state <year> <metadata-verified-tableName> <lineCode>");adapter=new BeaRegionalRppAdapter(year,table,line,"STATE");break;}
  case "bea-rpp-msa":{const year=Number(rest[0]);const table=rest[1];const line=rest[2];if(!year||!table||!line)throw new Error("Usage: ingest bea-rpp-msa <year> <metadata-verified-tableName> <lineCode>");adapter=new BeaRegionalRppAdapter(year,table,line,"MSA");break;}
  case "faf6":adapter=new BtsFafAdapter(rest[0]??"FAF6.0",Number(rest[1]??2022),rest[2]??process.env.BTS_FAF6_URL??"");break;
+ case "cbp-state":adapter=new CensusBusinessPatternsAdapter("STATE",Number(rest[0]??2023));break;
+ case "cbp-county":adapter=new CensusBusinessPatternsAdapter("COUNTY",Number(rest[0]??2023));break;
+ case "zbp-postal":adapter=new CensusBusinessPatternsAdapter("POSTAL_CODE",Number(rest[0]??2023));break;
  default:throw new Error(`Unknown source:${source}`);
 }
 new IngestService().run(adapter).then(x=>console.log(JSON.stringify(x,null,2))).catch(e=>{console.error(redact(e));process.exit(1);});
