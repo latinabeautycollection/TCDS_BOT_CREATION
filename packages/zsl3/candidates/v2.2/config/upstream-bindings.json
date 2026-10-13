@@ -9,7 +9,7 @@
   },
   "zsl2": {
     "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_FREEZE_FINAL",
-    "sha256": "27288d3e75b211fcc18608ef6eccc13126fbbf879b00a3221760c3f1a5601401",
-    "engineVersion": "zsl2-v2.2.0"
+    "sha256": "5fe47f222470b351578c939932ee19ebbfd63600a0c09dcbf18da4dc474cf43a",
+    "engineVersion": "zsl2-v2.1.0"
   }
 }
