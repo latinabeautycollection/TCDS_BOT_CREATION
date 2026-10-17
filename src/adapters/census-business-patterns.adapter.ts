@@ -42,6 +42,7 @@ function canonical(headers: string[], row: string[]): Record<string, unknown> {
     COUNTY: value("COUNTY", "fipscty"),
     ZIPCODE: value("ZIPCODE", "zip"),
     NAICS2017: value("NAICS2017", "naics"),
+    LFO: value("LFO", "lfo"),
     ESTAB: value("ESTAB", "est"),
     EMP: value("EMP", "emp"),
     PAYANN: value("PAYANN", "ap"),
@@ -51,8 +52,12 @@ function canonical(headers: string[], row: string[]): Record<string, unknown> {
   };
 }
 
+export function isCbpStateAllEstablishments(record: Record<string, unknown>): boolean {
+  return String(record.LFO ?? "").trim() === "-";
+}
+
 export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
-  readonly adapterVersion = "2.1.7";
+  readonly adapterVersion = "2.1.8";
   readonly sourceKey: SourceKey;
 
   constructor(
@@ -75,7 +80,7 @@ export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
       releaseLabel: "Census " + dataset + " " + this.grain + " " + this.sourceYear,
       sourceYear: this.sourceYear,
       discoveredAt: new Date().toISOString(),
-      metadata: { dataset, geography: this.grain, naicsVocabulary: "NAICS2017", releaseKey, sourceYear: this.sourceYear, governedUrl: this.governedUrl }
+      metadata: { dataset, geography: this.grain, naicsVocabulary: "NAICS2017", releaseKey, sourceYear: this.sourceYear, governedUrl: this.governedUrl, ...(this.grain === "STATE" ? { legalFormOfOrganization: { code: "-", label: "All Establishments", authority: "U.S. Census Bureau CBP State Data Dictionary" } } : {}) }
     };
   }
 
@@ -113,7 +118,7 @@ export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
   }
 
   private requiredHeaders(): string[] {
-    if (this.grain === "STATE") return ["fipstate", "naics", "est"];
+    if (this.grain === "STATE") return ["fipstate", "naics", "lfo", "est"];
     if (this.grain === "COUNTY") return ["fipstate", "fipscty", "naics", "est"];
     return ["zip", "naics", "est"];
   }
@@ -143,6 +148,8 @@ export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
       ordinal++;
       if (row.length !== headers.length) throw new Error("CBP_ZBP_COLUMN_COUNT_MISMATCH:" + ordinal);
       const record = canonical(headers, row);
+      // State CBP includes overlapping LFO breakouts; retain the Census all-establishments total only.
+      if (this.grain === "STATE" && !isCbpStateAllEstablishments(record)) continue;
       if (this.grain === "STATE") record.GEO_ID = deriveCbpStateGeoId(record);
       if (this.grain === "COUNTY") record.GEO_ID = deriveCbpCountyGeoId(record);
       const identity = this.grain === "POSTAL_CODE" ? record.ZIPCODE : record.GEO_ID;

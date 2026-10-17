@@ -272,7 +272,7 @@
     },
     {
       "sourceKey": "CENSUS_CBP",
-      "contractVersion": "2.1.7",
+      "contractVersion": "2.1.8",
       "required": [
         "GEO_ID",
         "NAICS2017",
@@ -322,7 +322,7 @@
     },
     {
       "sourceKey": "CENSUS_ZBP",
-      "contractVersion": "2.1.7",
+      "contractVersion": "2.1.8",
       "required": [
         "ZIPCODE",
         "NAICS2017",

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { CensusBusinessPatternsAdapter, deriveCbpCountyGeoId, deriveCbpStateGeoId } from "../src/adapters/census-business-patterns.adapter.js";
+import { CensusBusinessPatternsAdapter, deriveCbpCountyGeoId, deriveCbpStateGeoId, isCbpStateAllEstablishments } from "../src/adapters/census-business-patterns.adapter.js";
 
 test("CBP state and county geographies derive from official FIPS columns",()=>{
   assert.equal(deriveCbpStateGeoId({STATE:"1"}),"0400000US01");
@@ -16,4 +16,11 @@ test("CBP NAICS fixed-width aggregate encodings are governed",()=>{
     assert.equal(adapter.validateRecord({ naturalKey: code, record: { GEO_ID: "0400000US01", NAICS2017: code, ESTAB: "1" } }).valid, true);
   }
   assert.equal(adapter.validateRecord({ naturalKey: "bad", record: { GEO_ID: "0400000US01", NAICS2017: "113//-", ESTAB: "1" } }).valid, false);
+});
+
+
+test("CBP state retains only the Census all-establishments LFO total",()=>{
+  assert.equal(isCbpStateAllEstablishments({LFO:"-"}),true);
+  assert.equal(isCbpStateAllEstablishments({LFO:"C"}),false);
+  assert.equal(isCbpStateAllEstablishments({}),false);
 });
