@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { CensusBusinessPatternsAdapter, deriveCbpCountyGeoId, deriveCbpStateGeoId, isCbpStateAllEstablishments } from "../src/adapters/census-business-patterns.adapter.js";
+import { CensusBusinessPatternsAdapter, deriveCbpCountyGeoId, deriveCbpStateGeoId, isCbpStateAllEstablishments, isCbpCountyStateSummaryTotal } from "../src/adapters/census-business-patterns.adapter.js";
 
 test("CBP state and county geographies derive from official FIPS columns",()=>{
   assert.equal(deriveCbpStateGeoId({STATE:"1"}),"0400000US01");
@@ -23,4 +23,11 @@ test("CBP state retains only the Census all-establishments LFO total",()=>{
   assert.equal(isCbpStateAllEstablishments({LFO:"-"}),true);
   assert.equal(isCbpStateAllEstablishments({LFO:"C"}),false);
   assert.equal(isCbpStateAllEstablishments({}),false);
+});
+
+
+test("CBP county retains only all-industries state-summary totals",()=>{
+  assert.equal(isCbpCountyStateSummaryTotal({COUNTY:"999",NAICS2017:"------"}),true);
+  assert.equal(isCbpCountyStateSummaryTotal({COUNTY:"999",NAICS2017:"48----"}),false);
+  assert.equal(isCbpCountyStateSummaryTotal({COUNTY:"001",NAICS2017:"48----"}),true);
 });

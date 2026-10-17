@@ -41,6 +41,10 @@ function canonical(headers: string[], row: string[]): Record<string, unknown> {
     STATE: value("STATE", "fipstate"),
     COUNTY: value("COUNTY", "fipscty"),
     ZIPCODE: value("ZIPCODE", "zip"),
+    // Preserve governed source aliases consumed by established downstream exception rules.
+    state: value("STATE", "fipstate"),
+    county: value("COUNTY", "fipscty"),
+    zip: value("ZIPCODE", "zip"),
     NAICS2017: value("NAICS2017", "naics"),
     LFO: value("LFO", "lfo"),
     ESTAB: value("ESTAB", "est"),
@@ -56,8 +60,12 @@ export function isCbpStateAllEstablishments(record: Record<string, unknown>): bo
   return String(record.LFO ?? "").trim() === "-";
 }
 
+export function isCbpCountyStateSummaryTotal(record: Record<string, unknown>): boolean {
+  return String(record.COUNTY ?? "").trim() !== "999" || String(record.NAICS2017 ?? "").trim() === "------";
+}
+
 export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
-  readonly adapterVersion = "2.1.8";
+  readonly adapterVersion = "2.1.9";
   readonly sourceKey: SourceKey;
 
   constructor(
@@ -150,6 +158,8 @@ export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
       const record = canonical(headers, row);
       // State CBP includes overlapping LFO breakouts; retain the Census all-establishments total only.
       if (this.grain === "STATE" && !isCbpStateAllEstablishments(record)) continue;
+      // County CBP repeats state summaries at every NAICS level; retain only its all-industries total.
+      if (this.grain === "COUNTY" && !isCbpCountyStateSummaryTotal(record)) continue;
       if (this.grain === "STATE") record.GEO_ID = deriveCbpStateGeoId(record);
       if (this.grain === "COUNTY") record.GEO_ID = deriveCbpCountyGeoId(record);
       const identity = this.grain === "POSTAL_CODE" ? record.ZIPCODE : record.GEO_ID;
