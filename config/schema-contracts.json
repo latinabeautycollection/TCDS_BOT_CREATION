@@ -1,0 +1,248 @@
+{
+  "version": "2.1.3",
+  "contracts": [
+    {
+      "sourceKey": "CENSUS_GAZETTEER_STATE",
+      "contractVersion": "2.1.0",
+      "required": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "CENSUS_GAZETTEER_COUNTY",
+      "contractVersion": "2.1.0",
+      "required": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "CENSUS_GAZETTEER_PLACE",
+      "contractVersion": "2.1.0",
+      "required": [
+        "USPS",
+        "GEOID",
+        "NAME",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "CENSUS_GAZETTEER_ZCTA",
+      "contractVersion": "2.1.0",
+      "required": [
+        "GEOID",
+        "GEOIDFQ",
+        "ALAND",
+        "AWATER",
+        "INTPTLAT",
+        "INTPTLONG"
+      ],
+      "allowExtraFields": true,
+      "delimiter": "AUTO_TAB_OR_PIPE",
+      "patterns": {
+        "GEOID": "^[0-9]+$",
+        "INTPTLAT": "^[+-]?[0-9]+(?:\\.[0-9]+)?$",
+        "INTPTLONG": "^[+-]?[0-9]+(?:\\.[0-9]+)?$"
+      }
+    },
+    {
+      "sourceKey": "HUD_USPS_ZIP_CBSA",
+      "contractVersion": "2.1.0",
+      "required": [
+        "zip",
+        "geoid",
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ],
+      "allowExtraFields": true,
+      "releaseIdentity": [
+        "year",
+        "quarter"
+      ],
+      "envelope": {
+        "year": "requested",
+        "quarter": "requested",
+        "crosswalk_type": "zip-cbsa"
+      },
+      "patterns": {
+        "zip": "^[0-9]{5}$",
+        "geoid": "^[0-9]{5}$"
+      },
+      "ratioFields": [
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ]
+    },
+    {
+      "sourceKey": "HUD_USPS_ZIP_COUNTY",
+      "contractVersion": "2.1.1",
+      "required": [
+        "zip",
+        "geoid",
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ],
+      "allowExtraFields": true,
+      "releaseIdentity": [
+        "year",
+        "quarter"
+      ],
+      "envelope": {
+        "year": "requested",
+        "quarter": "requested",
+        "crosswalk_type": "zip-county"
+      },
+      "patterns": {
+        "zip": "^[0-9]{5}$",
+        "geoid": "^(?:[0-9]{5}|60|64|68|70)$"
+      },
+      "ratioFields": [
+        "res_ratio",
+        "bus_ratio",
+        "oth_ratio",
+        "tot_ratio"
+      ]
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "contractVersion": "2.1.0",
+      "required": [
+        "NAME"
+      ],
+      "allowExtraFields": true,
+      "metadataBindingRequired": true,
+      "variableMetadataFields": [
+        "label",
+        "concept",
+        "predicateType",
+        "group"
+      ]
+    },
+    {
+      "sourceKey": "BEA_REGIONAL_RPP",
+      "contractVersion": "2.1.0",
+      "required": [
+        "GeoFIPS",
+        "GeoName",
+        "LineCode",
+        "TimePeriod",
+        "DataValue"
+      ],
+      "allowExtraFields": true,
+      "metadataBindingRequired": true,
+      "dataValueNumericRequired": true
+    },
+    {
+      "sourceKey": "BTS_FAF6_REGIONAL",
+      "contractVersion": "2.1.0",
+      "required": [
+        "dms_orig",
+        "dms_dest",
+        "sctg2",
+        "trade_type",
+        "dms_mode"
+      ],
+      "allowExtraFields": true,
+      "csvHeaderAliases": {
+        "trade_type": [
+          "trade_type"
+        ],
+        "dms_orig": [
+          "dms_orig"
+        ],
+        "dms_dest": [
+          "dms_dest"
+        ],
+        "sctg2": [
+          "sctg2"
+        ],
+        "dms_mode": [
+          "dms_mode"
+        ]
+      }
+    },
+    {
+      "sourceKey": "BTS_FAF6_ZONE_LOOKUP",
+      "contractVersion": "2.1.1",
+      "required": ["faf6_zone", "name"],
+      "allowExtraFields": true,
+      "csvHeaderAliases": {
+        "faf6_zone": ["faf6_zone", "FAF6", "faf_zone", "zone", "dms_orig"],
+        "name": ["name", "NAME", "label", "FAF6_NAME"],
+        "state_fips": ["state_fips", "STATEFP", "state"],
+        "cfs22": ["cfs22", "CFS22", "cfs_area"],
+        "cbsa": ["cbsa", "CBSA", "cbsa_code"]
+      },
+      "patterns": {"faf6_zone": "^[0-9]{3,6}$"}
+    },
+    {
+      "sourceKey": "BTS_SCTG_METADATA",
+      "contractVersion": "2.1.1",
+      "required": ["code", "label"],
+      "allowExtraFields": true,
+      "csvHeaderAliases": {
+        "code": ["code", "SCTG2", "sctg2", "natural_key"],
+        "label": ["label", "description", "DESCRIPTION", "sctg_description"]
+      },
+      "patterns": {"code": "^[0-9]{2}$"}
+    },
+    {
+      "sourceKey": "CENSUS_CBP",
+      "contractVersion": "2.1.3",
+      "required": ["GEO_ID", "NAICS2017"],
+      "allowExtraFields": true,
+      "csvHeaderAliases": {
+        "GEO_ID": ["GEO_ID", "GEOID"],
+        "STATE": ["STATE", "state", "fipstate"],
+        "COUNTY": ["COUNTY", "county", "fipscty"],
+        "NAICS2017": ["NAICS2017", "NAICS2022", "NAICS", "naics"],
+        "ESTAB": ["ESTAB", "est"],
+        "EMP": ["EMP", "emp"],
+        "PAYANN": ["PAYANN", "ap"]
+      },
+      "derivedFields": {"GEO_ID": "0500000US + zero-padded fipstate + fipscty when GEO_ID is absent"},
+      "patterns": {"GEO_ID": "^0500000US[0-9]{5}$", "NAICS2017": "^[0-9A-Z-]+$"}
+    }
+  ]
+}

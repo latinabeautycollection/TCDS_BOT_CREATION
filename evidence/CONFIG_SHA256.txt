@@ -1,0 +1,3 @@
+07322e3599bb2317f51f4bb8f058729c28cd4354ec34a1ca4d83e4025bf87035  config/certification-policy.json
+fa46a7715e7082850a48466de6ec4d9fd1a69f47f5939c976bd7fd7b4cd581eb  config/schema-contracts.json
+08a5bc14f724304ea864dd34712e732cf3a8ab78da634a23a652db802cc57fdb  config/source-policy.json

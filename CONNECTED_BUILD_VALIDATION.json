@@ -1,0 +1,13 @@
+{
+  "package": "tcds-zsl1-green-tier1-freight-cohort",
+  "version": "2.1.1",
+  "status": "CONNECTED_BUILD_PASS",
+  "dependencyLock": "PASS",
+  "dependencyLockSha256": "39d516f4e7bb3452653d9086d187dcbfb577d250c1fcf37d0ec2892a41cc51de",
+  "typecheck": "PASS",
+  "build": "PASS",
+  "tests": "PASS",
+  "combinedMigrationDryRun": "NOT_EXECUTED",
+  "runtimeCertified": false,
+  "runtimeCertificationStatus": "PENDING"
+}

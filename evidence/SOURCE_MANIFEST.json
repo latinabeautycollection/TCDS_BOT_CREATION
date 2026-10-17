@@ -1,0 +1,356 @@
+{
+  "manifestVersion": "2.1.1",
+  "generatedAt": "2026-10-16T15:40:56.952Z",
+  "entries": [
+    {
+      "path": ".gitignore",
+      "bytes": 50,
+      "sha256": "6fc3c8e0a2cb73b4c454e16c52eabc5569cd79e228fbfc2ca0557cbe1d345467"
+    },
+    {
+      "path": "CONNECTED_BUILD_VALIDATION.json",
+      "bytes": 414,
+      "sha256": "377b56f5931d078051d13dc759c34758c31e9e855645c8473c60643f876a8af8"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7800,
+      "sha256": "9003368c2d2c016e9dd1750da295ab2840f97c5ac624207b2792484c6cf2567c"
+    },
+    {
+      "path": "config/certification-policy.json",
+      "bytes": 781,
+      "sha256": "07322e3599bb2317f51f4bb8f058729c28cd4354ec34a1ca4d83e4025bf87035"
+    },
+    {
+      "path": "config/schema-contracts.json",
+      "bytes": 6060,
+      "sha256": "fa46a7715e7082850a48466de6ec4d9fd1a69f47f5939c976bd7fd7b4cd581eb"
+    },
+    {
+      "path": "config/source-policy.json",
+      "bytes": 10593,
+      "sha256": "08a5bc14f724304ea864dd34712e732cf3a8ab78da634a23a652db802cc57fdb"
+    },
+    {
+      "path": "database/migrations/001_zsl1_green_tier1_v2.sql",
+      "bytes": 14755,
+      "sha256": "8972ae96691d6f6d4c9415269074e35c2ab158524dcba2da983341d27ca30099"
+    },
+    {
+      "path": "database/migrations/002_zsl1_v21_freeze_hardening.sql",
+      "bytes": 10210,
+      "sha256": "21015dada0f6fd171c5b05d514118d51d074526737aca04569683437cbcb6a57"
+    },
+    {
+      "path": "database/migrations/003_zsl1_v211_freight_cohort.sql",
+      "bytes": 1152,
+      "sha256": "1c1c0043e2d374019cd82b5243ebd5a9a478227ee680eb1431a724ae3e51bc91"
+    },
+    {
+      "path": "database/rollback/001_zsl1_v2_non_destructive_rollback.sql",
+      "bytes": 428,
+      "sha256": "5060fdd7339edfd1537d604460e920633966554f43afd87e8a5deb96fe3bc2ec"
+    },
+    {
+      "path": "database/rollback/002_zsl1_v21_non_destructive_rollback.sql",
+      "bytes": 1387,
+      "sha256": "27d3ffdfaa8efa31c014c5397c79613260d8b0b1ef6a8d65b57d937349c0127c"
+    },
+    {
+      "path": "docs/DEPENDENCY-FREEZE-GATE.md",
+      "bytes": 777,
+      "sha256": "c8314efd5247a65ccf665466509263e3962f7b45961116a4a996d1842cfad802"
+    },
+    {
+      "path": "docs/DOMAIN-CONTRACT.md",
+      "bytes": 487,
+      "sha256": "fa64c6abcbf80b49339b9d396f6935e4cb8f067015beb0b7a06830c6214da9dd"
+    },
+    {
+      "path": "docs/FINAL-FREEZE-REMEDIATION.md",
+      "bytes": 2018,
+      "sha256": "5558c04aec265b631de0e49563e0a4395d9ab545860b73e75dd128b65099e144"
+    },
+    {
+      "path": "docs/FINAL-HARDENING-RESOLUTION.md",
+      "bytes": 1399,
+      "sha256": "5994a90ca629f672638a81370cee24b01b6611c3810b8ea3015ef1a4bd4c05f7"
+    },
+    {
+      "path": "docs/FREEZE-CERTIFICATION.md",
+      "bytes": 1618,
+      "sha256": "db2b259d828a54d2ff1e2f8ffe0cadbb13ed11f49e09553de7e8570765d414e8"
+    },
+    {
+      "path": "docs/OFFLINE-BUILD-NOTE.md",
+      "bytes": 544,
+      "sha256": "1c1c2fb394565a34a1265c9c43ce75ccd57666664e5208afcfcad7338ce4734c"
+    },
+    {
+      "path": "docs/REMEDIATION-MAP.md",
+      "bytes": 1677,
+      "sha256": "ad05cc6b449498473a4993dad8ac0d5db7e89fcf5e830280f2f5f309bbd1cd6e"
+    },
+    {
+      "path": "docs/SOURCE-AUTHORITY.md",
+      "bytes": 2617,
+      "sha256": "3b04c87115b453d8c5cfd4085cd59e293b7b382d38dfefdfc49db06cdb323edc"
+    },
+    {
+      "path": "docs/SUPABASE-SECURITY.md",
+      "bytes": 511,
+      "sha256": "94666ae20ca48bbedf719045ddf421042a38bc6ef95465ff59b4ff917533288a"
+    },
+    {
+      "path": "evidence/CONFIG_SHA256.txt",
+      "bytes": 286,
+      "sha256": "b831d0c495bf3431452929d485dc73b6f026ff69bd6977d63b1c066be0d5b8fe"
+    },
+    {
+      "path": "evidence/SBOM_DIRECT_DEPENDENCIES.json",
+      "bytes": 1138,
+      "sha256": "401baa31240f28dcb992428ba3f3c5e42156e0b2652521a1c7bde9a2f417cc57"
+    },
+    {
+      "path": "evidence/STATIC_IMPLEMENTATION_CERTIFICATION.json",
+      "bytes": 2744,
+      "sha256": "125c86a6b81c3a74aa7fe344084b26d61f29ca3501d6c549ccec1b2b7779634e"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 23707,
+      "sha256": "39d516f4e7bb3452653d9086d187dcbfb577d250c1fcf37d0ec2892a41cc51de"
+    },
+    {
+      "path": "package.json",
+      "bytes": 798,
+      "sha256": "78aa5c44c67b49510d9ee760065d913c3d02528215bd4b2dc128259ee214d9af"
+    },
+    {
+      "path": "scripts/certify-static.sh",
+      "bytes": 620,
+      "sha256": "f1c620cea108195630113420c07c54fd1474eac49897314f98e79edd347dee5d"
+    },
+    {
+      "path": "scripts/install.sh",
+      "bytes": 560,
+      "sha256": "11f40cf08f9c15c4d0d8b6e2946bb9a35833af20218f93969f384482b960bac4"
+    },
+    {
+      "path": "scripts/preflight.sh",
+      "bytes": 682,
+      "sha256": "4ee4866e3c7c93b6bb21a4efabdb175f8da5e3a667bd8b7d139d6549139a7db4"
+    },
+    {
+      "path": "scripts/resolve-lock-connected.sh",
+      "bytes": 528,
+      "sha256": "72e2635249847b47be145ed0c8cb271aa92f9324029e2cea8d584ced111cef14"
+    },
+    {
+      "path": "scripts/verify-lock.mjs",
+      "bytes": 828,
+      "sha256": "bdaba096217d7b57138c13e93c46f507647fbe60367cd7534e5aaaa15d25fa2a"
+    },
+    {
+      "path": "src/adapters/bea-regional.adapter.ts",
+      "bytes": 6911,
+      "sha256": "b7dca40c6b87844c8b9fed3b11e6ac44a75c82a1cf382793567d59093611870d"
+    },
+    {
+      "path": "src/adapters/bts-faf.adapter.ts",
+      "bytes": 4840,
+      "sha256": "19cf4143270a57f681f94c9e12b3a9b838a1f80ed6e787edee3c6b05f56d45b2"
+    },
+    {
+      "path": "src/adapters/census-acs.adapter.ts",
+      "bytes": 5323,
+      "sha256": "3bf76af0ce09da3dc8a534c6bb5d3ced3171fabc008b3b6c53b9ccc041e897db"
+    },
+    {
+      "path": "src/adapters/census-gazetteer.adapter.ts",
+      "bytes": 6038,
+      "sha256": "9dd204cfc716b7cae68de02d3964d61a6b7ba642fd666981ddd4b588ac8d6c0d"
+    },
+    {
+      "path": "src/adapters/common.ts",
+      "bytes": 512,
+      "sha256": "9202e602e77d9872ebda244623be79d8369b4e3d37777e932f74398c9de884fd"
+    },
+    {
+      "path": "src/adapters/freight-reference.adapter.ts",
+      "bytes": 12350,
+      "sha256": "a6742d9a6c53ac4c6ad6d94dea1cffb9853803450861c1c81cbf8eff065d8662"
+    },
+    {
+      "path": "src/adapters/hud-usps.adapter.ts",
+      "bytes": 5146,
+      "sha256": "44ec32aeec99ec0a07e26b96a378944f50f8106c8db4847229bcf4ff2b3ee8d5"
+    },
+    {
+      "path": "src/cli/bootstrap.ts",
+      "bytes": 3267,
+      "sha256": "1e018719c8b9e0bf7a23fd41009252a34e3549a8956af495a500aa74f0df3177"
+    },
+    {
+      "path": "src/cli/certify.ts",
+      "bytes": 262,
+      "sha256": "1ed0c402fd3a341946c7b9ce9edb7661aaa4c2cd12ada0065c3a64c0ce343110"
+    },
+    {
+      "path": "src/cli/ingest.ts",
+      "bytes": 3567,
+      "sha256": "d76cdfdb52b87f3b8d82f8a876be2825db5a3d7d38cb01432b5d3b853e5d0079"
+    },
+    {
+      "path": "src/cli/manifest.ts",
+      "bytes": 1220,
+      "sha256": "f5cad1fd518257c171f1ca2ee01d9be5b5dd0f8493438c94858dfda4d0b01bd6"
+    },
+    {
+      "path": "src/cli/revoke.ts",
+      "bytes": 1032,
+      "sha256": "5af617020311de3f484f077425e252502c4bf629d1e8615fb18ef809a7587475"
+    },
+    {
+      "path": "src/cli/status.ts",
+      "bytes": 651,
+      "sha256": "f8c4b6257ec3ad9e8f979ff3d2c96363474b352af59c06c2d4d2395ed0f5881f"
+    },
+    {
+      "path": "src/core/archive.ts",
+      "bytes": 1566,
+      "sha256": "73565b450fa732ec15ffbd304948fd0b96c95a621213df31da20a43bbe59cb6f"
+    },
+    {
+      "path": "src/core/contracts.ts",
+      "bytes": 616,
+      "sha256": "321f35414393a5a26942d05cc514fab3cc9926be4b62fd52cbfd0f0fa5f855cf"
+    },
+    {
+      "path": "src/core/delimited.ts",
+      "bytes": 1672,
+      "sha256": "aeb1585c35949bee37e194d3ad5aff000abf2e3a5b60bd4e4db74aaedf5a5675"
+    },
+    {
+      "path": "src/core/hash.ts",
+      "bytes": 1090,
+      "sha256": "8b03f8303498a640907d3d0a5a3af09a16037efd39a3176f1391e22b29f8b789"
+    },
+    {
+      "path": "src/core/http.ts",
+      "bytes": 3865,
+      "sha256": "d4ba2d5baa2fa3271e0779e2167d587bd5d4bf4b4b6b6cf681a9e111841db362"
+    },
+    {
+      "path": "src/core/policy.ts",
+      "bytes": 962,
+      "sha256": "11d8d804a0c5f3db9d9fc3cf5419569424739a5f4b087238f35b49353473a241"
+    },
+    {
+      "path": "src/core/redaction.ts",
+      "bytes": 783,
+      "sha256": "014278a387eb44ea47cdaecbf1c6dd3f91a7f0310aeba266ab785a29f4ecb1b1"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 1716,
+      "sha256": "b85c6aa44d9cc66f70aa09ef5bdba278398baafecfd16b4a4f5d0bbe11248f38"
+    },
+    {
+      "path": "src/repositories/db.ts",
+      "bytes": 972,
+      "sha256": "28e78e4c2fe8ff577aa6ba81c915cb8d1527b028463edcda10a9d7b240e1318e"
+    },
+    {
+      "path": "src/repositories/ingest.repository.ts",
+      "bytes": 8809,
+      "sha256": "8f6019b63408849ff34183c90d8746259813297c4a9d76751ae2fa8ad1817f33"
+    },
+    {
+      "path": "src/services/artifact.service.ts",
+      "bytes": 1086,
+      "sha256": "2185482c092753cf5f6be2b7fc3426a6c82d87275898a82c170b87080b7a96ec"
+    },
+    {
+      "path": "src/services/certification.service.ts",
+      "bytes": 6352,
+      "sha256": "6ca72968a604542821c3b7fe1a15ed29f89b520e77b5feeb81bf8e8b567f3b0a"
+    },
+    {
+      "path": "src/services/ingest.service.ts",
+      "bytes": 7505,
+      "sha256": "a0f2314a286209b396b351b3d903cb7aba80c06e515d2a75d15db3d4f68221d9"
+    },
+    {
+      "path": "tests/bea-official-response.test.ts",
+      "bytes": 1259,
+      "sha256": "ab8174850131a9d90893b42750dca8d17cfe5f4a45db99ee9ff57a9135cb0547"
+    },
+    {
+      "path": "tests/delimited.test.ts",
+      "bytes": 463,
+      "sha256": "4654d7c7f14215833fbfbf90ed528db489d180bb51f7e58c092d6529a4fff11e"
+    },
+    {
+      "path": "tests/final-freeze-hardening.test.ts",
+      "bytes": 1197,
+      "sha256": "a678f1bca13c7db4ace47f58a9f25b766792a1c2aa457189bf67f7feb6d6fd12"
+    },
+    {
+      "path": "tests/freeze-hardening.test.ts",
+      "bytes": 3459,
+      "sha256": "1fe4f810dc940de47fbb2b7e3a1aadb037ceb98e5dc7ee1b59a515700a57032a"
+    },
+    {
+      "path": "tests/freight-reference-source.test.ts",
+      "bytes": 1529,
+      "sha256": "fb5057d005a765a35d45b0c24ee2a42118cad244b723761b0f98068e52edc138"
+    },
+    {
+      "path": "tests/hash.test.ts",
+      "bytes": 379,
+      "sha256": "99b9578a862199a2c9de2ddc8538bf59acd689cf59782f7522f6ff754303d37c"
+    },
+    {
+      "path": "tests/hud-territorial-geoid.test.ts",
+      "bytes": 1123,
+      "sha256": "f9be36ef9ed98478db813e404f0d417151ddd55c5f15e8200e5b7570389b784e"
+    },
+    {
+      "path": "tests/package-hygiene.test.ts",
+      "bytes": 313,
+      "sha256": "a9131b7889eccb1f1e97abe92764bb680b9420204aad063be61bb4a73ff5322f"
+    },
+    {
+      "path": "tests/policy.test.ts",
+      "bytes": 600,
+      "sha256": "b0731c9b9c5488975e293be660fe9d6cbc160d807412869e016c12af67be0601"
+    },
+    {
+      "path": "tests/redaction.test.ts",
+      "bytes": 687,
+      "sha256": "c2b6b8a47eb4205d9a8ffb225b7b8f2d130467faf9e1186c7a577befc507d29c"
+    },
+    {
+      "path": "tests/source-contracts.test.ts",
+      "bytes": 1322,
+      "sha256": "2981640ea591ba88a53906c45280ca1b4f530d3a6e096173ee1ab61cfb1e45df"
+    },
+    {
+      "path": "tests/sql-static.test.ts",
+      "bytes": 769,
+      "sha256": "67b0b295457e59d156360bcde75021cdec7e126c5b2d33c8bddf3e942e80e097"
+    },
+    {
+      "path": "tests/zip-stream-lifecycle.test.ts",
+      "bytes": 884,
+      "sha256": "d16395da6b0b6664ec2c05dda94d4679bb9b29eef6f5074018fd1830bcfb0353"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 427,
+      "sha256": "713c2a84b357dc17fef9bbdd99f310affcfc90410ce20893b5bb21d9f50de79d"
+    }
+  ]
+}
