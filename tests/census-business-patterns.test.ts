@@ -12,7 +12,7 @@ test("CBP state and county geographies derive from official FIPS columns",()=>{
 
 test("CBP NAICS fixed-width aggregate encodings are governed",()=>{
   const adapter = new CensusBusinessPatternsAdapter("STATE", 2023, "https://www2.census.gov/source.zip");
-  for (const code of ["11----", "113///", "1131//", "11311/", "443142"]) {
+  for (const code of ["------", "11----", "113///", "1131//", "11311/", "443142"]) {
     assert.equal(adapter.validateRecord({ naturalKey: code, record: { GEO_ID: "0400000US01", NAICS2017: code, ESTAB: "1" } }).valid, true);
   }
   assert.equal(adapter.validateRecord({ naturalKey: "bad", record: { GEO_ID: "0400000US01", NAICS2017: "113//-", ESTAB: "1" } }).valid, false);

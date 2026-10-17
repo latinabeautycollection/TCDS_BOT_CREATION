@@ -52,7 +52,7 @@ function canonical(headers: string[], row: string[]): Record<string, unknown> {
 }
 
 export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
-  readonly adapterVersion = "2.1.6";
+  readonly adapterVersion = "2.1.7";
   readonly sourceKey: SourceKey;
 
   constructor(
@@ -157,7 +157,7 @@ export class CensusBusinessPatternsAdapter implements ZslSourceAdapter {
     if (this.grain === "STATE" && !/^0400000US\d{2}$/.test(geo)) issues.push({ code: "CBP_STATE_GEOID_INVALID", message: geo, fatal: true, field: "GEO_ID" });
     if (this.grain === "COUNTY" && !/^0500000US\d{5}$/.test(geo)) issues.push({ code: "CBP_COUNTY_GEOID_INVALID", message: geo, fatal: true, field: "GEO_ID" });
     if (this.grain === "POSTAL_CODE" && !/^\d{5}$/.test(String(record.record.ZIPCODE ?? ""))) issues.push({ code: "ZBP_ZIP_INVALID", message: String(record.record.ZIPCODE ?? ""), fatal: true, field: "ZIPCODE" });
-    if (!new RegExp("^(?:[0-9]{2}-{4}|[0-9]{3}/{3}|[0-9]{4}/{2}|[0-9]{5}/|[0-9]{6})$").test(String(record.record.NAICS2017 ?? ""))) issues.push({ code: "NAICS2017_INVALID", message: String(record.record.NAICS2017 ?? ""), fatal: true, field: "NAICS2017" });
+    if (!new RegExp("^(?:-{6}|[0-9]{2}-{4}|[0-9]{3}/{3}|[0-9]{4}/{2}|[0-9]{5}/|[0-9]{6})$").test(String(record.record.NAICS2017 ?? ""))) issues.push({ code: "NAICS2017_INVALID", message: String(record.record.NAICS2017 ?? ""), fatal: true, field: "NAICS2017" });
     return { valid: issues.every(issue => !issue.fatal), issues };
   }
 
