@@ -1,0 +1,2 @@
+# ZSL3 Domain Contract
+ZSL3 owns certified economic/demographic source facts, governed derived geographic context, snapshots, freshness, confidence, replay, certification, and activation. It does not acquire external data (ZSL1), define canonical geography (ZSL2), authorize retail search (R1B/R1D), compile scraper requests (R1C), qualify product identity (R1E), own retail learning (R1F), predict deals, or make BUY/NO-BUY decisions.

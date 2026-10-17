@@ -1,0 +1,15 @@
+{
+  "zsl1": {
+    "sha256BySourceKey": {
+      "CENSUS_ACS5_PROFILE": "8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c",
+      "BEA_REGIONAL_RPP": "8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c",
+      "CENSUS_CBP": "23491f53f2ded221ce0b881dcbca11254a26edfc972bf76e222c4f6f7f3394b5",
+      "CENSUS_ZBP": "23491f53f2ded221ce0b881dcbca11254a26edfc972bf76e222c4f6f7f3394b5"
+    }
+  },
+  "zsl2": {
+    "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_FREEZE_FINAL",
+    "sha256": "5fe47f222470b351578c939932ee19ebbfd63600a0c09dcbf18da4dc474cf43a",
+    "engineVersion": "zsl2-v2.1.0"
+  }
+}

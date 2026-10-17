@@ -1,0 +1,118 @@
+{
+  "version": "2.2.0",
+  "minimumPercentileCohortSize": 20,
+  "acsVariableBindings": [
+    {
+      "featureCode": "population",
+      "variableCode": "DP05_0001E",
+      "expectedLabelContains": "Total population",
+      "unit": "PERSON",
+      "evidenceClass": "SOURCE_FACT"
+    },
+    {
+      "featureCode": "median_household_income",
+      "variableCode": "DP03_0062E",
+      "expectedLabelContains": "Median household income",
+      "unit": "USD_CURRENT_ACS_VINTAGE",
+      "evidenceClass": "SOURCE_FACT"
+    },
+    {
+      "featureCode": "poverty_pct",
+      "variableCode": "DP03_0128PE",
+      "expectedLabelContains": "All people",
+      "unit": "PERCENT",
+      "evidenceClass": "SOURCE_FACT"
+    },
+    {
+      "featureCode": "housing_units",
+      "variableCode": "DP04_0001E",
+      "expectedLabelContains": "HOUSING",
+      "unit": "UNIT",
+      "evidenceClass": "SOURCE_FACT"
+    }
+  ],
+  "derivedDefinitions": [
+    {
+      "featureCode": "real_median_household_income_index",
+      "formulaVersion": "2.2.0",
+      "formulaType": "ARITHMETIC",
+      "formula": "median_household_income / (regional_price_parity/100)",
+      "requires": [
+        "median_household_income",
+        "regional_price_parity"
+      ],
+      "unit": "USD_RPP_ADJUSTED",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    },
+    {
+      "featureCode": "retail_density_per_100k",
+      "formulaVersion": "2.2.0",
+      "formulaType": "ARITHMETIC",
+      "formula": "100000 * retail_establishments / population",
+      "requires": [
+        "retail_establishments",
+        "population"
+      ],
+      "unit": "ESTABLISHMENTS_PER_100K",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    },
+    {
+      "featureCode": "electronics_density_per_100k",
+      "formulaVersion": "2.2.0",
+      "formulaType": "ARITHMETIC",
+      "formula": "100000 * electronics_establishments / population",
+      "requires": [
+        "electronics_establishments",
+        "population"
+      ],
+      "unit": "ESTABLISHMENTS_PER_100K",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    },
+    {
+      "featureCode": "warehouse_density_per_100k",
+      "formulaVersion": "2.2.0",
+      "formulaType": "ARITHMETIC",
+      "formula": "100000 * warehouse_establishments / population",
+      "requires": [
+        "warehouse_establishments",
+        "population"
+      ],
+      "unit": "ESTABLISHMENTS_PER_100K",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    },
+    {
+      "featureCode": "retail_capacity_index",
+      "formulaVersion": "2.2.0",
+      "formulaType": "PERCENT_RANK",
+      "formula": "percent_rank(retail_density_per_100k)*100",
+      "requires": [
+        "retail_density_per_100k"
+      ],
+      "unit": "PERCENTILE",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    },
+    {
+      "featureCode": "purchasing_power_index",
+      "formulaVersion": "2.2.0",
+      "formulaType": "PERCENT_RANK",
+      "formula": "percent_rank(real_median_household_income_index)*100",
+      "requires": [
+        "real_median_household_income_index"
+      ],
+      "unit": "PERCENTILE",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    },
+    {
+      "featureCode": "economic_pressure_index",
+      "formulaVersion": "2.2.0",
+      "formulaType": "ARITHMETIC",
+      "formula": "0.5*(100-purchasing_power_index)+0.5*poverty_pct",
+      "requires": [
+        "purchasing_power_index",
+        "poverty_pct"
+      ],
+      "unit": "INDEX",
+      "freshnessAggregation": "WORST_MANDATORY_INPUT"
+    }
+  ]
+}

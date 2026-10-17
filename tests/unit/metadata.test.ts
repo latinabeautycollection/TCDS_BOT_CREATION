@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const s=fs.readFileSync('src/metadata/acs-metadata.service.ts','utf8');test('label drift fails closed',()=>assert.match(s,/ACS_METADATA_LABEL_DRIFT/));

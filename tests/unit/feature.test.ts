@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const p=JSON.parse(fs.readFileSync('config/feature-policy.json','utf8'));test('economic pressure implemented in policy',()=>assert.ok(p.derivedDefinitions.some((x:any)=>x.featureCode==='economic_pressure_index')));test('percentile minimum',()=>assert.ok(p.minimumPercentileCohortSize>=20));

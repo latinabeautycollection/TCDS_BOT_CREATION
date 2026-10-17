@@ -1,0 +1,1 @@
+declare module 'pg' { export class Pool { constructor(config?:any); connect():Promise<PoolClient>; end():Promise<void>; query<T=any>(text:string, values?:any[]):Promise<{rows:T[];rowCount:number|null}> } export interface PoolClient { query<T=any>(text:string,values?:any[]):Promise<{rows:T[];rowCount:number|null}>; release():void } }

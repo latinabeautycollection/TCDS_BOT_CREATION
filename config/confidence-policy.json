@@ -1,0 +1,38 @@
+{
+  "version": "2.2.0",
+  "minimumConfidenceForAuthority": 0.7,
+  "weights": {
+    "authority": 0.3,
+    "freshness": 0.2,
+    "coverage": 0.15,
+    "missingness": 0.15,
+    "sampleSize": 0.1,
+    "inheritance": 0.1
+  },
+  "penalties": {
+    "SUPPRESSED": 0.6,
+    "MISSING": 1.0,
+    "UNAVAILABLE": 0.8,
+    "DERIVED_FROM_PARENT": 0.2,
+    "STALE": 0.25,
+    "EXPIRED": 0.5
+  },
+  "labels": {
+    "HIGH": [
+      0.9,
+      1.0
+    ],
+    "MEDIUM": [
+      0.75,
+      0.899999
+    ],
+    "LOW": [
+      0.5,
+      0.749999
+    ],
+    "INSUFFICIENT": [
+      0,
+      0.499999
+    ]
+  }
+}

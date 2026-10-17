@@ -1,0 +1,1 @@
+import{pool}from'../repositories/db.js';const run=process.argv[2],cert=process.argv[3];if(!run||!cert)throw new Error('usage: activate <build_run_id> <certification_run_id>');await pool.query(`SELECT zsl.zsl3_activate($1,$2,$3,$4::jsonb)`,[run,cert,process.env.ZSL3_ACTOR??'zsl3-release',JSON.stringify({reason:'explicit activation'})]);await pool.end();

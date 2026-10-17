@@ -1,0 +1,2 @@
+# Confidence, Freshness, Missingness
+Freshness is feature-source-specific and recomputed from source vintage under a governed policy. Confidence combines authority, freshness, coverage, missingness, sample size, and inheritance. Missingness states are explicit: PRESENT, MISSING, UNAVAILABLE, SUPPRESSED, NOT_APPLICABLE, CONFLICTED, DERIVED_FROM_PARENT. Suppressed values are never silently converted to zero.

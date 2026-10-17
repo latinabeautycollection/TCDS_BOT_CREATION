@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import fs from'node:fs';const s=fs.readFileSync('src/normalizers/bea.ts','utf8');test('MSA requires authoritative CBSA',()=>{assert.match(s,/area_code_kind/);assert.match(s,/AUTHORITATIVE/)});
