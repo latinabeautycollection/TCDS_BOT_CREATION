@@ -1,5 +1,5 @@
 {
-  "version": "2.1.3",
+  "version": "2.1.5",
   "sources": {
     "CENSUS_GAZETTEER_STATE": {
       "sourceKey": "CENSUS_GAZETTEER_STATE",
@@ -22,7 +22,7 @@
         "max": 100
       },
       "expectedContentTypes": [
-      "zip",
+        "zip",
         "octet-stream"
       ],
       "requiredFields": [
@@ -349,16 +349,33 @@
     "BTS_FAF6_ZONE_LOOKUP": {
       "sourceKey": "BTS_FAF6_ZONE_LOOKUP",
       "enabled": true,
-      "allowedHosts": ["faf.ornl.gov", "www.bts.gov", "faf.bts.gov"],
+      "allowedHosts": [
+        "faf.ornl.gov",
+        "www.bts.gov",
+        "faf.bts.gov"
+      ],
       "maxArtifactBytes": 200000000,
       "maxExpandedBytes": 1000000000,
       "maxMembers": 25,
       "maxMemberBytes": 1000000000,
       "maxCompressionRatio": 200,
-      "retry": {"attempts": 4, "baseDelayMs": 500, "maxDelayMs": 8000},
-      "rowCount": {"min": 100, "max": 100000},
-      "expectedContentTypes": ["xlsx", "octet-stream"],
-      "requiredFields": ["faf6_zone", "name"],
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 100,
+        "max": 100000
+      },
+      "expectedContentTypes": [
+        "xlsx",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "faf6_zone",
+        "name"
+      ],
       "allowExtraFields": true,
       "requireContentType": true,
       "requireArtifactMagic": true,
@@ -369,16 +386,33 @@
     "BTS_SCTG_METADATA": {
       "sourceKey": "BTS_SCTG_METADATA",
       "enabled": true,
-      "allowedHosts": ["www.bts.gov", "rosap.ntl.bts.gov", "ntl.bts.gov"],
+      "allowedHosts": [
+        "www.bts.gov",
+        "rosap.ntl.bts.gov",
+        "ntl.bts.gov"
+      ],
       "maxArtifactBytes": 50000000,
       "maxExpandedBytes": 200000000,
       "maxMembers": 25,
       "maxMemberBytes": 200000000,
       "maxCompressionRatio": 200,
-      "retry": {"attempts": 4, "baseDelayMs": 500, "maxDelayMs": 8000},
-      "rowCount": {"min": 40, "max": 1000},
-      "expectedContentTypes": ["zip", "octet-stream"],
-      "requiredFields": ["code", "label"],
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 40,
+        "max": 1000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "code",
+        "label"
+      ],
       "allowExtraFields": true,
       "requireContentType": true,
       "requireArtifactMagic": true,
@@ -389,16 +423,68 @@
     "CENSUS_CBP": {
       "sourceKey": "CENSUS_CBP",
       "enabled": true,
-      "allowedHosts": ["www2.census.gov"],
+      "allowedHosts": [
+        "www2.census.gov"
+      ],
       "maxArtifactBytes": 1000000000,
       "maxExpandedBytes": 5000000000,
       "maxMembers": 25,
       "maxMemberBytes": 5000000000,
       "maxCompressionRatio": 200,
-      "retry": {"attempts": 4, "baseDelayMs": 500, "maxDelayMs": 8000},
-      "rowCount": {"min": 10000, "max": 10000000},
-      "expectedContentTypes": ["zip", "octet-stream"],
-      "requiredFields": ["GEO_ID", "NAICS2017"],
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 10000,
+        "max": 10000000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "GEO_ID",
+        "NAICS2017",
+        "ESTAB"
+      ],
+      "allowExtraFields": true,
+      "requireContentType": true,
+      "requireArtifactMagic": true,
+      "maxNaturalKeyBytes": 512,
+      "maxRecordBytes": 2000000,
+      "maxNullRequiredRatePercent": 0
+    },
+    "CENSUS_ZBP": {
+      "sourceKey": "CENSUS_ZBP",
+      "enabled": true,
+      "allowedHosts": [
+        "www2.census.gov"
+      ],
+      "maxArtifactBytes": 1000000000,
+      "maxExpandedBytes": 5000000000,
+      "maxMembers": 25,
+      "maxMemberBytes": 5000000000,
+      "maxCompressionRatio": 200,
+      "retry": {
+        "attempts": 4,
+        "baseDelayMs": 500,
+        "maxDelayMs": 8000
+      },
+      "rowCount": {
+        "min": 10000,
+        "max": 10000000
+      },
+      "expectedContentTypes": [
+        "zip",
+        "octet-stream"
+      ],
+      "requiredFields": [
+        "ZIPCODE",
+        "NAICS2017",
+        "ESTAB"
+      ],
       "allowExtraFields": true,
       "requireContentType": true,
       "requireArtifactMagic": true,

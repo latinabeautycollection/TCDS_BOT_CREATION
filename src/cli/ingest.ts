@@ -5,6 +5,7 @@ import { CensusAcsAdapter } from "../adapters/census-acs.adapter.js";
 import { BeaRegionalRppAdapter } from "../adapters/bea-regional.adapter.js";
 import { BtsFafAdapter } from "../adapters/bts-faf.adapter.js";
 import { FreightReferenceAdapter } from "../adapters/freight-reference.adapter.js";
+import { CensusBusinessPatternsAdapter } from "../adapters/census-business-patterns.adapter.js";
 import { redact } from "../core/redaction.js";
 
 const [source,...rest]=process.argv.slice(2);if(!source)throw new Error("Usage: ingest <source> [args]");
@@ -25,7 +26,9 @@ switch(source){
  case "faf6":adapter=new BtsFafAdapter(rest[0]??"FAF6.0",Number(rest[1]??2022),rest[2]??process.env.BTS_FAF6_URL??"");break;
  case "faf6-zone":{const release=rest[0];const year=Number(rest[1]);const url=rest[2]??process.env.BTS_FAF6_ZONE_LOOKUP_URL??"";if(!release||!year)throw new Error("Usage: ingest faf6-zone <release> <year> <approved-zip-url>");adapter=new FreightReferenceAdapter("BTS_FAF6_ZONE_LOOKUP",release,year,url);break;}
  case "sctg":{const release=rest[0];const year=Number(rest[1]);const url=rest[2]??process.env.BTS_SCTG_METADATA_URL??"";if(!release||!year)throw new Error("Usage: ingest sctg <release> <year> <approved-zip-url>");adapter=new FreightReferenceAdapter("BTS_SCTG_METADATA",release,year,url);break;}
- case "cbp-county":{const year=Number(rest[0]);const url=rest[1]??process.env.CENSUS_CBP_URL??"";if(!year)throw new Error("Usage: ingest cbp-county <year> <approved-zip-url>");adapter=new FreightReferenceAdapter("CENSUS_CBP",`${year}:COUNTY`,year,url);break;}
+ case "cbp-state":{const year=Number(rest[0]);const url=rest[1]??process.env.CENSUS_CBP_STATE_URL??"";adapter=new CensusBusinessPatternsAdapter("STATE",year,url);break;}
+ case "cbp-county":{const year=Number(rest[0]);const url=rest[1]??process.env.CENSUS_CBP_COUNTY_URL??"";adapter=new CensusBusinessPatternsAdapter("COUNTY",year,url);break;}
+ case "zbp":{const year=Number(rest[0]);const url=rest[1]??process.env.CENSUS_ZBP_URL??"";adapter=new CensusBusinessPatternsAdapter("POSTAL_CODE",year,url);break;}
  default:throw new Error(`Unknown source:${source}`);
 }
 new IngestService().run(adapter).then(x=>console.log(JSON.stringify(x,null,2))).catch(e=>{console.error(redact(e));process.exit(1);});
