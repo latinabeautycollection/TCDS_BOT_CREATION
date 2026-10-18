@@ -1,0 +1,18 @@
+{
+  "ZSL1": {
+    "sha256": "8565bda4f631f56e8f9aa1db6982144182a7076027cc77811e9398bc5a29a43c",
+    "package": "TCDS_ZSL1_GREEN_TIER1_HARDENED_V2_1_FREEZE_FINAL"
+  },
+  "R1A": {
+    "sha256": "9c302e85d307051e971ee7ae92619e59b102d5802a81e067c224704e9b6d1fd9"
+  },
+  "R1B": {
+    "sha256": "d57272c08c13da150eeb41795585e47b64398b466a94fb49f87a0db7f0133f21"
+  },
+  "R1C": {
+    "sha256": "79ab8d52edd7343b9d8e8f4ce91d9452dd9b5161010900f332c2cb7a1ecd7e19"
+  },
+  "R1D": {
+    "sha256": "ee41698d0ffc7177ea61b44431a55c7db2b5cdddeb2a1c4496ac1d0c134741ad"
+  }
+}

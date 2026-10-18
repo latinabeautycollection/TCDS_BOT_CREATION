@@ -1,0 +1,19 @@
+{
+  "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_FREEZE_FINAL",
+  "status": "STATIC_SOURCE_FREEZE_CANDIDATE",
+  "greenTierTarget": "10/10 Green Tier 1",
+  "runtimeCertified": false,
+  "freezeApprovedForProduction": false,
+  "safeForR1BProductionDependency": false,
+  "hardeningVersion": "2.1.0",
+  "notes": [
+    "Certified downstream authority is run-scoped and requires explicit activation.",
+    "Bound ZSL1 certification revocation propagates fail-closed.",
+    "USPS ZIP authority, official CBSA names, and TIGER polygons remain deliberate future authority gaps.",
+    "Runtime certification requires the exact deployment package, resolved dependency lock, Supabase execution, runtime checks, certification, and activation.",
+    "ZSL2 runtime engine is promoted and frozen as zsl2-v2.1.0; downstream ZSL3/ZSL4 must bind this exact engine and exact sealed package SHA."
+  ],
+  "runtimeEngine": "zsl2-v2.1.0",
+  "schemaVersion": "2.1.0",
+  "synchronizedDependencyContract": true
+}

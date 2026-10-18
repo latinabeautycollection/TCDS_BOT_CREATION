@@ -1,0 +1,13 @@
+{
+  "package": "@tcds/zsl2-canonical-geography",
+  "version": "2.1.0",
+  "status": "CONNECTED_BUILD_PASS",
+  "dependencyLock": "PASS",
+  "dependencyLockSha256": "7ead4966f18b7c3f13abd4f8438c4481beec475bf08e6795d195850497e6af1e",
+  "typecheck": "PASS",
+  "build": "PASS",
+  "tests": "PASS",
+  "combinedMigrationDryRun": "PASS",
+  "runtimeCertified": false,
+  "runtimeCertificationStatus": "PENDING"
+}

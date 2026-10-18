@@ -1,0 +1,257 @@
+{
+  "package": "TCDS_ZSL2_GREEN_TIER1_CANONICAL_GEOGRAPHY_V2_1_FREEZE_FINAL",
+  "hardeningVersion": "2.1.0",
+  "runtimeEngineCompatibility": "zsl2-v2.1.0",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 167,
+      "sha256": "3d2c799dd5df035ea2e4f69701efa7a63aac9743f233041f17f97a72a2d5058e"
+    },
+    {
+      "path": "config/normalization-policy.json",
+      "bytes": 1246,
+      "sha256": "ec076b4c6a9d9fb00f261b8626454d99134f3ccadd8a6757848a685abc4b1305"
+    },
+    {
+      "path": "config/upstream-package-bindings.json",
+      "bytes": 556,
+      "sha256": "3a2b5ca58a1ac8423961cf1b99921afe3148792bc34321dee9f6f99760baa926"
+    },
+    {
+      "path": "CONNECTED_BUILD_VALIDATION.json",
+      "bytes": 400,
+      "sha256": "c8c78c5383c4d641399f2964fa93cb93ab5d5be5067c0065bed87c56f6db45c9"
+    },
+    {
+      "path": "database/migrations/001_zsl2_preflight.sql",
+      "bytes": 1318,
+      "sha256": "ed11d7b0a62ea4243c085a69d2aef8e268e1e27ae4149684fedf58942192cc7e"
+    },
+    {
+      "path": "database/migrations/002_zsl2_canonical_geography.sql",
+      "bytes": 7094,
+      "sha256": "945aa1f327c9d00cdebf668aad4807439b8d08cd98b587a7fb7f094f6c1f4f9d"
+    },
+    {
+      "path": "database/migrations/003_zsl2_normalization_authority.sql",
+      "bytes": 4034,
+      "sha256": "cba920a4249d5e609a6c1d1c499bea603d12a3fb64d84408be54d4340022e771"
+    },
+    {
+      "path": "database/migrations/004_zsl2_spatial_services_and_r1b_contract.sql",
+      "bytes": 3561,
+      "sha256": "e7f977cbfa6eb3dc6a6f85db179501b87baf7cb1f0523982f5aed94e0cc25b70"
+    },
+    {
+      "path": "database/migrations/005_zsl2_certification.sql",
+      "bytes": 3969,
+      "sha256": "46f84a946c793eb349a2eb7e61fc88932b7b26f5e411ad7188215dc8c1b19373"
+    },
+    {
+      "path": "database/migrations/006_zsl2_v2_1_freeze_hardening.sql",
+      "bytes": 17159,
+      "sha256": "a610b86dc0e6509e347212b6efb6cb1e5f7d06447e614a82321cc2c2644a6a06"
+    },
+    {
+      "path": "database/migrations/007_zsl2_v2_1_certification_hardening.sql",
+      "bytes": 3968,
+      "sha256": "6cccafb6fac4d49711dd368afc9d0085a32763631dfabb20ee34528e635474db"
+    },
+    {
+      "path": "database/migrations/008_zsl2_v2_1_rbac.sql",
+      "bytes": 2985,
+      "sha256": "873ee4e2f9a2d17ebcd123dc9ee85ffa1c7cf7c261e7b95ec48c7a987c17df74"
+    },
+    {
+      "path": "database/rollback/001_zsl2_non_destructive_rollback.sql",
+      "bytes": 507,
+      "sha256": "1269b9d4cbc05449b950e3a3894964b45812de5465ddcd9a343cdd8bed043878"
+    },
+    {
+      "path": "database/rollback/002_zsl2_v2_1_non_destructive_rollback.sql",
+      "bytes": 477,
+      "sha256": "a90cde4dd71010a1e47a95b05eb178e039d5e7d76f1aaf13f9ef29fe41ff5d29"
+    },
+    {
+      "path": "docs/AUTHORITY-GAPS.md",
+      "bytes": 1444,
+      "sha256": "7d0f040161fca6ab97cee42d93073ab7c249915ded22aed7bfc80a956f05bd53"
+    },
+    {
+      "path": "docs/CERTIFICATION.md",
+      "bytes": 669,
+      "sha256": "48218bc38f244aaf8364ebc38d6beb88b83d6c87d5d7d8fdb6bce18bd3e4f1a8"
+    },
+    {
+      "path": "docs/DEPENDENCY-FREEZE-GATE.md",
+      "bytes": 501,
+      "sha256": "64d5cf1b776ab9ed6116167694f5a2d894ce9f81b2538ec2fbb0811d012b33b4"
+    },
+    {
+      "path": "docs/DOMAIN-CONTRACT.md",
+      "bytes": 1142,
+      "sha256": "90b2f1152778f02ef6b53613798bc0b00d8950392dccfc7e4089b7eec8f1a2f3"
+    },
+    {
+      "path": "docs/FINAL-FREEZE-DOCTRINE.md",
+      "bytes": 1001,
+      "sha256": "3f75ca221732c2029409df8273c2325e8ac0113ce8a9e7f532141918c9c62e17"
+    },
+    {
+      "path": "docs/FINAL-PEER-REVIEW-REMEDIATION.md",
+      "bytes": 3543,
+      "sha256": "b46a419ccf37eb18dd61c0b9642be4dfc31ef8f8a1ba52cc4b9aa96b81c258b5"
+    },
+    {
+      "path": "docs/PEER-REVIEW-SCORECARD.md",
+      "bytes": 1091,
+      "sha256": "006948d77f6ced23109923a4e6c06c978c83e9f9ec256144d99e7d860c2948ba"
+    },
+    {
+      "path": "docs/R1B-INTEGRATION.md",
+      "bytes": 874,
+      "sha256": "114d5d1e0a11d9d366cc251b73a84e109aa79aad344a448251eaa78b0e46c774"
+    },
+    {
+      "path": "docs/SYNCHRONIZED-DEPENDENCY-CONTRACT.md",
+      "bytes": 1245,
+      "sha256": "0647d97a9a71606dfb47f2176a46b1cfb4c21ee476e639c02495a23d8f9c2ead"
+    },
+    {
+      "path": "evidence/SBOM_DIRECT.json",
+      "bytes": 433,
+      "sha256": "e9c6b1da471acdc0535c39052705458550c1142c347e257673db098056a9b699"
+    },
+    {
+      "path": "evidence/STATIC_IMPLEMENTATION_CERTIFICATION.json",
+      "bytes": 999,
+      "sha256": "c4ada6e25a953ae6c6b6ece7c7101926c3d523c157d36b9ce1f3ffb6022c96b2"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 23695,
+      "sha256": "7ead4966f18b7c3f13abd4f8438c4481beec475bf08e6795d195850497e6af1e"
+    },
+    {
+      "path": "package.json",
+      "bytes": 681,
+      "sha256": "00147dc9016ea65dae3d3b3402ab119210c9ae5086fe26f56479922994f3030e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2840,
+      "sha256": "be17c5b534d00724ae8572c0b096460c16e8515316cc25506d6aac0a93668fac"
+    },
+    {
+      "path": "scripts/install.sh",
+      "bytes": 330,
+      "sha256": "c089a54db25b010f1d75a3b2194eeb7b5c23c2ef48b9e1cd07ae64790a08177a"
+    },
+    {
+      "path": "scripts/resolve-lock-connected.sh",
+      "bytes": 247,
+      "sha256": "d19dd3594e440c20f24b03c0577b69481c17c02ef1518bfff75e32f1b51ad072"
+    },
+    {
+      "path": "scripts/verify-lock.mjs",
+      "bytes": 449,
+      "sha256": "e24e56c714efb9a84f6ea58ecf8d40850b7a104857f7dd2232cdc70e204d44b7"
+    },
+    {
+      "path": "scripts/verify-source-manifest.mjs",
+      "bytes": 612,
+      "sha256": "732fb061392eba5d7e9039df2725822271abe310de3dbe234023b8bbb77f57d6"
+    },
+    {
+      "path": "src/cli/activate.ts",
+      "bytes": 799,
+      "sha256": "eb3286f94516fb3036d9db88bd99c6cbf16fbead1b518500a43527c465ef4b67"
+    },
+    {
+      "path": "src/cli/build-r1b-proposals.ts",
+      "bytes": 1594,
+      "sha256": "e5255dbee4a299dc3ac2b818eb09ebb46f32b6e7f18c12ccf4767a312aca4c17"
+    },
+    {
+      "path": "src/cli/certify.ts",
+      "bytes": 1601,
+      "sha256": "252a9ff18dce5f9929f7b63fe8bfae2cf514ba1eff70f0ac69ede72c701f18a3"
+    },
+    {
+      "path": "src/cli/normalize.ts",
+      "bytes": 3427,
+      "sha256": "cb70f59af0d5766fc88b5961002043fb6f81a7e818fc16fc2a76f2cfbb8ed101"
+    },
+    {
+      "path": "src/cli/revoke.ts",
+      "bytes": 734,
+      "sha256": "d371982704ddd1c092fbecd53d9667b3ce7fa229feabaedc0ac8480a3d0f346c"
+    },
+    {
+      "path": "src/cli/status.ts",
+      "bytes": 781,
+      "sha256": "b2bc9e2982bdf372fc285aa6886354ce5fe8518c467d3848fd8c462d483c7930"
+    },
+    {
+      "path": "src/core/hash.ts",
+      "bytes": 556,
+      "sha256": "99402a10d829802653e27f364f57816f514366310c77f680d0bf9e0c5de0ec16"
+    },
+    {
+      "path": "src/core/types.ts",
+      "bytes": 1009,
+      "sha256": "9c8806828e4394e0cbf99f5e82c252892d60b1bbc4683eb8e33dc9c0504002b7"
+    },
+    {
+      "path": "src/normalizers/gazetteer.ts",
+      "bytes": 2431,
+      "sha256": "f2ede7fca30cc50968c8121ea13d75ad66fc6df801543133c24e6a753be705c3"
+    },
+    {
+      "path": "src/normalizers/hud.ts",
+      "bytes": 1847,
+      "sha256": "a7f720a6532059e61414abcfd228021d57110fc2cdbd89a73a16ac3c0e9d6453"
+    },
+    {
+      "path": "src/repositories/db.ts",
+      "bytes": 246,
+      "sha256": "d4fd2436387678a3ba3632a2064cb1136783944d523ace7ad6726db297f3bda5"
+    },
+    {
+      "path": "src/services/certification.service.ts",
+      "bytes": 8847,
+      "sha256": "af7d295bd0ccb8c33125026b0a83b0b026d44afc65fce0721b6e7cdb3ddf04d2"
+    },
+    {
+      "path": "src/services/normalize.service.ts",
+      "bytes": 10943,
+      "sha256": "daf3ef988ca125c391b398e33af4d89d43ce158642d537eef4d2c02a3e4bc756"
+    },
+    {
+      "path": "src/services/replay.service.ts",
+      "bytes": 3970,
+      "sha256": "7ab582dd11bd891d68ac76b20b22cf4dcaea0481bdefdb9cfb45bd254feb662e"
+    },
+    {
+      "path": "tests/freeze-hardening.test.ts",
+      "bytes": 3123,
+      "sha256": "aaac67b3c76af18d1bd60e9afaa3185322de550ccdcfad4d2fed9c74b0f26609"
+    },
+    {
+      "path": "tests/normalizers.test.ts",
+      "bytes": 2372,
+      "sha256": "1b240d93fdd7523fa799bcd3e0671cc39caab41624fba175ca96a10e388215f3"
+    },
+    {
+      "path": "tests/static-sql.test.ts",
+      "bytes": 1592,
+      "sha256": "6f9f87310dc96c08e32053383ecae7e8dc67701d78b62de1b62d70f5b725179e"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 390,
+      "sha256": "26dfd1a5192cbf2a08b71b3ca16b790508888ab1cdd13e960793a0689f525e86"
+    }
+  ]
+}
