@@ -16,7 +16,7 @@ function client(warning=true,fact=false):PoolClient{
     if(sql.includes('FROM zsl.zsl3_conflicts'))return {rows:warning?[{evidence:{sourceBindingId:'binding',sourceReleaseId:'release',
       sourceRecordId:'record',sourceRecordSha256:'a'.repeat(64),sourceVintage:'2023',sourceKey:'CENSUS_CBP',
       geography:'COUNTY',field:'county',value:'999',reasonCode:'NON_COUNTY_AGGREGATE'}}]:[]};
-    if(sql.includes('FROM zsl.certified_release_records'))return {rows:[{record_id:'record',record_sha256:'a'.repeat(64),record:{county:'999'}}]};
+    if(sql.includes('FROM zsl.certified_release_records'))return {rows:[{record_id:'record',record_sha256:'a'.repeat(64),record:{COUNTY:'999'}}]};
     if(sql.includes('FROM zsl.zsl3_source_facts'))return {rows:fact?[{one:1}]:[]};
     throw Error(`unexpected query: ${sql}`);
   }} as unknown as PoolClient;
@@ -26,4 +26,30 @@ test('business exceptions require source-matched warning and zero location facts
   assert.equal((await reconcileBusinessGeography(client(), 'run',policy)).ok,true);
   assert.equal((await reconcileBusinessGeography(client(false), 'run',policy)).ok,false);
   assert.equal((await reconcileBusinessGeography(client(true,true), 'run',policy)).ok,false);
+});
+
+test('ZBP reconciliation compares normalized ZIPCODE values in one batch',async()=>{
+  const zbpRule={...rule,sourceKey:'CENSUS_ZBP',sourceReleaseId:'zbp-release',
+    geography:'POSTAL_CODE' as const,field:'zip' as const,value:'38194',expectedCount:2,
+    reasonCode:'NOT_IN_HUD_2025_Q4'};
+  const zbpPolicy={source:{geographyExclusionRules:[zbpRule]}} as PolicyBundle;
+  const zbpBinding={...binding,source_key:'CENSUS_ZBP',source_dataset:'ZBP',source_geography:'POSTAL_CODE',
+    release_id:'zbp-release'};
+  let factQueries=0;
+  const client={async query(sql:string){
+    if(sql.includes('FROM zsl.zsl3_source_bindings'))return {rows:[zbpBinding]};
+    if(sql.includes('FROM zsl.zsl3_conflicts'))return {rows:[0,1].map(i=>({evidence:{
+      sourceBindingId:'binding',sourceReleaseId:'zbp-release',sourceRecordId:`record-${i}`,
+      sourceRecordSha256:'a'.repeat(64),sourceVintage:'2023',sourceKey:'CENSUS_ZBP',
+      geography:'POSTAL_CODE',field:'zip',value:'38194',reasonCode:'NOT_IN_HUD_2025_Q4'}}))};
+    if(sql.includes('FROM zsl.certified_release_records')){
+      assert.match(sql,/ZIPCODE/);
+      return {rows:[0,1].map(i=>({record_id:`record-${i}`,record_sha256:'a'.repeat(64),
+        record:{ZIPCODE:'38194'}}))};
+    }
+    if(sql.includes('FROM zsl.zsl3_source_facts')){factQueries++;return {rows:[]}}
+    throw Error(`unexpected query: ${sql}`);
+  }} as unknown as PoolClient;
+  assert.equal((await reconcileBusinessGeography(client,'run',zbpPolicy)).ok,true);
+  assert.equal(factQueries,1);
 });

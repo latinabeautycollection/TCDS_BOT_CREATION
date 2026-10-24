@@ -20,6 +20,12 @@ export async function auditSourceGeography(c:PoolClient,run:string,p:PolicyBundl
   const exclusions = new Map<string,GeographyExclusion>();
   const rules=p.source.geographyExclusionRules??[];
   const ruleCounts=new Map<GeographyExclusionRule,number>(rules.map(rule=>[rule,0]));
+  const ruleIndex=new Map<string,GeographyExclusionRule>();
+  for(const rule of rules){
+    const key=[rule.sourceKey,rule.sourceVintage,rule.sourceReleaseId,rule.geography,rule.field,rule.value].join('|');
+    if(ruleIndex.has(key))throw new Error(`ZSL3_DUPLICATE_GEOGRAPHY_RULE:${key}`);
+    ruleIndex.set(key,rule);
+  }
   for(const item of p.source.geographyExclusions){
     const id=exclusionKey(item.sourceKey,item.sourceVintage,item.sourceReleaseId,item.geography,item.sourceGEOID);
     if(exclusions.has(id))throw new Error(`ZSL3_DUPLICATE_GEOGRAPHY_EXCLUSION:${id}`);
@@ -45,13 +51,21 @@ export async function auditSourceGeography(c:PoolClient,run:string,p:PolicyBundl
     for(const raw of await certifiedRows(c,b)){
       checked++;
       const source={sourceKey:String(b.source_key),sourceVintage:String(b.source_vintage)};
-      const matchedRules=rules.filter(rule=>rule.sourceKey===source.sourceKey&&rule.sourceVintage===source.sourceVintage&&rule.sourceReleaseId===String(b.release_id)&&rule.geography===scope&&String(raw.record?.[rule.field])===rule.value);
+      const rawKey=canonicalLocationKey(scope,raw.record,source);
+      const fields=scope==='POSTAL_CODE'?['zip']:scope==='COUNTY'?['county']:[];
+      const matchedRules=fields.flatMap(field=>{
+        const value=field==='zip'&&rawKey?.startsWith('US:ZIP:')?rawKey.slice('US:ZIP:'.length)
+          :field==='county'&&rawKey?.startsWith('US:COUNTY:')?rawKey.slice(-3)
+          :String(raw.record?.[field]);
+        const key=[source.sourceKey,source.sourceVintage,String(b.release_id),scope,field,value].join('|');
+        const rule=ruleIndex.get(key);
+        return rule?[rule]:[];
+      });
       if(matchedRules.length>1)throw new Error(`ZSL3_OVERLAPPING_GEOGRAPHY_RULES:${raw.record_id}`);
       if(matchedRules.length){
         const rule=matchedRules[0];ruleCounts.set(rule,(ruleCounts.get(rule)??0)+1);
         exclusionsByRecordId.set(raw.record_id,rule);continue;
       }
-      const rawKey=canonicalLocationKey(scope,raw.record,source);
       const targetKey=canonicalLocationKey(scope,raw.record,source,p.source.geographyCrosswalks);
       const geoid=rawKey?.startsWith('US:PLACE:')?rawKey.slice('US:PLACE:'.length):'';
       const id=exclusionKey(source.sourceKey,source.sourceVintage,String(b.release_id),scope,geoid);

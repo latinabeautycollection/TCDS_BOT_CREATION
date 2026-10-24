@@ -36,6 +36,7 @@ export async function bindSources(c: PoolClient, buildRunId: string, p: PolicyBu
   for (const spec of p.source.requiredSources) {
     for (const geography of spec.geographies) {
       const metadata = expectedReleaseMetadata(spec.sourceKey, spec.dataset, geography);
+      const expected = expectedZsl1PackageSha256(p, spec.sourceKey);
       const q = await c.query<any>(`
         WITH latest_cert AS (
           SELECT DISTINCT ON (cr.ingest_run_id) cr.*
@@ -51,8 +52,8 @@ export async function bindSources(c: PoolClient, buildRunId: string, p: PolicyBu
         WHERE s.source_key = $1 AND ir.state = 'RECONCILED' AND lc.status = 'CERTIFIED'
           AND sr.metadata @> $2::jsonb
         ORDER BY sr.source_year DESC NULLS LAST, sr.source_quarter DESC NULLS LAST,
-                 sr.release_id DESC
-        LIMIT 1`, [spec.sourceKey, JSON.stringify(metadata)]);
+                 sr.release_id DESC, (ir.package_sha256 = $3) DESC, ir.ingest_run_id DESC
+        LIMIT 1`, [spec.sourceKey, JSON.stringify(metadata), expected]);
       const r = q.rows[0];
       if (!r) {
         if (spec.required) {
@@ -60,7 +61,6 @@ export async function bindSources(c: PoolClient, buildRunId: string, p: PolicyBu
         }
         continue;
       }
-      const expected = expectedZsl1PackageSha256(p, spec.sourceKey);
       if (!expected || r.package_sha256 !== expected) {
         throw new Error(`ZSL3_ZSL1_PACKAGE_MISMATCH:${spec.sourceKey}:${geography}`);
       }

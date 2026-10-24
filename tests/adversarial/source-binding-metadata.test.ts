@@ -52,6 +52,8 @@ test('binding queries exact certified metadata and persists the matched contract
 
   assert.equal(await bindSources(client, 'build', policy), 1);
   assert.match(calls[0].sql, /sr\.metadata @> \$2::jsonb/);
+  assert.match(calls[0].sql, /\(ir\.package_sha256 = \$3\) DESC/);
+  assert.equal(calls[0].values[2], packageSha);
   assert.deepEqual(JSON.parse(calls[0].values[1] as string),
     {dataset: 'Regional', geoFips: 'STATE', tableName: 'SARPP', lineCode: '1'});
   const document = JSON.parse(calls[1].values[13] as string);

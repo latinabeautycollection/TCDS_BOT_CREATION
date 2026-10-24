@@ -11,6 +11,10 @@ export interface SourcePolicy{
   geographyCrosswalks:GeographyCrosswalk[];
   geographyExclusions:GeographyExclusion[];
   geographyExclusionRules:GeographyExclusionRule[];
+  geographyExclusionEvidence?:{
+    cbpCounty2023?:{releaseId:string;countyValue:string;sourceRecordCount:number;distinctStates:number;disposition:string};
+    zbpHud2025Q4:{releaseId:string;hudSnapshot:string;csvSha256:string;distinctZipCount:number;sourceRecordCount:number;disposition:string};
+  };
   geographyEvidence:{source2024Url:string;source2024Sha256:string;target2026Url:string;target2026Sha256:string};
   requireCurrentUpstreamCertifications:boolean;vintageCoherence:Record<string,string>;
   coverageExpectations:Record<string,{requiredSources:string[];optionalSources:string[]}>;

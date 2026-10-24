@@ -64,6 +64,41 @@ test('preflight rejects stale exception policy and missing certified crosswalk t
     /ZSL3_CROSSWALK_TARGET_NOT_CERTIFIED/);
 });
 
+test('ZBP exclusions match the normalized ZIPCODE field in the current release',async()=>{
+  const rule=sourcePolicy.geographyExclusionRules.find((item:any)=>item.sourceKey==='CENSUS_ZBP'&&item.value==='38194');
+  const zbpBinding={...binding,source_key:'CENSUS_ZBP',source_dataset:'ZBP',source_geography:'POSTAL_CODE',
+    source_vintage:'2023',release_id:'ace731d1-c607-4aac-b09d-959e1bbb341f'};
+  const client={async query(sql:string){
+    if(sql.includes('SELECT canonical_key'))return {rows:[]};
+    if(sql.includes('FROM zsl.zsl3_source_bindings'))return {rows:[zbpBinding]};
+    if(sql.includes('FROM zsl.release_record_memberships'))return {rows:Array.from({length:11},(_,i)=>({
+      record_id:`record-${i}`,record:{ZIPCODE:'38194'},record_sha256:'a'.repeat(64)}))};
+    throw Error(`unexpected query: ${sql}`);
+  }} as unknown as PoolClient;
+  const one={...policy,source:{...sourcePolicy,geographyCrosswalks:[],geographyExclusions:[],
+    geographyExclusionRules:[rule]}} as PolicyBundle;
+  const result=await auditSourceGeography(client,'build',one);
+  assert.equal(result.exclusionsByRecordId.size,11);
+  assert.equal(result.checked,11);
+});
+
+test('CBP county exclusions match the uppercase COUNTY field',async()=>{
+  const cbpBinding={...binding,source_key:'CENSUS_CBP',source_dataset:'CBP',source_geography:'COUNTY',
+    source_vintage:'2023',release_id:'cbp-release'};
+  const rule={sourceKey:'CENSUS_CBP',sourceVintage:'2023',sourceReleaseId:'cbp-release',
+    geography:'COUNTY',field:'county',value:'999',expectedCount:1,reasonCode:'NON_COUNTY_AGGREGATE'};
+  const client={async query(sql:string){
+    if(sql.includes('SELECT canonical_key'))return {rows:[]};
+    if(sql.includes('FROM zsl.zsl3_source_bindings'))return {rows:[cbpBinding]};
+    if(sql.includes('FROM zsl.release_record_memberships'))return {rows:[{
+      record_id:'aggregate',record:{STATE:'01',COUNTY:'999'},record_sha256:'a'.repeat(64)}]};
+    throw Error(`unexpected query: ${sql}`);
+  }} as unknown as PoolClient;
+  const one={...policy,source:{...sourcePolicy,geographyCrosswalks:[],geographyExclusions:[],
+    geographyExclusionRules:[rule]}} as PolicyBundle;
+  assert.equal((await auditSourceGeography(client,'build',one)).exclusionsByRecordId.size,1);
+});
+
 function reconciliationClient(tamper=false):PoolClient {
   return {async query(sql:string){
     if(sql.includes('FROM zsl.zsl3_source_bindings'))return {rows:[binding]};

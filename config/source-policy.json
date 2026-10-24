@@ -124,30 +124,3499 @@
     "target2026Sha256": "af678e2d990827c89ee39b98c82de6e90b693c7361ff0e559ae3076670dd2863"
   },
   "geographyExclusionRules": [
-    {"sourceKey":"CENSUS_CBP","sourceVintage":"2023","sourceReleaseId":"0f522c9d-0592-4595-8962-5a3a53422e9e","geography":"COUNTY","field":"county","value":"999","expectedCount":49,"reasonCode":"NON_COUNTY_AGGREGATE"},
-    {"sourceKey":"CENSUS_ZBP","sourceVintage":"2023","sourceReleaseId":"567a108b-4cf5-4736-a658-a3d312a4be5a","geography":"POSTAL_CODE","field":"zip","value":"99999","expectedCount":4,"reasonCode":"UNCLASSIFIED_POSTAL_AGGREGATE"},
-    {"sourceKey":"CENSUS_ZBP","sourceVintage":"2023","sourceReleaseId":"567a108b-4cf5-4736-a658-a3d312a4be5a","geography":"POSTAL_CODE","field":"zip","value":"38194","expectedCount":1,"reasonCode":"NO_CERTIFIED_CANONICAL_ZIP"}
+    {
+      "sourceKey": "CENSUS_CBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "f55687ff-46de-48bb-8875-d39b8032e6d0",
+      "geography": "COUNTY",
+      "field": "county",
+      "value": "999",
+      "expectedCount": 10525,
+      "reasonCode": "NON_COUNTY_AGGREGATE"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "01102",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "01471",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "01601",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "01615",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "02153",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "02187",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "02212",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "02457",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "02475",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "02714",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "03247",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "03293",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "05302",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "05303",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "05304",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "06927",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "07703",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "07829",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "08541",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "08625",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "08646",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "08871",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "10286",
+      "expectedCount": 13,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "11120",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "11555",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "11707",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "12242",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "12250",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "12325",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "13221",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "13627",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "14261",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "14650",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "14756",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "15069",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "15123",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "15250",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "16103",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "16107",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "16531",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "17549",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "17606",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "17607",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "18001",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "18502",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "19019",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "19037",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "19353",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "19850",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20050",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20116",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20118",
+      "expectedCount": 20,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20134",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20142",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20185",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20196",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20314",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "20719",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "21088",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "22570",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "23288",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "23806",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "24114",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "24115",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "24143",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "24543",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "24902",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "25360",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27204",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27323",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27361",
+      "expectedCount": 17,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27427",
+      "expectedCount": 11,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27650",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27668",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27695",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27711",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "27972",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28218",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28253",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28255",
+      "expectedCount": 20,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28260",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28265",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28272",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28288",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28335",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28502",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28503",
+      "expectedCount": 10,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28589",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "28691",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "29342",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "29504",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "30098",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "30348",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "30374",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "30375",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "31099",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "31297",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "31515",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32157",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32201",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32329",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32341",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32353",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32412",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32457",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32602",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32834",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "32919",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "33102",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "33111",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "33299",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "33337",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "33608",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "33686",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "34143",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "34265",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "35161",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "35609",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "36331",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "36427",
+      "expectedCount": 13,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "36461",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "36504",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "36702",
+      "expectedCount": 10,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "36802",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37111",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37162",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37241",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37316",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37349",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37822",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "37824",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "38194",
+      "expectedCount": 11,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "38505",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "38702",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "38704",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "38902",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "38935",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "39441",
+      "expectedCount": 19,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "39442",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "39521",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "39568",
+      "expectedCount": 18,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "40362",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "40404",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "40423",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "40702",
+      "expectedCount": 10,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "40743",
+      "expectedCount": 17,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "41702",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "42135",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "42142",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "42719",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "42755",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "43041",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "43301",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "43603",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "43697",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "43699",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "44005",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "44482",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "44701",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "45221",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "45268",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "46014",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "46207",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "46209",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "46352",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "46361",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "46801",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "47808",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48007",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48086",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48115",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48265",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48397",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48551",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48552",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48553",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48554",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "48764",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "49355",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "49523",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "49739",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "50398",
+      "expectedCount": 11,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "51502",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "52204",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "52557",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "52733",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "53791",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "54131",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "54221",
+      "expectedCount": 12,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "54306",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "54404",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "55164",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "55472",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "55801",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "56075",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "56317",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "56456",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "57117",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "58074",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "60680",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "61650",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "61710",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "62794",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "63099",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "63157",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "63163",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "64184",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "66222",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "67504",
+      "expectedCount": 17,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "67905",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "68101",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "68509",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "69160",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70038",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70142",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70302",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70310",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70511",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70527",
+      "expectedCount": 17,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70593",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70609",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70707",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70765",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70813",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "70837",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71058",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71130",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71150",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71221",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71284",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71309",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71611",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71612",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71613",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71657",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71711",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "71802",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "72303",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "72319",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "72336",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "72525",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "73126",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "73648",
+      "expectedCount": 19,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74004",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74102",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74121",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74355",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74362",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74477",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "74818",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75064",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75120",
+      "expectedCount": 11,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75265",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75266",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75275",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75320",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75429",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75507",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75653",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "75962",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "76068",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "76181",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "76385",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "76644",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "76715",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "77201",
+      "expectedCount": 5,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "77213",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "77229",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "77710",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "78333",
+      "expectedCount": 8,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "78364",
+      "expectedCount": 9,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "78713",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "79550",
+      "expectedCount": 14,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "79721",
+      "expectedCount": 12,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "79831",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "79920",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "79998",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "80274",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "80488",
+      "expectedCount": 14,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "81626",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "83415",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "83652",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "83726",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "84130",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "84184",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85038",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85072",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85075",
+      "expectedCount": 4,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85358",
+      "expectedCount": 13,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85369",
+      "expectedCount": 13,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85502",
+      "expectedCount": 10,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "85644",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "87503",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "87533",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "87545",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "88006",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "88211",
+      "expectedCount": 11,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "88901",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "89177",
+      "expectedCount": 3,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "89315",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "89452",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "89496",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "89520",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "89802",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "90261",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "90407",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "91329",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "91749",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "91758",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "92186",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "92554",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "93216",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94120",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94139",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94203",
+      "expectedCount": 29,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94208",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94230",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94529",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "94808",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "97077",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "97143",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "98013",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "98160",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "98504",
+      "expectedCount": 10,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99629",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99711",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99802",
+      "expectedCount": 6,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99803",
+      "expectedCount": 7,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99821",
+      "expectedCount": 2,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99850",
+      "expectedCount": 1,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    },
+    {
+      "sourceKey": "CENSUS_ZBP",
+      "sourceVintage": "2023",
+      "sourceReleaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "geography": "POSTAL_CODE",
+      "field": "zip",
+      "value": "99999",
+      "expectedCount": 730,
+      "reasonCode": "NOT_IN_HUD_2025_Q4"
+    }
   ],
   "geographyExclusions": [
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"0681312","authorityCode":"02583172","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"1634570","authorityCode":"02410692","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"1806904","authorityCode":"02830393","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"1837908","authorityCode":"02830344","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2162370","authorityCode":"02404551","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2172138","authorityCode":"02405492","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2237270","authorityCode":"02402616","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2256855","authorityCode":"02403362","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2257705","authorityCode":"02403374","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2269225","authorityCode":"02402848","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2278680","authorityCode":"02402967","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2280920","authorityCode":"02403014","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"2927370","authorityCode":"02398971","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"4210808","authorityCode":"02086600","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"4284376","authorityCode":"01215452","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"5108708","authorityCode":"02584811","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"5173760","authorityCode":"02584920","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"5174916","authorityCode":"02584924","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"},
-    {"sourceKey":"CENSUS_ACS5_PROFILE","sourceVintage":"2024","sourceReleaseId":"20a38d4d-d113-4736-af72-140ddb4eb860","geography":"PLACE","sourceGEOID":"5559650","authorityCode":"02393171","reasonCode":"NO_CURRENT_ANSI_SUCCESSOR"}
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "0681312",
+      "authorityCode": "02583172",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "1634570",
+      "authorityCode": "02410692",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "1806904",
+      "authorityCode": "02830393",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "1837908",
+      "authorityCode": "02830344",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2162370",
+      "authorityCode": "02404551",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2172138",
+      "authorityCode": "02405492",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2237270",
+      "authorityCode": "02402616",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2256855",
+      "authorityCode": "02403362",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2257705",
+      "authorityCode": "02403374",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2269225",
+      "authorityCode": "02402848",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2278680",
+      "authorityCode": "02402967",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2280920",
+      "authorityCode": "02403014",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "2927370",
+      "authorityCode": "02398971",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "4210808",
+      "authorityCode": "02086600",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "4284376",
+      "authorityCode": "01215452",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "5108708",
+      "authorityCode": "02584811",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "5173760",
+      "authorityCode": "02584920",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "5174916",
+      "authorityCode": "02584924",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    },
+    {
+      "sourceKey": "CENSUS_ACS5_PROFILE",
+      "sourceVintage": "2024",
+      "sourceReleaseId": "20a38d4d-d113-4736-af72-140ddb4eb860",
+      "geography": "PLACE",
+      "sourceGEOID": "5559650",
+      "authorityCode": "02393171",
+      "reasonCode": "NO_CURRENT_ANSI_SUCCESSOR"
+    }
   ],
   "requireExactUpstreamPackages": true,
   "requireCurrentUpstreamCertifications": true,
@@ -161,13 +3630,18 @@
       "requiredSources": [
         "ACS_STATE"
       ],
-      "optionalSources": ["BEA_RPP_STATE", "CBP_STATE"]
+      "optionalSources": [
+        "BEA_RPP_STATE",
+        "CBP_STATE"
+      ]
     },
     "COUNTY": {
       "requiredSources": [
         "ACS_COUNTY"
       ],
-      "optionalSources": ["CBP_COUNTY"]
+      "optionalSources": [
+        "CBP_COUNTY"
+      ]
     },
     "PLACE": {
       "requiredSources": [
@@ -194,5 +3668,22 @@
     "PLACE": 90,
     "ZCTA": 90,
     "POSTAL_CODE": 90
+  },
+  "geographyExclusionEvidence": {
+    "cbpCounty2023": {
+      "releaseId": "f55687ff-46de-48bb-8875-d39b8032e6d0",
+      "countyValue": "999",
+      "sourceRecordCount": 10525,
+      "distinctStates": 50,
+      "disposition": "NON_COUNTY_AGGREGATE"
+    },
+    "zbpHud2025Q4": {
+      "releaseId": "ace731d1-c607-4aac-b09d-959e1bbb341f",
+      "hudSnapshot": "2025-Q4",
+      "csvSha256": "c114e4a3df618b2dee7fd351a27ea81efe51b4266b74d6ff50ed9c4bc0a95d03",
+      "distinctZipCount": 331,
+      "sourceRecordCount": 2030,
+      "disposition": "EXCLUDE_FROM_ZSL3_FACTS_PENDING_SOURCE_REVIEW"
+    }
   }
 }
