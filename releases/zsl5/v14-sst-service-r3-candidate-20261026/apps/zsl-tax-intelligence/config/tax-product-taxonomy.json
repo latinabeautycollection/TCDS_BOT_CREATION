@@ -1,0 +1,116 @@
+{
+  "authorityName": "TCDS_TAX_PRODUCT_TAXONOMY",
+  "version": "3.0.0",
+  "principles": [
+    "TCDS business category is not a tax-law class",
+    "product attributes may refine tax treatment",
+    "unknown mapping fails closed for special treatment",
+    "caller supplied tax classes are advisory only and must match the governed mapping",
+    "broad ELECTRONICS requires governed subclass refinement before special tax treatment",
+    "all mapped subclasses must be explicitly enumerated; unknown subclasses fail closed"
+  ],
+  "businessCategories": {
+    "LAPTOPS": {
+      "default_tax_product_class": "COMPUTER",
+      "subclasses": [
+        "PORTABLE_COMPUTER",
+        "COMPUTER_PERIPHERAL",
+        "BUNDLE"
+      ],
+      "requires_refinement": false
+    },
+    "PHONES": {
+      "default_tax_product_class": "CELLULAR_TELEPHONE",
+      "subclasses": [
+        "COMMUNICATIONS_DEVICE",
+        "ACCESSORY",
+        "BUNDLE"
+      ],
+      "requires_refinement": false
+    },
+    "NETWORKING": {
+      "default_tax_product_class": "NETWORK_EQUIPMENT",
+      "subclasses": [
+        "ROUTER",
+        "SWITCH",
+        "ACCESS_POINT",
+        "ACCESSORY"
+      ],
+      "requires_refinement": false
+    },
+    "AUTOMOTIVE_TOOLS": {
+      "default_tax_product_class": "TOOLS",
+      "subclasses": [
+        "POWER_TOOL",
+        "HAND_TOOL",
+        "DIAGNOSTIC_EQUIPMENT"
+      ],
+      "requires_refinement": false
+    },
+    "GARDENING_TOOLS": {
+      "default_tax_product_class": "TOOLS",
+      "subclasses": [
+        "POWER_TOOL",
+        "HAND_TOOL",
+        "LAWN_GARDEN_EQUIPMENT"
+      ],
+      "requires_refinement": false
+    },
+    "GAME_CONSOLES": {
+      "default_tax_product_class": "GAME_CONSOLE",
+      "subclasses": [
+        "CONSOLE",
+        "CONTROLLER",
+        "ACCESSORY",
+        "BUNDLE"
+      ],
+      "requires_refinement": false
+    },
+    "MUSIC_EQUIPMENT": {
+      "default_tax_product_class": "MUSICAL_EQUIPMENT",
+      "subclasses": [
+        "INSTRUMENT",
+        "AUDIO_EQUIPMENT",
+        "ACCESSORY",
+        "BUNDLE"
+      ],
+      "requires_refinement": false
+    },
+    "DRONES": {
+      "default_tax_product_class": "DRONE",
+      "subclasses": [
+        "AIRCRAFT_DEVICE",
+        "CAMERA_DRONE",
+        "ACCESSORY",
+        "BATTERY",
+        "BUNDLE"
+      ],
+      "requires_refinement": false
+    },
+    "CAMERAS": {
+      "default_tax_product_class": "CAMERA",
+      "subclasses": [
+        "DIGITAL_CAMERA",
+        "DSLR_CAMERA",
+        "MIRRORLESS_CAMERA",
+        "ACTION_CAMERA",
+        "SECURITY_CAMERA",
+        "ACCESSORY",
+        "BUNDLE"
+      ],
+      "requires_refinement": false
+    },
+    "ELECTRONICS": {
+      "default_tax_product_class": "ELECTRONIC_EQUIPMENT",
+      "subclasses": [
+        "AUDIO_VIDEO_ELECTRONICS",
+        "SMALL_ELECTRONICS",
+        "SMART_HOME_DEVICE",
+        "WEARABLE_DEVICE",
+        "ACCESSORY",
+        "BUNDLE"
+      ],
+      "requires_refinement": true
+    }
+  }
+}

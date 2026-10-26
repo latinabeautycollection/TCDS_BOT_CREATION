@@ -1,0 +1,142 @@
+TAP version 13
+# Subtest: 042-047 migrations do not mutate non-ZSL domains
+ok 1 - 042-047 migrations do not mutate non-ZSL domains
+  ---
+  duration_ms: 9.399726
+  type: 'test'
+  ...
+# Subtest: final freeze has half-open temporal and state-code constraints
+ok 2 - final freeze has half-open temporal and state-code constraints
+  ---
+  duration_ms: 4.096025
+  type: 'test'
+  ...
+# Subtest: zsl6 integration is read-only consumer contract
+ok 3 - zsl6 integration is read-only consumer contract
+  ---
+  duration_ms: 1.179722
+  type: 'test'
+  ...
+# Subtest: raw ingest is immutable and canonical insert includes required lineage columns
+ok 4 - raw ingest is immutable and canonical insert includes required lineage columns
+  ---
+  duration_ms: 4.267139
+  type: 'test'
+  ...
+# Subtest: all 042-047 migrations preserve cross-domain ownership
+ok 5 - all 042-047 migrations preserve cross-domain ownership
+  ---
+  duration_ms: 8.573819
+  type: 'test'
+  ...
+# Subtest: v14 engine remains additive with v12
+ok 6 - v14 engine remains additive with v12
+  ---
+  duration_ms: 1.400255
+  type: 'test'
+  ...
+# Subtest: approved runtime fixtures become immutable
+ok 7 - approved runtime fixtures become immutable
+  ---
+  duration_ms: 1.570422
+  type: 'test'
+  ...
+# Subtest: ten TCDS tax categories
+ok 8 - ten TCDS tax categories
+  ---
+  duration_ms: 1.505383
+  type: 'test'
+  ...
+# Subtest: 21 families
+ok 9 - 21 families
+  ---
+  duration_ms: 0.908479
+  type: 'test'
+  ...
+# Subtest: final freeze supports deterministic rounding modes
+ok 10 - final freeze supports deterministic rounding modes
+  ---
+  duration_ms: 0.896892
+  type: 'test'
+  ...
+# Subtest: canonical seller collection enums fail closed
+ok 11 - canonical seller collection enums fail closed
+  ---
+  duration_ms: 1.239869
+  type: 'test'
+  ...
+# Subtest: quote instants require timezone
+ok 12 - quote instants require timezone
+  ---
+  duration_ms: 0.405201
+  type: 'test'
+  ...
+# Subtest: canonical json is key-order deterministic and JSON-compatible for undefined
+ok 13 - canonical json is key-order deterministic and JSON-compatible for undefined
+  ---
+  duration_ms: 1.58561
+  type: 'test'
+  ...
+# Subtest: decimal rate exact and half-up cents
+ok 14 - decimal rate exact and half-up cents
+  ---
+  duration_ms: 1.179958
+  type: 'test'
+  ...
+# Subtest: pro rata allocation preserves total deterministically
+ok 15 - pro rata allocation preserves total deterministically
+  ---
+  duration_ms: 0.915029
+  type: 'test'
+  ...
+# Subtest: runtime catalogs have complete denominators and independent golden evidence starts pending
+ok 16 - runtime catalogs have complete denominators and independent golden evidence starts pending
+  ---
+  duration_ms: 8.796793
+  type: 'test'
+  ...
+# Subtest: ten governed categories include cameras electronics and game consoles
+ok 17 - ten governed categories include cameras electronics and game consoles
+  ---
+  duration_ms: 1.519576
+  type: 'test'
+  ...
+# Subtest: verified source catalog declares operational access mode
+ok 18 - verified source catalog declares operational access mode
+  ---
+  duration_ms: 1.507336
+  type: 'test'
+  ...
+# Subtest: runtime activation requires authority gate
+ok 19 - runtime activation requires authority gate
+  ---
+  duration_ms: 4.424999
+  type: 'test'
+  ...
+# Subtest: candidate quote execution is a separate export and public quote remains active-only
+ok 20 - candidate quote execution is a separate export and public quote remains active-only
+  ---
+  duration_ms: 1.146408
+  type: 'test'
+  ...
+# Subtest: golden and replay runners do not invent wall-clock evaluation times
+ok 21 - golden and replay runners do not invent wall-clock evaluation times
+  ---
+  duration_ms: 1.191435
+  type: 'test'
+  ...
+# Subtest: freshness and ten-category gates are part of v14 authority
+ok 22 - freshness and ten-category gates are part of v14 authority
+  ---
+  duration_ms: 1.599961
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 194.4488

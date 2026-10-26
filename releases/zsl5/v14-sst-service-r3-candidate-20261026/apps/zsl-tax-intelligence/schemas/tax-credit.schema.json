@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/tax-credit-rule.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "TAX_CREDIT_RULE"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "const": "PENDING_PARSE"
+      }
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "credit_type",
+        "calculation_method",
+        "predicate"
+      ],
+      "properties": {
+        "credit_type": {
+          "enum": [
+            "PRIOR_TAX_PAID",
+            "OTHER_JURISDICTION_TAX",
+            "USE_TAX_CREDIT",
+            "OTHER"
+          ]
+        },
+        "calculation_method": {
+          "enum": [
+            "MIN_OF_PRIOR_AND_LIABILITY",
+            "FULL_PRIOR_TAX",
+            "FIXED_AMOUNT",
+            "PERCENTAGE",
+            "SPECIAL_RULE"
+          ]
+        },
+        "max_credit_amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "max_credit_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "predicate": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

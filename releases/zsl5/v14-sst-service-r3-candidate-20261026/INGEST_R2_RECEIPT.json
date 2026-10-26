@@ -1,0 +1,16 @@
+{
+  "classification": "LOCAL_INGESTION_VALIDATION_CORRECTION_NOT_CERTIFIED",
+  "changed_files": {
+    "apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts": "dd25a061ed0a5409c4ed103bfd22d11f9002e539877cf7e1cb47a00df57ad9a5",
+    "repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts": "dd25a061ed0a5409c4ed103bfd22d11f9002e539877cf7e1cb47a00df57ad9a5",
+    "apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts": "c3dcb62b8006d7bb7546acef6cef2172de475ade88ace13665f6e9a34a19578d",
+    "repo-overlay/apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts": "c3dcb62b8006d7bb7546acef6cef2172de475ade88ace13665f6e9a34a19578d",
+    "package.json": "fb14821fffbfa2a6e8156e00217db7a1df83b88ff0d149945ed9013fb473054f"
+  },
+  "production_writes": 0,
+  "national_certification": false,
+  "remaining": [
+    "Source lifecycle completion and role-scoped service ingestion are not established by administrator fixture tests.",
+    "Executable mapping and nationwide source coverage remain required."
+  ]
+}

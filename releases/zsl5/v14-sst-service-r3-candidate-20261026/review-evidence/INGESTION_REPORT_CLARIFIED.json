@@ -1,0 +1,106 @@
+{
+  "classification": "ISOLATED_ADMIN_AND_RESTRICTED_SERVICE_FUNCTIONAL_TEST_NOT_CERTIFICATION",
+  "productionConnections": 0,
+  "productionWrites": 0,
+  "fixtureStatesAreNotLifecycleEvidence": true,
+  "tests": [
+    {
+      "name": "real_Georgia_460_observations_stored_by_actual_CLI",
+      "status": "PASS"
+    },
+    {
+      "name": "identical_ingestion_replay_is_idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_CLI_ingests_with_existing_non_superuser_normalizer_role",
+      "status": "PASS"
+    },
+    {
+      "name": "service_replay_remains_idempotent_without_direct_table_writes",
+      "status": "PASS"
+    },
+    {
+      "name": "definer_owner_is_non_login_non_superuser_without_RLS_bypass",
+      "status": "PASS"
+    },
+    {
+      "name": "service_cannot_directly_create_certification_records",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid_record_hash_leaves_no_rows",
+      "status": "PASS"
+    },
+    {
+      "name": "mid_batch_database_collision_rolls_back_new_rows",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_CLI_rejects_invalid_observation_schema",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_CLI_checks_source_identity",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_CLI_checks_database_release_key",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_CLI_checks_database_artifact_hash",
+      "status": "PASS"
+    },
+    {
+      "name": "raw_records_and_memberships_remain_immutable",
+      "status": "PASS"
+    },
+    {
+      "name": "unreconciled_observations_cannot_be_certified",
+      "status": "PASS"
+    },
+    {
+      "name": "missing_national_authority_blocks_activation",
+      "status": "PASS"
+    },
+    {
+      "name": "normalizer_cannot_insert_certification_records",
+      "status": "PASS"
+    },
+    {
+      "name": "test_created_no_certifications_or_authority_events",
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "Registry/release/ingest/artifact rows are explicitly seeded test fixtures, not a full acquisition lifecycle.",
+    "Baseline setup, administrator storage tests and control probes run as container postgres. Separate ingestion and replay tests run as ga_ingest_service_test with the normalizer role, without superuser or RLS-bypass privileges. This isolated login is not the production deployment account.",
+    "No certified national publication or executable rate mapping is fabricated."
+  ],
+  "serviceIdentity": {
+    "session_user": "ga_ingest_service_test",
+    "current_user": "ga_ingest_service_test",
+    "rolsuper": false,
+    "rolbypassrls": false
+  },
+  "serviceCapabilities": {
+    "zsl_schema_usage": false,
+    "raw_schema_usage": false,
+    "release_select": true,
+    "release_row_lock_permission": false,
+    "ingest_row_lock_permission": false,
+    "artifact_row_lock_permission": false,
+    "raw_insert": false,
+    "membership_insert": false,
+    "canonical_insert": false,
+    "certification_insert": false
+  },
+  "serviceCliResult": {
+    "exit": 0,
+    "stderr": ""
+  },
+  "passed": 17,
+  "failed": 0,
+  "status": "PASS_WITH_STATED_LIMITATIONS"
+}

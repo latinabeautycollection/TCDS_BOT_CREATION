@@ -1,0 +1,1619 @@
+I’ll turn this into a **final-freeze master prompt** whose job is not merely to review the current build, but to force a reviewer/implementer to **find, fix, retest, and harden** every remaining defect before the package can be frozen.
+
+# TCDS ZSL1 → ZSL5 NATIONAL TAX RUNTIME AUTHORITY
+## FINAL FREEZE HARDENING / REMEDIATION / DATABASE-COMPATIBILITY MASTER PROMPT
+
+You are acting as an independent **Fortune-500 enterprise architecture, PostgreSQL, TypeScript, tax-engine, data-governance, security, QA, release-engineering, and production-readiness team**.
+
+Your objective is to take the attached solution:
+
+**TCDS_ZSL1_ZSL5_NATIONAL_TAX_RUNTIME_AUTHORITY_V1_1_0_GREEN_TIER1_ADVERSARIAL_HARDENED_BUILD_CANDIDATE**
+
+and produce the **final freeze candidate**.
+
+The final result must be hardened against:
+
+- architecture defects
+- domain-boundary violations
+- PostgreSQL data-type mismatches
+- missing/incorrect constraints
+- migration-order defects
+- enum incompatibilities
+- UUID/text/integer mismatches
+- NUMERIC/BigInt/JavaScript-number errors
+- timestamp/date mismatches
+- ZIP5/ZIP9 type confusion
+- schema/table/column drift
+- function-signature drift
+- foreign-key failures
+- incorrect nullability
+- JSON/JSONB assumptions
+- stale source bindings
+- mixed publication vintages
+- weak source precedence
+- false certification
+- missing negative authority
+- concurrency/race conditions
+- replay nondeterminism
+- rollback defects
+- RBAC/security weaknesses
+- runtime authority bypasses
+- category-tax-class bypasses
+- incomplete national coverage
+- category scope mismatch
+- production repo compile/build incompatibilities
+- hidden placeholders/stubs
+- incomplete test coverage
+- missing source datasets
+- untested high-risk tax regimes
+
+The review is not complete until every P0 and P1 finding has either:
+
+1. been fixed in code/schema/migrations/tests, or
+2. been explicitly proven not applicable with evidence.
+
+The final output should be a new package named approximately:
+
+```text
+TCDS_ZSL1_ZSL5_NATIONAL_TAX_RUNTIME_AUTHORITY
+V1_2_0
+GREEN_TIER1_FINAL_FREEZE_CANDIDATE
+```
+
+Do not call it production-certified unless real staging/runtime evidence supports that claim.
+
+---
+
+# 1. AUTHORITATIVE INPUTS
+
+Use all of the following as authoritative review inputs:
+
+1. The attached V1.1 adversarial-hardened runtime-authority ZIP.
+2. The current ZSL database schema.
+3. The current production repository:
+   `https://github.com/latinabeautycollection/TCDS_BOT_CREATION`
+4. The current `main` branch of that repository.
+5. Existing ZSL1, ZSL2, ZSL3, ZSL4, ZSL5 architecture and migrations.
+6. Existing national-tax acquisition/integration packages included with the project.
+7. Current production/staging database metadata if available.
+
+Do not rely on README claims when the repository/database can be checked directly.
+
+Use current repository state, not an old assumed SHA.
+
+---
+
+# 2. HARD ARCHITECTURAL BOUNDARIES
+
+The final freeze must preserve:
+
+```text
+ZSL1
+= source acquisition
+= raw evidence
+= provenance
+= normalization
+= source precedence
+= reconciliation
+= certification
+= national tax-content publication
+
+ZSL2
+= canonical geography/location authority
+
+ZSL5
+= tax determination
+= jurisdiction resolution using certified ZSL1 + ZSL2
+= taxability
+= taxable base
+= holidays
+= sourcing
+= seller collection
+= marketplace treatment
+= exemptions
+= rate/cap logic
+= rounding
+= mandatory government fees
+= quote evidence
+
+ZSL6
+= acquisition economics
+
+R1A
+= executable product search-target authority
+
+R1F
+= provider/scraper financial consumption authority
+
+ARB
+= profit / ROI / max bid / BUY-WATCH-REVIEW-REJECT
+
+PQP
+= purchase readiness
+
+CAX
+= checkout execution
+```
+
+Any dual ownership or cross-domain mutation is a release blocker.
+
+---
+
+# 3. FINAL GOVERNED PRODUCT-CATEGORY SCOPE
+
+The final runtime must support these **10 governed TCDS categories**:
+
+```text
+LAPTOPS
+PHONES
+NETWORKING
+AUTOMOTIVE_TOOLS
+GARDENING_TOOLS
+GAME_CONSOLES
+MUSIC_EQUIPMENT
+DRONES
+CAMERAS
+ELECTRONICS
+```
+
+Requirements:
+
+- `GAME_CONSOLES` must remain first-class.
+- `CAMERAS` must remain first-class.
+- `ELECTRONICS` must not act as a permissive default.
+- Broad electronics must require an approved subclass/refinement where legal tax treatment could differ.
+- Caller-supplied tax product classes must never override governed category mapping.
+- Unknown/unmapped categories must fail closed.
+
+Review all legacy 8-category assumptions and eliminate or supersede them where they can affect V1.4/V1.2-final-freeze runtime behavior.
+
+---
+
+# 4. 21 TAX-FAMILY CONTRACT
+
+The final freeze must support all 21 families end-to-end:
+
+```text
+1.  TAX_REGIME
+2.  TAX_JURISDICTION
+3.  TAX_JURISDICTION_ASSIGNMENT
+4.  STATE_RATE
+5.  LOCAL_RATE
+6.  RATE_COMPONENT_RULE
+7.  RATE_CAP_THRESHOLD_RULE
+8.  PRODUCT_TAXABILITY
+9.  TAXABLE_BASE_RULE
+10. BUNDLED_TRANSACTION_RULE
+11. ALLOCATION_RULE
+12. TAX_HOLIDAY
+13. SOURCING_RULE
+14. SELLER_COLLECTION_RULE
+15. MARKETPLACE_RULE
+16. SELLER_TAX_ELECTION
+17. EXEMPTION_RULE
+18. EXEMPTION_CERTIFICATE_REQUIREMENT
+19. TAX_CREDIT_RULE
+20. ROUNDING_RULE
+21. MANDATORY_TRANSACTION_FEE
+```
+
+For every family prove:
+
+```text
+source exists
+parser exists
+canonical schema exists
+raw lineage exists
+schema validation exists
+reconciliation exists
+precedence exists
+effective dating exists
+supersession exists
+certification exists
+state coverage exists
+national publication membership exists
+ZSL5 binding exists
+runtime consumption exists
+quote impact exists where applicable
+test coverage exists
+```
+
+A table name alone is not proof.
+
+---
+
+# 5. NATIONAL COVERAGE DENOMINATOR
+
+The final authority gate must remain:
+
+```text
+51 jurisdictions
+× 21 families
+=
+1,071 state-family cells
+```
+
+Plus:
+
+```text
+51 local/home-rule coverage gates
+51 address-resolution gates
+```
+
+Final national authority requires:
+
+```text
+1071 / 1071 PASS
+AND
+51 / 51 local PASS
+AND
+51 / 51 resolution PASS
+AND
+0 unresolved FATAL conflicts
+AND
+freshness PASS
+```
+
+Attempt to bypass this using:
+
+- static JSON
+- a single record
+- stale certification
+- revoked certification
+- missing local evidence
+- missing home-rule evidence
+- missing address evidence
+- negative authority without evidence
+
+All bypasses must fail.
+
+---
+
+# 6. DATABASE SCHEMA / DATA-TYPE RECONCILIATION
+
+This section is mandatory and must be exhaustive.
+
+Compare every new migration, TypeScript interface, SQL query, insert, update, join, FK, view, function and test against the actual deployed/current ZSL schema.
+
+Produce a full mismatch matrix covering:
+
+```text
+schema
+table
+column
+database type
+application type
+nullable?
+default?
+PK/FK?
+check constraint?
+enum/check values?
+expected runtime type?
+mismatch?
+fix?
+```
+
+Specifically inspect:
+
+## UUID
+
+Verify all IDs are consistently `uuid`, including:
+
+```text
+source_id
+release_id
+ingest_run_id
+artifact_id
+record_id
+schema_contract_id
+certification_run_id
+reconciliation_run_id
+build_run_id
+source_binding_id
+tax_jurisdiction_id
+publication_id
+quote_id
+```
+
+Reject implicit text→UUID assumptions.
+
+## CHARACTER / TEXT
+
+Audit:
+
+```text
+state_code
+USPS state code
+ZIP5
+ZIP9
+jurisdiction_code
+source_key
+release_key
+category_code
+tax_class
+```
+
+Do not use `character(1)` or fixed-width char accidentally where 2-character codes are required.
+
+Watch PostgreSQL trailing-space semantics on `CHAR(n)`.
+
+## MONEY / RATES
+
+Authoritative monetary math must use:
+
+```text
+integer cents
+or
+NUMERIC
+```
+
+Never JavaScript floating-point dollars.
+
+Audit:
+
+```text
+rate
+taxable base
+fees
+credits
+caps
+thresholds
+allocation weights
+rounding
+```
+
+Define exact scale/precision.
+
+## TIMESTAMPS
+
+Distinguish:
+
+```text
+date
+timestamp
+timestamptz
+```
+
+Legal effective periods should not accidentally depend on server timezone.
+
+## JSONB
+
+Confirm every `jsonb` field actually receives object/array types consistent with DB checks.
+
+## ENUM / CHECK TYPES
+
+Audit every:
+
+```text
+zsl5_build_state
+runtime status
+certification status
+freshness status
+missingness status
+authority status
+source status
+```
+
+against actual database enum/check values.
+
+No invented enum labels.
+
+---
+
+# 7. MIGRATION ORDER / DEPENDENCY VALIDATION
+
+Test from a clean database clone in exact production order.
+
+Expected additive chain currently resembles:
+
+```text
+production baseline
+↓
+042a
+042b
+042c
+042d
+↓
+043
+043a
+043b
+043c
+↓
+044a
+044b
+↓
+045
+045a
+↓
+046a
+046b
+046c
+↓
+final-freeze migrations
+```
+
+Verify each migration only references objects that exist at that point.
+
+Check:
+
+- types
+- schemas
+- tables
+- columns
+- indexes
+- constraints
+- views
+- functions
+- roles
+- triggers
+
+No migration may depend on future migration state.
+
+---
+
+# 8. FOREIGN KEY / CONSTRAINT AUDIT
+
+For every table introduced or modified:
+
+Verify:
+
+```text
+PK
+FK
+UNIQUE
+NOT NULL
+CHECK
+ON DELETE
+ON UPDATE
+partial index
+exclusion constraint
+effective-period overlap prevention
+```
+
+Look for:
+
+- FK type mismatches
+- missing FK targets
+- nullable FK where logically mandatory
+- ON DELETE CASCADE accidentally deleting evidence
+- missing uniqueness around natural-key/effective period
+- duplicate effective rules
+
+Historical evidence should normally use `ON DELETE RESTRICT`.
+
+---
+
+# 9. EFFECTIVE-DATE / TEMPORAL MODEL
+
+Tax authority is temporal.
+
+Review every rule family for:
+
+```text
+effective_from
+effective_to
+published_at
+retrieved_at
+supersedes
+correction_of
+source_year
+source_quarter
+```
+
+Test boundary conditions:
+
+```text
+effective exactly at midnight
+future-effective rule
+expired rule
+overlapping rule
+backdated correction
+mid-quarter correction
+superseded rule
+same-day replacement
+```
+
+No hidden use of `now()` in deterministic quote evaluation.
+
+---
+
+# 10. SOURCE ACQUISITION HARDENING
+
+Review the complete acquisition layer.
+
+Require:
+
+```text
+429 Retry-After
+timeouts
+bounded retries
+redirect control
+ETag
+If-None-Match
+Last-Modified
+If-Modified-Since
+304
+max size
+content type
+extension checks
+checksum
+archive validation
+zip-bomb controls
+path traversal protection
+inner hashes
+atomic files
+idempotency
+drift detection
+```
+
+A layout/schema change must fail closed.
+
+---
+
+# 11. SOURCE PRECEDENCE / CONFLICT LOGIC
+
+Expected:
+
+```text
+1 State DOR / legislature / official state authority
+2 SST state-supplied
+3 other government
+4 FTA/MTC
+5 approved commercial comparison
+99 unverified
+```
+
+Test:
+
+```text
+rank 1 vs rank 2 conflict
+rank 1 vs rank 1 conflict
+older rank 1 vs newer correction
+SST vs state DOR
+FTA vs state DOR
+equivalent duplicates
+different SHA same natural key
+```
+
+Equal-rank material conflicts must block publication unless explicitly resolved.
+
+---
+
+# 12. RAW-LINEAGE INTEGRITY
+
+Every ZSL5 runtime fact must trace to:
+
+```text
+official source
+→ source_artifact
+→ raw_record
+→ release_record_membership
+→ canonical record
+→ source certification
+→ national publication
+→ ZSL5 binding
+→ ZSL5 fact
+→ quote evidence
+```
+
+Attempt to insert each downstream object without upstream lineage.
+
+It must fail.
+
+---
+
+# 13. STRICT ZSL1 CERTIFICATION
+
+Certification must require all of:
+
+```text
+release RECONCILED
+ingest RECONCILED
+valid package SHA
+valid Git SHA
+valid schema contract SHA
+all schema validations PASS
+reconciliation present
+raw membership present
+counts reconcile
+ordered hash present
+parser replay hash present
+parser replay PASS
+zero FATAL conflicts
+```
+
+Test every missing prerequisite independently.
+
+---
+
+# 14. NATIONAL PUBLICATION ATOMICITY
+
+`US_NATIONAL_TAX_CONTENT` must be:
+
+```text
+immutable
+atomic
+hash-sealed
+coverage-certified
+source-certified
+effective-dated
+replayable
+```
+
+No partial publication.
+
+No mixed release unless publication policy explicitly records mixed vintages.
+
+All 21 bindings in ZSL5 must reference the same exact national publication.
+
+---
+
+# 15. ZSL2 GEOGRAPHY COMPATIBILITY
+
+ZSL1 and ZSL5 must not mutate canonical ZSL2 geography.
+
+Audit joins and data types against:
+
+```text
+zsl.locations
+zsl.states
+zsl.counties
+zsl.places
+zsl.zctas
+zsl.postal_codes
+zsl.location_identifiers
+zsl.location_geometries
+```
+
+Pay special attention to:
+
+- `location_id uuid`
+- `state_fips char(2)`
+- `usps_code char(2)`
+- county FIPS
+- place GEOID
+- ZIP5 character type
+
+No tax table should invent incompatible IDs.
+
+---
+
+# 16. ZSL5 VERSION COMPATIBILITY
+
+Production historically supports `zsl5-v1.2.0`.
+
+The final runtime is V1.4 lineage.
+
+Verify additive compatibility.
+
+Historical builds must remain readable.
+
+Do not rewrite old build rows.
+
+Check every constraint on:
+
+```text
+zsl5_build_runs.engine_version
+zsl5_certification_runs.engine_version
+```
+
+Final freeze should explicitly document accepted versions.
+
+---
+
+# 17. GOVERNED CATEGORY TAX-CLASS RESOLUTION
+
+The quote engine must derive tax class from governed mapping.
+
+Reject:
+
+```text
+caller overrides
+unknown category
+stale mapping
+inactive mapping
+wrong build mapping
+generic electronics without refinement
+```
+
+Test all 10 categories.
+
+Especially test:
+
+```text
+CAMERAS
+ELECTRONICS
+GAME_CONSOLES
+```
+
+and differentiation between:
+
+```text
+camera body
+camera accessory
+digital content
+console hardware
+downloadable game
+phone hardware
+prepaid service
+computer software
+tool battery
+drone accessory
+```
+
+---
+
+# 18. JURISDICTION RESOLUTION
+
+Verify ordered resolution:
+
+```text
+DIRECT_TAX_ADDRESS_ID
+ZIP9
+ADDRESS_RULE
+DIRECT_ZSL2_ID
+AUTHORITATIVE_POLYGON
+governed ZIP5 fallback
+STATEWIDE where legal
+UNRESOLVED
+```
+
+Test:
+
+- overlapping special districts
+- home-rule city
+- unincorporated county
+- ZIP crossing jurisdictions
+- bad coordinate
+- null coordinate
+- PO box
+- store pickup
+- ship-to
+- multiple local components
+
+---
+
+# 19. TAX MATH / ALLOCATION
+
+Use exact arithmetic.
+
+Test:
+
+```text
+shipping
+handling
+installation
+retailer coupons
+manufacturer coupons
+rebates
+trade-ins
+rewards
+fees
+credits
+caps
+thresholds
+bundles
+mixed taxable/exempt cart
+```
+
+Allocation invariant:
+
+```text
+sum(allocated adjustments)
+=
+source transaction adjustment
+```
+
+No penny drift.
+
+---
+
+# 20. ROUNDING
+
+Define and test:
+
+```text
+HALF_UP
+line-level rounding
+invoice-level rounding
+component rounding
+final-tax rounding
+```
+
+Test:
+
+```text
+0.005
+0.0049
+multiple components
+100+ lines
+negative discounts
+large transactions
+```
+
+All results deterministic.
+
+---
+
+# 21. SPECIAL TAX REGIMES
+
+Explicitly test:
+
+```text
+AZ TPT
+HI GET
+NM GRT
+AK local-only general sales-tax structure
+DE no general sales tax
+MT no general sales tax
+NH no general sales tax
+OR no general sales tax
+```
+
+Do not model these simply as zero-rate standard sales tax.
+
+---
+
+# 22. HOLIDAY / EXEMPTION / CERTIFICATE LOGIC
+
+Test:
+
+```text
+holiday thresholds
+holiday start/end
+local participation
+bundle treatment
+discount below threshold
+resale certificate
+certificate expiry
+state registration
+blanket certificate
+MTC
+SST
+reciprocity
+good-faith acceptance
+```
+
+No exemption solely because `purpose=resale`.
+
+---
+
+# 23. SELLER COLLECTION / MARKETPLACE / USE TAX
+
+Separate:
+
+```text
+checkout tax
+legal tax burden
+potential use tax
+mandatory fees
+```
+
+Test:
+
+- seller nexus
+- no seller nexus
+- marketplace facilitator
+- seller election
+- threshold
+- unknown collection status
+
+Seller noncollection must not mean no tax liability.
+
+---
+
+# 24. NEGATIVE AUTHORITY
+
+Verify explicit evidence for:
+
+```text
+NO_GENERAL_TAX
+NO_LOCAL_TAX
+NO_HOLIDAY
+NO_SPECIAL_FEE
+NO_SELLER_ELECTION
+DOES_NOT_APPLY
+```
+
+Missing data is never equivalent to zero/no-tax.
+
+---
+
+# 25. FRESHNESS / STALENESS
+
+National content must not remain authoritative indefinitely.
+
+Require current freshness attestations.
+
+Test:
+
+```text
+quarterly update
+mid-quarter correction
+source disappearance
+holiday-year rollover
+expired rule
+future rule
+stale address file
+superseded publication
+```
+
+Staleness should dynamically invalidate authority where policy requires.
+
+---
+
+# 26. PRE-ACTIVATION CANDIDATE MODE
+
+Candidate quote mode must remain separate.
+
+Verify it cannot:
+
+```text
+serve ordinary runtime callers
+bypass active authority
+bypass certified publication
+bypass valid bindings
+```
+
+Normal quote mode must require current active authority.
+
+---
+
+# 27. GOLDEN FIXTURE INDEPENDENCE
+
+Golden tests must not self-generate expected answers.
+
+Every approved fixture should have:
+
+```text
+independent source
+expected calculation
+reviewer
+approval
+effective date
+fixture SHA
+```
+
+Unapproved fixtures remain:
+
+```text
+EVIDENCE_REQUIRED
+NOT_EXECUTED
+```
+
+---
+
+# 28. LATEST-RESULT TEST SEMANTICS
+
+Historical PASS rows must not hide current FAIL rows.
+
+Runtime authority should evaluate the **latest valid result per test case**.
+
+Test:
+
+```text
+PASS → FAIL
+FAIL → PASS
+duplicate timestamp
+revoked fixture
+superseded fixture
+```
+
+---
+
+# 29. IMMUTABILITY
+
+Verify append-only behavior for:
+
+```text
+raw evidence
+certifications
+publication memberships
+approved fixtures
+runtime test evidence
+quote evidence
+authority events
+```
+
+Corrections should create new versions.
+
+No silent UPDATE/DELETE of historical authority evidence.
+
+---
+
+# 30. CONCURRENCY / LOCKING
+
+Test simultaneous:
+
+```text
+source acquisition
+source ingestion
+state certification
+national publication
+ZSL5 loading
+runtime certification
+activation
+revocation
+```
+
+Use advisory/transaction locks where required.
+
+Prevent:
+
+```text
+duplicate publication
+mixed publication membership
+two active authorities
+double certification
+race-created quote inconsistency
+```
+
+---
+
+# 31. RBAC / SECURITY DEFINER
+
+Audit every role/grant/function.
+
+Every `SECURITY DEFINER` function must have:
+
+```text
+fixed search_path
+explicit role authorization
+validated inputs
+no unsafe dynamic SQL
+no PUBLIC execute unless explicitly intended
+```
+
+Test privilege escalation.
+
+---
+
+# 32. PRODUCTION-REPO BUILD COMPATIBILITY
+
+Cross-reference against current:
+
+```text
+package.json
+tsconfig.json
+Node version
+ESM settings
+pg version
+zod version
+```
+
+Production currently compiles:
+
+```text
+apps/**/*.ts
+```
+
+Ensure final runtime code lives where production build actually compiles it.
+
+Any tools outside `apps/` must have their own build/package definition if needed.
+
+No hidden dependency may be missing from production.
+
+---
+
+# 33. REPOSITORY MIGRATION COLLISION CHECK
+
+Search current repo for:
+
+```text
+042*
+043*
+044*
+045*
+046*
+final-freeze migration numbers
+```
+
+If the repo has advanced, renumber safely.
+
+Never overwrite an existing committed migration number.
+
+---
+
+# 34. LEGACY PACKAGE COLLISION CHECK
+
+Review all older attached packages.
+
+Identify:
+
+```text
+old 6-source model
+old 8-category model
+old broad ELECTRONICS mapping
+old polygon-only jurisdiction assumptions
+old V1.2 quote path
+old flat-rate assumptions
+```
+
+Explicitly mark what is:
+
+```text
+SUPERSEDED
+RETAINED FOR HISTORY
+STILL ACTIVE
+MUST NOT BE INSTALLED
+```
+
+No developer ambiguity.
+
+---
+
+# 35. CROSS-DOMAIN MUTATION SCAN
+
+No migration/function in the tax package may mutate:
+
+```text
+retail.*
+arb.*
+pqp.*
+cax.*
+```
+
+Also:
+
+- ZSL1 must not mutate ZSL2 canonical geography.
+- ZSL5 must not mutate ZSL1 source authority.
+
+Any violation is P0.
+
+---
+
+# 36. OBSERVABILITY
+
+Final system must expose answers to:
+
+```text
+Which states are incomplete?
+Which families are incomplete?
+Which sources are stale?
+Which parser drifted?
+Which state/local authority blocked?
+Which addresses failed resolution?
+Which test failed?
+Why is activation blocked?
+Which upstream certification was revoked?
+Which quote rule changed?
+```
+
+Create/verify operational views where missing.
+
+---
+
+# 37. PERFORMANCE / SCALE
+
+Review expected production scale:
+
+```text
+millions of ZIP+4 records
+national jurisdiction records
+21-family history
+multiple vintages
+51-state rules
+parallel quote workload
+```
+
+Review indexes for:
+
+```text
+build_run_id
+state_code
+family
+natural_key
+effective dates
+jurisdiction code
+ZIP9
+ZIP5
+category
+tax class
+publication_id
+```
+
+Run EXPLAIN/EXPLAIN ANALYZE in staging where possible.
+
+---
+
+# 38. FAILURE RECOVERY
+
+Test partial failure at every stage:
+
+```text
+download
+parse
+artifact persistence
+raw-record insert
+membership
+validation
+reconciliation
+certification
+coverage
+publication
+ZSL5 load
+test execution
+activation
+```
+
+Partially completed state must never become authority.
+
+---
+
+# 39. DETERMINISTIC REPLAY
+
+The following must uniquely determine the quote:
+
+```text
+transaction input
+evaluation_as_of
+national publication
+ZSL2 authority
+ZSL5 build
+policy versions
+category mapping
+```
+
+Repeated execution must produce identical:
+
+```text
+jurisdiction
+tax classes
+taxable base
+rates
+fees
+credits
+rounding
+tax totals
+quote hash
+```
+
+No wall-clock dependence.
+
+---
+
+# 40. ROLLBACK
+
+Perform a real staging rollback test.
+
+Rollback must preserve:
+
+```text
+historical evidence
+historical certifications
+historical quotes
+old build history
+```
+
+Rollback must not automatically activate an unverified older authority.
+
+---
+
+# 41. FINAL TEST SUITE
+
+Final freeze should include at least:
+
+```text
+unit tests
+parser fixtures
+schema tests
+DB migration tests
+data-type compatibility tests
+FK tests
+constraint tests
+source-drift tests
+bad-download tests
+ZIP tests
+precedence tests
+correction tests
+effective-date tests
+negative-authority tests
+21-family tests
+1,071 coverage tests
+51 local tests
+51 resolution tests
+10-category tests
+camera tests
+electronics refinement tests
+game-console tests
+jurisdiction tests
+taxable-base tests
+bundle tests
+allocation tests
+holiday tests
+resale tests
+seller-collection tests
+marketplace tests
+caps tests
+rounding tests
+mandatory-fee tests
+special-regime tests
+candidate-mode tests
+RBAC tests
+immutability tests
+concurrency tests
+golden tests
+adversarial tests
+replay tests
+rollback tests
+```
+
+---
+
+# 42. REQUIRED FINAL-FREEZE QUALITY GATES
+
+A freeze candidate cannot be emitted while any P0 or P1 remains open.
+
+Required status:
+
+```text
+P0 = 0
+P1 = 0
+P2 = documented/accepted only if non-authority-impacting
+P3 = optional
+```
+
+---
+
+# 43. REQUIRED FINAL OUTPUT
+
+Produce:
+
+## A. Final Executive Verdict
+
+```text
+FREEZE APPROVED
+FREEZE BLOCKED
+```
+
+## B. Remediation Ledger
+
+For every issue:
+
+```text
+ID
+severity
+file
+line/function/table
+issue
+root cause
+fix
+test added
+verification result
+```
+
+## C. Database Compatibility Matrix
+
+Include:
+
+```text
+DB object
+column
+DB type
+application type
+nullable
+constraint
+expected value
+status
+```
+
+## D. Migration Dependency Matrix
+
+```text
+migration
+requires
+creates/modifies
+rollback
+tested
+status
+```
+
+## E. 21-Family End-to-End Matrix
+
+All families must be PASS or explicitly NOT APPLICABLE with evidence.
+
+## F. 10-Category Mapping Matrix
+
+Include:
+
+```text
+LAPTOPS
+PHONES
+NETWORKING
+AUTOMOTIVE_TOOLS
+GARDENING_TOOLS
+GAME_CONSOLES
+MUSIC_EQUIPMENT
+DRONES
+CAMERAS
+ELECTRONICS
+```
+
+## G. 51-State National Readiness Matrix
+
+Show:
+
+```text
+21/21 families
+local coverage
+address coverage
+freshness
+conflicts
+status
+```
+
+## H. High-Risk-State Matrix
+
+Separate:
+
+```text
+AK
+AZ
+CA
+CO
+HI
+LA
+NM
+TX
+```
+
+## I. Security/RBAC Verdict
+
+## J. Replay/Rollback Verdict
+
+## K. Performance Verdict
+
+## L. Repository Integration Verdict
+
+## M. Final Certification Gate Table
+
+Return:
+
+```text
+SOURCE ACQUISITION
+RAW EVIDENCE
+SCHEMA CONTRACT
+SCHEMA VALIDATION
+RAW MEMBERSHIP
+RECONCILIATION
+PARSER REPLAY
+SOURCE CERTIFICATION
+SOURCE PRECEDENCE
+NEGATIVE AUTHORITY
+21-FAMILY COVERAGE
+LOCAL COVERAGE
+ADDRESS RESOLUTION
+FRESHNESS
+NATIONAL PUBLICATION
+ZSL2 BINDING
+ZSL5 BINDING
+10-CATEGORY MAPPING
+CAMERA CLASSIFICATION
+ELECTRONICS REFINEMENT
+GAME-CONSOLE CLASSIFICATION
+JURISDICTION RESOLUTION
+TAXABILITY
+TAXABLE BASE
+BUNDLE
+ALLOCATION
+HOLIDAY
+SOURCING
+SELLER COLLECTION
+MARKETPLACE
+SELLER ELECTION
+EXEMPTION
+CERTIFICATE
+RATES
+CAPS
+CREDITS
+MANDATORY FEES
+ROUNDING
+SPECIAL REGIMES
+GOLDEN TESTS
+ADVERSARIAL TESTS
+CANDIDATE MODE
+REPLAY
+ROLLBACK
+RBAC
+IMMUTABILITY
+CONCURRENCY
+FAILURE RECOVERY
+OBSERVABILITY
+PERFORMANCE
+DATABASE TYPE COMPATIBILITY
+MIGRATION COMPATIBILITY
+REPO BUILD COMPATIBILITY
+STAGING ACCEPTANCE
+PRODUCTION ACTIVATION
+```
+
+Status values:
+
+```text
+PASS
+FAIL
+NOT EXECUTED
+NOT PROVEN
+NOT APPLICABLE
+```
+
+No assumed PASS.
+
+---
+
+# 44. FREEZE PACKAGE REQUIREMENTS
+
+If and only if the solution passes the freeze review, create:
+
+```text
+TCDS_ZSL1_ZSL5_NATIONAL_TAX_RUNTIME_AUTHORITY_V1_2_0_GREEN_TIER1_FINAL_FREEZE_CANDIDATE
+```
+
+The package must include:
+
+```text
+final migrations
+runtime TypeScript
+source acquisition tooling
+schemas
+catalogs
+fixtures
+rollback
+RBAC
+test suites
+repo-overlay
+manifest
+SHA-256 manifest
+remediation ledger
+DB compatibility matrix
+migration dependency matrix
+certification-gate report
+staging acceptance checklist
+production activation checklist
+```
+
+Every file must be hashed.
+
+ZIP integrity must be checked.
+
+---
+
+# 45. FINAL PRINCIPLE
+
+Do not optimize for declaring the solution complete.
+
+Optimize for proving it cannot silently produce an incorrect tax result or falsely certify itself.
+
+The final freeze is approved only when:
+
+```text
+architecture
++
+database schema
++
+data types
++
+source provenance
++
+national coverage
++
+tax logic
++
+runtime behavior
++
+security
++
+replay
++
+rollback
++
+production repository integration
+```
+
+are all mutually consistent.
+
+A build candidate that merely compiles is not final freeze.
+
+A final freeze candidate must have **zero known authority-impacting defects**.
+
+This prompt is designed specifically to force the next review to move from “adversarially good” to **freeze-grade** by making database-type reconciliation, migration ordering, runtime authority, category classification, and repo compatibility first-class release gates. Pasted text

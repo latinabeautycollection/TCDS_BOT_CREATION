@@ -1,0 +1,24 @@
+-- TCDS 043a: First-class read surfaces for all 21 families
+BEGIN;
+CREATE OR REPLACE VIEW zsl.zsl5_v14_tax_regime AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='TAX_REGIME';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_tax_jurisdiction AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='TAX_JURISDICTION';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_tax_jurisdiction_assignment AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='TAX_JURISDICTION_ASSIGNMENT';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_state_rate AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='STATE_RATE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_local_rate AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='LOCAL_RATE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_rate_component_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='RATE_COMPONENT_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_rate_cap_threshold_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='RATE_CAP_THRESHOLD_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_product_taxability AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='PRODUCT_TAXABILITY';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_taxable_base_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='TAXABLE_BASE_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_bundled_transaction_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='BUNDLED_TRANSACTION_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_allocation_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='ALLOCATION_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_tax_holiday AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='TAX_HOLIDAY';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_sourcing_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='SOURCING_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_seller_collection_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='SELLER_COLLECTION_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_marketplace_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='MARKETPLACE_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_seller_tax_election AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='SELLER_TAX_ELECTION';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_exemption_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='EXEMPTION_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_exemption_certificate_requirement AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='EXEMPTION_CERTIFICATE_REQUIREMENT';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_tax_credit_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='TAX_CREDIT_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_rounding_rule AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='ROUNDING_RULE';
+CREATE OR REPLACE VIEW zsl.zsl5_v14_mandatory_transaction_fee AS SELECT * FROM zsl.zsl5_family_facts_v14 WHERE family='MANDATORY_TRANSACTION_FEE';
+COMMIT;

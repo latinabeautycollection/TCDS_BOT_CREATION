@@ -1,0 +1,13 @@
+{
+  "states": [
+    "AK",
+    "AZ",
+    "CA",
+    "CO",
+    "HI",
+    "LA",
+    "NM",
+    "TX"
+  ],
+  "required_independent_acceptance": true
+}

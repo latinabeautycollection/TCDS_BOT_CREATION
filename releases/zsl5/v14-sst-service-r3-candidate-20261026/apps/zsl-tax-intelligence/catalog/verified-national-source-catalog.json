@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "verified_as_of": "2026-10-26",
+  "sources": [
+    {
+      "source_key": "SST_RATE_BOUNDARY",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "url": "https://www.streamlinedsalestax.org/Shared-Pages/rate-and-boundary-files",
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT"
+      ],
+      "role": "PRIMARY_FOR_SST_MEMBERS",
+      "automation_mode": "AUTOMATED",
+      "credentials_required": false,
+      "manual_review_required": false,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "SST_TAXABILITY_MATRIX",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "url": "https://www.streamlinedsalestax.org/Shared-Pages/State-taxability-matrix",
+      "families": [
+        "PRODUCT_TAXABILITY",
+        "TAX_HOLIDAY"
+      ],
+      "role": "PRIMARY_FOR_SST_MEMBERS",
+      "automation_mode": "AUTOMATED",
+      "credentials_required": false,
+      "manual_review_required": false,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "FTA_2026_HOLIDAYS",
+      "authority": "Federation of Tax Administrators",
+      "url": "https://taxadmin.org/2026-sales-tax-holidays/",
+      "families": [
+        "TAX_HOLIDAY"
+      ],
+      "role": "DISCOVERY_CORROBORATION",
+      "automation_mode": "MANUAL_REVIEW_REQUIRED",
+      "credentials_required": false,
+      "manual_review_required": true,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "MTC_RESALE",
+      "authority": "Multistate Tax Commission",
+      "url": "https://www.mtc.gov/Resources/Uniform-Sales-Use-Tax-Exemption-Certificate/",
+      "families": [
+        "EXEMPTION_RULE",
+        "EXEMPTION_CERTIFICATE_REQUIREMENT"
+      ],
+      "role": "DISCOVERY_CORROBORATION",
+      "automation_mode": "MANUAL_REVIEW_REQUIRED",
+      "credentials_required": false,
+      "manual_review_required": true,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "CA_CDTFA_RATES",
+      "authority": "California Department of Tax and Fee Administration",
+      "url": "https://cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm",
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "RATE_COMPONENT_RULE",
+        "TAX_JURISDICTION"
+      ],
+      "role": "PRIMARY",
+      "automation_mode": "AUTOMATED",
+      "credentials_required": false,
+      "manual_review_required": false,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "TX_COMPTROLLER_REMOTE",
+      "authority": "Texas Comptroller of Public Accounts",
+      "url": "https://comptroller.texas.gov/taxes/sales/remote-sellers-marketplace-faq.php",
+      "families": [
+        "SELLER_COLLECTION_RULE",
+        "SELLER_TAX_ELECTION",
+        "MARKETPLACE_RULE",
+        "RATE_CAP_THRESHOLD_RULE"
+      ],
+      "role": "PRIMARY",
+      "automation_mode": "AUTOMATED",
+      "credentials_required": false,
+      "manual_review_required": false,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "WA_DOR_DB",
+      "authority": "Washington Department of Revenue",
+      "url": "https://dor.wa.gov/taxes-rates/sales-use-tax-rates/downloadable-database",
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT"
+      ],
+      "role": "PRIMARY",
+      "automation_mode": "AUTOMATED",
+      "credentials_required": false,
+      "manual_review_required": false,
+      "terms_review_required": true
+    },
+    {
+      "source_key": "CO_SUTS",
+      "authority": "Colorado Department of Revenue",
+      "url": "https://tax.colorado.gov/SUTS-info",
+      "families": [
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT",
+        "TAX_JURISDICTION"
+      ],
+      "role": "PRIMARY",
+      "automation_mode": "AUTOMATED_WITH_REGISTRATION",
+      "credentials_required": true,
+      "manual_review_required": false,
+      "terms_review_required": true
+    }
+  ]
+}

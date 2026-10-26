@@ -1,0 +1,1944 @@
+{
+  "schema_version": "1.0.0",
+  "case_count": 51,
+  "cases": [
+    {
+      "case_id": "AL-BASELINE-001",
+      "state_code": "AL",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "AK-BASELINE-001",
+      "state_code": "AK",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "AZ-BASELINE-001",
+      "state_code": "AZ",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "AR-BASELINE-001",
+      "state_code": "AR",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "CA-BASELINE-001",
+      "state_code": "CA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "CO-BASELINE-001",
+      "state_code": "CO",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "CT-BASELINE-001",
+      "state_code": "CT",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "DE-BASELINE-001",
+      "state_code": "DE",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "DC-BASELINE-001",
+      "state_code": "DC",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "FL-BASELINE-001",
+      "state_code": "FL",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "GA-BASELINE-001",
+      "state_code": "GA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "HI-BASELINE-001",
+      "state_code": "HI",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "ID-BASELINE-001",
+      "state_code": "ID",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "IL-BASELINE-001",
+      "state_code": "IL",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "IN-BASELINE-001",
+      "state_code": "IN",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "IA-BASELINE-001",
+      "state_code": "IA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "KS-BASELINE-001",
+      "state_code": "KS",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "KY-BASELINE-001",
+      "state_code": "KY",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "LA-BASELINE-001",
+      "state_code": "LA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "ME-BASELINE-001",
+      "state_code": "ME",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MD-BASELINE-001",
+      "state_code": "MD",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MA-BASELINE-001",
+      "state_code": "MA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MI-BASELINE-001",
+      "state_code": "MI",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MN-BASELINE-001",
+      "state_code": "MN",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MS-BASELINE-001",
+      "state_code": "MS",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MO-BASELINE-001",
+      "state_code": "MO",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "MT-BASELINE-001",
+      "state_code": "MT",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NE-BASELINE-001",
+      "state_code": "NE",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NV-BASELINE-001",
+      "state_code": "NV",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NH-BASELINE-001",
+      "state_code": "NH",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NJ-BASELINE-001",
+      "state_code": "NJ",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NM-BASELINE-001",
+      "state_code": "NM",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NY-BASELINE-001",
+      "state_code": "NY",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "NC-BASELINE-001",
+      "state_code": "NC",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "ND-BASELINE-001",
+      "state_code": "ND",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "OH-BASELINE-001",
+      "state_code": "OH",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "OK-BASELINE-001",
+      "state_code": "OK",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "OR-BASELINE-001",
+      "state_code": "OR",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "PA-BASELINE-001",
+      "state_code": "PA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "RI-BASELINE-001",
+      "state_code": "RI",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "SC-BASELINE-001",
+      "state_code": "SC",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "SD-BASELINE-001",
+      "state_code": "SD",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "TN-BASELINE-001",
+      "state_code": "TN",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "TX-BASELINE-001",
+      "state_code": "TX",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "UT-BASELINE-001",
+      "state_code": "UT",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "VT-BASELINE-001",
+      "state_code": "VT",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "VA-BASELINE-001",
+      "state_code": "VA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "WA-BASELINE-001",
+      "state_code": "WA",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "WV-BASELINE-001",
+      "state_code": "WV",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "WI-BASELINE-001",
+      "state_code": "WI",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "case_id": "WY-BASELINE-001",
+      "state_code": "WY",
+      "status": "EVIDENCE_REQUIRED",
+      "purpose": "Baseline retail tangible personal property purchase; expected result must be independently approved before certification.",
+      "transaction": {
+        "purchase_channel": "DELIVERY",
+        "currency": "USD",
+        "line_items": [
+          {
+            "line_id": "L1",
+            "tcds_category_code": "LAPTOPS",
+            "quantity": 1,
+            "unit_price_cents": 10000
+          }
+        ],
+        "shipping_cents": 0,
+        "discount_cents": 0
+      },
+      "location_fixture": {
+        "address_line1": null,
+        "city": null,
+        "postal_code": null,
+        "tax_address_id": null
+      },
+      "expected": {
+        "jurisdiction_codes": null,
+        "checkout_tax_cents": null,
+        "legal_tax_burden_cents": null,
+        "mandatory_fee_cents": null
+      },
+      "independent_evidence": {
+        "authority_url": null,
+        "artifact_sha256": null,
+        "review_status": "PENDING"
+      },
+      "certification_rule": "MUST_HAVE_APPROVED_INDEPENDENT_EVIDENCE"
+    }
+  ]
+}

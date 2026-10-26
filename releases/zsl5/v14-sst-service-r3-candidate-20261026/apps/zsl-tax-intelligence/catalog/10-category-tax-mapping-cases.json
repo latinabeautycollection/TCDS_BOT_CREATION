@@ -1,0 +1,207 @@
+{
+  "schema_version": "1.0.0",
+  "required_categories": 10,
+  "cases": [
+    {
+      "case_id": "CATEGORY-01-LAPTOPS",
+      "tcds_category_code": "LAPTOPS",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "LAPTOPS"
+      },
+      "expected": {
+        "tax_product_class": "COMPUTER",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-02-PHONES",
+      "tcds_category_code": "PHONES",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "PHONES"
+      },
+      "expected": {
+        "tax_product_class": "CELLULAR_TELEPHONE",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-03-NETWORKING",
+      "tcds_category_code": "NETWORKING",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "NETWORKING"
+      },
+      "expected": {
+        "tax_product_class": "NETWORK_EQUIPMENT",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-04-AUTOMOTIVE_TOOLS",
+      "tcds_category_code": "AUTOMOTIVE_TOOLS",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "AUTOMOTIVE_TOOLS"
+      },
+      "expected": {
+        "tax_product_class": "TOOLS",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-05-GARDENING_TOOLS",
+      "tcds_category_code": "GARDENING_TOOLS",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "GARDENING_TOOLS"
+      },
+      "expected": {
+        "tax_product_class": "TOOLS",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-06-GAME_CONSOLES",
+      "tcds_category_code": "GAME_CONSOLES",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "GAME_CONSOLES"
+      },
+      "expected": {
+        "tax_product_class": "GAME_CONSOLE",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-07-MUSIC_EQUIPMENT",
+      "tcds_category_code": "MUSIC_EQUIPMENT",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "MUSIC_EQUIPMENT"
+      },
+      "expected": {
+        "tax_product_class": "MUSICAL_EQUIPMENT",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-08-DRONES",
+      "tcds_category_code": "DRONES",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "DRONES"
+      },
+      "expected": {
+        "tax_product_class": "DRONE",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-09-CAMERAS",
+      "tcds_category_code": "CAMERAS",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "CAMERAS"
+      },
+      "expected": {
+        "tax_product_class": "CAMERA",
+        "tax_product_subclass": null
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    },
+    {
+      "case_id": "CATEGORY-10-ELECTRONICS",
+      "tcds_category_code": "ELECTRONICS",
+      "input": {
+        "lineId": "L1",
+        "sku": "TEST",
+        "quantity": 1,
+        "unitPriceCents": 10000,
+        "tcdsCategoryCode": "ELECTRONICS",
+        "taxProductSubclass": "AUDIO_VIDEO_ELECTRONICS"
+      },
+      "expected": {
+        "tax_product_class": "ELECTRONIC_EQUIPMENT",
+        "tax_product_subclass": "AUDIO_VIDEO_ELECTRONICS"
+      },
+      "authority": {
+        "name": "TCDS_TAX_PRODUCT_TAXONOMY",
+        "version": "3.0.0",
+        "status": "PACKAGE_GOVERNED"
+      }
+    }
+  ]
+}

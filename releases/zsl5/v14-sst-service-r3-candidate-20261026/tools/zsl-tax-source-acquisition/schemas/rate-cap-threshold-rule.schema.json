@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/rate-cap-threshold-rule.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "RATE_CAP_THRESHOLD_RULE"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cap_type",
+        "scope"
+      ],
+      "properties": {
+        "cap_type": {
+          "type": "string",
+          "enum": [
+            "RATE_CAP",
+            "TAX_AMOUNT_CAP",
+            "TAXABLE_BASE_CAP",
+            "PER_ITEM_BASE_CAP",
+            "PER_TRANSACTION_BASE_CAP",
+            "THRESHOLD",
+            "BRACKET"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cap_rate": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "cap_amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "threshold_amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "threshold_operator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "LT",
+            "LTE",
+            "GT",
+            "GTE",
+            "BETWEEN_INCLUSIVE",
+            null
+          ]
+        },
+        "currency": {
+          "type": "string",
+          "const": "USD"
+        }
+      }
+    }
+  }
+}

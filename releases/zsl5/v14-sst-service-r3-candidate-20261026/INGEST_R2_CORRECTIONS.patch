@@ -1,0 +1,545 @@
+--- sst-r1/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
++++ ingest-r2/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
+@@ -1,22 +1,40 @@
+ import {readFile} from 'node:fs/promises';
+ import {pool} from '../core/db.js';
+ import {sha256,canonicalJson} from '../core/hash.js';
++import {validateIngestBundle} from './validate-ingest-bundle.js';
+ const arg=(n:string)=>{const i=process.argv.indexOf(n);return i>=0?process.argv[i+1]:undefined};
+ const bundlePath=arg('--bundle');if(!bundlePath)throw new Error('--bundle required');
+ const b=JSON.parse(await readFile(bundlePath,'utf8'));
+-for(const k of ['sourceKey','releaseId','releaseKey','artifactId','ingestRunId','records'])if(b[k]===undefined)throw new Error(`MISSING_${k}`);
+-if(!Array.isArray(b.records)||!b.records.length)throw new Error('RECORDS_REQUIRED');
++await validateIngestBundle(b);
+ const c=await pool.connect();
+ try{
+  await c.query('BEGIN');
++ const binding=(await c.query(`select s.source_key,s.enabled,sr.release_key,sr.status release_status,i.state,a.sha256 artifact_sha256
++ from zsl.source_releases sr join zsl.source_registry s on s.source_id=sr.source_id
++ join zsl.ingest_runs i on i.release_id=sr.release_id
++ join zsl.source_artifacts a on a.release_id=sr.release_id and a.retrieval_ingest_run_id=i.ingest_run_id
++ where sr.release_id=$1 and i.ingest_run_id=$2 and a.artifact_id=$3
++ for update of s,sr,i,a`,[b.releaseId,b.ingestRunId,b.artifactId])).rows[0];
++ if(!binding||binding.source_key!==b.sourceKey||binding.release_key!==b.releaseKey||!binding.enabled)
++  throw new Error('INGEST_SOURCE_RELEASE_ARTIFACT_BINDING_MISMATCH');
++ if(['FAILED','QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.state)||['QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.release_status))
++  throw new Error('INGEST_OR_RELEASE_NOT_WRITABLE');
++ for(const r of b.records)if(r.record.source_artifact_sha256!==binding.artifact_sha256)
++  throw new Error('SOURCE_ARTIFACT_SHA_BINDING_MISMATCH');
+  for(let i=0;i<b.records.length;i++){
+-  const r=b.records[i];for(const k of ['record','naturalKey','stateCode','family','authorityRank','parserVersion','normalizationVersion'])if(r[k]===undefined)throw new Error(`RECORD_${i}_MISSING_${k}`);
+-  if(!/^[A-Z]{2}$/.test(r.stateCode))throw new Error(`RECORD_${i}_INVALID_STATE_CODE`);
+-  const doc=canonicalJson(r.record),h=sha256(doc);if(r.recordSha256&&r.recordSha256!==h)throw new Error(`RECORD_SHA_MISMATCH:${i}`);
++  const r=b.records[i],doc=canonicalJson(r.record),h=sha256(doc);
+   let raw=(await c.query(`insert into zsl_raw.raw_records(record_id,record_sha256,natural_key,record) values(gen_random_uuid(),$1,$2,$3::jsonb) on conflict(record_sha256) do nothing returning record_id,natural_key,record`,[h,r.naturalKey,doc])).rows[0];
+-  if(!raw){raw=(await c.query(`select record_id,natural_key,record from zsl_raw.raw_records where record_sha256=$1`,[h])).rows[0];if(!raw||raw.natural_key!==r.naturalKey||canonicalJson(raw.record)!==doc)throw new Error(`RAW_RECORD_IMMUTABILITY_CONFLICT:${i}`)}
+-  const m=(await c.query(`insert into zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key) values($1,$2,$3,$4,$5,$6) on conflict(release_id,artifact_id,ordinal) do nothing returning record_id,ingest_run_id,natural_key`,[b.releaseId,b.artifactId,raw.record_id,i+1,b.ingestRunId,r.naturalKey])).rows[0]??(await c.query(`select record_id,ingest_run_id,natural_key from zsl.release_record_memberships where release_id=$1 and artifact_id=$2 and ordinal=$3`,[b.releaseId,b.artifactId,i+1])).rows[0];if(!m||m.record_id!==raw.record_id||m.ingest_run_id!==b.ingestRunId||m.natural_key!==r.naturalKey)throw new Error(`RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT:${i}`);
+-  await c.query(`insert into zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version) values(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16) on conflict(ingest_run_id,record_sha256) do nothing`,[b.ingestRunId,b.releaseId,b.artifactId,raw.record_id,r.family,r.stateCode,r.naturalKey,r.authorityRank,r.publishedAt??null,r.effectiveFrom??null,r.effectiveTo??null,r.legalCitation??null,doc,h,r.parserVersion,r.normalizationVersion]);
++  if(!raw){raw=(await c.query('select record_id,natural_key,record from zsl_raw.raw_records where record_sha256=$1',[h])).rows[0];
++   if(!raw||raw.natural_key!==r.naturalKey||canonicalJson(raw.record)!==doc)throw new Error('RAW_RECORD_IMMUTABILITY_CONFLICT:'+i);}
++  const m=(await c.query(`insert into zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key) values($1,$2,$3,$4,$5,$6) on conflict(release_id,artifact_id,ordinal) do nothing returning record_id,ingest_run_id,natural_key`,[b.releaseId,b.artifactId,raw.record_id,i+1,b.ingestRunId,r.naturalKey])).rows[0]??(await c.query('select record_id,ingest_run_id,natural_key from zsl.release_record_memberships where release_id=$1 and artifact_id=$2 and ordinal=$3',[b.releaseId,b.artifactId,i+1])).rows[0];
++  if(!m||m.record_id!==raw.record_id||m.ingest_run_id!==b.ingestRunId||m.natural_key!==r.naturalKey)throw new Error('RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT:'+i);
++  await c.query(`insert into zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version)
++   values(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16) on conflict(ingest_run_id,record_sha256) do nothing`,
++   [b.ingestRunId,b.releaseId,b.artifactId,raw.record_id,r.family,r.stateCode,r.naturalKey,r.authorityRank,r.publishedAt??null,r.effectiveFrom??null,r.effectiveTo??null,r.legalCitation??null,doc,h,r.parserVersion,r.normalizationVersion]);
++  const existing=(await c.query('select release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,parser_version,normalization_version from zsl_tax_acq.canonical_records where ingest_run_id=$1 and record_sha256=$2',[b.ingestRunId,h])).rows[0];
++  if(!existing||existing.release_id!==b.releaseId||existing.artifact_id!==b.artifactId||existing.raw_record_id!==raw.record_id||existing.record_type!==r.family||existing.state_code.trim()!==r.stateCode||existing.natural_key!==r.naturalKey||Number(existing.authority_rank)!==r.authorityRank||existing.parser_version!==r.parserVersion||existing.normalization_version!==r.normalizationVersion)
++   throw new Error('CANONICAL_METADATA_IMMUTABILITY_CONFLICT:'+i);
+  }
+- await c.query('COMMIT');console.log(JSON.stringify({loaded:b.records.length,ingestRunId:b.ingestRunId,releaseId:b.releaseId},null,2));
++ await c.query('COMMIT');
++ console.log(JSON.stringify({loaded:b.records.length,ingestRunId:b.ingestRunId,releaseId:b.releaseId,status:'OBSERVATIONS_STORED_NOT_CERTIFIED'},null,2));
+ }catch(e){await c.query('ROLLBACK');throw e}finally{c.release();await pool.end()}
+--- sst-r1/repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
++++ ingest-r2/repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
+@@ -1,22 +1,40 @@
+ import {readFile} from 'node:fs/promises';
+ import {pool} from '../core/db.js';
+ import {sha256,canonicalJson} from '../core/hash.js';
++import {validateIngestBundle} from './validate-ingest-bundle.js';
+ const arg=(n:string)=>{const i=process.argv.indexOf(n);return i>=0?process.argv[i+1]:undefined};
+ const bundlePath=arg('--bundle');if(!bundlePath)throw new Error('--bundle required');
+ const b=JSON.parse(await readFile(bundlePath,'utf8'));
+-for(const k of ['sourceKey','releaseId','releaseKey','artifactId','ingestRunId','records'])if(b[k]===undefined)throw new Error(`MISSING_${k}`);
+-if(!Array.isArray(b.records)||!b.records.length)throw new Error('RECORDS_REQUIRED');
++await validateIngestBundle(b);
+ const c=await pool.connect();
+ try{
+  await c.query('BEGIN');
++ const binding=(await c.query(`select s.source_key,s.enabled,sr.release_key,sr.status release_status,i.state,a.sha256 artifact_sha256
++ from zsl.source_releases sr join zsl.source_registry s on s.source_id=sr.source_id
++ join zsl.ingest_runs i on i.release_id=sr.release_id
++ join zsl.source_artifacts a on a.release_id=sr.release_id and a.retrieval_ingest_run_id=i.ingest_run_id
++ where sr.release_id=$1 and i.ingest_run_id=$2 and a.artifact_id=$3
++ for update of s,sr,i,a`,[b.releaseId,b.ingestRunId,b.artifactId])).rows[0];
++ if(!binding||binding.source_key!==b.sourceKey||binding.release_key!==b.releaseKey||!binding.enabled)
++  throw new Error('INGEST_SOURCE_RELEASE_ARTIFACT_BINDING_MISMATCH');
++ if(['FAILED','QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.state)||['QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.release_status))
++  throw new Error('INGEST_OR_RELEASE_NOT_WRITABLE');
++ for(const r of b.records)if(r.record.source_artifact_sha256!==binding.artifact_sha256)
++  throw new Error('SOURCE_ARTIFACT_SHA_BINDING_MISMATCH');
+  for(let i=0;i<b.records.length;i++){
+-  const r=b.records[i];for(const k of ['record','naturalKey','stateCode','family','authorityRank','parserVersion','normalizationVersion'])if(r[k]===undefined)throw new Error(`RECORD_${i}_MISSING_${k}`);
+-  if(!/^[A-Z]{2}$/.test(r.stateCode))throw new Error(`RECORD_${i}_INVALID_STATE_CODE`);
+-  const doc=canonicalJson(r.record),h=sha256(doc);if(r.recordSha256&&r.recordSha256!==h)throw new Error(`RECORD_SHA_MISMATCH:${i}`);
++  const r=b.records[i],doc=canonicalJson(r.record),h=sha256(doc);
+   let raw=(await c.query(`insert into zsl_raw.raw_records(record_id,record_sha256,natural_key,record) values(gen_random_uuid(),$1,$2,$3::jsonb) on conflict(record_sha256) do nothing returning record_id,natural_key,record`,[h,r.naturalKey,doc])).rows[0];
+-  if(!raw){raw=(await c.query(`select record_id,natural_key,record from zsl_raw.raw_records where record_sha256=$1`,[h])).rows[0];if(!raw||raw.natural_key!==r.naturalKey||canonicalJson(raw.record)!==doc)throw new Error(`RAW_RECORD_IMMUTABILITY_CONFLICT:${i}`)}
+-  const m=(await c.query(`insert into zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key) values($1,$2,$3,$4,$5,$6) on conflict(release_id,artifact_id,ordinal) do nothing returning record_id,ingest_run_id,natural_key`,[b.releaseId,b.artifactId,raw.record_id,i+1,b.ingestRunId,r.naturalKey])).rows[0]??(await c.query(`select record_id,ingest_run_id,natural_key from zsl.release_record_memberships where release_id=$1 and artifact_id=$2 and ordinal=$3`,[b.releaseId,b.artifactId,i+1])).rows[0];if(!m||m.record_id!==raw.record_id||m.ingest_run_id!==b.ingestRunId||m.natural_key!==r.naturalKey)throw new Error(`RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT:${i}`);
+-  await c.query(`insert into zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version) values(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16) on conflict(ingest_run_id,record_sha256) do nothing`,[b.ingestRunId,b.releaseId,b.artifactId,raw.record_id,r.family,r.stateCode,r.naturalKey,r.authorityRank,r.publishedAt??null,r.effectiveFrom??null,r.effectiveTo??null,r.legalCitation??null,doc,h,r.parserVersion,r.normalizationVersion]);
++  if(!raw){raw=(await c.query('select record_id,natural_key,record from zsl_raw.raw_records where record_sha256=$1',[h])).rows[0];
++   if(!raw||raw.natural_key!==r.naturalKey||canonicalJson(raw.record)!==doc)throw new Error('RAW_RECORD_IMMUTABILITY_CONFLICT:'+i);}
++  const m=(await c.query(`insert into zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key) values($1,$2,$3,$4,$5,$6) on conflict(release_id,artifact_id,ordinal) do nothing returning record_id,ingest_run_id,natural_key`,[b.releaseId,b.artifactId,raw.record_id,i+1,b.ingestRunId,r.naturalKey])).rows[0]??(await c.query('select record_id,ingest_run_id,natural_key from zsl.release_record_memberships where release_id=$1 and artifact_id=$2 and ordinal=$3',[b.releaseId,b.artifactId,i+1])).rows[0];
++  if(!m||m.record_id!==raw.record_id||m.ingest_run_id!==b.ingestRunId||m.natural_key!==r.naturalKey)throw new Error('RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT:'+i);
++  await c.query(`insert into zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version)
++   values(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16) on conflict(ingest_run_id,record_sha256) do nothing`,
++   [b.ingestRunId,b.releaseId,b.artifactId,raw.record_id,r.family,r.stateCode,r.naturalKey,r.authorityRank,r.publishedAt??null,r.effectiveFrom??null,r.effectiveTo??null,r.legalCitation??null,doc,h,r.parserVersion,r.normalizationVersion]);
++  const existing=(await c.query('select release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,parser_version,normalization_version from zsl_tax_acq.canonical_records where ingest_run_id=$1 and record_sha256=$2',[b.ingestRunId,h])).rows[0];
++  if(!existing||existing.release_id!==b.releaseId||existing.artifact_id!==b.artifactId||existing.raw_record_id!==raw.record_id||existing.record_type!==r.family||existing.state_code.trim()!==r.stateCode||existing.natural_key!==r.naturalKey||Number(existing.authority_rank)!==r.authorityRank||existing.parser_version!==r.parserVersion||existing.normalization_version!==r.normalizationVersion)
++   throw new Error('CANONICAL_METADATA_IMMUTABILITY_CONFLICT:'+i);
+  }
+- await c.query('COMMIT');console.log(JSON.stringify({loaded:b.records.length,ingestRunId:b.ingestRunId,releaseId:b.releaseId},null,2));
++ await c.query('COMMIT');
++ console.log(JSON.stringify({loaded:b.records.length,ingestRunId:b.ingestRunId,releaseId:b.releaseId,status:'OBSERVATIONS_STORED_NOT_CERTIFIED'},null,2));
+ }catch(e){await c.query('ROLLBACK');throw e}finally{c.release();await pool.end()}
+--- sst-r1/apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts
++++ ingest-r2/apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts
+@@ -0,0 +1,41 @@
++import {readFile} from 'node:fs/promises';
++import {resolve} from 'node:path';
++import {Ajv2020} from 'ajv/dist/2020.js';
++import {canonicalJson,sha256} from '../core/hash.js';
++
++const files:Record<string,string>={TAX_REGIME:'tax-regime',TAX_JURISDICTION:'tax-jurisdiction',TAX_JURISDICTION_ASSIGNMENT:'jurisdiction',STATE_RATE:'state-rate',LOCAL_RATE:'local-rate',RATE_COMPONENT_RULE:'rate-component-rule',RATE_CAP_THRESHOLD_RULE:'rate-cap-threshold-rule',PRODUCT_TAXABILITY:'taxability',TAXABLE_BASE_RULE:'taxable-base',BUNDLED_TRANSACTION_RULE:'bundled-transaction-rule',ALLOCATION_RULE:'allocation-rule',TAX_HOLIDAY:'holiday',SOURCING_RULE:'sourcing',SELLER_COLLECTION_RULE:'seller-collection-rule',MARKETPLACE_RULE:'marketplace',SELLER_TAX_ELECTION:'seller-tax-election',EXEMPTION_RULE:'exemption',EXEMPTION_CERTIFICATE_REQUIREMENT:'exemption-certificate-requirement',TAX_CREDIT_RULE:'tax-credit',ROUNDING_RULE:'rounding-rule',MANDATORY_TRANSACTION_FEE:'mandatory-transaction-fee'};
++const uuid=(v:unknown)=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
++function instant(v:string){return /(?:Z|[+-]\d{2}:\d{2})$/i.test(v)&&Number.isFinite(Date.parse(v));}
++
++// Validate the entire batch before opening a transaction or issuing writes.
++export async function validateIngestBundle(b:any):Promise<void>{
++ if(!b||typeof b!=='object'||Array.isArray(b))throw new Error('BUNDLE_OBJECT_REQUIRED');
++ for(const k of ['releaseId','artifactId','ingestRunId'])if(!uuid(b[k]))throw new Error('INVALID_'+k);
++ for(const k of ['sourceKey','releaseKey'])if(typeof b[k]!=='string'||!b[k].trim())throw new Error('MISSING_'+k);
++ if(!Array.isArray(b.records)||!b.records.length||b.records.length>2000000)throw new Error('INVALID_RECORD_COUNT');
++ const ajv=new Ajv2020({allErrors:true,strict:false});
++ ajv.addFormat('date-time',{type:'string',validate:instant});
++ const validators=new Map<string,ReturnType<typeof ajv.compile>>();
++ const identities=new Set<string>();
++ for(let i=0;i<b.records.length;i++){
++  const r=b.records[i],doc=r?.record;
++  if(!r||!doc||typeof doc!=='object'||Array.isArray(doc))throw new Error('RECORD_OBJECT_REQUIRED:'+i);
++  const name=files[r.family];if(!name)throw new Error('UNKNOWN_TAX_FAMILY:'+i);
++  if(!validators.has(r.family)){
++   const schema=JSON.parse(await readFile(resolve('apps/zsl-tax-intelligence/schemas',name+'.schema.json'),'utf8'));
++   validators.set(r.family,ajv.compile(schema));
++  }
++  if(!validators.get(r.family)!(doc))throw new Error('CANONICAL_SCHEMA_VALIDATION_FAILED:'+i);
++  if(doc.source_key!==b.sourceKey)throw new Error('SOURCE_IDENTITY_MISMATCH:'+i);
++  if(doc.source_release_id!==b.releaseId)throw new Error('RELEASE_IDENTITY_MISMATCH:'+i);
++  const fields=[['family','record_type'],['stateCode','state_code'],['naturalKey','natural_key'],['authorityRank','authority_rank'],['parserVersion','parser_version'],['normalizationVersion','normalization_version']];
++  for(const [outer,inner] of fields)if(r[outer!]!==doc[inner!])throw new Error('RECORD_ENVELOPE_MISMATCH:'+outer+':'+i);
++  for(const [outer,inner] of [['publishedAt','published_at'],['effectiveFrom','effective_from'],['effectiveTo','effective_to'],['legalCitation','legal_citation']])
++   if((r[outer!]??null)!==(doc[inner!]??null))throw new Error('RECORD_INTERVAL_OR_CITATION_MISMATCH:'+i);
++  if(doc.effective_from&&doc.effective_to&&Date.parse(doc.effective_to)<=Date.parse(doc.effective_from))throw new Error('INVALID_EFFECTIVE_INTERVAL:'+i);
++  const h=sha256(canonicalJson(doc));
++  if(r.recordSha256!==undefined&&r.recordSha256!==h)throw new Error('RECORD_SHA_MISMATCH:'+i);
++  if(identities.has(r.naturalKey))throw new Error('DUPLICATE_NATURAL_KEY:'+i);
++  identities.add(r.naturalKey);
++ }
++}
+--- sst-r1/repo-overlay/apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts
++++ ingest-r2/repo-overlay/apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts
+@@ -0,0 +1,41 @@
++import {readFile} from 'node:fs/promises';
++import {resolve} from 'node:path';
++import {Ajv2020} from 'ajv/dist/2020.js';
++import {canonicalJson,sha256} from '../core/hash.js';
++
++const files:Record<string,string>={TAX_REGIME:'tax-regime',TAX_JURISDICTION:'tax-jurisdiction',TAX_JURISDICTION_ASSIGNMENT:'jurisdiction',STATE_RATE:'state-rate',LOCAL_RATE:'local-rate',RATE_COMPONENT_RULE:'rate-component-rule',RATE_CAP_THRESHOLD_RULE:'rate-cap-threshold-rule',PRODUCT_TAXABILITY:'taxability',TAXABLE_BASE_RULE:'taxable-base',BUNDLED_TRANSACTION_RULE:'bundled-transaction-rule',ALLOCATION_RULE:'allocation-rule',TAX_HOLIDAY:'holiday',SOURCING_RULE:'sourcing',SELLER_COLLECTION_RULE:'seller-collection-rule',MARKETPLACE_RULE:'marketplace',SELLER_TAX_ELECTION:'seller-tax-election',EXEMPTION_RULE:'exemption',EXEMPTION_CERTIFICATE_REQUIREMENT:'exemption-certificate-requirement',TAX_CREDIT_RULE:'tax-credit',ROUNDING_RULE:'rounding-rule',MANDATORY_TRANSACTION_FEE:'mandatory-transaction-fee'};
++const uuid=(v:unknown)=>typeof v==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
++function instant(v:string){return /(?:Z|[+-]\d{2}:\d{2})$/i.test(v)&&Number.isFinite(Date.parse(v));}
++
++// Validate the entire batch before opening a transaction or issuing writes.
++export async function validateIngestBundle(b:any):Promise<void>{
++ if(!b||typeof b!=='object'||Array.isArray(b))throw new Error('BUNDLE_OBJECT_REQUIRED');
++ for(const k of ['releaseId','artifactId','ingestRunId'])if(!uuid(b[k]))throw new Error('INVALID_'+k);
++ for(const k of ['sourceKey','releaseKey'])if(typeof b[k]!=='string'||!b[k].trim())throw new Error('MISSING_'+k);
++ if(!Array.isArray(b.records)||!b.records.length||b.records.length>2000000)throw new Error('INVALID_RECORD_COUNT');
++ const ajv=new Ajv2020({allErrors:true,strict:false});
++ ajv.addFormat('date-time',{type:'string',validate:instant});
++ const validators=new Map<string,ReturnType<typeof ajv.compile>>();
++ const identities=new Set<string>();
++ for(let i=0;i<b.records.length;i++){
++  const r=b.records[i],doc=r?.record;
++  if(!r||!doc||typeof doc!=='object'||Array.isArray(doc))throw new Error('RECORD_OBJECT_REQUIRED:'+i);
++  const name=files[r.family];if(!name)throw new Error('UNKNOWN_TAX_FAMILY:'+i);
++  if(!validators.has(r.family)){
++   const schema=JSON.parse(await readFile(resolve('apps/zsl-tax-intelligence/schemas',name+'.schema.json'),'utf8'));
++   validators.set(r.family,ajv.compile(schema));
++  }
++  if(!validators.get(r.family)!(doc))throw new Error('CANONICAL_SCHEMA_VALIDATION_FAILED:'+i);
++  if(doc.source_key!==b.sourceKey)throw new Error('SOURCE_IDENTITY_MISMATCH:'+i);
++  if(doc.source_release_id!==b.releaseId)throw new Error('RELEASE_IDENTITY_MISMATCH:'+i);
++  const fields=[['family','record_type'],['stateCode','state_code'],['naturalKey','natural_key'],['authorityRank','authority_rank'],['parserVersion','parser_version'],['normalizationVersion','normalization_version']];
++  for(const [outer,inner] of fields)if(r[outer!]!==doc[inner!])throw new Error('RECORD_ENVELOPE_MISMATCH:'+outer+':'+i);
++  for(const [outer,inner] of [['publishedAt','published_at'],['effectiveFrom','effective_from'],['effectiveTo','effective_to'],['legalCitation','legal_citation']])
++   if((r[outer!]??null)!==(doc[inner!]??null))throw new Error('RECORD_INTERVAL_OR_CITATION_MISMATCH:'+i);
++  if(doc.effective_from&&doc.effective_to&&Date.parse(doc.effective_to)<=Date.parse(doc.effective_from))throw new Error('INVALID_EFFECTIVE_INTERVAL:'+i);
++  const h=sha256(canonicalJson(doc));
++  if(r.recordSha256!==undefined&&r.recordSha256!==h)throw new Error('RECORD_SHA_MISMATCH:'+i);
++  if(identities.has(r.naturalKey))throw new Error('DUPLICATE_NATURAL_KEY:'+i);
++  identities.add(r.naturalKey);
++ }
++}
+--- sst-r1/package.json
++++ ingest-r2/package.json
+@@ -26,7 +26,8 @@
+     "runtime:category": "tsx apps/zsl-tax-intelligence/src/runtime/run-category-tax-certification.ts"
+   },
+   "dependencies": {
+-    "pg": "8.13.1"
++    "pg": "8.13.1",
++    "ajv": "8.17.1"
+   },
+   "devDependencies": {
+     "@types/node": "22.10.2",
+
+--- ingest-r2/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
++++ service-r3/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
+@@ -1,40 +1,22 @@
+ import {readFile} from 'node:fs/promises';
+ import {pool} from '../core/db.js';
+-import {sha256,canonicalJson} from '../core/hash.js';
++import {canonicalJson} from '../core/hash.js';
+ import {validateIngestBundle} from './validate-ingest-bundle.js';
+-const arg=(n:string)=>{const i=process.argv.indexOf(n);return i>=0?process.argv[i+1]:undefined};
+-const bundlePath=arg('--bundle');if(!bundlePath)throw new Error('--bundle required');
+-const b=JSON.parse(await readFile(bundlePath,'utf8'));
+-await validateIngestBundle(b);
++const index=process.argv.indexOf('--bundle');
++if(index<0||!process.argv[index+1])throw new Error('--bundle required');
++const bundle=JSON.parse(await readFile(process.argv[index+1]!,'utf8'));
++await validateIngestBundle(bundle);
++const header={sourceKey:bundle.sourceKey,releaseKey:bundle.releaseKey,releaseId:bundle.releaseId,
++ ingestRunId:bundle.ingestRunId,artifactId:bundle.artifactId};
+ const c=await pool.connect();
+ try{
+  await c.query('BEGIN');
+- const binding=(await c.query(`select s.source_key,s.enabled,sr.release_key,sr.status release_status,i.state,a.sha256 artifact_sha256
+- from zsl.source_releases sr join zsl.source_registry s on s.source_id=sr.source_id
+- join zsl.ingest_runs i on i.release_id=sr.release_id
+- join zsl.source_artifacts a on a.release_id=sr.release_id and a.retrieval_ingest_run_id=i.ingest_run_id
+- where sr.release_id=$1 and i.ingest_run_id=$2 and a.artifact_id=$3
+- for update of s,sr,i,a`,[b.releaseId,b.ingestRunId,b.artifactId])).rows[0];
+- if(!binding||binding.source_key!==b.sourceKey||binding.release_key!==b.releaseKey||!binding.enabled)
+-  throw new Error('INGEST_SOURCE_RELEASE_ARTIFACT_BINDING_MISMATCH');
+- if(['FAILED','QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.state)||['QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.release_status))
+-  throw new Error('INGEST_OR_RELEASE_NOT_WRITABLE');
+- for(const r of b.records)if(r.record.source_artifact_sha256!==binding.artifact_sha256)
+-  throw new Error('SOURCE_ARTIFACT_SHA_BINDING_MISMATCH');
+- for(let i=0;i<b.records.length;i++){
+-  const r=b.records[i],doc=canonicalJson(r.record),h=sha256(doc);
+-  let raw=(await c.query(`insert into zsl_raw.raw_records(record_id,record_sha256,natural_key,record) values(gen_random_uuid(),$1,$2,$3::jsonb) on conflict(record_sha256) do nothing returning record_id,natural_key,record`,[h,r.naturalKey,doc])).rows[0];
+-  if(!raw){raw=(await c.query('select record_id,natural_key,record from zsl_raw.raw_records where record_sha256=$1',[h])).rows[0];
+-   if(!raw||raw.natural_key!==r.naturalKey||canonicalJson(raw.record)!==doc)throw new Error('RAW_RECORD_IMMUTABILITY_CONFLICT:'+i);}
+-  const m=(await c.query(`insert into zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key) values($1,$2,$3,$4,$5,$6) on conflict(release_id,artifact_id,ordinal) do nothing returning record_id,ingest_run_id,natural_key`,[b.releaseId,b.artifactId,raw.record_id,i+1,b.ingestRunId,r.naturalKey])).rows[0]??(await c.query('select record_id,ingest_run_id,natural_key from zsl.release_record_memberships where release_id=$1 and artifact_id=$2 and ordinal=$3',[b.releaseId,b.artifactId,i+1])).rows[0];
+-  if(!m||m.record_id!==raw.record_id||m.ingest_run_id!==b.ingestRunId||m.natural_key!==r.naturalKey)throw new Error('RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT:'+i);
+-  await c.query(`insert into zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version)
+-   values(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16) on conflict(ingest_run_id,record_sha256) do nothing`,
+-   [b.ingestRunId,b.releaseId,b.artifactId,raw.record_id,r.family,r.stateCode,r.naturalKey,r.authorityRank,r.publishedAt??null,r.effectiveFrom??null,r.effectiveTo??null,r.legalCitation??null,doc,h,r.parserVersion,r.normalizationVersion]);
+-  const existing=(await c.query('select release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,parser_version,normalization_version from zsl_tax_acq.canonical_records where ingest_run_id=$1 and record_sha256=$2',[b.ingestRunId,h])).rows[0];
+-  if(!existing||existing.release_id!==b.releaseId||existing.artifact_id!==b.artifactId||existing.raw_record_id!==raw.record_id||existing.record_type!==r.family||existing.state_code.trim()!==r.stateCode||existing.natural_key!==r.naturalKey||Number(existing.authority_rank)!==r.authorityRank||existing.parser_version!==r.parserVersion||existing.normalization_version!==r.normalizationVersion)
+-   throw new Error('CANONICAL_METADATA_IMMUTABILITY_CONFLICT:'+i);
++ for(let i=0;i<bundle.records.length;i++){
++  const row=bundle.records[i];
++  await c.query('select zsl_tax_acq.ingest_canonical_record_v2($1::jsonb,$2::jsonb,$3::bigint,$4::text)',
++   [JSON.stringify(header),JSON.stringify(row),i+1,canonicalJson(row.record)]);
+  }
+  await c.query('COMMIT');
+- console.log(JSON.stringify({loaded:b.records.length,ingestRunId:b.ingestRunId,releaseId:b.releaseId,status:'OBSERVATIONS_STORED_NOT_CERTIFIED'},null,2));
+-}catch(e){await c.query('ROLLBACK');throw e}finally{c.release();await pool.end()}
++ console.log(JSON.stringify({loaded:bundle.records.length,ingestRunId:bundle.ingestRunId,
++  releaseId:bundle.releaseId,status:'OBSERVATIONS_STORED_NOT_CERTIFIED'},null,2));
++}catch(error){await c.query('ROLLBACK');throw error}finally{c.release();await pool.end()}
+--- ingest-r2/repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
++++ service-r3/repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts
+@@ -1,40 +1,22 @@
+ import {readFile} from 'node:fs/promises';
+ import {pool} from '../core/db.js';
+-import {sha256,canonicalJson} from '../core/hash.js';
++import {canonicalJson} from '../core/hash.js';
+ import {validateIngestBundle} from './validate-ingest-bundle.js';
+-const arg=(n:string)=>{const i=process.argv.indexOf(n);return i>=0?process.argv[i+1]:undefined};
+-const bundlePath=arg('--bundle');if(!bundlePath)throw new Error('--bundle required');
+-const b=JSON.parse(await readFile(bundlePath,'utf8'));
+-await validateIngestBundle(b);
++const index=process.argv.indexOf('--bundle');
++if(index<0||!process.argv[index+1])throw new Error('--bundle required');
++const bundle=JSON.parse(await readFile(process.argv[index+1]!,'utf8'));
++await validateIngestBundle(bundle);
++const header={sourceKey:bundle.sourceKey,releaseKey:bundle.releaseKey,releaseId:bundle.releaseId,
++ ingestRunId:bundle.ingestRunId,artifactId:bundle.artifactId};
+ const c=await pool.connect();
+ try{
+  await c.query('BEGIN');
+- const binding=(await c.query(`select s.source_key,s.enabled,sr.release_key,sr.status release_status,i.state,a.sha256 artifact_sha256
+- from zsl.source_releases sr join zsl.source_registry s on s.source_id=sr.source_id
+- join zsl.ingest_runs i on i.release_id=sr.release_id
+- join zsl.source_artifacts a on a.release_id=sr.release_id and a.retrieval_ingest_run_id=i.ingest_run_id
+- where sr.release_id=$1 and i.ingest_run_id=$2 and a.artifact_id=$3
+- for update of s,sr,i,a`,[b.releaseId,b.ingestRunId,b.artifactId])).rows[0];
+- if(!binding||binding.source_key!==b.sourceKey||binding.release_key!==b.releaseKey||!binding.enabled)
+-  throw new Error('INGEST_SOURCE_RELEASE_ARTIFACT_BINDING_MISMATCH');
+- if(['FAILED','QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.state)||['QUARANTINED','SUPERSEDED','RECONCILED'].includes(binding.release_status))
+-  throw new Error('INGEST_OR_RELEASE_NOT_WRITABLE');
+- for(const r of b.records)if(r.record.source_artifact_sha256!==binding.artifact_sha256)
+-  throw new Error('SOURCE_ARTIFACT_SHA_BINDING_MISMATCH');
+- for(let i=0;i<b.records.length;i++){
+-  const r=b.records[i],doc=canonicalJson(r.record),h=sha256(doc);
+-  let raw=(await c.query(`insert into zsl_raw.raw_records(record_id,record_sha256,natural_key,record) values(gen_random_uuid(),$1,$2,$3::jsonb) on conflict(record_sha256) do nothing returning record_id,natural_key,record`,[h,r.naturalKey,doc])).rows[0];
+-  if(!raw){raw=(await c.query('select record_id,natural_key,record from zsl_raw.raw_records where record_sha256=$1',[h])).rows[0];
+-   if(!raw||raw.natural_key!==r.naturalKey||canonicalJson(raw.record)!==doc)throw new Error('RAW_RECORD_IMMUTABILITY_CONFLICT:'+i);}
+-  const m=(await c.query(`insert into zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key) values($1,$2,$3,$4,$5,$6) on conflict(release_id,artifact_id,ordinal) do nothing returning record_id,ingest_run_id,natural_key`,[b.releaseId,b.artifactId,raw.record_id,i+1,b.ingestRunId,r.naturalKey])).rows[0]??(await c.query('select record_id,ingest_run_id,natural_key from zsl.release_record_memberships where release_id=$1 and artifact_id=$2 and ordinal=$3',[b.releaseId,b.artifactId,i+1])).rows[0];
+-  if(!m||m.record_id!==raw.record_id||m.ingest_run_id!==b.ingestRunId||m.natural_key!==r.naturalKey)throw new Error('RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT:'+i);
+-  await c.query(`insert into zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version)
+-   values(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16) on conflict(ingest_run_id,record_sha256) do nothing`,
+-   [b.ingestRunId,b.releaseId,b.artifactId,raw.record_id,r.family,r.stateCode,r.naturalKey,r.authorityRank,r.publishedAt??null,r.effectiveFrom??null,r.effectiveTo??null,r.legalCitation??null,doc,h,r.parserVersion,r.normalizationVersion]);
+-  const existing=(await c.query('select release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,parser_version,normalization_version from zsl_tax_acq.canonical_records where ingest_run_id=$1 and record_sha256=$2',[b.ingestRunId,h])).rows[0];
+-  if(!existing||existing.release_id!==b.releaseId||existing.artifact_id!==b.artifactId||existing.raw_record_id!==raw.record_id||existing.record_type!==r.family||existing.state_code.trim()!==r.stateCode||existing.natural_key!==r.naturalKey||Number(existing.authority_rank)!==r.authorityRank||existing.parser_version!==r.parserVersion||existing.normalization_version!==r.normalizationVersion)
+-   throw new Error('CANONICAL_METADATA_IMMUTABILITY_CONFLICT:'+i);
++ for(let i=0;i<bundle.records.length;i++){
++  const row=bundle.records[i];
++  await c.query('select zsl_tax_acq.ingest_canonical_record_v2($1::jsonb,$2::jsonb,$3::bigint,$4::text)',
++   [JSON.stringify(header),JSON.stringify(row),i+1,canonicalJson(row.record)]);
+  }
+  await c.query('COMMIT');
+- console.log(JSON.stringify({loaded:b.records.length,ingestRunId:b.ingestRunId,releaseId:b.releaseId,status:'OBSERVATIONS_STORED_NOT_CERTIFIED'},null,2));
+-}catch(e){await c.query('ROLLBACK');throw e}finally{c.release();await pool.end()}
++ console.log(JSON.stringify({loaded:bundle.records.length,ingestRunId:bundle.ingestRunId,
++  releaseId:bundle.releaseId,status:'OBSERVATIONS_STORED_NOT_CERTIFIED'},null,2));
++}catch(error){await c.query('ROLLBACK');throw error}finally{c.release();await pool.end()}
+--- ingest-r2/database/migrations/048a_zsl1_tax_service_writer.sql
++++ service-r3/database/migrations/048a_zsl1_tax_service_writer.sql
+@@ -0,0 +1,85 @@
++-- Observation storage capability only. No state transitions or certification.
++BEGIN;
++DO $$ BEGIN
++ IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='zsl_tax_ingest_writer') THEN
++  CREATE ROLE zsl_tax_ingest_writer NOLOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
++ END IF;
++END $$;
++GRANT USAGE ON SCHEMA zsl,zsl_raw,zsl_tax_acq,extensions TO zsl_tax_ingest_writer;
++GRANT SELECT ON zsl.source_registry,zsl.source_releases,zsl.ingest_runs,zsl.source_artifacts,
++ zsl_raw.raw_records,zsl.release_record_memberships,zsl_tax_acq.canonical_records,zsl_tax_acq.family_registry
++ TO zsl_tax_ingest_writer;
++-- These column privileges permit row locks; the function never updates them.
++GRANT UPDATE(source_id) ON zsl.source_registry TO zsl_tax_ingest_writer;
++GRANT UPDATE(release_id) ON zsl.source_releases TO zsl_tax_ingest_writer;
++GRANT UPDATE(ingest_run_id) ON zsl.ingest_runs TO zsl_tax_ingest_writer;
++GRANT UPDATE(artifact_id) ON zsl.source_artifacts TO zsl_tax_ingest_writer;
++GRANT INSERT ON zsl_raw.raw_records,zsl.release_record_memberships,zsl_tax_acq.canonical_records TO zsl_tax_ingest_writer;
++
++CREATE OR REPLACE FUNCTION zsl_tax_acq.ingest_canonical_record_v2(p_header jsonb,p_row jsonb,p_ordinal bigint,p_json text)
++RETURNS uuid LANGUAGE plpgsql SECURITY DEFINER
++SET search_path=pg_catalog,zsl_tax_acq,extensions,pg_temp AS $$
++DECLARE binding record;doc jsonb;h text;raw record;m record;cr record;v_raw uuid;v_id uuid;
++ rid uuid;iid uuid;aid uuid;v_family text;v_state text;v_natural text;
++BEGIN
++ IF jsonb_typeof(p_header)<>'object' OR jsonb_typeof(p_row)<>'object' OR p_ordinal<1 OR p_json IS NULL THEN
++  RAISE EXCEPTION 'INVALID_CANONICAL_RECORD_INPUT';
++ END IF;
++ rid:=(p_header->>'releaseId')::uuid;iid:=(p_header->>'ingestRunId')::uuid;aid:=(p_header->>'artifactId')::uuid;
++ doc:=p_json::jsonb;
++ IF jsonb_typeof(doc)<>'object' OR doc IS DISTINCT FROM p_row->'record' THEN RAISE EXCEPTION 'RECORD_DOCUMENT_MISMATCH'; END IF;
++ v_family:=p_row->>'family';v_state:=p_row->>'stateCode';v_natural:=p_row->>'naturalKey';
++ IF v_family IS NULL OR v_state IS NULL OR v_natural IS NULL OR btrim(v_natural)='' OR v_state!~'^[A-Z]{2}$'
++  OR NOT EXISTS(SELECT 1 FROM zsl_tax_acq.family_registry f WHERE f.family=p_row->>'family' AND f.enabled)
++  THEN RAISE EXCEPTION 'UNKNOWN_OR_INVALID_TAX_RECORD'; END IF;
++ IF doc->>'record_type' IS DISTINCT FROM v_family OR doc->>'state_code' IS DISTINCT FROM v_state
++  OR doc->>'natural_key' IS DISTINCT FROM v_natural OR doc->>'source_key' IS DISTINCT FROM p_header->>'sourceKey'
++  OR doc->>'source_release_id' IS DISTINCT FROM rid::text
++  OR doc->>'parser_version' IS DISTINCT FROM p_row->>'parserVersion'
++  OR doc->>'normalization_version' IS DISTINCT FROM p_row->>'normalizationVersion'
++  OR doc->>'authority_rank' IS DISTINCT FROM p_row->>'authorityRank'
++  OR coalesce(p_row->>'parserVersion','') IN ('','PENDING_PARSE')
++  OR coalesce(p_row->>'normalizationVersion','')=''
++  THEN RAISE EXCEPTION 'RECORD_ENVELOPE_MISMATCH'; END IF;
++ SELECT s.source_key,s.enabled,sr.release_key,sr.status release_status,i.state,a.sha256
++ INTO binding FROM zsl.source_releases sr JOIN zsl.source_registry s ON s.source_id=sr.source_id
++ JOIN zsl.ingest_runs i ON i.release_id=sr.release_id
++ JOIN zsl.source_artifacts a ON a.release_id=sr.release_id AND a.retrieval_ingest_run_id=i.ingest_run_id
++ WHERE sr.release_id=rid AND i.ingest_run_id=iid AND a.artifact_id=aid FOR UPDATE OF s,sr,i,a;
++ IF NOT FOUND OR binding.source_key IS DISTINCT FROM p_header->>'sourceKey'
++  OR binding.release_key IS DISTINCT FROM p_header->>'releaseKey' OR binding.enabled IS DISTINCT FROM true
++  THEN RAISE EXCEPTION 'INGEST_SOURCE_RELEASE_ARTIFACT_BINDING_MISMATCH'; END IF;
++ IF binding.state NOT IN ('DISCOVERED','DOWNLOADED','VALIDATED','LOADED')
++  OR binding.release_status NOT IN ('DISCOVERED','DOWNLOADED','VALIDATED','LOADED')
++  THEN RAISE EXCEPTION 'INGEST_OR_RELEASE_NOT_WRITABLE'; END IF;
++ IF doc->>'source_artifact_sha256' IS DISTINCT FROM binding.sha256 THEN RAISE EXCEPTION 'SOURCE_ARTIFACT_SHA_BINDING_MISMATCH'; END IF;
++ h:=encode(extensions.digest(convert_to(p_json,'UTF8'),'sha256'),'hex');
++ IF p_row ? 'recordSha256' AND p_row->>'recordSha256' IS DISTINCT FROM h THEN RAISE EXCEPTION 'RECORD_SHA_MISMATCH'; END IF;
++ INSERT INTO zsl_raw.raw_records(record_id,record_sha256,natural_key,record) VALUES(gen_random_uuid(),h,v_natural,doc)
++ ON CONFLICT(record_sha256) DO NOTHING;
++ SELECT r.record_id,r.natural_key,r.record INTO raw FROM zsl_raw.raw_records r WHERE r.record_sha256=h;
++ IF raw.natural_key IS DISTINCT FROM v_natural OR raw.record IS DISTINCT FROM doc THEN RAISE EXCEPTION 'RAW_RECORD_IMMUTABILITY_CONFLICT'; END IF;
++ v_raw:=raw.record_id;
++ INSERT INTO zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key)
++ VALUES(rid,aid,v_raw,p_ordinal,iid,v_natural) ON CONFLICT(release_id,artifact_id,ordinal) DO NOTHING;
++ SELECT mm.* INTO m FROM zsl.release_record_memberships mm WHERE mm.release_id=rid AND mm.artifact_id=aid AND mm.ordinal=p_ordinal;
++ IF m.record_id IS DISTINCT FROM v_raw OR m.ingest_run_id IS DISTINCT FROM iid OR m.natural_key IS DISTINCT FROM v_natural
++  THEN RAISE EXCEPTION 'RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT'; END IF;
++ INSERT INTO zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,
++  published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version)
++ VALUES(gen_random_uuid(),iid,rid,aid,v_raw,v_family,v_state,v_natural,(p_row->>'authorityRank')::integer,
++  (doc->>'published_at')::timestamptz,(doc->>'effective_from')::timestamptz,(doc->>'effective_to')::timestamptz,
++  doc->>'legal_citation',doc,h,p_row->>'parserVersion',p_row->>'normalizationVersion')
++ ON CONFLICT(ingest_run_id,record_sha256) DO NOTHING;
++ SELECT c.* INTO cr FROM zsl_tax_acq.canonical_records c WHERE c.ingest_run_id=iid AND c.record_sha256=h;
++ IF cr.release_id IS DISTINCT FROM rid OR cr.artifact_id IS DISTINCT FROM aid OR cr.raw_record_id IS DISTINCT FROM v_raw
++  OR cr.record_type IS DISTINCT FROM v_family OR btrim(cr.state_code) IS DISTINCT FROM v_state
++  OR cr.natural_key IS DISTINCT FROM v_natural OR cr.authority_rank IS DISTINCT FROM (p_row->>'authorityRank')::integer
++  OR cr.parser_version IS DISTINCT FROM p_row->>'parserVersion' OR cr.normalization_version IS DISTINCT FROM p_row->>'normalizationVersion'
++  OR cr.record_document IS DISTINCT FROM doc THEN RAISE EXCEPTION 'CANONICAL_METADATA_IMMUTABILITY_CONFLICT'; END IF;
++ RETURN cr.canonical_record_id;
++END $$;
++REVOKE ALL ON FUNCTION zsl_tax_acq.ingest_canonical_record_v2(jsonb,jsonb,bigint,text) FROM PUBLIC;
++ALTER FUNCTION zsl_tax_acq.ingest_canonical_record_v2(jsonb,jsonb,bigint,text) OWNER TO zsl_tax_ingest_writer;
++GRANT EXECUTE ON FUNCTION zsl_tax_acq.ingest_canonical_record_v2(jsonb,jsonb,bigint,text) TO zsl_tax_acq_normalizer;
++COMMIT;
+--- ingest-r2/repo-overlay/database/migrations/048a_zsl1_tax_service_writer.sql
++++ service-r3/repo-overlay/database/migrations/048a_zsl1_tax_service_writer.sql
+@@ -0,0 +1,85 @@
++-- Observation storage capability only. No state transitions or certification.
++BEGIN;
++DO $$ BEGIN
++ IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='zsl_tax_ingest_writer') THEN
++  CREATE ROLE zsl_tax_ingest_writer NOLOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
++ END IF;
++END $$;
++GRANT USAGE ON SCHEMA zsl,zsl_raw,zsl_tax_acq,extensions TO zsl_tax_ingest_writer;
++GRANT SELECT ON zsl.source_registry,zsl.source_releases,zsl.ingest_runs,zsl.source_artifacts,
++ zsl_raw.raw_records,zsl.release_record_memberships,zsl_tax_acq.canonical_records,zsl_tax_acq.family_registry
++ TO zsl_tax_ingest_writer;
++-- These column privileges permit row locks; the function never updates them.
++GRANT UPDATE(source_id) ON zsl.source_registry TO zsl_tax_ingest_writer;
++GRANT UPDATE(release_id) ON zsl.source_releases TO zsl_tax_ingest_writer;
++GRANT UPDATE(ingest_run_id) ON zsl.ingest_runs TO zsl_tax_ingest_writer;
++GRANT UPDATE(artifact_id) ON zsl.source_artifacts TO zsl_tax_ingest_writer;
++GRANT INSERT ON zsl_raw.raw_records,zsl.release_record_memberships,zsl_tax_acq.canonical_records TO zsl_tax_ingest_writer;
++
++CREATE OR REPLACE FUNCTION zsl_tax_acq.ingest_canonical_record_v2(p_header jsonb,p_row jsonb,p_ordinal bigint,p_json text)
++RETURNS uuid LANGUAGE plpgsql SECURITY DEFINER
++SET search_path=pg_catalog,zsl_tax_acq,extensions,pg_temp AS $$
++DECLARE binding record;doc jsonb;h text;raw record;m record;cr record;v_raw uuid;v_id uuid;
++ rid uuid;iid uuid;aid uuid;v_family text;v_state text;v_natural text;
++BEGIN
++ IF jsonb_typeof(p_header)<>'object' OR jsonb_typeof(p_row)<>'object' OR p_ordinal<1 OR p_json IS NULL THEN
++  RAISE EXCEPTION 'INVALID_CANONICAL_RECORD_INPUT';
++ END IF;
++ rid:=(p_header->>'releaseId')::uuid;iid:=(p_header->>'ingestRunId')::uuid;aid:=(p_header->>'artifactId')::uuid;
++ doc:=p_json::jsonb;
++ IF jsonb_typeof(doc)<>'object' OR doc IS DISTINCT FROM p_row->'record' THEN RAISE EXCEPTION 'RECORD_DOCUMENT_MISMATCH'; END IF;
++ v_family:=p_row->>'family';v_state:=p_row->>'stateCode';v_natural:=p_row->>'naturalKey';
++ IF v_family IS NULL OR v_state IS NULL OR v_natural IS NULL OR btrim(v_natural)='' OR v_state!~'^[A-Z]{2}$'
++  OR NOT EXISTS(SELECT 1 FROM zsl_tax_acq.family_registry f WHERE f.family=p_row->>'family' AND f.enabled)
++  THEN RAISE EXCEPTION 'UNKNOWN_OR_INVALID_TAX_RECORD'; END IF;
++ IF doc->>'record_type' IS DISTINCT FROM v_family OR doc->>'state_code' IS DISTINCT FROM v_state
++  OR doc->>'natural_key' IS DISTINCT FROM v_natural OR doc->>'source_key' IS DISTINCT FROM p_header->>'sourceKey'
++  OR doc->>'source_release_id' IS DISTINCT FROM rid::text
++  OR doc->>'parser_version' IS DISTINCT FROM p_row->>'parserVersion'
++  OR doc->>'normalization_version' IS DISTINCT FROM p_row->>'normalizationVersion'
++  OR doc->>'authority_rank' IS DISTINCT FROM p_row->>'authorityRank'
++  OR coalesce(p_row->>'parserVersion','') IN ('','PENDING_PARSE')
++  OR coalesce(p_row->>'normalizationVersion','')=''
++  THEN RAISE EXCEPTION 'RECORD_ENVELOPE_MISMATCH'; END IF;
++ SELECT s.source_key,s.enabled,sr.release_key,sr.status release_status,i.state,a.sha256
++ INTO binding FROM zsl.source_releases sr JOIN zsl.source_registry s ON s.source_id=sr.source_id
++ JOIN zsl.ingest_runs i ON i.release_id=sr.release_id
++ JOIN zsl.source_artifacts a ON a.release_id=sr.release_id AND a.retrieval_ingest_run_id=i.ingest_run_id
++ WHERE sr.release_id=rid AND i.ingest_run_id=iid AND a.artifact_id=aid FOR UPDATE OF s,sr,i,a;
++ IF NOT FOUND OR binding.source_key IS DISTINCT FROM p_header->>'sourceKey'
++  OR binding.release_key IS DISTINCT FROM p_header->>'releaseKey' OR binding.enabled IS DISTINCT FROM true
++  THEN RAISE EXCEPTION 'INGEST_SOURCE_RELEASE_ARTIFACT_BINDING_MISMATCH'; END IF;
++ IF binding.state NOT IN ('DISCOVERED','DOWNLOADED','VALIDATED','LOADED')
++  OR binding.release_status NOT IN ('DISCOVERED','DOWNLOADED','VALIDATED','LOADED')
++  THEN RAISE EXCEPTION 'INGEST_OR_RELEASE_NOT_WRITABLE'; END IF;
++ IF doc->>'source_artifact_sha256' IS DISTINCT FROM binding.sha256 THEN RAISE EXCEPTION 'SOURCE_ARTIFACT_SHA_BINDING_MISMATCH'; END IF;
++ h:=encode(extensions.digest(convert_to(p_json,'UTF8'),'sha256'),'hex');
++ IF p_row ? 'recordSha256' AND p_row->>'recordSha256' IS DISTINCT FROM h THEN RAISE EXCEPTION 'RECORD_SHA_MISMATCH'; END IF;
++ INSERT INTO zsl_raw.raw_records(record_id,record_sha256,natural_key,record) VALUES(gen_random_uuid(),h,v_natural,doc)
++ ON CONFLICT(record_sha256) DO NOTHING;
++ SELECT r.record_id,r.natural_key,r.record INTO raw FROM zsl_raw.raw_records r WHERE r.record_sha256=h;
++ IF raw.natural_key IS DISTINCT FROM v_natural OR raw.record IS DISTINCT FROM doc THEN RAISE EXCEPTION 'RAW_RECORD_IMMUTABILITY_CONFLICT'; END IF;
++ v_raw:=raw.record_id;
++ INSERT INTO zsl.release_record_memberships(release_id,artifact_id,record_id,ordinal,ingest_run_id,natural_key)
++ VALUES(rid,aid,v_raw,p_ordinal,iid,v_natural) ON CONFLICT(release_id,artifact_id,ordinal) DO NOTHING;
++ SELECT mm.* INTO m FROM zsl.release_record_memberships mm WHERE mm.release_id=rid AND mm.artifact_id=aid AND mm.ordinal=p_ordinal;
++ IF m.record_id IS DISTINCT FROM v_raw OR m.ingest_run_id IS DISTINCT FROM iid OR m.natural_key IS DISTINCT FROM v_natural
++  THEN RAISE EXCEPTION 'RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT'; END IF;
++ INSERT INTO zsl_tax_acq.canonical_records(canonical_record_id,ingest_run_id,release_id,artifact_id,raw_record_id,record_type,state_code,natural_key,authority_rank,
++  published_at,effective_from,effective_to,legal_citation,record_document,record_sha256,parser_version,normalization_version)
++ VALUES(gen_random_uuid(),iid,rid,aid,v_raw,v_family,v_state,v_natural,(p_row->>'authorityRank')::integer,
++  (doc->>'published_at')::timestamptz,(doc->>'effective_from')::timestamptz,(doc->>'effective_to')::timestamptz,
++  doc->>'legal_citation',doc,h,p_row->>'parserVersion',p_row->>'normalizationVersion')
++ ON CONFLICT(ingest_run_id,record_sha256) DO NOTHING;
++ SELECT c.* INTO cr FROM zsl_tax_acq.canonical_records c WHERE c.ingest_run_id=iid AND c.record_sha256=h;
++ IF cr.release_id IS DISTINCT FROM rid OR cr.artifact_id IS DISTINCT FROM aid OR cr.raw_record_id IS DISTINCT FROM v_raw
++  OR cr.record_type IS DISTINCT FROM v_family OR btrim(cr.state_code) IS DISTINCT FROM v_state
++  OR cr.natural_key IS DISTINCT FROM v_natural OR cr.authority_rank IS DISTINCT FROM (p_row->>'authorityRank')::integer
++  OR cr.parser_version IS DISTINCT FROM p_row->>'parserVersion' OR cr.normalization_version IS DISTINCT FROM p_row->>'normalizationVersion'
++  OR cr.record_document IS DISTINCT FROM doc THEN RAISE EXCEPTION 'CANONICAL_METADATA_IMMUTABILITY_CONFLICT'; END IF;
++ RETURN cr.canonical_record_id;
++END $$;
++REVOKE ALL ON FUNCTION zsl_tax_acq.ingest_canonical_record_v2(jsonb,jsonb,bigint,text) FROM PUBLIC;
++ALTER FUNCTION zsl_tax_acq.ingest_canonical_record_v2(jsonb,jsonb,bigint,text) OWNER TO zsl_tax_ingest_writer;
++GRANT EXECUTE ON FUNCTION zsl_tax_acq.ingest_canonical_record_v2(jsonb,jsonb,bigint,text) TO zsl_tax_acq_normalizer;
++COMMIT;
+--- ingest-r2/tests/static/freeze-db-contract.test.ts
++++ service-r3/tests/static/freeze-db-contract.test.ts
+@@ -1,6 +1,42 @@
+-import test from 'node:test';import assert from 'node:assert/strict';import {readFile,readdir} from 'node:fs/promises';
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {readFile,readdir} from 'node:fs/promises';
+ const read=(p:string)=>readFile(new URL('../../../'+p,import.meta.url),'utf8');
+-test('042-047 migrations do not mutate non-ZSL domains',async()=>{const names=(await readdir('database/migrations')).filter(x=>/^04[2-7].*\.sql$/.test(x));const s=(await Promise.all(names.map(x=>readFile('database/migrations/'+x,'utf8')))).join('\n').toLowerCase();for(const d of ['retail.','arb.','pqp.','cax.'])assert.equal(new RegExp('\\b(insert|update|delete|alter|create|drop)\\s+(table\\s+)?'+d.replace('.','\\.')).test(s),false)});
+-test('final freeze has half-open temporal and state-code constraints',async()=>{const s=await read('database/migrations/047a_zsl5_v14_final_freeze_database_contract.sql');assert.match(s,/effective_to>effective_from/);assert.match(s,/\^\[A-Z\]\{2\}\$/);assert.match(s,/payload_contract_violations/)});
+-test('zsl6 integration is read-only consumer contract',async()=>{const s=await read('database/migrations/047b_zsl5_zsl6_acquisition_cost_contract.sql');assert.match(s,/CREATE OR REPLACE VIEW zsl\.zsl5_zsl6_acquisition_cost_authority_v14/i);assert.doesNotMatch(s,/create\s+(table|schema)\s+zsl6/i);assert.doesNotMatch(s,/insert\s+into\s+zsl6/i)});
+-test('raw ingest is immutable and canonical insert includes required lineage columns',async()=>{const s=await read('apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts');assert.doesNotMatch(s,/on conflict\(record_sha256\) do update/i);for(const k of ['release_id','artifact_id','raw_record_id','parser_version','normalization_version'])assert.match(s,new RegExp(k))});
++test('042-048 migrations do not mutate non-ZSL domains',async()=>{
++ const names=(await readdir('database/migrations')).filter(x=>/^04[2-8].*\.sql$/.test(x));
++ const s=(await Promise.all(names.map(x=>readFile('database/migrations/'+x,'utf8')))).join('\n').toLowerCase();
++ for(const d of ['retail.','arb.','pqp.','cax.'])assert.equal(new RegExp('\\b(insert|update|delete|alter|create|drop)\\s+(table\\s+)?'+d.replace('.','\\.')).test(s),false);
++});
++test('final freeze has half-open temporal and state-code constraints',async()=>{
++ const s=await read('database/migrations/047a_zsl5_v14_final_freeze_database_contract.sql');
++ assert.match(s,/effective_to>effective_from/);assert.match(s,/\^\[A-Z\]\{2\}\$/);assert.match(s,/payload_contract_violations/);
++});
++test('zsl6 integration is read-only consumer contract',async()=>{
++ const s=await read('database/migrations/047b_zsl5_zsl6_acquisition_cost_contract.sql');
++ assert.match(s,/CREATE OR REPLACE VIEW zsl\.zsl5_zsl6_acquisition_cost_authority_v14/i);
++ assert.doesNotMatch(s,/create\s+(table|schema)\s+zsl6/i);assert.doesNotMatch(s,/insert\s+into\s+zsl6/i);
++});
++test('raw ingest is immutable and SQL writer includes required lineage columns',async()=>{
++ const cli=await read('apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts');
++ const sql=await read('database/migrations/048a_zsl1_tax_service_writer.sql');
++ assert.match(cli,/await validateIngestBundle\(bundle\)/);
++ assert.ok(cli.indexOf('await validateIngestBundle(bundle)')<cli.indexOf('await pool.connect()'));
++ assert.match(cli,/zsl_tax_acq\.ingest_canonical_record_v2/);
++ assert.doesNotMatch(cli,/insert\s+into\s+zsl(?:_raw|_tax_acq)?\./i);
++ assert.doesNotMatch(sql,/on conflict\(record_sha256\) do update/i);
++ assert.match(sql,/ON CONFLICT\(record_sha256\) DO NOTHING/);
++ assert.match(sql,/RAW_RECORD_IMMUTABILITY_CONFLICT/);
++ assert.match(sql,/RELEASE_MEMBERSHIP_IMMUTABILITY_CONFLICT/);
++ assert.match(sql,/CANONICAL_METADATA_IMMUTABILITY_CONFLICT/);
++ for(const k of ['release_id','artifact_id','raw_record_id','parser_version','normalization_version'])assert.match(sql,new RegExp(k));
++});
++test('service writer uses restricted owner and is not public executable',async()=>{
++ const sql=await read('database/migrations/048a_zsl1_tax_service_writer.sql');
++ assert.match(sql,/NOLOGIN NOINHERIT NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS/);
++ assert.match(sql,/SECURITY DEFINER/);assert.match(sql,/SET search_path=pg_catalog,zsl_tax_acq,extensions,pg_temp/);
++ assert.match(sql,/REVOKE ALL ON FUNCTION[^;]+FROM PUBLIC/);
++ assert.match(sql,/OWNER TO zsl_tax_ingest_writer/);
++ assert.match(sql,/GRANT EXECUTE ON FUNCTION[^;]+TO zsl_tax_acq_normalizer/);
++ assert.doesNotMatch(sql,/GRANT\s+(?:INSERT|UPDATE|DELETE|ALL)[^;]+TO\s+zsl_tax_acq_normalizer/i);
++ assert.doesNotMatch(sql,/(?:insert|update|delete)\s+(?:into\s+|from\s+)?zsl\.(?:certification_runs|zsl5_certification_runs|zsl5_authority_state)\b/i);
++});

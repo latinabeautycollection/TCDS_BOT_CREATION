@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "policy": "Every state/DC must either enumerate and certify all applicable local taxing authorities or provide certified official evidence that no local tax authority applies for the family being evaluated. Home-rule jurisdictions require explicit inventory and rule coverage.",
+  "required_metrics": [
+    "jurisdictions_expected",
+    "jurisdictions_certified",
+    "home_rule_expected",
+    "home_rule_certified",
+    "certified_no_local_tax_assertion"
+  ],
+  "high_risk_local_states": [
+    "AL",
+    "AK",
+    "CA",
+    "CO",
+    "LA",
+    "TX"
+  ]
+}

@@ -1,0 +1,1 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {TAX_FAMILIES} from '../../apps/zsl-tax-intelligence/src/core/types.js';test('21 families',()=>{assert.equal(TAX_FAMILIES.length,21);assert.equal(new Set(TAX_FAMILIES).size,21)});

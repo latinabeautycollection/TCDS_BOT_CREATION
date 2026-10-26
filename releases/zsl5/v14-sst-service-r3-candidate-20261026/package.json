@@ -1,0 +1,38 @@
+{
+  "name": "tcds-zsl1-zsl5-national-tax-runtime-authority-final-freeze",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "test": "node --test dist/tests/**/*.test.js",
+    "static:check": "node scripts/static-check.mjs",
+    "quote:v14": "node dist/apps/zsl-tax-intelligence/src/cli/quote-v14.js",
+    "publish:national": "node dist/apps/zsl-tax-intelligence/src/cli/publish-national.js",
+    "runtime:plan": "tsx apps/zsl-tax-intelligence/src/runtime/run-national-source-acquisition.ts --plan-only",
+    "runtime:acquire": "tsx apps/zsl-tax-intelligence/src/runtime/run-national-source-acquisition.ts",
+    "runtime:coverage": "tsx apps/zsl-tax-intelligence/src/runtime/build-state-coverage.ts",
+    "runtime:publish": "tsx apps/zsl-tax-intelligence/src/runtime/publish-national-tax-content.ts",
+    "runtime:load-zsl5": "tsx apps/zsl-tax-intelligence/src/runtime/load-zsl5-v14.ts",
+    "runtime:certify": "tsx apps/zsl-tax-intelligence/src/runtime/run-national-tax-certification.ts",
+    "runtime:import-tests": "tsx apps/zsl-tax-intelligence/src/runtime/import-runtime-test-catalog.ts",
+    "runtime:adversarial": "tsx apps/zsl-tax-intelligence/src/runtime/run-adversarial-certification.ts",
+    "runtime:replay": "tsx apps/zsl-tax-intelligence/src/runtime/run-replay-certification.ts",
+    "runtime:freshness": "tsx apps/zsl-tax-intelligence/src/runtime/submit-publication-freshness.ts",
+    "runtime:category": "tsx apps/zsl-tax-intelligence/src/runtime/run-category-tax-certification.ts"
+  },
+  "dependencies": {
+    "pg": "8.13.1",
+    "ajv": "8.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/pg": "8.11.10",
+    "typescript": "5.7.2",
+    "tsx": "4.19.2"
+  }
+}

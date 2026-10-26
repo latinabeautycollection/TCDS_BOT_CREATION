@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/rounding-rule.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "ROUNDING_RULE"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rounding_mode",
+        "precision"
+      ],
+      "properties": {
+        "rounding_mode": {
+          "type": "string",
+          "enum": [
+            "HALF_UP",
+            "HALF_EVEN",
+            "HALF_AWAY_FROM_ZERO",
+            "TRUNCATE",
+            "STATE_SPECIFIC"
+          ]
+        },
+        "precision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 8
+        },
+        "round_at_line": {
+          "type": "boolean"
+        },
+        "round_at_invoice": {
+          "type": "boolean"
+        },
+        "component_rounding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cash_rounding_interaction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

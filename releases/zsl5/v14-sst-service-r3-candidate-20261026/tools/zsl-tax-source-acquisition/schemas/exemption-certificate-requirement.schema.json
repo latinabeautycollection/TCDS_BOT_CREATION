@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/exemption-certificate-requirement.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "EXEMPTION_CERTIFICATE_REQUIREMENT"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exemption_type",
+        "certificate_required"
+      ],
+      "properties": {
+        "exemption_type": {
+          "type": "string",
+          "enum": [
+            "RESALE",
+            "GOVERNMENT",
+            "NONPROFIT",
+            "AGRICULTURAL",
+            "MANUFACTURING",
+            "OTHER"
+          ]
+        },
+        "certificate_required": {
+          "type": "boolean"
+        },
+        "certificate_form": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "certificate_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state_registration_required": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "permit_required": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "mtc_certificate_accepted": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "sst_certificate_accepted": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "blanket_certificate_permitted": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "expiration_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "seller_acceptance_requirement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "good_faith_standard": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reciprocity_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retention_rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

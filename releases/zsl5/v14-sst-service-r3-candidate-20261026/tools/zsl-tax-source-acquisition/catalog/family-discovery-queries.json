@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "queries": {
+    "TAX_JURISDICTION": [
+      "tax jurisdiction codes",
+      "taxing jurisdictions",
+      "local tax district",
+      "special district sales tax"
+    ],
+    "RATE_COMPONENT_RULE": [
+      "combined sales tax rate components",
+      "state county city district sales tax",
+      "local option tax components"
+    ],
+    "RATE_CAP_THRESHOLD_RULE": [
+      "sales tax cap",
+      "local tax cap",
+      "single article cap",
+      "maximum local sales tax",
+      "threshold sales tax"
+    ],
+    "BUNDLED_TRANSACTION_RULE": [
+      "bundled transaction sales tax",
+      "bundle taxability"
+    ],
+    "ALLOCATION_RULE": [
+      "sales tax allocation shipping discount taxable exempt",
+      "coupon allocation sales tax"
+    ],
+    "SELLER_COLLECTION_RULE": [
+      "remote seller economic nexus sales tax collection",
+      "sales tax nexus threshold"
+    ],
+    "SELLER_TAX_ELECTION": [
+      "sales tax election remote seller local rate",
+      "single local use tax rate election"
+    ],
+    "EXEMPTION_CERTIFICATE_REQUIREMENT": [
+      "resale certificate requirements",
+      "sales tax exemption certificate",
+      "blanket resale certificate"
+    ],
+    "ROUNDING_RULE": [
+      "sales tax rounding rule",
+      "tax computation rounding"
+    ],
+    "MANDATORY_TRANSACTION_FEE": [
+      "retail delivery fee",
+      "recycling fee retail",
+      "state mandated retail fee"
+    ]
+  }
+}

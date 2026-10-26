@@ -1,0 +1,17 @@
+{
+  "classification": "LOCAL_SERVICE_WRITER_CANDIDATE_NOT_CERTIFIED",
+  "changed_files": {
+    "apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts": "07009050cb6fc74355a63bf0a4c413ed1b058b278d3076914ed88c12a35e00db",
+    "repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts": "07009050cb6fc74355a63bf0a4c413ed1b058b278d3076914ed88c12a35e00db",
+    "database/migrations/048a_zsl1_tax_service_writer.sql": "35abffe13312303f24d445a0be4dcc1acb66d136cd36aa2c894c7b1c86274462",
+    "repo-overlay/database/migrations/048a_zsl1_tax_service_writer.sql": "35abffe13312303f24d445a0be4dcc1acb66d136cd36aa2c894c7b1c86274462",
+    "tests/static/freeze-db-contract.test.ts": "09317962d9e3178ff8426e1d5fc604e517fc0ae5ee014ecfde798f86a5e1570b"
+  },
+  "notes": [
+    "Normalizer receives EXECUTE only on the new writer, not direct table-write grants.",
+    "Non-login, non-superuser, non-BYPASSRLS function owner has fixed observation-storage privileges.",
+    "JSON schema validation occurs in the CLI; certification and lifecycle evidence remain separate."
+  ],
+  "production_writes": 0,
+  "certified": false
+}

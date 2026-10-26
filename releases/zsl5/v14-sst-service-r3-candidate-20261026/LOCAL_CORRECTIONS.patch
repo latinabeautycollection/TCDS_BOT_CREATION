@@ -1,0 +1,2226 @@
+--- original/tools/zsl-tax-source-acquisition/adapters/sst/rate.ts
++++ candidate/tools/zsl-tax-source-acquisition/adapters/sst/rate.ts
+@@ -1,3 +1,55 @@
+-import type { CanonicalTaxRecord,EvidenceContext,ParserAdapter } from '../types.js';import { parseDelimited } from '../state/delimited.ts';
+-function first(row:any,names:string[]){for(const n of names){const k=Object.keys(row).find(x=>x.toLowerCase().replace(/[^a-z0-9]/g,'')===n.toLowerCase().replace(/[^a-z0-9]/g,''));if(k&&row[k]!==undefined&&String(row[k]).trim()!=='')return String(row[k]).trim();}return null;}
+-export const sstRateAdapter:ParserAdapter={adapterKey:'sst-rate-v1',recordTypes:['STATE_RATE','LOCAL_RATE'],canParse:({sourceKey,filename})=>sourceKey==='sst_rate_boundary'&&/[Rr](ate)?|R20\d{2}Q/.test(filename),async parse(bytes,ctx){const rows=parseDelimited(bytes);const out:CanonicalTaxRecord[]=[];for(const r of rows){const state=(first(r,['state','statecode','st'])??'').toUpperCase();const code=first(r,['taxcode','jurisdictioncode','code'])??'STATE';const rate=first(r,['rate','combinedrate','taxrate']);if(!/^[A-Z]{2}$/.test(state)||rate==null)continue;const type=code==='STATE'?'STATE_RATE':'LOCAL_RATE';out.push({record_type:type,state_code:state,natural_key:`${type}:${state}:${code}:${first(r,['effectivedate','effectivefrom'])??''}`,source_key:ctx.sourceKey,source_release_id:ctx.releaseId,source_artifact_sha256:ctx.artifactSha256,authority_rank:ctx.authorityRank,published_at:null,effective_from:first(r,['effectivedate','effectivefrom']),effective_to:first(r,['expirationdate','effectiveto']),retrieved_at:ctx.retrievedAt,parser_version:ctx.parserVersion,normalization_version:ctx.normalizationVersion,legal_citation:null,payload:{jurisdiction_code:code,rate,raw:r}});}return out;}};
++import {createHash} from 'node:crypto';
++import {parse} from 'csv-parse/sync';
++import type {CanonicalTaxRecord,EvidenceContext,ParserAdapter} from '../types.js';
++
++const states='AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' ');
++const fips='01 02 04 05 06 08 09 10 11 12 13 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 44 45 46 47 48 49 50 51 53 54 55 56'.split(' ');
++const byFips=new Map(fips.map((v,i)=>[v,states[i]! ]));
++function day(v:string):string {
++  if(!/^\d{8}$/.test(v))throw new Error('SST_INVALID_DATE');
++  const iso=v.slice(0,4)+'-'+v.slice(4,6)+'-'+v.slice(6,8);
++  const d=new Date(iso+'T00:00:00Z');
++  if(!Number.isFinite(d.getTime())||d.toISOString().slice(0,10)!==iso)throw new Error('SST_INVALID_DATE');
++  return iso;
++}
++function rate(v:string,optional=false):string|null {
++  if(optional&&v==='')return null;
++  if(!/^(?:0|1)(?:\.\d+)?$|^\.\d+$/.test(v)||Number(v)>1)throw new Error('SST_INVALID_RATE');
++  return v;
++}
++export const sstRateAdapter:ParserAdapter={
++  adapterKey:'sst-nine-column-observation-v1.0.0',recordTypes:['STATE_RATE','LOCAL_RATE'],
++  canParse:({sourceKey,filename})=>sourceKey==='sst_rate_boundary'&&/(?:^|--)[A-Z]{2}R\d{4}Q[1-4][A-Z]{3}\d{1,2}\.csv$/i.test(filename),
++  async parse(bytes:Buffer,ctx:EvidenceContext,filename:string):Promise<CanonicalTaxRecord[]> {
++    if(!this.canParse({sourceKey:ctx.sourceKey,filename}))throw new Error('SST_UNSUPPORTED_FORMAT');
++    if(createHash('sha256').update(bytes).digest('hex')!==ctx.artifactSha256)throw new Error('SST_ARTIFACT_HASH_MISMATCH');
++    if(!ctx.releaseId||ctx.releaseId==='UNBOUND_RELEASE')throw new Error('SST_BOUND_RELEASE_REQUIRED');
++    const expected=filename.match(/([A-Z]{2})R\d{4}Q/i)![1]!.toUpperCase();
++    const input=parse(bytes,{bom:true,skip_empty_lines:true,trim:true,columns:false,delimiter:',',relax_column_count:false}) as string[][];
++    if(!input.length)throw new Error('SST_EMPTY_ARTIFACT');
++    const seen=new Set<string>();
++    return input.map((cells,line)=>{
++      if(cells.length!==9)throw new Error('SST_EXPECTED_NINE_COLUMNS:'+String(line+1));
++      const [stateFips,typeRaw,code,gi,ge,fi,fe,begin,end]=cells as [string,string,string,string,string,string,string,string,string];
++      const state=byFips.get(stateFips);
++      if(!state||state!==expected)throw new Error('SST_STATE_MISMATCH');
++      if(!/^\d{1,2}$/.test(typeRaw)||!/^[A-Za-z0-9]{2,5}$/.test(code))throw new Error('SST_INVALID_JURISDICTION');
++      const from=day(begin),to=day(end);
++      if(from>to)throw new Error('SST_REVERSED_SOURCE_DATES');
++      const family=typeRaw.padStart(2,'0')==='45'?'STATE_RATE':'LOCAL_RATE';
++      const key=[family,state,typeRaw.padStart(2,'0'),code,begin,end].join(':');
++      if(seen.has(key))throw new Error('SST_DUPLICATE_SOURCE_IDENTITY');
++      seen.add(key);
++      return {record_type:family,state_code:state,natural_key:key,source_key:ctx.sourceKey,
++        source_release_id:ctx.releaseId,source_artifact_sha256:ctx.artifactSha256,authority_rank:ctx.authorityRank,
++        published_at:null,effective_from:null,effective_to:null,retrieved_at:ctx.retrievedAt,
++        parser_version:this.adapterKey,normalization_version:'sst-observation-envelope-v1',legal_citation:null,
++        payload:{observation_format:'SST_NINE_COLUMN_RATE_OBSERVATION_V1',executable:false,
++          state_fips:stateFips,jurisdiction_type_code_raw:typeRaw,jurisdiction_type_code:typeRaw.padStart(2,'0'),
++          jurisdiction_code:code,rates:{general_intrastate:rate(gi),general_interstate:rate(ge),
++            food_drug_intrastate:rate(fi,true),food_drug_interstate:rate(fe,true)},
++          source_effective_from:from,source_effective_to:to,source_end_date_semantics:'UNINTERPRETED',
++          source_line:line+1}};
++    });
++  }
++};
+--- original/tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json
++++ candidate/tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json
+@@ -41,44 +41,207 @@
+       "pattern": "^[0-9a-f]{64}$"
+     },
+     "authority_rank": {
+-      "type": "integer",
+-      "minimum": 1
++      "enum": [
++        1,
++        2,
++        3,
++        4,
++        5,
++        99
++      ]
+     },
+     "published_at": {
+       "type": [
+         "string",
+         "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_from": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_to": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "retrieved_at": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "parser_version": {
++      "type": "string",
++      "minLength": 1,
++      "not": {
++        "const": "PENDING_PARSE"
++      }
++    },
++    "normalization_version": {
++      "type": "string",
++      "minLength": 1
++    },
++    "legal_citation": {
++      "type": [
++        "string",
++        "null"
+       ]
+     },
+-    "effective_from": {
+-      "type": [
+-        "string",
+-        "null"
++    "payload": {
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "STATE",
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "STATE_ONLY",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
++          ],
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
++        }
+       ]
+-    },
+-    "effective_to": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "retrieved_at": {
+-      "type": "string"
+-    },
+-    "parser_version": {
+-      "type": "string"
+-    },
+-    "normalization_version": {
+-      "type": "string"
+-    },
+-    "legal_citation": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "payload": {
+-      "type": "object"
+     }
+   }
+ }
+--- original/tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json
++++ candidate/tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json
+@@ -41,44 +41,206 @@
+       "pattern": "^[0-9a-f]{64}$"
+     },
+     "authority_rank": {
+-      "type": "integer",
+-      "minimum": 1
++      "enum": [
++        1,
++        2,
++        3,
++        4,
++        5,
++        99
++      ]
+     },
+     "published_at": {
+       "type": [
+         "string",
+         "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_from": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_to": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "retrieved_at": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "parser_version": {
++      "type": "string",
++      "minLength": 1,
++      "not": {
++        "const": "PENDING_PARSE"
++      }
++    },
++    "normalization_version": {
++      "type": "string",
++      "minLength": 1
++    },
++    "legal_citation": {
++      "type": [
++        "string",
++        "null"
+       ]
+     },
+-    "effective_from": {
+-      "type": [
+-        "string",
+-        "null"
++    "payload": {
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "HOME_RULE",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
++          ],
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
++        }
+       ]
+-    },
+-    "effective_to": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "retrieved_at": {
+-      "type": "string"
+-    },
+-    "parser_version": {
+-      "type": "string"
+-    },
+-    "normalization_version": {
+-      "type": "string"
+-    },
+-    "legal_citation": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "payload": {
+-      "type": "object"
+     }
+   }
+ }
+--- original/apps/zsl-tax-intelligence/schemas/state-rate.schema.json
++++ candidate/apps/zsl-tax-intelligence/schemas/state-rate.schema.json
+@@ -93,61 +93,155 @@
+       ]
+     },
+     "payload": {
+-      "type": "object",
+-      "additionalProperties": false,
+-      "required": [
+-        "jurisdiction_code",
+-        "component_code",
+-        "component_type",
+-        "rate",
+-        "rate_semantics"
+-      ],
+-      "properties": {
+-        "jurisdiction_code": {
+-          "type": "string",
+-          "minLength": 1
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "STATE",
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "STATE_ONLY",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
+         },
+-        "component_code": {
+-          "type": "string",
+-          "minLength": 1
+-        },
+-        "component_type": {
+-          "enum": [
+-            "STATE",
+-            "COUNTY",
+-            "CITY",
+-            "MUNICIPALITY",
+-            "SPECIAL_DISTRICT",
+-            "TRANSIT",
+-            "LOCAL_OPTION",
+-            "OTHER"
+-          ]
+-        },
+-        "rate": {
+-          "type": "number",
+-          "minimum": 0,
+-          "maximum": 0.35
+-        },
+-        "rate_semantics": {
+-          "enum": [
+-            "COMPONENT",
+-            "COMBINED"
+-          ]
+-        },
+-        "combined_scope": {
+-          "type": [
+-            "string",
+-            "null"
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
+           ],
+-          "enum": [
+-            "ALL_IN_LOCATION",
+-            "STATE_PLUS_LOCAL",
+-            "STATE_ONLY",
+-            "LOCAL_ONLY",
+-            null
+-          ]
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
+         }
+-      }
++      ]
+     }
+   }
+ }
+--- original/apps/zsl-tax-intelligence/schemas/local-rate.schema.json
++++ candidate/apps/zsl-tax-intelligence/schemas/local-rate.schema.json
+@@ -93,60 +93,154 @@
+       ]
+     },
+     "payload": {
+-      "type": "object",
+-      "additionalProperties": false,
+-      "required": [
+-        "jurisdiction_code",
+-        "component_code",
+-        "component_type",
+-        "rate",
+-        "rate_semantics"
+-      ],
+-      "properties": {
+-        "jurisdiction_code": {
+-          "type": "string",
+-          "minLength": 1
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "HOME_RULE",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
+         },
+-        "component_code": {
+-          "type": "string",
+-          "minLength": 1
+-        },
+-        "component_type": {
+-          "enum": [
+-            "COUNTY",
+-            "CITY",
+-            "MUNICIPALITY",
+-            "SPECIAL_DISTRICT",
+-            "TRANSIT",
+-            "LOCAL_OPTION",
+-            "HOME_RULE",
+-            "OTHER"
+-          ]
+-        },
+-        "rate": {
+-          "type": "number",
+-          "minimum": 0,
+-          "maximum": 0.35
+-        },
+-        "rate_semantics": {
+-          "enum": [
+-            "COMPONENT",
+-            "COMBINED"
+-          ]
+-        },
+-        "combined_scope": {
+-          "type": [
+-            "string",
+-            "null"
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
+           ],
+-          "enum": [
+-            "ALL_IN_LOCATION",
+-            "STATE_PLUS_LOCAL",
+-            "LOCAL_ONLY",
+-            null
+-          ]
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
+         }
+-      }
++      ]
+     }
+   }
+ }
+--- original/tools/zsl-tax-source-acquisition/normalization/schema-validator.ts
++++ candidate/tools/zsl-tax-source-acquisition/normalization/schema-validator.ts
+@@ -1,5 +1,5 @@
+-import Ajv from 'ajv';import { readFile } from 'node:fs/promises';import type { CanonicalTaxRecord } from '../adapters/types.ts';
++import Ajv from 'ajv/dist/2020.js';import { readFile } from 'node:fs/promises';import type { CanonicalTaxRecord } from '../adapters/types.ts';
+ const map:Record<string,string>={TAX_REGIME:'tax-regime',TAX_JURISDICTION:'tax-jurisdiction',TAX_JURISDICTION_ASSIGNMENT:'jurisdiction',STATE_RATE:'state-rate',LOCAL_RATE:'local-rate',RATE_COMPONENT_RULE:'rate-component-rule',RATE_CAP_THRESHOLD_RULE:'rate-cap-threshold-rule',PRODUCT_TAXABILITY:'taxability',TAXABLE_BASE_RULE:'taxable-base',BUNDLED_TRANSACTION_RULE:'bundled-transaction-rule',ALLOCATION_RULE:'allocation-rule',TAX_HOLIDAY:'holiday',SOURCING_RULE:'sourcing',SELLER_COLLECTION_RULE:'seller-collection-rule',MARKETPLACE_RULE:'marketplace',SELLER_TAX_ELECTION:'seller-tax-election',EXEMPTION_RULE:'exemption',EXEMPTION_CERTIFICATE_REQUIREMENT:'exemption-certificate-requirement',TAX_CREDIT_RULE:'tax-credit',ROUNDING_RULE:'rounding-rule',MANDATORY_TRANSACTION_FEE:'mandatory-transaction-fee'};
+ function instant(v:unknown){return typeof v==='string'&&/[zZ]|[+-]\d\d:\d\d$/.test(v)&&!Number.isNaN(new Date(v).getTime())}
+-function semantic(r:any){const e:string[]=[];if(!/^[A-Z]{2}$/.test(String(r.state_code??'')))e.push('INVALID_STATE_CODE');for(const k of ['published_at','effective_from','effective_to'])if(r[k]!=null&&!instant(r[k]))e.push('INVALID_'+k.toUpperCase());if(r.effective_from&&r.effective_to&&new Date(r.effective_to)<=new Date(r.effective_from))e.push('EFFECTIVE_INTERVAL_NOT_HALF_OPEN');const p=r.payload??{};if(r.record_type==='TAX_HOLIDAY'){if(!instant(p.start_at)||!instant(p.end_at)||new Date(p.end_at)<=new Date(p.start_at))e.push('HOLIDAY_INTERVAL_INVALID')}if(['STATE_RATE','LOCAL_RATE'].includes(r.record_type)&&typeof p.rate!=='number')e.push('RATE_MUST_BE_NUMBER');return e}
+-export async function validateRecords(records:CanonicalTaxRecord[]){const ajv=new Ajv({allErrors:true,strict:false});const validators=new Map<string,any>();const failures:any[]=[];for(const r of records){if(!validators.has(r.record_type)){const f=map[r.record_type];if(!f)throw new Error(`UNKNOWN_RECORD_TYPE:${r.record_type}`);const schema=JSON.parse(await readFile(new URL(`../schemas/${f}.schema.json`,import.meta.url),'utf8'));validators.set(r.record_type,ajv.compile(schema))}const v=validators.get(r.record_type);const sem=semantic(r);if(!v(r)||sem.length)failures.push({natural_key:r.natural_key,record_type:r.record_type,errors:[...(v.errors??[]),...sem.map(x=>({keyword:'semantic',message:x}))]})}return {status:failures.length?'FAIL':'PASS',checked_count:records.length,failed_count:failures.length,failures}}
++function semantic(r:any){const e:string[]=[];if(!/^[A-Z]{2}$/.test(String(r.state_code??'')))e.push('INVALID_STATE_CODE');for(const k of ['published_at','effective_from','effective_to'])if(r[k]!=null&&!instant(r[k]))e.push('INVALID_'+k.toUpperCase());if(r.effective_from&&r.effective_to&&new Date(r.effective_to)<=new Date(r.effective_from))e.push('EFFECTIVE_INTERVAL_NOT_HALF_OPEN');const p=r.payload??{};if(r.record_type==='TAX_HOLIDAY'){if(!instant(p.start_at)||!instant(p.end_at)||new Date(p.end_at)<=new Date(p.start_at))e.push('HOLIDAY_INTERVAL_INVALID')}if(['STATE_RATE','LOCAL_RATE'].includes(r.record_type)&&p.observation_format!=='SST_NINE_COLUMN_RATE_OBSERVATION_V1'&&typeof p.rate!=='number')e.push('RATE_MUST_BE_NUMBER');return e}
++export async function validateRecords(records:CanonicalTaxRecord[]){if(!records.length)throw new Error('EMPTY_CANONICAL_RECORD_SET');const ajv=new Ajv({allErrors:true,strict:false});ajv.addFormat('date-time',{type:'string',validate:instant});const validators=new Map<string,any>();const failures:any[]=[];for(const r of records){if(!validators.has(r.record_type)){const f=map[r.record_type];if(!f)throw new Error(`UNKNOWN_RECORD_TYPE:${r.record_type}`);const schema=JSON.parse(await readFile(new URL(`../schemas/${f}.schema.json`,import.meta.url),'utf8'));validators.set(r.record_type,ajv.compile(schema))}const v=validators.get(r.record_type);const sem=semantic(r);if(!v(r)||sem.length)failures.push({natural_key:r.natural_key,record_type:r.record_type,errors:[...(v.errors??[]),...sem.map(x=>({keyword:'semantic',message:x}))]})}return {status:failures.length?'FAIL':'PASS',checked_count:records.length,failed_count:failures.length,failures}}
+--- original/tools/zsl-tax-source-acquisition/normalization/normalize-run.ts
++++ candidate/tools/zsl-tax-source-acquisition/normalization/normalize-run.ts
+@@ -1,4 +1,4 @@
+ import { createHash } from 'node:crypto';import { readFile,writeFile } from 'node:fs/promises';import { basename,resolve } from 'node:path';import { selectAdapter } from '../adapters/registry.ts';import { validateRecords } from './schema-validator.ts';
+ const arg=(n:string)=>{const i=process.argv.indexOf(n);return i>=0?process.argv[i+1]:undefined};const sha=(b:Buffer|string)=>createHash('sha256').update(b).digest('hex');
+-async function main(){const manifest=JSON.parse(await readFile(resolve(arg('--manifest')??''),'utf8'));const outPath=resolve(arg('--out')??'data/canonical.ndjson');const records:any[]=[];for(const a of manifest.artifacts??[]){if(a.artifact_role==='LANDING_PAGE'||a.content_type?.includes('html'))continue;const bytes=await readFile(a.local_path);if(sha(bytes)!==a.sha256)throw new Error(`ARTIFACT_HASH_MISMATCH:${a.local_path}`);const adapter=selectAdapter({sourceKey:a.source_key,filename:basename(a.local_path),contentType:a.content_type});const parsed=await adapter.parse(bytes,{sourceKey:a.source_key,releaseId:a.release_id??'UNBOUND_RELEASE',artifactSha256:a.sha256,authorityRank:a.authority_rank,retrievedAt:a.retrieved_at,parserVersion:adapter.adapterKey,normalizationVersion:'zsl1-tax-canonical-v1'},basename(a.local_path));records.push(...parsed);}const validation=await validateRecords(records);if(validation.status!=='PASS')throw new Error(`CANONICAL_SCHEMA_VALIDATION_FAILED:${validation.failed_count}`);await writeFile(outPath,records.map(r=>JSON.stringify(r)).join('\n')+(records.length?'\n':''));console.log(JSON.stringify({records:records.length,out:outPath,validation}));}
++async function main(){const manifest=JSON.parse(await readFile(resolve(arg('--manifest')??''),'utf8'));const outPath=resolve(arg('--out')??'data/canonical.ndjson');const records:any[]=[];for(const a of manifest.artifacts??[]){if(a.artifact_role==='LANDING_PAGE'||a.content_type?.includes('html'))continue;const bytes=await readFile(a.local_path);if(sha(bytes)!==a.sha256)throw new Error(`ARTIFACT_HASH_MISMATCH:${a.local_path}`);const adapter=selectAdapter({sourceKey:a.source_key,filename:basename(a.local_path),contentType:a.content_type});const parsed=await adapter.parse(bytes,{sourceKey:a.source_key,releaseId:a.release_id??'UNBOUND_RELEASE',artifactSha256:a.sha256,authorityRank:a.authority_rank,retrievedAt:a.retrieved_at,parserVersion:adapter.adapterKey,normalizationVersion:'zsl1-tax-canonical-v1'},basename(a.local_path));if(!parsed.length)throw new Error('EMPTY_ADAPTER_OUTPUT:'+a.source_key);records.push(...parsed);}const validation=await validateRecords(records);if(validation.status!=='PASS')throw new Error(`CANONICAL_SCHEMA_VALIDATION_FAILED:${validation.failed_count}`);await writeFile(outPath,records.map(r=>JSON.stringify(r)).join('\n')+(records.length?'\n':''));console.log(JSON.stringify({records:records.length,out:outPath,validation}));}
+ main().catch(e=>{console.error(e);process.exitCode=1});
+--- original/apps/zsl-tax-intelligence/src/zsl5/national-loader.ts
++++ candidate/apps/zsl-tax-intelligence/src/zsl5/national-loader.ts
+@@ -1,6 +1,7 @@
+ import type {PoolClient} from 'pg';import {randomUUID} from 'node:crypto';import {sha256} from '../core/hash.js';import {TAX_FAMILIES} from '../core/types.js';
+ function str(v:unknown){return typeof v==='string'?v:null}function payloadOf(doc:any){return doc&&typeof doc==='object'&&doc.payload&&typeof doc.payload==='object'?doc.payload:{}}
+ export async function bindAndLoadNationalPublication(c:PoolClient,buildRunId:string,publicationId:string,actor:string){await c.query(`select pg_advisory_xact_lock(hashtextextended($1,0))`,[`TCDS:ZSL5:TAX:LOAD:${buildRunId}`]);const b=(await c.query(`select * from zsl.zsl5_build_runs where build_run_id=$1 and engine_version='zsl5-v1.4.0'`,[buildRunId])).rows[0];if(!b)throw new Error('ZSL5_V14_BUILD_REQUIRED');const p=(await c.query(`select * from zsl_tax_acq.national_publication_runs where publication_id=$1 and status='CERTIFIED' and family_certified=1071 and local_certified=51 and resolution_certified=51 and fatal_conflicts=0`,[publicationId])).rows[0];if(!p)throw new Error('CERTIFIED_NATIONAL_PUBLICATION_REQUIRED');
++ const observations=await c.query(`select 1 from zsl_tax_acq.national_publication_memberships pm join zsl_tax_acq.canonical_records cr on cr.canonical_record_id=pm.canonical_record_id where pm.publication_id=$1 and (cr.record_document->'payload'->>'observation_format'='SST_NINE_COLUMN_RATE_OBSERVATION_V1' or cr.record_document->'payload'->>'executable'='false') limit 1`,[publicationId]);if(observations.rowCount)throw new Error('SST_OBSERVATIONS_REQUIRE_APPROVED_EXECUTABLE_MAPPING');
+  const bindDoc={buildRunId,publicationId,releaseId:p.release_id,certificationRunId:p.certification_run_id,actor};await c.query(`insert into zsl.zsl5_national_publication_bindings_v14(build_run_id,publication_id,release_id,ingest_run_id,certification_run_id,publication_sha256,binding_document,binding_sha256) values($1,$2,$3,$4,$5,$6,$7::jsonb,$8)`,[buildRunId,publicationId,p.release_id,p.ingest_run_id,p.certification_run_id,p.publication_sha256,JSON.stringify(bindDoc),sha256(bindDoc)]);
+  for(const family of TAX_FAMILIES){const id=randomUUID(),doc={buildRunId,publicationId,family,releaseId:p.release_id};await c.query(`insert into zsl.zsl5_source_bindings(source_binding_id,build_run_id,source_role,source_key,dataset,release_id,source_year,source_quarter,release_key,artifact_id,artifact_sha256,ingest_run_id,certification_run_id,upstream_package_sha256,schema_validation_run_id,binding_document,binding_sha256) select $1,$2,$3,'US_NATIONAL_TAX_CONTENT',$3,p.release_id,extract(year from p.created_at)::int,extract(quarter from p.created_at)::int,r.release_key,p.artifact_id,a.sha256,p.ingest_run_id,p.certification_run_id,p.package_sha256,p.schema_validation_run_id,$4::jsonb,$5 from zsl_tax_acq.national_publication_runs p join zsl.source_releases r on r.release_id=p.release_id join zsl.source_artifacts a on a.artifact_id=p.artifact_id where p.publication_id=$6`,[id,buildRunId,family,JSON.stringify(doc),sha256(doc),publicationId]);}
+  const bindings=await c.query(`select source_role,source_binding_id from zsl.zsl5_source_bindings where build_run_id=$1`,[buildRunId]);const map=new Map(bindings.rows.map((x:any)=>[x.source_role,x.source_binding_id]));const rows=await c.query(`select cr.*,pm.family from zsl_tax_acq.national_publication_memberships pm join zsl_tax_acq.canonical_records cr on cr.canonical_record_id=pm.canonical_record_id where pm.publication_id=$1 order by cr.state_code,cr.record_type,cr.natural_key`,[publicationId]);for(const r of rows.rows){const payload=payloadOf(r.record_document);const family=String(r.record_type);const sourceBindingId=map.get(family);if(!sourceBindingId)throw new Error('MISSING_FAMILY_BINDING:'+family);const juris=str(payload.jurisdiction_code)||str(payload.tax_jurisdiction_code)||str(payload.official_tax_code);const tpc=str(payload.tax_product_class)||str(payload.tax_class_code);const sub=str(payload.tax_product_subclass);const ch=str(payload.purchase_channel);const predicate=(payload.predicate&&typeof payload.predicate==='object'?payload.predicate:(payload.product_attribute_predicate&&typeof payload.product_attribute_predicate==='object'?payload.product_attribute_predicate:{}));const factDoc={contractVersion:'zsl5-runtime-fact-v1.2',effectiveInterval:'[from,to)',family,stateCode:String(r.state_code).trim(),naturalKey:r.natural_key,payload};await c.query(`insert into zsl.zsl5_family_facts_v14(build_run_id,family,state_code,tax_jurisdiction_code,tax_product_class,tax_product_subclass,purchase_channel,effective_from,effective_to,priority,predicate_document,value_document,source_binding_id,canonical_record_id,raw_record_id,raw_record_sha256,fact_sha256) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12::jsonb,$13,$14,$15,$16,$17) on conflict(build_run_id,canonical_record_id) do nothing`,[buildRunId,family,String(r.state_code).trim(),juris,tpc,sub,ch,r.effective_from,r.effective_to,Number(payload.priority??100),JSON.stringify(predicate),JSON.stringify(payload),sourceBindingId,r.canonical_record_id,r.raw_record_id,r.record_sha256,sha256(factDoc)]);}
+--- original/database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql
++++ candidate/database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql
+@@ -1,5 +1,12 @@
+ -- TCDS 046a: adversarial runtime hardening for national tax authority
+ BEGIN;
++DO $$ BEGIN
++ IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='zsl_tax_certifier') THEN
++  CREATE ROLE zsl_tax_certifier NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
++ END IF;
++END $$;
++GRANT USAGE ON SCHEMA zsl_tax_acq TO zsl_tax_certifier;
++
+ 
+ CREATE TABLE IF NOT EXISTS zsl.zsl5_required_tcds_categories_v14(
+   tcds_category_code text PRIMARY KEY,
+--- original/database/migrations/046b_zsl5_v14_freshness_security_activation.sql
++++ candidate/database/migrations/046b_zsl5_v14_freshness_security_activation.sql
+@@ -9,15 +9,16 @@
+ SELECT b.build_run_id,g.publication_id,g.publication_status,g.family_certified,g.local_certified,g.resolution_certified,g.fatal_conflicts,
+  (select count(*)::int from zsl.zsl5_source_bindings sb where sb.build_run_id=b.build_run_id) source_binding_count,g.bindings_valid,
+  rr.golden_states_passed,rr.golden_failures,rr.golden_not_executed,rr.adversarial_failures,rr.adversarial_not_executed,
+- (select count(*)::int from zsl.zsl5_required_tcds_categories_v14 rc where rc.enabled) required_category_count,
+- (select count(distinct m.tcds_category_code)::int from zsl.zsl5_tax_product_mappings_v14 m join zsl.zsl5_required_tcds_categories_v14 rc using(tcds_category_code) where m.build_run_id=b.build_run_id and m.enabled and rc.enabled) mapped_category_count,
+- coalesce(fr.ready,false) freshness_ready,
+- coalesce(sec.no_public_mutation,false) security_ready,
+  (g.publication_status='CERTIFIED' AND g.family_certified=1071 AND g.local_certified=51 AND g.resolution_certified=51 AND g.fatal_conflicts=0
+   AND (select count(*) from zsl.zsl5_source_bindings sb where sb.build_run_id=b.build_run_id)=21 AND g.bindings_valid
+   AND coalesce(rr.ready,false)
+   AND (select count(distinct m.tcds_category_code) from zsl.zsl5_tax_product_mappings_v14 m join zsl.zsl5_required_tcds_categories_v14 rc using(tcds_category_code) where m.build_run_id=b.build_run_id and m.enabled and rc.enabled)=10
+-  AND coalesce(fr.ready,false) AND coalesce(sec.no_public_mutation,false)) AS ready
++  AND coalesce(fr.ready,false) AND coalesce(sec.no_public_mutation,false)) AS ready,
++ (select count(*)::int from zsl.zsl5_required_tcds_categories_v14 rc where rc.enabled) required_category_count,
++ (select count(distinct m.tcds_category_code)::int from zsl.zsl5_tax_product_mappings_v14 m join zsl.zsl5_required_tcds_categories_v14 rc using(tcds_category_code) where m.build_run_id=b.build_run_id and m.enabled and rc.enabled) mapped_category_count,
++ coalesce(fr.ready,false) freshness_ready,
++ coalesce(sec.no_public_mutation,false) security_ready
++
+ FROM zsl.zsl5_build_runs b
+ JOIN zsl.zsl5_v14_national_gate g ON g.build_run_id=b.build_run_id
+ LEFT JOIN zsl_tax_acq.v_runtime_certification_readiness rr ON rr.build_run_id=b.build_run_id
+--- original/database/migrations/046c_zsl5_v14_category_runtime_certification.sql
++++ candidate/database/migrations/046c_zsl5_v14_category_runtime_certification.sql
+@@ -10,12 +10,13 @@
+  (SELECT count(distinct state_code) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='PASS') AS golden_states_passed,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='FAIL') AS golden_failures,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='NOT_EXECUTED') AS golden_not_executed,
+- (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status='PASS') AS category_tests_passed,
+- (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status<>'PASS') AS category_tests_not_passed,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='ADVERSARIAL' AND r.status='FAIL') AS adversarial_failures,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='ADVERSARIAL' AND r.status='NOT_EXECUTED') AS adversarial_not_executed,
+  ((SELECT count(distinct state_code) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='PASS')=51
+   AND (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status='PASS')=10
+-  AND (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class IN('GOLDEN','CATEGORY','ADVERSARIAL') AND r.status<>'PASS')=0) AS ready
++  AND (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class IN('GOLDEN','CATEGORY','ADVERSARIAL') AND r.status<>'PASS')=0) AS ready,
++ (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status='PASS') AS category_tests_passed,
++ (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status<>'PASS') AS category_tests_not_passed
++
+ FROM zsl.zsl5_build_runs b WHERE b.engine_version='zsl5-v1.4.0';
+ COMMIT;
+--- original/database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql
++++ candidate/database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql
+@@ -2,11 +2,7 @@
+ BEGIN;
+ CREATE OR REPLACE VIEW zsl.zsl5_v14_final_freeze_gate AS
+ SELECT g.*,
+-       NOT EXISTS(SELECT 1 FROM zsl.zsl5_v14_payload_contract_violations v WHERE v.build_run_id=g.build_run_id) AS payload_contract_valid,
+-       coalesce(f.ready,false) AS freshness_ready,
+-       coalesce(s.no_public_mutation,false) AS security_ready,
+-       (SELECT count(*) FROM zsl.zsl5_required_tcds_categories_v14 c WHERE c.enabled) AS required_category_count,
+-       (SELECT count(distinct m.tcds_category_code) FROM zsl.zsl5_tax_product_mappings_v14 m JOIN zsl.zsl5_required_tcds_categories_v14 c USING(tcds_category_code) WHERE m.build_run_id=g.build_run_id AND m.enabled AND c.enabled) AS mapped_category_count
++       NOT EXISTS(SELECT 1 FROM zsl.zsl5_v14_payload_contract_violations v WHERE v.build_run_id=g.build_run_id) AS payload_contract_valid
+ FROM zsl.zsl5_v14_runtime_authority_gate g
+ JOIN zsl.zsl5_national_publication_bindings_v14 nb ON nb.build_run_id=g.build_run_id
+ LEFT JOIN zsl_tax_acq.v_publication_freshness_readiness f ON f.publication_id=nb.publication_id
+--- original/tools/zsl-tax-source-acquisition/tests/sst-nine-column.test.mjs
++++ candidate/tools/zsl-tax-source-acquisition/tests/sst-nine-column.test.mjs
+@@ -0,0 +1,85 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import {readFile} from 'node:fs/promises';
++import {createHash} from 'node:crypto';
++import {parse} from 'csv-parse/sync';
++import {sstRateAdapter as adapter} from '../adapters/sst/rate.ts';
++import {validateRecords} from '../normalization/schema-validator.ts';
++import {bindAndLoadNationalPublication} from '../../../apps/zsl-tax-intelligence/src/zsl5/national-loader.ts';
++const hash=b=>createHash('sha256').update(b).digest('hex');
++const ctx=b=>({sourceKey:'sst_rate_boundary',releaseId:'00000000-0000-4000-8000-000000000001',
++ artifactSha256:hash(b),authorityRank:1,retrievedAt:'2026-10-25T18:18:33.632082+00:00',
++ parserVersion:adapter.adapterKey,normalizationVersion:'test'});
++const filename='GAR2026Q4OCT01.csv';
++const synthetic=Buffer.from('13,45,13,.04,.04,0,0,20110101,29991231\n');
++const run=(bytes,name=filename)=>adapter.parse(bytes,ctx(bytes),name);
++test('real Georgia source: 460 rows, one state and 459 local observations',async()=>{
++ const bytes=await readFile(process.env.TCDS_GA_CSV);
++ assert.equal(hash(bytes),'36f6d0c170c53819766496690942cd96e1a0c02060301fbf88e2871b95b45171');
++ const source=parse(bytes,{bom:true,skip_empty_lines:true,trim:true});
++ const records=await run(bytes);
++ assert.equal(records.length,460);
++ assert.equal(records.filter(x=>x.record_type==='STATE_RATE').length,1);
++ assert.equal(records.filter(x=>x.record_type==='LOCAL_RATE').length,459);
++ for(let i=0;i<records.length;i++){
++  const p=records[i].payload,s=source[i];
++  assert.deepEqual(Object.values(p.rates),s.slice(3,7).map(v=>v===''?null:v));
++  assert.equal(p.jurisdiction_type_code_raw,s[1]);
++  assert.equal(p.jurisdiction_code,s[2]);
++  assert.equal(p.source_effective_from.replaceAll('-',''),s[7]);
++  assert.equal(p.source_effective_to.replaceAll('-',''),s[8]);
++  assert.equal(p.executable,false); assert.equal('rate' in p,false);
++  assert.equal(records[i].effective_to,null);
++ }
++ assert.deepEqual(await run(bytes),records);
++ const validation=await validateRecords(records);
++ assert.equal(validation.status,'PASS',JSON.stringify(validation.failures.slice(0,2)));
++ assert.equal(validation.checked_count,460);
++});
++test('all four variants remain distinct',async()=>{
++ const [r]=await run(Buffer.from('13,45,13,.04,.03,.02,.01,20260101,20261231\n'));
++ assert.deepEqual(Object.values(r.payload.rates),['.04','.03','.02','.01']);
++});
++test('missing food rates remain null, not zero',async()=>{
++ const [r]=await run(Buffer.from('13,45,13,.04,.04,,,20260101,20261231\n'));
++ assert.equal(r.payload.rates.food_drug_intrastate,null);
++ assert.equal(r.payload.rates.food_drug_interstate,null);
++});
++test('empty file fails closed',async()=>assert.rejects(run(Buffer.alloc(0)),/SST_EMPTY_ARTIFACT/));
++test('hash mismatch rejected',async()=>assert.rejects(adapter.parse(synthetic,{...ctx(synthetic),artifactSha256:'0'.repeat(64)},filename),/HASH_MISMATCH/));
++test('unbound source rejected',async()=>assert.rejects(adapter.parse(synthetic,{...ctx(synthetic),releaseId:'UNBOUND_RELEASE'},filename),/BOUND_RELEASE/));
++test('unsupported file format rejected',async()=>assert.rejects(run(synthetic,'Georgia.xlsx'),/UNSUPPORTED_FORMAT/));
++test('wrong state rejected',async()=>assert.rejects(run(Buffer.from('12,45,12,.04,.04,0,0,20260101,20261231\n')),/STATE_MISMATCH/));
++test('wrong column count rejected',async()=>assert.rejects(run(Buffer.from('13,45,13,.04\n')),/NINE_COLUMNS/));
++test('invalid calendar date rejected',async()=>assert.rejects(run(Buffer.from('13,45,13,.04,.04,0,0,20260230,20261231\n')),/INVALID_DATE/));
++test('reversed source dates rejected',async()=>assert.rejects(run(Buffer.from('13,45,13,.04,.04,0,0,20261231,20260101\n')),/REVERSED/));
++test('invalid rate rejected',async()=>assert.rejects(run(Buffer.from('13,45,13,1.1,.04,0,0,20260101,20261231\n')),/INVALID_RATE/));
++test('duplicate source identities rejected',async()=>assert.rejects(run(Buffer.concat([synthetic,synthetic])),/DUPLICATE/));
++test('empty schema validation cannot pass',async()=>assert.rejects(validateRecords([]),/EMPTY_CANONICAL/));
++test('malformed observation schema rejected',async()=>{
++ const records=await run(synthetic); delete records[0].payload.rates;
++ assert.equal((await validateRecords(records)).status,'FAIL');
++});
++test('existing scalar schema remains supported',async()=>{
++ const [r]=await run(synthetic);
++ r.payload={jurisdiction_code:'13',component_code:'STATE',component_type:'STATE',rate:0.04,rate_semantics:'COMPONENT'};
++ assert.equal((await validateRecords([r])).status,'PASS');
++});
++test('acquisition and runtime rate schemas are identical',async()=>{
++ for(const name of ['state-rate','local-rate']){
++  const acquisition=JSON.parse(await readFile(new URL('../schemas/'+name+'.schema.json',import.meta.url),'utf8'));
++  const runtime=JSON.parse(await readFile(new URL('../../../apps/zsl-tax-intelligence/schemas/'+name+'.schema.json',import.meta.url),'utf8'));
++  assert.deepEqual(acquisition,runtime);
++ }
++});
++test('real loader refuses observation publication before any write (mock database)',async()=>{
++ const calls=[];
++ const c={async query(sql){calls.push(sql);
++  if(sql.includes('pg_advisory'))return {rows:[],rowCount:1};
++  if(sql.includes('from zsl.zsl5_build_runs'))return {rows:[{build_run_id:'test'}],rowCount:1};
++  if(sql.includes('from zsl_tax_acq.national_publication_runs'))return {rows:[{publication_id:'test'}],rowCount:1};
++  if(sql.includes('SST_NINE_COLUMN_RATE_OBSERVATION_V1'))return {rows:[{}],rowCount:1};
++  throw new Error('Unexpected query');}};
++ await assert.rejects(bindAndLoadNationalPublication(c,'test','test','isolated-test'),/REQUIRE_APPROVED_EXECUTABLE_MAPPING/);
++ assert.equal(calls.some(s=>/\b(insert|update|delete)\b/i.test(s)),false);
++});
+--- original/repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/rate.ts
++++ candidate/repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/rate.ts
+@@ -1,3 +1,55 @@
+-import type { CanonicalTaxRecord,EvidenceContext,ParserAdapter } from '../types.js';import { parseDelimited } from '../state/delimited.ts';
+-function first(row:any,names:string[]){for(const n of names){const k=Object.keys(row).find(x=>x.toLowerCase().replace(/[^a-z0-9]/g,'')===n.toLowerCase().replace(/[^a-z0-9]/g,''));if(k&&row[k]!==undefined&&String(row[k]).trim()!=='')return String(row[k]).trim();}return null;}
+-export const sstRateAdapter:ParserAdapter={adapterKey:'sst-rate-v1',recordTypes:['STATE_RATE','LOCAL_RATE'],canParse:({sourceKey,filename})=>sourceKey==='sst_rate_boundary'&&/[Rr](ate)?|R20\d{2}Q/.test(filename),async parse(bytes,ctx){const rows=parseDelimited(bytes);const out:CanonicalTaxRecord[]=[];for(const r of rows){const state=(first(r,['state','statecode','st'])??'').toUpperCase();const code=first(r,['taxcode','jurisdictioncode','code'])??'STATE';const rate=first(r,['rate','combinedrate','taxrate']);if(!/^[A-Z]{2}$/.test(state)||rate==null)continue;const type=code==='STATE'?'STATE_RATE':'LOCAL_RATE';out.push({record_type:type,state_code:state,natural_key:`${type}:${state}:${code}:${first(r,['effectivedate','effectivefrom'])??''}`,source_key:ctx.sourceKey,source_release_id:ctx.releaseId,source_artifact_sha256:ctx.artifactSha256,authority_rank:ctx.authorityRank,published_at:null,effective_from:first(r,['effectivedate','effectivefrom']),effective_to:first(r,['expirationdate','effectiveto']),retrieved_at:ctx.retrievedAt,parser_version:ctx.parserVersion,normalization_version:ctx.normalizationVersion,legal_citation:null,payload:{jurisdiction_code:code,rate,raw:r}});}return out;}};
++import {createHash} from 'node:crypto';
++import {parse} from 'csv-parse/sync';
++import type {CanonicalTaxRecord,EvidenceContext,ParserAdapter} from '../types.js';
++
++const states='AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' ');
++const fips='01 02 04 05 06 08 09 10 11 12 13 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 44 45 46 47 48 49 50 51 53 54 55 56'.split(' ');
++const byFips=new Map(fips.map((v,i)=>[v,states[i]! ]));
++function day(v:string):string {
++  if(!/^\d{8}$/.test(v))throw new Error('SST_INVALID_DATE');
++  const iso=v.slice(0,4)+'-'+v.slice(4,6)+'-'+v.slice(6,8);
++  const d=new Date(iso+'T00:00:00Z');
++  if(!Number.isFinite(d.getTime())||d.toISOString().slice(0,10)!==iso)throw new Error('SST_INVALID_DATE');
++  return iso;
++}
++function rate(v:string,optional=false):string|null {
++  if(optional&&v==='')return null;
++  if(!/^(?:0|1)(?:\.\d+)?$|^\.\d+$/.test(v)||Number(v)>1)throw new Error('SST_INVALID_RATE');
++  return v;
++}
++export const sstRateAdapter:ParserAdapter={
++  adapterKey:'sst-nine-column-observation-v1.0.0',recordTypes:['STATE_RATE','LOCAL_RATE'],
++  canParse:({sourceKey,filename})=>sourceKey==='sst_rate_boundary'&&/(?:^|--)[A-Z]{2}R\d{4}Q[1-4][A-Z]{3}\d{1,2}\.csv$/i.test(filename),
++  async parse(bytes:Buffer,ctx:EvidenceContext,filename:string):Promise<CanonicalTaxRecord[]> {
++    if(!this.canParse({sourceKey:ctx.sourceKey,filename}))throw new Error('SST_UNSUPPORTED_FORMAT');
++    if(createHash('sha256').update(bytes).digest('hex')!==ctx.artifactSha256)throw new Error('SST_ARTIFACT_HASH_MISMATCH');
++    if(!ctx.releaseId||ctx.releaseId==='UNBOUND_RELEASE')throw new Error('SST_BOUND_RELEASE_REQUIRED');
++    const expected=filename.match(/([A-Z]{2})R\d{4}Q/i)![1]!.toUpperCase();
++    const input=parse(bytes,{bom:true,skip_empty_lines:true,trim:true,columns:false,delimiter:',',relax_column_count:false}) as string[][];
++    if(!input.length)throw new Error('SST_EMPTY_ARTIFACT');
++    const seen=new Set<string>();
++    return input.map((cells,line)=>{
++      if(cells.length!==9)throw new Error('SST_EXPECTED_NINE_COLUMNS:'+String(line+1));
++      const [stateFips,typeRaw,code,gi,ge,fi,fe,begin,end]=cells as [string,string,string,string,string,string,string,string,string];
++      const state=byFips.get(stateFips);
++      if(!state||state!==expected)throw new Error('SST_STATE_MISMATCH');
++      if(!/^\d{1,2}$/.test(typeRaw)||!/^[A-Za-z0-9]{2,5}$/.test(code))throw new Error('SST_INVALID_JURISDICTION');
++      const from=day(begin),to=day(end);
++      if(from>to)throw new Error('SST_REVERSED_SOURCE_DATES');
++      const family=typeRaw.padStart(2,'0')==='45'?'STATE_RATE':'LOCAL_RATE';
++      const key=[family,state,typeRaw.padStart(2,'0'),code,begin,end].join(':');
++      if(seen.has(key))throw new Error('SST_DUPLICATE_SOURCE_IDENTITY');
++      seen.add(key);
++      return {record_type:family,state_code:state,natural_key:key,source_key:ctx.sourceKey,
++        source_release_id:ctx.releaseId,source_artifact_sha256:ctx.artifactSha256,authority_rank:ctx.authorityRank,
++        published_at:null,effective_from:null,effective_to:null,retrieved_at:ctx.retrievedAt,
++        parser_version:this.adapterKey,normalization_version:'sst-observation-envelope-v1',legal_citation:null,
++        payload:{observation_format:'SST_NINE_COLUMN_RATE_OBSERVATION_V1',executable:false,
++          state_fips:stateFips,jurisdiction_type_code_raw:typeRaw,jurisdiction_type_code:typeRaw.padStart(2,'0'),
++          jurisdiction_code:code,rates:{general_intrastate:rate(gi),general_interstate:rate(ge),
++            food_drug_intrastate:rate(fi,true),food_drug_interstate:rate(fe,true)},
++          source_effective_from:from,source_effective_to:to,source_end_date_semantics:'UNINTERPRETED',
++          source_line:line+1}};
++    });
++  }
++};
+--- original/repo-overlay/tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json
++++ candidate/repo-overlay/tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json
+@@ -41,44 +41,207 @@
+       "pattern": "^[0-9a-f]{64}$"
+     },
+     "authority_rank": {
+-      "type": "integer",
+-      "minimum": 1
++      "enum": [
++        1,
++        2,
++        3,
++        4,
++        5,
++        99
++      ]
+     },
+     "published_at": {
+       "type": [
+         "string",
+         "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_from": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_to": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "retrieved_at": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "parser_version": {
++      "type": "string",
++      "minLength": 1,
++      "not": {
++        "const": "PENDING_PARSE"
++      }
++    },
++    "normalization_version": {
++      "type": "string",
++      "minLength": 1
++    },
++    "legal_citation": {
++      "type": [
++        "string",
++        "null"
+       ]
+     },
+-    "effective_from": {
+-      "type": [
+-        "string",
+-        "null"
++    "payload": {
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "STATE",
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "STATE_ONLY",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
++          ],
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
++        }
+       ]
+-    },
+-    "effective_to": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "retrieved_at": {
+-      "type": "string"
+-    },
+-    "parser_version": {
+-      "type": "string"
+-    },
+-    "normalization_version": {
+-      "type": "string"
+-    },
+-    "legal_citation": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "payload": {
+-      "type": "object"
+     }
+   }
+ }
+--- original/repo-overlay/tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json
++++ candidate/repo-overlay/tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json
+@@ -41,44 +41,206 @@
+       "pattern": "^[0-9a-f]{64}$"
+     },
+     "authority_rank": {
+-      "type": "integer",
+-      "minimum": 1
++      "enum": [
++        1,
++        2,
++        3,
++        4,
++        5,
++        99
++      ]
+     },
+     "published_at": {
+       "type": [
+         "string",
+         "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_from": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "effective_to": {
++      "type": [
++        "string",
++        "null"
++      ],
++      "format": "date-time"
++    },
++    "retrieved_at": {
++      "type": "string",
++      "format": "date-time"
++    },
++    "parser_version": {
++      "type": "string",
++      "minLength": 1,
++      "not": {
++        "const": "PENDING_PARSE"
++      }
++    },
++    "normalization_version": {
++      "type": "string",
++      "minLength": 1
++    },
++    "legal_citation": {
++      "type": [
++        "string",
++        "null"
+       ]
+     },
+-    "effective_from": {
+-      "type": [
+-        "string",
+-        "null"
++    "payload": {
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "HOME_RULE",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
++        },
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
++          ],
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
++        }
+       ]
+-    },
+-    "effective_to": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "retrieved_at": {
+-      "type": "string"
+-    },
+-    "parser_version": {
+-      "type": "string"
+-    },
+-    "normalization_version": {
+-      "type": "string"
+-    },
+-    "legal_citation": {
+-      "type": [
+-        "string",
+-        "null"
+-      ]
+-    },
+-    "payload": {
+-      "type": "object"
+     }
+   }
+ }
+--- original/repo-overlay/apps/zsl-tax-intelligence/schemas/state-rate.schema.json
++++ candidate/repo-overlay/apps/zsl-tax-intelligence/schemas/state-rate.schema.json
+@@ -93,61 +93,155 @@
+       ]
+     },
+     "payload": {
+-      "type": "object",
+-      "additionalProperties": false,
+-      "required": [
+-        "jurisdiction_code",
+-        "component_code",
+-        "component_type",
+-        "rate",
+-        "rate_semantics"
+-      ],
+-      "properties": {
+-        "jurisdiction_code": {
+-          "type": "string",
+-          "minLength": 1
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "STATE",
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "STATE_ONLY",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
+         },
+-        "component_code": {
+-          "type": "string",
+-          "minLength": 1
+-        },
+-        "component_type": {
+-          "enum": [
+-            "STATE",
+-            "COUNTY",
+-            "CITY",
+-            "MUNICIPALITY",
+-            "SPECIAL_DISTRICT",
+-            "TRANSIT",
+-            "LOCAL_OPTION",
+-            "OTHER"
+-          ]
+-        },
+-        "rate": {
+-          "type": "number",
+-          "minimum": 0,
+-          "maximum": 0.35
+-        },
+-        "rate_semantics": {
+-          "enum": [
+-            "COMPONENT",
+-            "COMBINED"
+-          ]
+-        },
+-        "combined_scope": {
+-          "type": [
+-            "string",
+-            "null"
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
+           ],
+-          "enum": [
+-            "ALL_IN_LOCATION",
+-            "STATE_PLUS_LOCAL",
+-            "STATE_ONLY",
+-            "LOCAL_ONLY",
+-            null
+-          ]
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
+         }
+-      }
++      ]
+     }
+   }
+ }
+--- original/repo-overlay/apps/zsl-tax-intelligence/schemas/local-rate.schema.json
++++ candidate/repo-overlay/apps/zsl-tax-intelligence/schemas/local-rate.schema.json
+@@ -93,60 +93,154 @@
+       ]
+     },
+     "payload": {
+-      "type": "object",
+-      "additionalProperties": false,
+-      "required": [
+-        "jurisdiction_code",
+-        "component_code",
+-        "component_type",
+-        "rate",
+-        "rate_semantics"
+-      ],
+-      "properties": {
+-        "jurisdiction_code": {
+-          "type": "string",
+-          "minLength": 1
++      "oneOf": [
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "jurisdiction_code",
++            "component_code",
++            "component_type",
++            "rate",
++            "rate_semantics"
++          ],
++          "properties": {
++            "jurisdiction_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_code": {
++              "type": "string",
++              "minLength": 1
++            },
++            "component_type": {
++              "enum": [
++                "COUNTY",
++                "CITY",
++                "MUNICIPALITY",
++                "SPECIAL_DISTRICT",
++                "TRANSIT",
++                "LOCAL_OPTION",
++                "HOME_RULE",
++                "OTHER"
++              ]
++            },
++            "rate": {
++              "type": "number",
++              "minimum": 0,
++              "maximum": 0.35
++            },
++            "rate_semantics": {
++              "enum": [
++                "COMPONENT",
++                "COMBINED"
++              ]
++            },
++            "combined_scope": {
++              "type": [
++                "string",
++                "null"
++              ],
++              "enum": [
++                "ALL_IN_LOCATION",
++                "STATE_PLUS_LOCAL",
++                "LOCAL_ONLY",
++                null
++              ]
++            }
++          }
+         },
+-        "component_code": {
+-          "type": "string",
+-          "minLength": 1
+-        },
+-        "component_type": {
+-          "enum": [
+-            "COUNTY",
+-            "CITY",
+-            "MUNICIPALITY",
+-            "SPECIAL_DISTRICT",
+-            "TRANSIT",
+-            "LOCAL_OPTION",
+-            "HOME_RULE",
+-            "OTHER"
+-          ]
+-        },
+-        "rate": {
+-          "type": "number",
+-          "minimum": 0,
+-          "maximum": 0.35
+-        },
+-        "rate_semantics": {
+-          "enum": [
+-            "COMPONENT",
+-            "COMBINED"
+-          ]
+-        },
+-        "combined_scope": {
+-          "type": [
+-            "string",
+-            "null"
++        {
++          "type": "object",
++          "additionalProperties": false,
++          "required": [
++            "observation_format",
++            "executable",
++            "state_fips",
++            "jurisdiction_type_code_raw",
++            "jurisdiction_type_code",
++            "jurisdiction_code",
++            "rates",
++            "source_effective_from",
++            "source_effective_to",
++            "source_end_date_semantics",
++            "source_line"
+           ],
+-          "enum": [
+-            "ALL_IN_LOCATION",
+-            "STATE_PLUS_LOCAL",
+-            "LOCAL_ONLY",
+-            null
+-          ]
++          "properties": {
++            "observation_format": {
++              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
++            },
++            "executable": {
++              "const": false
++            },
++            "state_fips": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_type_code_raw": {
++              "type": "string",
++              "pattern": "^\\d{1,2}$"
++            },
++            "jurisdiction_type_code": {
++              "type": "string",
++              "pattern": "^\\d{2}$"
++            },
++            "jurisdiction_code": {
++              "type": "string",
++              "pattern": "^[A-Za-z0-9]{2,5}$"
++            },
++            "rates": {
++              "type": "object",
++              "additionalProperties": false,
++              "required": [
++                "general_intrastate",
++                "general_interstate",
++                "food_drug_intrastate",
++                "food_drug_interstate"
++              ],
++              "properties": {
++                "general_intrastate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "general_interstate": {
++                  "type": "string",
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_intrastate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                },
++                "food_drug_interstate": {
++                  "type": [
++                    "string",
++                    "null"
++                  ],
++                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
++                }
++              }
++            },
++            "source_effective_from": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_effective_to": {
++              "type": "string",
++              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
++            },
++            "source_end_date_semantics": {
++              "const": "UNINTERPRETED"
++            },
++            "source_line": {
++              "type": "integer",
++              "minimum": 1
++            }
++          }
+         }
+-      }
++      ]
+     }
+   }
+ }
+--- original/repo-overlay/tools/zsl-tax-source-acquisition/normalization/schema-validator.ts
++++ candidate/repo-overlay/tools/zsl-tax-source-acquisition/normalization/schema-validator.ts
+@@ -1,5 +1,5 @@
+-import Ajv from 'ajv';import { readFile } from 'node:fs/promises';import type { CanonicalTaxRecord } from '../adapters/types.ts';
++import Ajv from 'ajv/dist/2020.js';import { readFile } from 'node:fs/promises';import type { CanonicalTaxRecord } from '../adapters/types.ts';
+ const map:Record<string,string>={TAX_REGIME:'tax-regime',TAX_JURISDICTION:'tax-jurisdiction',TAX_JURISDICTION_ASSIGNMENT:'jurisdiction',STATE_RATE:'state-rate',LOCAL_RATE:'local-rate',RATE_COMPONENT_RULE:'rate-component-rule',RATE_CAP_THRESHOLD_RULE:'rate-cap-threshold-rule',PRODUCT_TAXABILITY:'taxability',TAXABLE_BASE_RULE:'taxable-base',BUNDLED_TRANSACTION_RULE:'bundled-transaction-rule',ALLOCATION_RULE:'allocation-rule',TAX_HOLIDAY:'holiday',SOURCING_RULE:'sourcing',SELLER_COLLECTION_RULE:'seller-collection-rule',MARKETPLACE_RULE:'marketplace',SELLER_TAX_ELECTION:'seller-tax-election',EXEMPTION_RULE:'exemption',EXEMPTION_CERTIFICATE_REQUIREMENT:'exemption-certificate-requirement',TAX_CREDIT_RULE:'tax-credit',ROUNDING_RULE:'rounding-rule',MANDATORY_TRANSACTION_FEE:'mandatory-transaction-fee'};
+ function instant(v:unknown){return typeof v==='string'&&/[zZ]|[+-]\d\d:\d\d$/.test(v)&&!Number.isNaN(new Date(v).getTime())}
+-function semantic(r:any){const e:string[]=[];if(!/^[A-Z]{2}$/.test(String(r.state_code??'')))e.push('INVALID_STATE_CODE');for(const k of ['published_at','effective_from','effective_to'])if(r[k]!=null&&!instant(r[k]))e.push('INVALID_'+k.toUpperCase());if(r.effective_from&&r.effective_to&&new Date(r.effective_to)<=new Date(r.effective_from))e.push('EFFECTIVE_INTERVAL_NOT_HALF_OPEN');const p=r.payload??{};if(r.record_type==='TAX_HOLIDAY'){if(!instant(p.start_at)||!instant(p.end_at)||new Date(p.end_at)<=new Date(p.start_at))e.push('HOLIDAY_INTERVAL_INVALID')}if(['STATE_RATE','LOCAL_RATE'].includes(r.record_type)&&typeof p.rate!=='number')e.push('RATE_MUST_BE_NUMBER');return e}
+-export async function validateRecords(records:CanonicalTaxRecord[]){const ajv=new Ajv({allErrors:true,strict:false});const validators=new Map<string,any>();const failures:any[]=[];for(const r of records){if(!validators.has(r.record_type)){const f=map[r.record_type];if(!f)throw new Error(`UNKNOWN_RECORD_TYPE:${r.record_type}`);const schema=JSON.parse(await readFile(new URL(`../schemas/${f}.schema.json`,import.meta.url),'utf8'));validators.set(r.record_type,ajv.compile(schema))}const v=validators.get(r.record_type);const sem=semantic(r);if(!v(r)||sem.length)failures.push({natural_key:r.natural_key,record_type:r.record_type,errors:[...(v.errors??[]),...sem.map(x=>({keyword:'semantic',message:x}))]})}return {status:failures.length?'FAIL':'PASS',checked_count:records.length,failed_count:failures.length,failures}}
++function semantic(r:any){const e:string[]=[];if(!/^[A-Z]{2}$/.test(String(r.state_code??'')))e.push('INVALID_STATE_CODE');for(const k of ['published_at','effective_from','effective_to'])if(r[k]!=null&&!instant(r[k]))e.push('INVALID_'+k.toUpperCase());if(r.effective_from&&r.effective_to&&new Date(r.effective_to)<=new Date(r.effective_from))e.push('EFFECTIVE_INTERVAL_NOT_HALF_OPEN');const p=r.payload??{};if(r.record_type==='TAX_HOLIDAY'){if(!instant(p.start_at)||!instant(p.end_at)||new Date(p.end_at)<=new Date(p.start_at))e.push('HOLIDAY_INTERVAL_INVALID')}if(['STATE_RATE','LOCAL_RATE'].includes(r.record_type)&&p.observation_format!=='SST_NINE_COLUMN_RATE_OBSERVATION_V1'&&typeof p.rate!=='number')e.push('RATE_MUST_BE_NUMBER');return e}
++export async function validateRecords(records:CanonicalTaxRecord[]){if(!records.length)throw new Error('EMPTY_CANONICAL_RECORD_SET');const ajv=new Ajv({allErrors:true,strict:false});ajv.addFormat('date-time',{type:'string',validate:instant});const validators=new Map<string,any>();const failures:any[]=[];for(const r of records){if(!validators.has(r.record_type)){const f=map[r.record_type];if(!f)throw new Error(`UNKNOWN_RECORD_TYPE:${r.record_type}`);const schema=JSON.parse(await readFile(new URL(`../schemas/${f}.schema.json`,import.meta.url),'utf8'));validators.set(r.record_type,ajv.compile(schema))}const v=validators.get(r.record_type);const sem=semantic(r);if(!v(r)||sem.length)failures.push({natural_key:r.natural_key,record_type:r.record_type,errors:[...(v.errors??[]),...sem.map(x=>({keyword:'semantic',message:x}))]})}return {status:failures.length?'FAIL':'PASS',checked_count:records.length,failed_count:failures.length,failures}}
+--- original/repo-overlay/tools/zsl-tax-source-acquisition/normalization/normalize-run.ts
++++ candidate/repo-overlay/tools/zsl-tax-source-acquisition/normalization/normalize-run.ts
+@@ -1,4 +1,4 @@
+ import { createHash } from 'node:crypto';import { readFile,writeFile } from 'node:fs/promises';import { basename,resolve } from 'node:path';import { selectAdapter } from '../adapters/registry.ts';import { validateRecords } from './schema-validator.ts';
+ const arg=(n:string)=>{const i=process.argv.indexOf(n);return i>=0?process.argv[i+1]:undefined};const sha=(b:Buffer|string)=>createHash('sha256').update(b).digest('hex');
+-async function main(){const manifest=JSON.parse(await readFile(resolve(arg('--manifest')??''),'utf8'));const outPath=resolve(arg('--out')??'data/canonical.ndjson');const records:any[]=[];for(const a of manifest.artifacts??[]){if(a.artifact_role==='LANDING_PAGE'||a.content_type?.includes('html'))continue;const bytes=await readFile(a.local_path);if(sha(bytes)!==a.sha256)throw new Error(`ARTIFACT_HASH_MISMATCH:${a.local_path}`);const adapter=selectAdapter({sourceKey:a.source_key,filename:basename(a.local_path),contentType:a.content_type});const parsed=await adapter.parse(bytes,{sourceKey:a.source_key,releaseId:a.release_id??'UNBOUND_RELEASE',artifactSha256:a.sha256,authorityRank:a.authority_rank,retrievedAt:a.retrieved_at,parserVersion:adapter.adapterKey,normalizationVersion:'zsl1-tax-canonical-v1'},basename(a.local_path));records.push(...parsed);}const validation=await validateRecords(records);if(validation.status!=='PASS')throw new Error(`CANONICAL_SCHEMA_VALIDATION_FAILED:${validation.failed_count}`);await writeFile(outPath,records.map(r=>JSON.stringify(r)).join('\n')+(records.length?'\n':''));console.log(JSON.stringify({records:records.length,out:outPath,validation}));}
++async function main(){const manifest=JSON.parse(await readFile(resolve(arg('--manifest')??''),'utf8'));const outPath=resolve(arg('--out')??'data/canonical.ndjson');const records:any[]=[];for(const a of manifest.artifacts??[]){if(a.artifact_role==='LANDING_PAGE'||a.content_type?.includes('html'))continue;const bytes=await readFile(a.local_path);if(sha(bytes)!==a.sha256)throw new Error(`ARTIFACT_HASH_MISMATCH:${a.local_path}`);const adapter=selectAdapter({sourceKey:a.source_key,filename:basename(a.local_path),contentType:a.content_type});const parsed=await adapter.parse(bytes,{sourceKey:a.source_key,releaseId:a.release_id??'UNBOUND_RELEASE',artifactSha256:a.sha256,authorityRank:a.authority_rank,retrievedAt:a.retrieved_at,parserVersion:adapter.adapterKey,normalizationVersion:'zsl1-tax-canonical-v1'},basename(a.local_path));if(!parsed.length)throw new Error('EMPTY_ADAPTER_OUTPUT:'+a.source_key);records.push(...parsed);}const validation=await validateRecords(records);if(validation.status!=='PASS')throw new Error(`CANONICAL_SCHEMA_VALIDATION_FAILED:${validation.failed_count}`);await writeFile(outPath,records.map(r=>JSON.stringify(r)).join('\n')+(records.length?'\n':''));console.log(JSON.stringify({records:records.length,out:outPath,validation}));}
+ main().catch(e=>{console.error(e);process.exitCode=1});
+--- original/repo-overlay/apps/zsl-tax-intelligence/src/zsl5/national-loader.ts
++++ candidate/repo-overlay/apps/zsl-tax-intelligence/src/zsl5/national-loader.ts
+@@ -1,6 +1,7 @@
+ import type {PoolClient} from 'pg';import {randomUUID} from 'node:crypto';import {sha256} from '../core/hash.js';import {TAX_FAMILIES} from '../core/types.js';
+ function str(v:unknown){return typeof v==='string'?v:null}function payloadOf(doc:any){return doc&&typeof doc==='object'&&doc.payload&&typeof doc.payload==='object'?doc.payload:{}}
+ export async function bindAndLoadNationalPublication(c:PoolClient,buildRunId:string,publicationId:string,actor:string){await c.query(`select pg_advisory_xact_lock(hashtextextended($1,0))`,[`TCDS:ZSL5:TAX:LOAD:${buildRunId}`]);const b=(await c.query(`select * from zsl.zsl5_build_runs where build_run_id=$1 and engine_version='zsl5-v1.4.0'`,[buildRunId])).rows[0];if(!b)throw new Error('ZSL5_V14_BUILD_REQUIRED');const p=(await c.query(`select * from zsl_tax_acq.national_publication_runs where publication_id=$1 and status='CERTIFIED' and family_certified=1071 and local_certified=51 and resolution_certified=51 and fatal_conflicts=0`,[publicationId])).rows[0];if(!p)throw new Error('CERTIFIED_NATIONAL_PUBLICATION_REQUIRED');
++ const observations=await c.query(`select 1 from zsl_tax_acq.national_publication_memberships pm join zsl_tax_acq.canonical_records cr on cr.canonical_record_id=pm.canonical_record_id where pm.publication_id=$1 and (cr.record_document->'payload'->>'observation_format'='SST_NINE_COLUMN_RATE_OBSERVATION_V1' or cr.record_document->'payload'->>'executable'='false') limit 1`,[publicationId]);if(observations.rowCount)throw new Error('SST_OBSERVATIONS_REQUIRE_APPROVED_EXECUTABLE_MAPPING');
+  const bindDoc={buildRunId,publicationId,releaseId:p.release_id,certificationRunId:p.certification_run_id,actor};await c.query(`insert into zsl.zsl5_national_publication_bindings_v14(build_run_id,publication_id,release_id,ingest_run_id,certification_run_id,publication_sha256,binding_document,binding_sha256) values($1,$2,$3,$4,$5,$6,$7::jsonb,$8)`,[buildRunId,publicationId,p.release_id,p.ingest_run_id,p.certification_run_id,p.publication_sha256,JSON.stringify(bindDoc),sha256(bindDoc)]);
+  for(const family of TAX_FAMILIES){const id=randomUUID(),doc={buildRunId,publicationId,family,releaseId:p.release_id};await c.query(`insert into zsl.zsl5_source_bindings(source_binding_id,build_run_id,source_role,source_key,dataset,release_id,source_year,source_quarter,release_key,artifact_id,artifact_sha256,ingest_run_id,certification_run_id,upstream_package_sha256,schema_validation_run_id,binding_document,binding_sha256) select $1,$2,$3,'US_NATIONAL_TAX_CONTENT',$3,p.release_id,extract(year from p.created_at)::int,extract(quarter from p.created_at)::int,r.release_key,p.artifact_id,a.sha256,p.ingest_run_id,p.certification_run_id,p.package_sha256,p.schema_validation_run_id,$4::jsonb,$5 from zsl_tax_acq.national_publication_runs p join zsl.source_releases r on r.release_id=p.release_id join zsl.source_artifacts a on a.artifact_id=p.artifact_id where p.publication_id=$6`,[id,buildRunId,family,JSON.stringify(doc),sha256(doc),publicationId]);}
+  const bindings=await c.query(`select source_role,source_binding_id from zsl.zsl5_source_bindings where build_run_id=$1`,[buildRunId]);const map=new Map(bindings.rows.map((x:any)=>[x.source_role,x.source_binding_id]));const rows=await c.query(`select cr.*,pm.family from zsl_tax_acq.national_publication_memberships pm join zsl_tax_acq.canonical_records cr on cr.canonical_record_id=pm.canonical_record_id where pm.publication_id=$1 order by cr.state_code,cr.record_type,cr.natural_key`,[publicationId]);for(const r of rows.rows){const payload=payloadOf(r.record_document);const family=String(r.record_type);const sourceBindingId=map.get(family);if(!sourceBindingId)throw new Error('MISSING_FAMILY_BINDING:'+family);const juris=str(payload.jurisdiction_code)||str(payload.tax_jurisdiction_code)||str(payload.official_tax_code);const tpc=str(payload.tax_product_class)||str(payload.tax_class_code);const sub=str(payload.tax_product_subclass);const ch=str(payload.purchase_channel);const predicate=(payload.predicate&&typeof payload.predicate==='object'?payload.predicate:(payload.product_attribute_predicate&&typeof payload.product_attribute_predicate==='object'?payload.product_attribute_predicate:{}));const factDoc={contractVersion:'zsl5-runtime-fact-v1.2',effectiveInterval:'[from,to)',family,stateCode:String(r.state_code).trim(),naturalKey:r.natural_key,payload};await c.query(`insert into zsl.zsl5_family_facts_v14(build_run_id,family,state_code,tax_jurisdiction_code,tax_product_class,tax_product_subclass,purchase_channel,effective_from,effective_to,priority,predicate_document,value_document,source_binding_id,canonical_record_id,raw_record_id,raw_record_sha256,fact_sha256) values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11::jsonb,$12::jsonb,$13,$14,$15,$16,$17) on conflict(build_run_id,canonical_record_id) do nothing`,[buildRunId,family,String(r.state_code).trim(),juris,tpc,sub,ch,r.effective_from,r.effective_to,Number(payload.priority??100),JSON.stringify(predicate),JSON.stringify(payload),sourceBindingId,r.canonical_record_id,r.raw_record_id,r.record_sha256,sha256(factDoc)]);}
+--- original/repo-overlay/database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql
++++ candidate/repo-overlay/database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql
+@@ -1,5 +1,12 @@
+ -- TCDS 046a: adversarial runtime hardening for national tax authority
+ BEGIN;
++DO $$ BEGIN
++ IF NOT EXISTS(SELECT 1 FROM pg_roles WHERE rolname='zsl_tax_certifier') THEN
++  CREATE ROLE zsl_tax_certifier NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;
++ END IF;
++END $$;
++GRANT USAGE ON SCHEMA zsl_tax_acq TO zsl_tax_certifier;
++
+ 
+ CREATE TABLE IF NOT EXISTS zsl.zsl5_required_tcds_categories_v14(
+   tcds_category_code text PRIMARY KEY,
+--- original/repo-overlay/database/migrations/046b_zsl5_v14_freshness_security_activation.sql
++++ candidate/repo-overlay/database/migrations/046b_zsl5_v14_freshness_security_activation.sql
+@@ -9,15 +9,16 @@
+ SELECT b.build_run_id,g.publication_id,g.publication_status,g.family_certified,g.local_certified,g.resolution_certified,g.fatal_conflicts,
+  (select count(*)::int from zsl.zsl5_source_bindings sb where sb.build_run_id=b.build_run_id) source_binding_count,g.bindings_valid,
+  rr.golden_states_passed,rr.golden_failures,rr.golden_not_executed,rr.adversarial_failures,rr.adversarial_not_executed,
+- (select count(*)::int from zsl.zsl5_required_tcds_categories_v14 rc where rc.enabled) required_category_count,
+- (select count(distinct m.tcds_category_code)::int from zsl.zsl5_tax_product_mappings_v14 m join zsl.zsl5_required_tcds_categories_v14 rc using(tcds_category_code) where m.build_run_id=b.build_run_id and m.enabled and rc.enabled) mapped_category_count,
+- coalesce(fr.ready,false) freshness_ready,
+- coalesce(sec.no_public_mutation,false) security_ready,
+  (g.publication_status='CERTIFIED' AND g.family_certified=1071 AND g.local_certified=51 AND g.resolution_certified=51 AND g.fatal_conflicts=0
+   AND (select count(*) from zsl.zsl5_source_bindings sb where sb.build_run_id=b.build_run_id)=21 AND g.bindings_valid
+   AND coalesce(rr.ready,false)
+   AND (select count(distinct m.tcds_category_code) from zsl.zsl5_tax_product_mappings_v14 m join zsl.zsl5_required_tcds_categories_v14 rc using(tcds_category_code) where m.build_run_id=b.build_run_id and m.enabled and rc.enabled)=10
+-  AND coalesce(fr.ready,false) AND coalesce(sec.no_public_mutation,false)) AS ready
++  AND coalesce(fr.ready,false) AND coalesce(sec.no_public_mutation,false)) AS ready,
++ (select count(*)::int from zsl.zsl5_required_tcds_categories_v14 rc where rc.enabled) required_category_count,
++ (select count(distinct m.tcds_category_code)::int from zsl.zsl5_tax_product_mappings_v14 m join zsl.zsl5_required_tcds_categories_v14 rc using(tcds_category_code) where m.build_run_id=b.build_run_id and m.enabled and rc.enabled) mapped_category_count,
++ coalesce(fr.ready,false) freshness_ready,
++ coalesce(sec.no_public_mutation,false) security_ready
++
+ FROM zsl.zsl5_build_runs b
+ JOIN zsl.zsl5_v14_national_gate g ON g.build_run_id=b.build_run_id
+ LEFT JOIN zsl_tax_acq.v_runtime_certification_readiness rr ON rr.build_run_id=b.build_run_id
+--- original/repo-overlay/database/migrations/046c_zsl5_v14_category_runtime_certification.sql
++++ candidate/repo-overlay/database/migrations/046c_zsl5_v14_category_runtime_certification.sql
+@@ -10,12 +10,13 @@
+  (SELECT count(distinct state_code) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='PASS') AS golden_states_passed,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='FAIL') AS golden_failures,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='NOT_EXECUTED') AS golden_not_executed,
+- (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status='PASS') AS category_tests_passed,
+- (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status<>'PASS') AS category_tests_not_passed,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='ADVERSARIAL' AND r.status='FAIL') AS adversarial_failures,
+  (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='ADVERSARIAL' AND r.status='NOT_EXECUTED') AS adversarial_not_executed,
+  ((SELECT count(distinct state_code) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='GOLDEN' AND r.status='PASS')=51
+   AND (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status='PASS')=10
+-  AND (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class IN('GOLDEN','CATEGORY','ADVERSARIAL') AND r.status<>'PASS')=0) AS ready
++  AND (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class IN('GOLDEN','CATEGORY','ADVERSARIAL') AND r.status<>'PASS')=0) AS ready,
++ (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status='PASS') AS category_tests_passed,
++ (SELECT count(*) FROM zsl_tax_acq.v_runtime_test_latest r WHERE r.build_run_id=b.build_run_id AND r.test_class='CATEGORY' AND r.status<>'PASS') AS category_tests_not_passed
++
+ FROM zsl.zsl5_build_runs b WHERE b.engine_version='zsl5-v1.4.0';
+ COMMIT;
+--- original/repo-overlay/database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql
++++ candidate/repo-overlay/database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql
+@@ -2,11 +2,7 @@
+ BEGIN;
+ CREATE OR REPLACE VIEW zsl.zsl5_v14_final_freeze_gate AS
+ SELECT g.*,
+-       NOT EXISTS(SELECT 1 FROM zsl.zsl5_v14_payload_contract_violations v WHERE v.build_run_id=g.build_run_id) AS payload_contract_valid,
+-       coalesce(f.ready,false) AS freshness_ready,
+-       coalesce(s.no_public_mutation,false) AS security_ready,
+-       (SELECT count(*) FROM zsl.zsl5_required_tcds_categories_v14 c WHERE c.enabled) AS required_category_count,
+-       (SELECT count(distinct m.tcds_category_code) FROM zsl.zsl5_tax_product_mappings_v14 m JOIN zsl.zsl5_required_tcds_categories_v14 c USING(tcds_category_code) WHERE m.build_run_id=g.build_run_id AND m.enabled AND c.enabled) AS mapped_category_count
++       NOT EXISTS(SELECT 1 FROM zsl.zsl5_v14_payload_contract_violations v WHERE v.build_run_id=g.build_run_id) AS payload_contract_valid
+ FROM zsl.zsl5_v14_runtime_authority_gate g
+ JOIN zsl.zsl5_national_publication_bindings_v14 nb ON nb.build_run_id=g.build_run_id
+ LEFT JOIN zsl_tax_acq.v_publication_freshness_readiness f ON f.publication_id=nb.publication_id
+--- original/repo-overlay/tools/zsl-tax-source-acquisition/package.json
++++ candidate/repo-overlay/tools/zsl-tax-source-acquisition/package.json
+@@ -16,12 +16,13 @@
+     "csv-parse": "5.6.0",
+     "fast-xml-parser": "5.0.8",
+     "pg": "8.13.1",
+-    "xlsx": "0.18.5",
+-    "unzipper": "0.12.3"
++    "unzipper": "0.12.3",
++    "xlsx": "0.18.5"
+   },
+   "devDependencies": {
+     "@types/node": "24.7.2",
+     "@types/pg": "8.11.10",
++    "@types/unzipper": "0.10.11",
+     "tsx": "4.20.6",
+     "typescript": "5.9.3"
+   }

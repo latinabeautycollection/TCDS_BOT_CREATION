@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/address-resolution-quality.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_code",
+    "status"
+  ],
+  "properties": {
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NOT_CERTIFIED",
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "authoritative_address_rule_coverage_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "zip9_coverage_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "zip5_fallback_coverage_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "special_district_coverage_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "unresolved_address_pct": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 100
+    },
+    "evidence_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

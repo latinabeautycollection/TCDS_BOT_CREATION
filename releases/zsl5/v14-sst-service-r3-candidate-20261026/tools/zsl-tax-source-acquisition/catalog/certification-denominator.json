@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.1.0",
+  "states_plus_dc": 51,
+  "required_tax_data_families": 21,
+  "state_family_cells": 1071,
+  "independent_state_level_gates": {
+    "local_authority_coverage": 51,
+    "address_resolution_quality": 51
+  },
+  "national_pass_requires": [
+    "all 1,071 state-family cells CERTIFIED or satisfied by a certified applicability assertion where legally inapplicable",
+    "all 51 local-authority coverage gates PASS",
+    "all 51 address-resolution quality gates PASS",
+    "zero unresolved FATAL conflicts",
+    "current source/release/artifact lineage and replay evidence"
+  ],
+  "applicability_assertion_not_counted_as_family": true,
+  "negative_authority_rule": "CERTIFIED_NOT_APPLICABLE counts only when applicability_assertion_id and a valid 64-hex evidence SHA are bound.",
+  "local_gate_rule": "PASS requires sealed evidence plus either certified_no_local_tax_assertion=true or certified counts >= enumerated expected counts, including home-rule.",
+  "resolution_gate_rule": "PASS requires sealed evidence and all five measured coverage metrics."
+}

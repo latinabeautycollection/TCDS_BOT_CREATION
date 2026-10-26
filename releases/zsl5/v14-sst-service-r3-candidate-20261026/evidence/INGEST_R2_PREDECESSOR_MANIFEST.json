@@ -1,0 +1,1740 @@
+{
+  "classification": "INGEST_R2_LOCAL_CANDIDATE_NOT_CERTIFIED",
+  "files": [
+    {
+      "path": "INGEST_R2_CORRECTIONS.patch",
+      "sha256": "3aa15f9a8430f41d0cabce441acbabab4c9f9429c9d80659f1e07f074bca6a16",
+      "bytes": 22754
+    },
+    {
+      "path": "INGEST_R2_RECEIPT.json",
+      "sha256": "e8977a91a1e612f021f1273ffba74ce9626259e56fc14b36101a08e4d4091012",
+      "bytes": 1052
+    },
+    {
+      "path": "LOCAL_CORRECTIONS.patch",
+      "sha256": "5c7d6eb03e2d7d8b9ef83130a6804fcc54364b9728850275c8188c973ef459e8",
+      "bytes": 105482
+    },
+    {
+      "path": "LOCAL_CORRECTION_RECEIPT.json",
+      "sha256": "4ab1ecd8701194a3310de318c2ce2ef767bd0540c8c9159d54bfc56bbec7e053",
+      "bytes": 4441
+    },
+    {
+      "path": "README.md",
+      "sha256": "d5af43fc2fc36f5bb092975091f20bd78a98621ac7fa0b9dc92f0fc956f1e591",
+      "bytes": 4088
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/catalog/10-category-tax-mapping-cases.json",
+      "sha256": "e145e14499da518c062a78e1970a51189be9ff199f3da2ed5555856509fa6a0a",
+      "bytes": 5347
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/catalog/51-state-golden-cases.json",
+      "sha256": "32aef764445ec7d54e31dd5eda2ba30a37d69986341f63b24573cd2b919dbc2a",
+      "bytes": 58464
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/catalog/high-risk-adversarial-cases.json",
+      "sha256": "fa7b88b8df871a90239d02d8186ad311715e3c34f062e9da0841561ae5f2d694",
+      "bytes": 4899
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/catalog/state-coverage-evidence-template.json",
+      "sha256": "d9ad5cdc482a4b353cb2bf6a28162b400c329eeae7c544d7da1c78d509779e5c",
+      "bytes": 4729
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/catalog/state-source-execution-plan.json",
+      "sha256": "2fbc64db48ad10ea20bb1e018e61504f0f484d06a134dd11e169dfa29b113c2b",
+      "bytes": 396209
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/catalog/verified-national-source-catalog.json",
+      "sha256": "6004ff2911c0c9dc7d2dfeb4799d98f9d4917282f71c653a98f6c5537865a010",
+      "bytes": 3963
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/config/required-runtime-checks.json",
+      "sha256": "3ad0cae6d49be3e73596b0d2da15f5353dfd34ef302df0e595c297fe4b0ce1f9",
+      "bytes": 725
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/config/required-tax-families.json",
+      "sha256": "9d1cafeef350af28570dd50c993126ad8799578aad240eab8128a8032135a348",
+      "bytes": 1241
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/config/tax-product-taxonomy.json",
+      "sha256": "5152d4e3e649042ce008423b3ad448e14e2f7fb6e7621a8ffcae2634d9a741af",
+      "bytes": 2974
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/address-resolution-quality.schema.json",
+      "sha256": "10f691eae3ef506fb21a589b78c6636403914f54b92e5402b7cc34055b7641d1",
+      "bytes": 1315
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/allocation-rule.schema.json",
+      "sha256": "8a2b90bc6b8b474f85071bc699544fbadd9c24ee41f1ea575d0565154387ee93",
+      "bytes": 2662
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/applicability-assertion.schema.json",
+      "sha256": "1ba7314a21c0682ab3ae6180bf681651cbaebf4c406b2b24c589f4116908509c",
+      "bytes": 2300
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/bundled-transaction-rule.schema.json",
+      "sha256": "8e6d2f83c7bdcf800f55f7f93fe22e72c036db7fdcc11e74566473f625094126",
+      "bytes": 2551
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/exemption-certificate-requirement.schema.json",
+      "sha256": "b4da55d37dee74c2d5f967ed6438ef8c1dff4c94f1d65bdb3742d5290c0976af",
+      "bytes": 3710
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/exemption.schema.json",
+      "sha256": "5e6d9691c2ec49bcdc91001dc24cca998a9a7df1f019fa9f5c0cefd91a3e2055",
+      "bytes": 2807
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/holiday.schema.json",
+      "sha256": "14bdc6c8d0c6a3a1568df6d97b9f7bcead0b7764dbccf76dc44ed1504b51129d",
+      "bytes": 3378
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/jurisdiction.schema.json",
+      "sha256": "6b13358f0a3d0430a461bfeb9bc9b5c887c3acf7df8d87db479d9d69b8be4abe",
+      "bytes": 3056
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/local-authority-coverage.schema.json",
+      "sha256": "1440b9dd1f1960d110fadba78298f312f28d080147e3620d081317f6b2ceb40d",
+      "bytes": 1239
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/local-rate.schema.json",
+      "sha256": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+      "bytes": 6042
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/mandatory-transaction-fee.schema.json",
+      "sha256": "d3413e5a6b5d06065f545b0d8183804cf29fc6d2bd572ed8bede3da2c3a7bae2",
+      "bytes": 3350
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/marketplace.schema.json",
+      "sha256": "1c0d47026d4d07f6f30969aff12f13a5714462ec370633acf422fa57f263464a",
+      "bytes": 2572
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/rate-cap-threshold-rule.schema.json",
+      "sha256": "4c121b2a20cdaffa6e34f4f47e90c503a45e216c4ea02badad30f0f07dd8b97f",
+      "bytes": 3920
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/rate-component-rule.schema.json",
+      "sha256": "1687a6abb7b271e87b37510b4c37d278be05d864763fd130a9ac369628f8a446",
+      "bytes": 2728
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/rounding-rule.schema.json",
+      "sha256": "5236f851459b5066dfbbf9e549a16428b27d42b1452881a9d2262914cdacafda",
+      "bytes": 2706
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/seller-collection-rule.schema.json",
+      "sha256": "16fb4e7d4cad94abd6bee9452347ceb472cb0e28d41277ccc1c6b8d767a97d91",
+      "bytes": 2967
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/seller-tax-election.schema.json",
+      "sha256": "ddb0329929a9a40e623aedb0c219e2b189446451fd96106b0f4e1659e20a6553",
+      "bytes": 2845
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/sourcing.schema.json",
+      "sha256": "c04e9260a38147d37814b9f510be625881f117decaaaf6e437d5015efcf1b8d9",
+      "bytes": 2781
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/state-rate.schema.json",
+      "sha256": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+      "bytes": 6068
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/tax-credit.schema.json",
+      "sha256": "af924749630882bacfe38075f4a1229c55d0b7412c0cd72095da072f189d22ca",
+      "bytes": 2771
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/tax-jurisdiction.schema.json",
+      "sha256": "a0e5fe438d939ba1ecd6b66142484d7c821108f2d7ca29f06a3e33347bb96877",
+      "bytes": 2837
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/tax-regime.schema.json",
+      "sha256": "f7c138ceb0799db669e4b7e31b8622c1af4184ecc5c69ed9d8ca8475e230b36f",
+      "bytes": 2711
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/taxability.schema.json",
+      "sha256": "ea23fc6f8094528368c615183a6059db4bd19031434268a5bcb2998aaee637f6",
+      "bytes": 3108
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/schemas/taxable-base.schema.json",
+      "sha256": "728adbc4439e79765652b559839040afae18bc4700c5e852d192ee360cd89662",
+      "bytes": 2968
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/cli/publish-national.ts",
+      "sha256": "324ea6dbf5ef07fb91ea0c133705664d9517589866ad116ad29ac11dff56c97e",
+      "bytes": 644
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/cli/quote-v14.ts",
+      "sha256": "4798e8914a98d0589076eb24a7eb417933ed79ff4cd569a4e9b44428b35c1f2c",
+      "bytes": 481
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/core/db.ts",
+      "sha256": "955d57d46f61a45100a0c02a250179fb9cb66273f4063b6bcd843c13435bfa4b",
+      "bytes": 182
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/core/hash.ts",
+      "sha256": "3c40d324a4633cfaf2a4722e7adedbe486f661d7c586aa87480a354217df471b",
+      "bytes": 734
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/core/money.ts",
+      "sha256": "03d2a79ea2d4a94609fe5ef53fe67ddfabe47f9015ace0e0074afdc32390b912",
+      "bytes": 2697
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/core/types.ts",
+      "sha256": "d72d743afa253e4888fac1ca6cb5eda41193fdf52d0d918de69fb3f087be049e",
+      "bytes": 2189
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/build-state-coverage.ts",
+      "sha256": "b00e760677f5735e1a036143f250fa21257447f6ee63f4e58b06fea7cfa3911d",
+      "bytes": 5235
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/import-runtime-test-catalog.ts",
+      "sha256": "af695eff7f907c858b1e2ae71342e92185dbab07b486a15007ec59052f77787e",
+      "bytes": 2002
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts",
+      "sha256": "dd25a061ed0a5409c4ed103bfd22d11f9002e539877cf7e1cb47a00df57ad9a5",
+      "bytes": 4589
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/load-zsl5-v14.ts",
+      "sha256": "c2cd94b6b3cf5d11dacce77307fd127ab57014c64a1fac75ef6550ff4d73ce46",
+      "bytes": 579
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/publish-national-tax-content.ts",
+      "sha256": "e743edfd90f290290bb25b652cab85bbe700e5011896b7ab8f313c6f506cebb9",
+      "bytes": 705
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/run-adversarial-certification.ts",
+      "sha256": "7e6cac82fe574afa755e2c90b2677468d38d7e181d714d9aa7838e43fd0c2583",
+      "bytes": 1746
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/run-category-tax-certification.ts",
+      "sha256": "808729ea791b5399b1d5c07bc7067fdf5ab5fd4959e43ec081a3efd56b39eb7f",
+      "bytes": 1739
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/run-national-source-acquisition.ts",
+      "sha256": "ad028e55db25d05b201cf91a9e78db910ea28d8dd2ad2f228894424f154a75b9",
+      "bytes": 2453
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/run-national-tax-certification.ts",
+      "sha256": "1add82d466d11658b31f1ff2f08d5c57519d9a9b8c26ce69ab4bd94e53f2eb78",
+      "bytes": 4223
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/run-replay-certification.ts",
+      "sha256": "e265568a9b960e47cade93198be631a9bb0f12483c925ae4d38a2c630bdb2b0a",
+      "bytes": 1601
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/submit-publication-freshness.ts",
+      "sha256": "e6ea799a0d5899b454b680a0126ba20bbd40ea55f773f54969fdcdb07658deae",
+      "bytes": 2404
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts",
+      "sha256": "c3dcb62b8006d7bb7546acef6cef2172de475ade88ace13665f6e9a34a19578d",
+      "bytes": 3734
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl1/national-publication.ts",
+      "sha256": "97a5df1e894f9fd0523e6fb6d0d2ec8c68a06375f2c213ab3706dccb37fad4f7",
+      "bytes": 8816
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl1/schema-contract.ts",
+      "sha256": "520672bbb309a77e8204ca86638a801a6bde85ac46ffb87b48e101fbb083e8ba",
+      "bytes": 1322
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/category-tax-mapping.ts",
+      "sha256": "4d9f8be1e3db7fcc4f42c12035cf8e0310a00c7639bedf00c964f02f3bd80ce9",
+      "bytes": 1647
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/certification-v14.ts",
+      "sha256": "7d9eacfb5e68abdbccf7648b640329655e09522c5cf53aaa79a462a039c0c3dd",
+      "bytes": 5641
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/jurisdiction-resolver-v14.ts",
+      "sha256": "372ad72b2d71f64494ecb2ea8f5e9e1fe4576c80c5b9262c8756041c2ec66c74",
+      "bytes": 3041
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/national-loader.ts",
+      "sha256": "23e92c8fc1a0ff34aad087df554595dd8ec349394be8307e607bc7b29f0730a2",
+      "bytes": 5883
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/runtime-semantics.ts",
+      "sha256": "9d9acd931bd280eed25be4ab02f47163ce7ea4119c2b819b555186c9a82f06c9",
+      "bytes": 1467
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/tax-product-resolver-v14.ts",
+      "sha256": "366725b1e7152bf236886e53f07283bfe83b18159f0470417ac288c078e6be9b",
+      "bytes": 2194
+    },
+    {
+      "path": "apps/zsl-tax-intelligence/src/zsl5/tax-quote-v14.service.ts",
+      "sha256": "bfe9d65966d1fb67c41259c27c1e30f2c8a00dc8974baa0702fa869f4ec6af1b",
+      "bytes": 24772
+    },
+    {
+      "path": "database/migrations/042a_zsl1_tax_acquisition_core.sql",
+      "sha256": "14cccd3b682b988a52b9bf7290eee707d0c7d85806cd2aae97cd2cc0bb2f32a8",
+      "bytes": 15785
+    },
+    {
+      "path": "database/migrations/042b_zsl1_tax_acquisition_rbac.sql",
+      "sha256": "8f62626648518e139c5fb4875919648454937f2d1aebacdbefe91e46da9c6bb5",
+      "bytes": 2349
+    },
+    {
+      "path": "database/migrations/042c_zsl1_tax_strict_ingest_certification.sql",
+      "sha256": "13fe95444aeafe6df851ec75db7c138b742dcec78dc75d4993f5105c031dd14a",
+      "bytes": 8145
+    },
+    {
+      "path": "database/migrations/042d_zsl1_tax_national_publication.sql",
+      "sha256": "1705e917105da815d3136120c695d0411f2a77470093aa91dabe5ae52249d4c3",
+      "bytes": 4965
+    },
+    {
+      "path": "database/migrations/043_zsl5_v14_engine_compatibility.sql",
+      "sha256": "6453c98a5fcac1e2ccc0dcadee93285c961eeb727ac6b4af111a189a920c8df5",
+      "bytes": 10876
+    },
+    {
+      "path": "database/migrations/043a_zsl5_v14_21_family_runtime.sql",
+      "sha256": "4d11f57cd0b49a60b0c6b0edc83128cafaca44a8dbd4bb71d97543f2022af704",
+      "bytes": 2852
+    },
+    {
+      "path": "database/migrations/043b_zsl5_v14_source_binding_coverage.sql",
+      "sha256": "0e729b015f23d302924ecd241b4153d1e4f696e1cd99ff077c571a3283e857e6",
+      "bytes": 3535
+    },
+    {
+      "path": "database/migrations/043c_zsl5_v14_authority_activation.sql",
+      "sha256": "2ada80e791eac39a3836d6b5b7c285c424388d04126094d0764e8976becae395",
+      "bytes": 2394
+    },
+    {
+      "path": "database/migrations/044a_zsl1_tax_runtime_population.sql",
+      "sha256": "707f6720d55edf6a890744ad24e7dcb4a2253503d62dd353b36522df29faeeac",
+      "bytes": 4637
+    },
+    {
+      "path": "database/migrations/044b_zsl1_tax_national_runtime_certification.sql",
+      "sha256": "d20d290501a03482542220c9256806269f956f5758e12094388d060d5c33f9a2",
+      "bytes": 3024
+    },
+    {
+      "path": "database/migrations/045_zsl5_v14_runtime_population.sql",
+      "sha256": "4d6d2580b52c7e6398df02f612a95d8c312f8306a138a5fa59396b04bcf34366",
+      "bytes": 1303
+    },
+    {
+      "path": "database/migrations/045a_zsl5_v14_runtime_certification.sql",
+      "sha256": "3f36dccd2a640aba19b3e6e4a1b2570805003d1093645e1510c9857b309dd1fc",
+      "bytes": 4598
+    },
+    {
+      "path": "database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql",
+      "sha256": "62612ab7b187aa051a74b2756fe615381a5c7964dc506e64b067c84db261dead",
+      "bytes": 11395
+    },
+    {
+      "path": "database/migrations/046b_zsl5_v14_freshness_security_activation.sql",
+      "sha256": "9ae1338a0d3643b83152da005a9cddf60568bf8ba7e497e777eab24b5e9b8473",
+      "bytes": 6440
+    },
+    {
+      "path": "database/migrations/046c_zsl5_v14_category_runtime_certification.sql",
+      "sha256": "7be4c102f0f700b29a499c6d3bc80a48f7371f8882ded866f438d336716d996f",
+      "bytes": 2523
+    },
+    {
+      "path": "database/migrations/047a_zsl5_v14_final_freeze_database_contract.sql",
+      "sha256": "b82629adc7451ef57700866c44ad21fcd588ccc021ffdacd5765ce0a6100bc72",
+      "bytes": 3813
+    },
+    {
+      "path": "database/migrations/047b_zsl5_zsl6_acquisition_cost_contract.sql",
+      "sha256": "d320962a1f41b4c8004a05f318100f84d0239e92bb34adbd6db35f8a2387f3fc",
+      "bytes": 1232
+    },
+    {
+      "path": "database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql",
+      "sha256": "9bce979207f5bb7892089fd0e3052e63887bfa2a616eeadac6010baed1fc9916",
+      "bytes": 3362
+    },
+    {
+      "path": "database/rollback/rollback_runtime_population_non_destructive.sql",
+      "sha256": "e5b26016ea9a138fefd96b2127d5ad1a61f0f4bccd7e424724871691cfc5d689",
+      "bytes": 547
+    },
+    {
+      "path": "database/rollback/rollback_v14_non_destructive.sql",
+      "sha256": "dfe1ab288caa80c98937f617db5d0b90224ef2029185bf8958b8d2f1785ed766",
+      "bytes": 560
+    },
+    {
+      "path": "docs/ADVERSARIAL_PEER_REVIEW_MASTER_PROMPT.txt",
+      "sha256": "857577f02fd83ced0285500add236280aabc02b4d9b544be439643e0c5771dd5",
+      "bytes": 34572
+    },
+    {
+      "path": "docs/ADVERSARIAL_REMEDIATION.md",
+      "sha256": "1f6646c8ceb2f922db83541b49f4a729a1f7265ffa9e18bc7583ad738d3fcb88",
+      "bytes": 888
+    },
+    {
+      "path": "docs/ARB_CUTOVER_CONTRACT.md",
+      "sha256": "34a6aba89caca92ad8ac4910a7f061d2d2bf253bb85f4400535bcdd2377f906a",
+      "bytes": 466
+    },
+    {
+      "path": "docs/CATEGORY_TAXONOMY_V3.md",
+      "sha256": "4bc61f0a6554c7413aedfbc83ad64576394f333129c40e4ae0fbd74e107f36f2",
+      "bytes": 821
+    },
+    {
+      "path": "docs/CERTIFICATION_STANDARD.md",
+      "sha256": "d4090b61bb9e35da0dd8dc03425b55397e6d855c7c42f04e79049169532d9dd3",
+      "bytes": 470
+    },
+    {
+      "path": "docs/DOMAIN_BOUNDARY.md",
+      "sha256": "6bbf4c6dac6c7c71b71f25dbf2d2cd438bf76c9c912c27127b225e7d3941b39e",
+      "bytes": 692
+    },
+    {
+      "path": "docs/FINAL_FREEZE_MASTER_PROMPT.txt",
+      "sha256": "c530c7322859382b63f419f7cecd603e3f6153b6a78cf32230e9e4bc9c02cd85",
+      "bytes": 26880
+    },
+    {
+      "path": "docs/INSTALLATION_RUNBOOK.md",
+      "sha256": "378578f306aac339a19c95b4c5fb8e58d6a2394a11c2c32d723fd60dd8bc361f",
+      "bytes": 730
+    },
+    {
+      "path": "docs/REPO_ALIGNMENT.md",
+      "sha256": "c5073917dc571d2fe88f6c73959d68f26abc721d8e2d968c0031282b76709a22",
+      "bytes": 359
+    },
+    {
+      "path": "docs/RUNTIME_CONTENT_STATUS.md",
+      "sha256": "848464c7717e9f928a0ca293649a722359b0a63757804902626bff266f1dcad3",
+      "bytes": 730
+    },
+    {
+      "path": "docs/RUNTIME_POPULATION_RUNBOOK.md",
+      "sha256": "a9b5058786da854508d87ab62726936fcc783f6bfc0533988949c0d51521d9c6",
+      "bytes": 1602
+    },
+    {
+      "path": "docs/SUPERSESSION_AND_INTEGRATION.md",
+      "sha256": "a5bebac0c2d1981d0124edb0b454fa1857973c4092607700c3b05e3ec87aadfa",
+      "bytes": 585
+    },
+    {
+      "path": "docs/UPSTREAM_SOURCE_ACQUISITION.md",
+      "sha256": "0504f982cb2da498a48c8ae741f632ba678d89104c81a9e76f30968d0f74c009",
+      "bytes": 927
+    },
+    {
+      "path": "docs/ZSL6_INTEGRATION_CONTRACT.md",
+      "sha256": "39b600f05d020cd3447375c54cebce7ec6ac23d512c28b0890500edbc42f3c19",
+      "bytes": 861
+    },
+    {
+      "path": "evidence/ACQUISITION_TS_SYNTAX.txt",
+      "sha256": "35b91108110a1903fee2576b533265b28676cbeae87d285f21994916e55c1b45",
+      "bytes": 30
+    },
+    {
+      "path": "evidence/CONTENT_POPULATION_STATUS.md",
+      "sha256": "d9b6539ce973a0b9cfc75e0e1f5f7ec09880b3ade48042b0309a3a7a2f418ad1",
+      "bytes": 641
+    },
+    {
+      "path": "evidence/CROSS_SOLUTION_RECONCILIATION.md",
+      "sha256": "ba57f78597b37bcc7d2676751480868e6f363de8b8511557820bf4b9d2f051e8",
+      "bytes": 1115
+    },
+    {
+      "path": "evidence/DATABASE_COMPATIBILITY_MATRIX.md",
+      "sha256": "8464f02dff2d92b3a6646ff1b1c63af1fb594d71295a1249289014fc9e2607ca",
+      "bytes": 2174
+    },
+    {
+      "path": "evidence/FINAL_CERTIFICATION_GATE.md",
+      "sha256": "136d3c877e7bea97bc1f774e104a2b9f6ff2de5a91338d168399203e99c5b1ae",
+      "bytes": 1317
+    },
+    {
+      "path": "evidence/FINAL_FREEZE_REMEDIATION_LEDGER.json",
+      "sha256": "da162ad42312feb49e5a88026b3d77d6de203838364bb7f40aa26a2281cfec83",
+      "bytes": 2327
+    },
+    {
+      "path": "evidence/FINAL_FREEZE_STATIC_OUTPUT.txt",
+      "sha256": "a80bf51b2fef5d07082fe4057b291ea813e8291e06b3e0ad462880b3d59a8458",
+      "bytes": 123
+    },
+    {
+      "path": "evidence/FINAL_FREEZE_TEST_OUTPUT.txt",
+      "sha256": "a459cabe331669ece44b0bcf0f20230c965ba870a5fb1a5d366520f5ef9f4ee0",
+      "bytes": 4006
+    },
+    {
+      "path": "evidence/FINAL_FREEZE_TRIPLECHECK.md",
+      "sha256": "af3279888fd20e031a51a5ec4683cbc7d4f1442db0bd4fc68c08d47cfe28ab6f",
+      "bytes": 1276
+    },
+    {
+      "path": "evidence/FINAL_TEST_OUTPUT.txt",
+      "sha256": "26801a38cb4224b94685943f88d91c0a6ff51e5bf1e04fd6d362ea60da1b33f1",
+      "bytes": 1043
+    },
+    {
+      "path": "evidence/FINAL_VALIDATION_OUTPUT.txt",
+      "sha256": "3ae96ed36a57adba7c00c22372f4941ba7fc6ab8c0848cbffc731d05f0c600f6",
+      "bytes": 2742
+    },
+    {
+      "path": "evidence/LIVE_SCHEMA_REPO_CROSSCHECK.md",
+      "sha256": "a7262c8b66a0cdf98ad7fc321fcf57e9de53311305df4770c065e28e6ac7fb2b",
+      "bytes": 1706
+    },
+    {
+      "path": "evidence/LOCAL_SST_R1_PREDECESSOR_MANIFEST.json",
+      "sha256": "eae84e124b9d055c713ef45f3d3d54f06a416500319eb59c6c1c7405fe682c60",
+      "bytes": 67625
+    },
+    {
+      "path": "evidence/MASTER_PROMPT_REMEDIATION_MATRIX.json",
+      "sha256": "8e13962ec8bd68687dc1015a6b3c4943a8ee13115c5196e4bbfcde28f06ff419",
+      "bytes": 2922
+    },
+    {
+      "path": "evidence/MIGRATION_DEPENDENCY_MATRIX.md",
+      "sha256": "24129a9bb17153db00e9349ddd1c65b9a064bea95e721f6c7ed759a41c7eb9d1",
+      "bytes": 1340
+    },
+    {
+      "path": "evidence/OFFICIAL_SOURCE_VERIFICATION_2026-10-26.md",
+      "sha256": "7d63dd99dcf74fa69d6c52719b281cdde0c78960ac1e8788dbc4d130bda9c825",
+      "bytes": 1017
+    },
+    {
+      "path": "evidence/PACKAGE_IDENTITY.txt",
+      "sha256": "aa5d733fbb087a33507c2c01016af72a192f977259151694e33b12df4387d126",
+      "bytes": 296
+    },
+    {
+      "path": "evidence/PACKAGE_MANIFEST.json",
+      "sha256": "b779b22d137cafa60fabdf2f3626b825ae209ccbea9ffecc508a96174526d15c",
+      "bytes": 66446
+    },
+    {
+      "path": "evidence/PACKAGE_MANIFEST.sha256",
+      "sha256": "92984538057d144acd7c8e358f777c14867b832920c7ced40b8eb213d9049582",
+      "bytes": 88
+    },
+    {
+      "path": "evidence/PRODUCTION_REPO_CROSSCHECK.md",
+      "sha256": "7ce4cd5dbec6e6371b424166c17a18107fd35a03a711b0504c6785e4faa082c9",
+      "bytes": 858
+    },
+    {
+      "path": "evidence/PRODUCTION_REPO_CROSSCHECK_2026-10-26.md",
+      "sha256": "baf464bacbd6524978dad9c0b4d09dd0d07ed23fe1da174c8cc065474601599e",
+      "bytes": 722
+    },
+    {
+      "path": "evidence/REMEDIATION_MATRIX.json",
+      "sha256": "c0926c16756733eb1517d0f3f76e9bc2ba83ff70b679cda9cac26ad8899f8a78",
+      "bytes": 2928
+    },
+    {
+      "path": "evidence/RUNTIME_PLAN_OUTPUT.txt",
+      "sha256": "2c0642a51fd0ae608f85caa7910300c72f6d4548b4b65a5919c8e715147f2df5",
+      "bytes": 546
+    },
+    {
+      "path": "evidence/RUNTIME_STATUS.md",
+      "sha256": "11eb307e557d5100f3deb732649e29418f09afbaced77eaa36c5e8e7f8889e5f",
+      "bytes": 1013
+    },
+    {
+      "path": "evidence/TRIPLECHECK_REPORT.md",
+      "sha256": "44c917144875107d127b05348c366e05d8ace10c0348431c7cb33ed5d3218644",
+      "bytes": 1519
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "589c2954b21d4250f22871e5494e4670f6002fd093ab7cba4ef3947e54bb1ae4",
+      "bytes": 27527
+    },
+    {
+      "path": "package.json",
+      "sha256": "fb14821fffbfa2a6e8156e00217db7a1df83b88ff0d149945ed9013fb473054f",
+      "bytes": 1823
+    },
+    {
+      "path": "repo-overlay/README_MERGE_INSTRUCTIONS.md",
+      "sha256": "b69da09f859f408a7addd912d91aaeb9db49c3a8d8c310f9a15106a83b6fc951",
+      "bytes": 639
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/catalog/10-category-tax-mapping-cases.json",
+      "sha256": "e145e14499da518c062a78e1970a51189be9ff199f3da2ed5555856509fa6a0a",
+      "bytes": 5347
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/catalog/51-state-golden-cases.json",
+      "sha256": "32aef764445ec7d54e31dd5eda2ba30a37d69986341f63b24573cd2b919dbc2a",
+      "bytes": 58464
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/catalog/high-risk-adversarial-cases.json",
+      "sha256": "fa7b88b8df871a90239d02d8186ad311715e3c34f062e9da0841561ae5f2d694",
+      "bytes": 4899
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/catalog/state-coverage-evidence-template.json",
+      "sha256": "d9ad5cdc482a4b353cb2bf6a28162b400c329eeae7c544d7da1c78d509779e5c",
+      "bytes": 4729
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/catalog/state-source-execution-plan.json",
+      "sha256": "2fbc64db48ad10ea20bb1e018e61504f0f484d06a134dd11e169dfa29b113c2b",
+      "bytes": 396209
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/catalog/verified-national-source-catalog.json",
+      "sha256": "6004ff2911c0c9dc7d2dfeb4799d98f9d4917282f71c653a98f6c5537865a010",
+      "bytes": 3963
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/config/required-runtime-checks.json",
+      "sha256": "3ad0cae6d49be3e73596b0d2da15f5353dfd34ef302df0e595c297fe4b0ce1f9",
+      "bytes": 725
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/config/required-tax-families.json",
+      "sha256": "9d1cafeef350af28570dd50c993126ad8799578aad240eab8128a8032135a348",
+      "bytes": 1241
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/config/tax-product-taxonomy.json",
+      "sha256": "5152d4e3e649042ce008423b3ad448e14e2f7fb6e7621a8ffcae2634d9a741af",
+      "bytes": 2974
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/address-resolution-quality.schema.json",
+      "sha256": "10f691eae3ef506fb21a589b78c6636403914f54b92e5402b7cc34055b7641d1",
+      "bytes": 1315
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/allocation-rule.schema.json",
+      "sha256": "8a2b90bc6b8b474f85071bc699544fbadd9c24ee41f1ea575d0565154387ee93",
+      "bytes": 2662
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/applicability-assertion.schema.json",
+      "sha256": "1ba7314a21c0682ab3ae6180bf681651cbaebf4c406b2b24c589f4116908509c",
+      "bytes": 2300
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/bundled-transaction-rule.schema.json",
+      "sha256": "8e6d2f83c7bdcf800f55f7f93fe22e72c036db7fdcc11e74566473f625094126",
+      "bytes": 2551
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/exemption-certificate-requirement.schema.json",
+      "sha256": "b4da55d37dee74c2d5f967ed6438ef8c1dff4c94f1d65bdb3742d5290c0976af",
+      "bytes": 3710
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/exemption.schema.json",
+      "sha256": "5e6d9691c2ec49bcdc91001dc24cca998a9a7df1f019fa9f5c0cefd91a3e2055",
+      "bytes": 2807
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/holiday.schema.json",
+      "sha256": "14bdc6c8d0c6a3a1568df6d97b9f7bcead0b7764dbccf76dc44ed1504b51129d",
+      "bytes": 3378
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/jurisdiction.schema.json",
+      "sha256": "6b13358f0a3d0430a461bfeb9bc9b5c887c3acf7df8d87db479d9d69b8be4abe",
+      "bytes": 3056
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/local-authority-coverage.schema.json",
+      "sha256": "1440b9dd1f1960d110fadba78298f312f28d080147e3620d081317f6b2ceb40d",
+      "bytes": 1239
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/local-rate.schema.json",
+      "sha256": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+      "bytes": 6042
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/mandatory-transaction-fee.schema.json",
+      "sha256": "d3413e5a6b5d06065f545b0d8183804cf29fc6d2bd572ed8bede3da2c3a7bae2",
+      "bytes": 3350
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/marketplace.schema.json",
+      "sha256": "1c0d47026d4d07f6f30969aff12f13a5714462ec370633acf422fa57f263464a",
+      "bytes": 2572
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/rate-cap-threshold-rule.schema.json",
+      "sha256": "4c121b2a20cdaffa6e34f4f47e90c503a45e216c4ea02badad30f0f07dd8b97f",
+      "bytes": 3920
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/rate-component-rule.schema.json",
+      "sha256": "1687a6abb7b271e87b37510b4c37d278be05d864763fd130a9ac369628f8a446",
+      "bytes": 2728
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/rounding-rule.schema.json",
+      "sha256": "5236f851459b5066dfbbf9e549a16428b27d42b1452881a9d2262914cdacafda",
+      "bytes": 2706
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/seller-collection-rule.schema.json",
+      "sha256": "16fb4e7d4cad94abd6bee9452347ceb472cb0e28d41277ccc1c6b8d767a97d91",
+      "bytes": 2967
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/seller-tax-election.schema.json",
+      "sha256": "ddb0329929a9a40e623aedb0c219e2b189446451fd96106b0f4e1659e20a6553",
+      "bytes": 2845
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/sourcing.schema.json",
+      "sha256": "c04e9260a38147d37814b9f510be625881f117decaaaf6e437d5015efcf1b8d9",
+      "bytes": 2781
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/state-rate.schema.json",
+      "sha256": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+      "bytes": 6068
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/tax-credit.schema.json",
+      "sha256": "af924749630882bacfe38075f4a1229c55d0b7412c0cd72095da072f189d22ca",
+      "bytes": 2771
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/tax-jurisdiction.schema.json",
+      "sha256": "a0e5fe438d939ba1ecd6b66142484d7c821108f2d7ca29f06a3e33347bb96877",
+      "bytes": 2837
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/tax-regime.schema.json",
+      "sha256": "f7c138ceb0799db669e4b7e31b8622c1af4184ecc5c69ed9d8ca8475e230b36f",
+      "bytes": 2711
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/taxability.schema.json",
+      "sha256": "ea23fc6f8094528368c615183a6059db4bd19031434268a5bcb2998aaee637f6",
+      "bytes": 3108
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/schemas/taxable-base.schema.json",
+      "sha256": "728adbc4439e79765652b559839040afae18bc4700c5e852d192ee360cd89662",
+      "bytes": 2968
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/cli/publish-national.ts",
+      "sha256": "324ea6dbf5ef07fb91ea0c133705664d9517589866ad116ad29ac11dff56c97e",
+      "bytes": 644
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/cli/quote-v14.ts",
+      "sha256": "4798e8914a98d0589076eb24a7eb417933ed79ff4cd569a4e9b44428b35c1f2c",
+      "bytes": 481
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/core/db.ts",
+      "sha256": "955d57d46f61a45100a0c02a250179fb9cb66273f4063b6bcd843c13435bfa4b",
+      "bytes": 182
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/core/hash.ts",
+      "sha256": "3c40d324a4633cfaf2a4722e7adedbe486f661d7c586aa87480a354217df471b",
+      "bytes": 734
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/core/money.ts",
+      "sha256": "03d2a79ea2d4a94609fe5ef53fe67ddfabe47f9015ace0e0074afdc32390b912",
+      "bytes": 2697
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/core/types.ts",
+      "sha256": "d72d743afa253e4888fac1ca6cb5eda41193fdf52d0d918de69fb3f087be049e",
+      "bytes": 2189
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/build-state-coverage.ts",
+      "sha256": "b00e760677f5735e1a036143f250fa21257447f6ee63f4e58b06fea7cfa3911d",
+      "bytes": 5235
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/import-runtime-test-catalog.ts",
+      "sha256": "af695eff7f907c858b1e2ae71342e92185dbab07b486a15007ec59052f77787e",
+      "bytes": 2002
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/ingest-certified-source.ts",
+      "sha256": "dd25a061ed0a5409c4ed103bfd22d11f9002e539877cf7e1cb47a00df57ad9a5",
+      "bytes": 4589
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/load-zsl5-v14.ts",
+      "sha256": "c2cd94b6b3cf5d11dacce77307fd127ab57014c64a1fac75ef6550ff4d73ce46",
+      "bytes": 579
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/publish-national-tax-content.ts",
+      "sha256": "e743edfd90f290290bb25b652cab85bbe700e5011896b7ab8f313c6f506cebb9",
+      "bytes": 705
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/run-adversarial-certification.ts",
+      "sha256": "7e6cac82fe574afa755e2c90b2677468d38d7e181d714d9aa7838e43fd0c2583",
+      "bytes": 1746
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/run-category-tax-certification.ts",
+      "sha256": "808729ea791b5399b1d5c07bc7067fdf5ab5fd4959e43ec081a3efd56b39eb7f",
+      "bytes": 1739
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/run-national-source-acquisition.ts",
+      "sha256": "ad028e55db25d05b201cf91a9e78db910ea28d8dd2ad2f228894424f154a75b9",
+      "bytes": 2453
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/run-national-tax-certification.ts",
+      "sha256": "1add82d466d11658b31f1ff2f08d5c57519d9a9b8c26ce69ab4bd94e53f2eb78",
+      "bytes": 4223
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/run-replay-certification.ts",
+      "sha256": "e265568a9b960e47cade93198be631a9bb0f12483c925ae4d38a2c630bdb2b0a",
+      "bytes": 1601
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/submit-publication-freshness.ts",
+      "sha256": "e6ea799a0d5899b454b680a0126ba20bbd40ea55f773f54969fdcdb07658deae",
+      "bytes": 2404
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/runtime/validate-ingest-bundle.ts",
+      "sha256": "c3dcb62b8006d7bb7546acef6cef2172de475ade88ace13665f6e9a34a19578d",
+      "bytes": 3734
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl1/national-publication.ts",
+      "sha256": "97a5df1e894f9fd0523e6fb6d0d2ec8c68a06375f2c213ab3706dccb37fad4f7",
+      "bytes": 8816
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl1/schema-contract.ts",
+      "sha256": "520672bbb309a77e8204ca86638a801a6bde85ac46ffb87b48e101fbb083e8ba",
+      "bytes": 1322
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/category-tax-mapping.ts",
+      "sha256": "4d9f8be1e3db7fcc4f42c12035cf8e0310a00c7639bedf00c964f02f3bd80ce9",
+      "bytes": 1647
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/certification-v14.ts",
+      "sha256": "7d9eacfb5e68abdbccf7648b640329655e09522c5cf53aaa79a462a039c0c3dd",
+      "bytes": 5641
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/jurisdiction-resolver-v14.ts",
+      "sha256": "372ad72b2d71f64494ecb2ea8f5e9e1fe4576c80c5b9262c8756041c2ec66c74",
+      "bytes": 3041
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/national-loader.ts",
+      "sha256": "23e92c8fc1a0ff34aad087df554595dd8ec349394be8307e607bc7b29f0730a2",
+      "bytes": 5883
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/runtime-semantics.ts",
+      "sha256": "9d9acd931bd280eed25be4ab02f47163ce7ea4119c2b819b555186c9a82f06c9",
+      "bytes": 1467
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/tax-product-resolver-v14.ts",
+      "sha256": "366725b1e7152bf236886e53f07283bfe83b18159f0470417ac288c078e6be9b",
+      "bytes": 2194
+    },
+    {
+      "path": "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/tax-quote-v14.service.ts",
+      "sha256": "bfe9d65966d1fb67c41259c27c1e30f2c8a00dc8974baa0702fa869f4ec6af1b",
+      "bytes": 24772
+    },
+    {
+      "path": "repo-overlay/database/migrations/042a_zsl1_tax_acquisition_core.sql",
+      "sha256": "14cccd3b682b988a52b9bf7290eee707d0c7d85806cd2aae97cd2cc0bb2f32a8",
+      "bytes": 15785
+    },
+    {
+      "path": "repo-overlay/database/migrations/042b_zsl1_tax_acquisition_rbac.sql",
+      "sha256": "8f62626648518e139c5fb4875919648454937f2d1aebacdbefe91e46da9c6bb5",
+      "bytes": 2349
+    },
+    {
+      "path": "repo-overlay/database/migrations/042c_zsl1_tax_strict_ingest_certification.sql",
+      "sha256": "13fe95444aeafe6df851ec75db7c138b742dcec78dc75d4993f5105c031dd14a",
+      "bytes": 8145
+    },
+    {
+      "path": "repo-overlay/database/migrations/042d_zsl1_tax_national_publication.sql",
+      "sha256": "1705e917105da815d3136120c695d0411f2a77470093aa91dabe5ae52249d4c3",
+      "bytes": 4965
+    },
+    {
+      "path": "repo-overlay/database/migrations/043_zsl5_v14_engine_compatibility.sql",
+      "sha256": "6453c98a5fcac1e2ccc0dcadee93285c961eeb727ac6b4af111a189a920c8df5",
+      "bytes": 10876
+    },
+    {
+      "path": "repo-overlay/database/migrations/043a_zsl5_v14_21_family_runtime.sql",
+      "sha256": "4d11f57cd0b49a60b0c6b0edc83128cafaca44a8dbd4bb71d97543f2022af704",
+      "bytes": 2852
+    },
+    {
+      "path": "repo-overlay/database/migrations/043b_zsl5_v14_source_binding_coverage.sql",
+      "sha256": "0e729b015f23d302924ecd241b4153d1e4f696e1cd99ff077c571a3283e857e6",
+      "bytes": 3535
+    },
+    {
+      "path": "repo-overlay/database/migrations/043c_zsl5_v14_authority_activation.sql",
+      "sha256": "2ada80e791eac39a3836d6b5b7c285c424388d04126094d0764e8976becae395",
+      "bytes": 2394
+    },
+    {
+      "path": "repo-overlay/database/migrations/044a_zsl1_tax_runtime_population.sql",
+      "sha256": "707f6720d55edf6a890744ad24e7dcb4a2253503d62dd353b36522df29faeeac",
+      "bytes": 4637
+    },
+    {
+      "path": "repo-overlay/database/migrations/044b_zsl1_tax_national_runtime_certification.sql",
+      "sha256": "d20d290501a03482542220c9256806269f956f5758e12094388d060d5c33f9a2",
+      "bytes": 3024
+    },
+    {
+      "path": "repo-overlay/database/migrations/045_zsl5_v14_runtime_population.sql",
+      "sha256": "4d6d2580b52c7e6398df02f612a95d8c312f8306a138a5fa59396b04bcf34366",
+      "bytes": 1303
+    },
+    {
+      "path": "repo-overlay/database/migrations/045a_zsl5_v14_runtime_certification.sql",
+      "sha256": "3f36dccd2a640aba19b3e6e4a1b2570805003d1093645e1510c9857b309dd1fc",
+      "bytes": 4598
+    },
+    {
+      "path": "repo-overlay/database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql",
+      "sha256": "62612ab7b187aa051a74b2756fe615381a5c7964dc506e64b067c84db261dead",
+      "bytes": 11395
+    },
+    {
+      "path": "repo-overlay/database/migrations/046b_zsl5_v14_freshness_security_activation.sql",
+      "sha256": "9ae1338a0d3643b83152da005a9cddf60568bf8ba7e497e777eab24b5e9b8473",
+      "bytes": 6440
+    },
+    {
+      "path": "repo-overlay/database/migrations/046c_zsl5_v14_category_runtime_certification.sql",
+      "sha256": "7be4c102f0f700b29a499c6d3bc80a48f7371f8882ded866f438d336716d996f",
+      "bytes": 2523
+    },
+    {
+      "path": "repo-overlay/database/migrations/047a_zsl5_v14_final_freeze_database_contract.sql",
+      "sha256": "b82629adc7451ef57700866c44ad21fcd588ccc021ffdacd5765ce0a6100bc72",
+      "bytes": 3813
+    },
+    {
+      "path": "repo-overlay/database/migrations/047b_zsl5_zsl6_acquisition_cost_contract.sql",
+      "sha256": "d320962a1f41b4c8004a05f318100f84d0239e92bb34adbd6db35f8a2387f3fc",
+      "bytes": 1232
+    },
+    {
+      "path": "repo-overlay/database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql",
+      "sha256": "9bce979207f5bb7892089fd0e3052e63887bfa2a616eeadac6010baed1fc9916",
+      "bytes": 3362
+    },
+    {
+      "path": "repo-overlay/database/rollback/rollback_runtime_population_non_destructive.sql",
+      "sha256": "e5b26016ea9a138fefd96b2127d5ad1a61f0f4bccd7e424724871691cfc5d689",
+      "bytes": 547
+    },
+    {
+      "path": "repo-overlay/database/rollback/rollback_v14_non_destructive.sql",
+      "sha256": "dfe1ab288caa80c98937f617db5d0b90224ef2029185bf8958b8d2f1785ed766",
+      "bytes": 560
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/README.md",
+      "sha256": "f73db68116aeddcfcea9a0675444a0676c577ebce6e1244ed77e223b614aef96",
+      "bytes": 418
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/acquisition/archive-validator.ts",
+      "sha256": "1f8773176d20448b858fd1b5cbefd8784fb5d13c67e9c0a0edf3308859ab798c",
+      "bytes": 1014
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/acquisition/downloader.ts",
+      "sha256": "cdc6b99d8d8919df22b2bde4f8fc0c67964f76c3c0a955b87371d1e6fff37ef4",
+      "bytes": 7795
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/acquisition/object-store.ts",
+      "sha256": "63db2f0d43dfe4b1b1ba7c84b9aaabe3236ed500830274ea15e2467fef790db0",
+      "bytes": 508
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/acquisition/release-detector.ts",
+      "sha256": "68e4a75dfcd583aec199b9716cf55d6d6d11b19e75263b5d171aff77b5aa8ecb",
+      "bytes": 1040
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/acquisition/state-source-discovery.ts",
+      "sha256": "b66106e53e3f7d9c3450a160a12c0a58f3b4f2dfbe40e8c90d59f4bbbd08f353",
+      "bytes": 3802
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/legal/verified-rule.ts",
+      "sha256": "0a1a99808596e7ea8ddf4951973eb33de126f80e7c00c8b958c216e7023f82a3",
+      "bytes": 1701
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/registry.ts",
+      "sha256": "867e6e1c28cabc6297b9afb4cc3de340142a5274d36fe1f929e92c3beb755dfe",
+      "bytes": 982
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/boundary.ts",
+      "sha256": "aa99831a32beae2b24ae651dad86449778c6f57cc0f97615cdb7a51ff0969da6",
+      "bytes": 1522
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/rate.ts",
+      "sha256": "45fe230c54c964909c6a905e2fa7ac1e9a229c9c8a9e5ac57847c6631e50ab0f",
+      "bytes": 3888
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/tap.ts",
+      "sha256": "e49acbfd3b422e54a41fb82cb79b19e76e0ab1e5ce114d2a488056f58d0d3a1f",
+      "bytes": 2009
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/taxability.ts",
+      "sha256": "047e9e22474ae90999129849029f085d899c3084548d2f9ebed0ed1d00729a65",
+      "bytes": 1509
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/state/california-rate.ts",
+      "sha256": "e7bc327adbbe32518e147f4823b8cace9ecb9d9b601bfd30e6a13764f6bdb4c6",
+      "bytes": 1242
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/state/delimited.ts",
+      "sha256": "c6dd77c74a5e9e03b6ef5957d4e6005ad67678a0a28c7f6ac21af30eaa07dfb5",
+      "bytes": 313
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/state/texas-rate.ts",
+      "sha256": "f94774bc73e3e18b4a835bfa4318fa575ce69ce1e92c6dcde6ecd0b459191293",
+      "bytes": 904
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/state/washington-location.ts",
+      "sha256": "a95d680db72e4341ebf081ae3d624f23cc640a8b8c903a1ec3034bd01b59baf4",
+      "bytes": 1707
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/adapters/types.ts",
+      "sha256": "e8f69faf52d8c9d4c0c52ec26ea0503a76005a78d1d435ba193f35b6a96eb93b",
+      "bytes": 1516
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/applicability-assertion-policy.json",
+      "sha256": "e9cae45e8b629317c0b9fd9ad90726c14fb3b10a54abb35d0ee7895e0a38e760",
+      "bytes": 541
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/certification-denominator.json",
+      "sha256": "13dbbea7842c0617f916b1a5d50ead26e22146e391b96809bafd08babfcc66bf",
+      "bytes": 1080
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/dataset-family-registry.json",
+      "sha256": "c5e80e82010e5ac6e866acb320ee9e575a2d7b0b3cb6cb64171f51cc0a024e68",
+      "bytes": 4191
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/family-discovery-queries.json",
+      "sha256": "88849d5c8e7d9134e3224618ceb452ea727b7009874b618b6b4fdffc004a8d30",
+      "bytes": 1445
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/high-complexity-states.json",
+      "sha256": "ae50e9d8691e4fbad8efcb2c8383046668bd37bbf98a41e707ec88505d0931b0",
+      "bytes": 144
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/jurisdictions-51.json",
+      "sha256": "96c4c72e09aa98b9f04aec8d12b43c22132e6af75a5be702f56cada33394a8e9",
+      "bytes": 31554
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/local-coverage-requirements.json",
+      "sha256": "c2a1a7c985c967afef6df57378ae0e994eda2e982416c1c05f8a7fdeed0ad373",
+      "bytes": 589
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/source-endpoint-requirements.json",
+      "sha256": "6699503d01e5d42c202623a3f56d2005a9b02718757724874e2a2c4824728e18",
+      "bytes": 1132
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/source-matrix.json",
+      "sha256": "47d1b3d3792b506721c7089ba85c45c954a8340c3f937d3adbfcf38b5111ca06",
+      "bytes": 422763
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/source-precedence.json",
+      "sha256": "3d8d899d3739eef90a3c7261090a5da3527034b5f5d4328817eb32fb7d6d0ad0",
+      "bytes": 1178
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/catalog/sst-membership.json",
+      "sha256": "68f78307a0ac3870df53ace098ee89663e96fda51c748933083c454d86836668",
+      "bytes": 614
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/config/sources/tax-sources.json",
+      "sha256": "443c84294758b4df8c3c5472641ec5b93606c1d3a7db992030e1029bcd3794b8",
+      "bytes": 13737
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/normalization/normalize-run.ts",
+      "sha256": "cbd043164688eab53cbddbb31efa8708d66d40f84e48e0257a6cccba56998b2a",
+      "bytes": 1742
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/normalization/schema-validator.ts",
+      "sha256": "8d3afc77a75346d5a0f4db35c5663aa4fc901716bca3f7071bcd57f339bcc109",
+      "bytes": 2764
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/package.json",
+      "sha256": "686713795dda9a6111f7321532973b6b22c44161d84a510bf215030da68ef5d8",
+      "bytes": 753
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/reconciliation/conflicts.ts",
+      "sha256": "a9af9cea4c3b06a5378e5c67e7ddb0514bf99071dd668af24548e15b47a7b531",
+      "bytes": 888
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/reconciliation/effective-date.ts",
+      "sha256": "88bf3142c9d751ff70cc42cc34dc48996b1941607637eb9634b6390e8919c14c",
+      "bytes": 428
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/reconciliation/precedence.ts",
+      "sha256": "f338388f7b8bf209d1b3db9b622c9e4da16be5e031c545c1075183144341fa94",
+      "bytes": 506
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/reconciliation/supersession.ts",
+      "sha256": "e8005e2cea094dca1f373919cb47d7fb8c3653b868a7c75e2092b36de5652968",
+      "bytes": 456
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/address-resolution-quality.schema.json",
+      "sha256": "10f691eae3ef506fb21a589b78c6636403914f54b92e5402b7cc34055b7641d1",
+      "bytes": 1315
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/allocation-rule.schema.json",
+      "sha256": "d2627671f40434e37143741e66384f3847b37fab43c77961dd26fae865f9eb8d",
+      "bytes": 2671
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/applicability-assertion.schema.json",
+      "sha256": "1ba7314a21c0682ab3ae6180bf681651cbaebf4c406b2b24c589f4116908509c",
+      "bytes": 2300
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/bundled-transaction-rule.schema.json",
+      "sha256": "84faa922942109881c50c1f6eadfa14dd539be340b0de648d86b23d073cbd9c6",
+      "bytes": 2451
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/exemption-certificate-requirement.schema.json",
+      "sha256": "94ac461b1ae3a159515d6d641091f89c3691029e88bf21099cf183268a24274c",
+      "bytes": 3640
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/exemption.schema.json",
+      "sha256": "ac701cd007bbba1b8af368befa6b7baf30c427bed46dfbb18bd81e8f744029c9",
+      "bytes": 1557
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/holiday.schema.json",
+      "sha256": "f730797a04ffcdb53794f1d524c8a45ef379493cfe9914a889f73fa82642c762",
+      "bytes": 1552
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/jurisdiction.schema.json",
+      "sha256": "d64ebaa020541e6ff7366ad10238e29a7f6284b70f5abb5ab34351a1d8f35532",
+      "bytes": 1573
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/local-authority-coverage.schema.json",
+      "sha256": "1440b9dd1f1960d110fadba78298f312f28d080147e3620d081317f6b2ceb40d",
+      "bytes": 1239
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json",
+      "sha256": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+      "bytes": 6042
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/mandatory-transaction-fee.schema.json",
+      "sha256": "f15dc355036fc273666795fff5e36d391a0fee777c309ead4c760dc2951085e8",
+      "bytes": 2980
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/marketplace.schema.json",
+      "sha256": "da99eb427bfd0091373133c2b7bef00d23d33b703da59ddff8723aad0f2d29b2",
+      "bytes": 1561
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/rate-cap-threshold-rule.schema.json",
+      "sha256": "9f88815dd41e5136f41bd5c1d7daf53dc916f4658ff51e0b016247c02ef6ed5b",
+      "bytes": 2918
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/rate-component-rule.schema.json",
+      "sha256": "84287b3dba688997d7a3ecd4802b1cfdeecfadac9f7db4d45a33f2c50d18f332",
+      "bytes": 2833
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/rounding-rule.schema.json",
+      "sha256": "3bcfd009aec44864cd5fd6ce635d4693abe6eacc6b282828cf2255a5f5e3d235",
+      "bytes": 2556
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/seller-collection-rule.schema.json",
+      "sha256": "077fb8220f9f7061335bb15cf79af2ec9bf86fdf0a1d25b121293934886dcf69",
+      "bytes": 2795
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/seller-tax-election.schema.json",
+      "sha256": "884d93e7ef8b858f73a1ca25a10ee00deb267097eee6ae405e13b300bafdecd9",
+      "bytes": 2568
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/sourcing.schema.json",
+      "sha256": "bc399ce4bfd742c1673abf68bb6f44dd7ede14fa10ff04e341037521e48130b3",
+      "bytes": 1555
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json",
+      "sha256": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+      "bytes": 6068
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/tax-credit.schema.json",
+      "sha256": "433dd749e31674a73f4ba1930395b837f69768cca5c6853816ef9d66412c9433",
+      "bytes": 1559
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/tax-jurisdiction.schema.json",
+      "sha256": "aeca757620035faafcbb07864354825bcf8deb44f788dc1a5e0345dbc6eafd92",
+      "bytes": 2721
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/tax-regime.schema.json",
+      "sha256": "4430ce0f55ba056fae1ce76b150a1a8479301485ad09a27440fe58c346e8a4c9",
+      "bytes": 1554
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/taxability.schema.json",
+      "sha256": "a9baf10bf2c42d92ae8a00443e02dcd73ffb750d7c4bdecfe6d89dbe49d48627",
+      "bytes": 1562
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/schemas/taxable-base.schema.json",
+      "sha256": "fa2558cc2d0d591c9119cd535b1d1cb8a9534359b160a3c8120e4d9d8bcbd350",
+      "bytes": 1563
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/tsconfig.json",
+      "sha256": "d3d969d9bc81ef3787c920c1e577392b34891f2020cb408a40f7f250be73953a",
+      "bytes": 478
+    },
+    {
+      "path": "repo-overlay/tools/zsl-tax-source-acquisition/zsl2/geography-binding.ts",
+      "sha256": "84085f5c58ce7347c257ec8b42fb19303cbd82bcfb8915d754af3e72acea9627",
+      "bytes": 761
+    },
+    {
+      "path": "scripts/static-check.mjs",
+      "sha256": "afd2edaab1882c381043662b9ccc773643da479e0002e3d89aea4d78b6492240",
+      "bytes": 2588
+    },
+    {
+      "path": "test-support/types/node-shim.d.ts",
+      "sha256": "aba8e7b1acae65cc054ca425098af25461dbfb94549780f4ccab8d580b513388",
+      "bytes": 1204
+    },
+    {
+      "path": "test-support/types/pg.d.ts",
+      "sha256": "825cb87f574ea8b3b8d47fd67160dc0927d71360aa582e138c141cfcc482f3eb",
+      "bytes": 413
+    },
+    {
+      "path": "tests/staging/README.md",
+      "sha256": "10ebdb78e644470a2f8037666ed9c0505b0dd461e093f84fc9951287dd7d9d0b",
+      "bytes": 428
+    },
+    {
+      "path": "tests/static/freeze-db-contract.test.ts",
+      "sha256": "66ba8be86bae72e3ee2120d0eada98acc13c13278e0de951b9bff7ace142dc26",
+      "bytes": 1669
+    },
+    {
+      "path": "tests/static/package-contract.test.ts",
+      "sha256": "886dfbf9c1dd89228be930d83c3a153a2646b853b1abe69ec685f71e40346386",
+      "bytes": 1105
+    },
+    {
+      "path": "tests/unit/categories.test.ts",
+      "sha256": "df03952fc6ba548e36e52fb083f35d069ad7e5a4f0ffce6e8fd585f49f1655dc",
+      "bytes": 455
+    },
+    {
+      "path": "tests/unit/families.test.ts",
+      "sha256": "62ad20deb07c84f2f86db0cf8a7816c5fd3318b213a83bbed69b8ff641e78083",
+      "bytes": 256
+    },
+    {
+      "path": "tests/unit/freeze-semantics.test.ts",
+      "sha256": "89fbfda8080b3a6babe3832235dbccb48032de5b20edda28bea9a054ea2955db",
+      "bytes": 1088
+    },
+    {
+      "path": "tests/unit/hash.test.ts",
+      "sha256": "92a289dfcbd61b1c6a704e81511dc507b5d70642229b136a75fec730485e79e3",
+      "bytes": 422
+    },
+    {
+      "path": "tests/unit/money.test.ts",
+      "sha256": "e9009cabe6817eb872584da107fb9701c100a478102141e7b380f627b9d543e9",
+      "bytes": 576
+    },
+    {
+      "path": "tests/unit/runtime-catalogs.test.ts",
+      "sha256": "ddaff45c0b9848ded62b3e594e8f7d8f8167798acc23bb7204568c5859be3b92",
+      "bytes": 2055
+    },
+    {
+      "path": "tests/unit/runtime-safety.test.ts",
+      "sha256": "7ca322c10ac02c5f2a17b4bc39945d6a36a5d1605bc085631df9f2eb23d4c15c",
+      "bytes": 1440
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/README.md",
+      "sha256": "f73db68116aeddcfcea9a0675444a0676c577ebce6e1244ed77e223b614aef96",
+      "bytes": 418
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/acquisition/archive-validator.ts",
+      "sha256": "1f8773176d20448b858fd1b5cbefd8784fb5d13c67e9c0a0edf3308859ab798c",
+      "bytes": 1014
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/acquisition/downloader.ts",
+      "sha256": "cdc6b99d8d8919df22b2bde4f8fc0c67964f76c3c0a955b87371d1e6fff37ef4",
+      "bytes": 7795
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/acquisition/object-store.ts",
+      "sha256": "63db2f0d43dfe4b1b1ba7c84b9aaabe3236ed500830274ea15e2467fef790db0",
+      "bytes": 508
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/acquisition/release-detector.ts",
+      "sha256": "68e4a75dfcd583aec199b9716cf55d6d6d11b19e75263b5d171aff77b5aa8ecb",
+      "bytes": 1040
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/acquisition/state-source-discovery.ts",
+      "sha256": "b66106e53e3f7d9c3450a160a12c0a58f3b4f2dfbe40e8c90d59f4bbbd08f353",
+      "bytes": 3802
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/legal/verified-rule.ts",
+      "sha256": "0a1a99808596e7ea8ddf4951973eb33de126f80e7c00c8b958c216e7023f82a3",
+      "bytes": 1701
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/registry.ts",
+      "sha256": "867e6e1c28cabc6297b9afb4cc3de340142a5274d36fe1f929e92c3beb755dfe",
+      "bytes": 982
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/sst/boundary.ts",
+      "sha256": "aa99831a32beae2b24ae651dad86449778c6f57cc0f97615cdb7a51ff0969da6",
+      "bytes": 1522
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/sst/rate.ts",
+      "sha256": "45fe230c54c964909c6a905e2fa7ac1e9a229c9c8a9e5ac57847c6631e50ab0f",
+      "bytes": 3888
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/sst/tap.ts",
+      "sha256": "e49acbfd3b422e54a41fb82cb79b19e76e0ab1e5ce114d2a488056f58d0d3a1f",
+      "bytes": 2009
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/sst/taxability.ts",
+      "sha256": "047e9e22474ae90999129849029f085d899c3084548d2f9ebed0ed1d00729a65",
+      "bytes": 1509
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/state/california-rate.ts",
+      "sha256": "e7bc327adbbe32518e147f4823b8cace9ecb9d9b601bfd30e6a13764f6bdb4c6",
+      "bytes": 1242
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/state/delimited.ts",
+      "sha256": "c6dd77c74a5e9e03b6ef5957d4e6005ad67678a0a28c7f6ac21af30eaa07dfb5",
+      "bytes": 313
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/state/texas-rate.ts",
+      "sha256": "f94774bc73e3e18b4a835bfa4318fa575ce69ce1e92c6dcde6ecd0b459191293",
+      "bytes": 904
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/state/washington-location.ts",
+      "sha256": "a95d680db72e4341ebf081ae3d624f23cc640a8b8c903a1ec3034bd01b59baf4",
+      "bytes": 1707
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/adapters/types.ts",
+      "sha256": "e8f69faf52d8c9d4c0c52ec26ea0503a76005a78d1d435ba193f35b6a96eb93b",
+      "bytes": 1516
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/applicability-assertion-policy.json",
+      "sha256": "e9cae45e8b629317c0b9fd9ad90726c14fb3b10a54abb35d0ee7895e0a38e760",
+      "bytes": 541
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/certification-denominator.json",
+      "sha256": "13dbbea7842c0617f916b1a5d50ead26e22146e391b96809bafd08babfcc66bf",
+      "bytes": 1080
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/dataset-family-registry.json",
+      "sha256": "c5e80e82010e5ac6e866acb320ee9e575a2d7b0b3cb6cb64171f51cc0a024e68",
+      "bytes": 4191
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/family-discovery-queries.json",
+      "sha256": "88849d5c8e7d9134e3224618ceb452ea727b7009874b618b6b4fdffc004a8d30",
+      "bytes": 1445
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/high-complexity-states.json",
+      "sha256": "ae50e9d8691e4fbad8efcb2c8383046668bd37bbf98a41e707ec88505d0931b0",
+      "bytes": 144
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/jurisdictions-51.json",
+      "sha256": "96c4c72e09aa98b9f04aec8d12b43c22132e6af75a5be702f56cada33394a8e9",
+      "bytes": 31554
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/local-coverage-requirements.json",
+      "sha256": "c2a1a7c985c967afef6df57378ae0e994eda2e982416c1c05f8a7fdeed0ad373",
+      "bytes": 589
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/source-endpoint-requirements.json",
+      "sha256": "6699503d01e5d42c202623a3f56d2005a9b02718757724874e2a2c4824728e18",
+      "bytes": 1132
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/source-matrix.json",
+      "sha256": "47d1b3d3792b506721c7089ba85c45c954a8340c3f937d3adbfcf38b5111ca06",
+      "bytes": 422763
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/source-precedence.json",
+      "sha256": "3d8d899d3739eef90a3c7261090a5da3527034b5f5d4328817eb32fb7d6d0ad0",
+      "bytes": 1178
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/catalog/sst-membership.json",
+      "sha256": "68f78307a0ac3870df53ace098ee89663e96fda51c748933083c454d86836668",
+      "bytes": 614
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/config/sources/tax-sources.json",
+      "sha256": "443c84294758b4df8c3c5472641ec5b93606c1d3a7db992030e1029bcd3794b8",
+      "bytes": 13737
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/normalization/normalize-run.ts",
+      "sha256": "cbd043164688eab53cbddbb31efa8708d66d40f84e48e0257a6cccba56998b2a",
+      "bytes": 1742
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/normalization/schema-validator.ts",
+      "sha256": "8d3afc77a75346d5a0f4db35c5663aa4fc901716bca3f7071bcd57f339bcc109",
+      "bytes": 2764
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/package-lock.json",
+      "sha256": "b7629143ab8005cf146d53547157e521e123ea1edee6fb8be6d013cb3c82ba61",
+      "bytes": 40031
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/package.json",
+      "sha256": "686713795dda9a6111f7321532973b6b22c44161d84a510bf215030da68ef5d8",
+      "bytes": 753
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/reconciliation/conflicts.ts",
+      "sha256": "a9af9cea4c3b06a5378e5c67e7ddb0514bf99071dd668af24548e15b47a7b531",
+      "bytes": 888
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/reconciliation/effective-date.ts",
+      "sha256": "88bf3142c9d751ff70cc42cc34dc48996b1941607637eb9634b6390e8919c14c",
+      "bytes": 428
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/reconciliation/precedence.ts",
+      "sha256": "f338388f7b8bf209d1b3db9b622c9e4da16be5e031c545c1075183144341fa94",
+      "bytes": 506
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/reconciliation/supersession.ts",
+      "sha256": "e8005e2cea094dca1f373919cb47d7fb8c3653b868a7c75e2092b36de5652968",
+      "bytes": 456
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/address-resolution-quality.schema.json",
+      "sha256": "10f691eae3ef506fb21a589b78c6636403914f54b92e5402b7cc34055b7641d1",
+      "bytes": 1315
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/allocation-rule.schema.json",
+      "sha256": "d2627671f40434e37143741e66384f3847b37fab43c77961dd26fae865f9eb8d",
+      "bytes": 2671
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/applicability-assertion.schema.json",
+      "sha256": "1ba7314a21c0682ab3ae6180bf681651cbaebf4c406b2b24c589f4116908509c",
+      "bytes": 2300
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/bundled-transaction-rule.schema.json",
+      "sha256": "84faa922942109881c50c1f6eadfa14dd539be340b0de648d86b23d073cbd9c6",
+      "bytes": 2451
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/exemption-certificate-requirement.schema.json",
+      "sha256": "94ac461b1ae3a159515d6d641091f89c3691029e88bf21099cf183268a24274c",
+      "bytes": 3640
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/exemption.schema.json",
+      "sha256": "ac701cd007bbba1b8af368befa6b7baf30c427bed46dfbb18bd81e8f744029c9",
+      "bytes": 1557
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/holiday.schema.json",
+      "sha256": "f730797a04ffcdb53794f1d524c8a45ef379493cfe9914a889f73fa82642c762",
+      "bytes": 1552
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/jurisdiction.schema.json",
+      "sha256": "d64ebaa020541e6ff7366ad10238e29a7f6284b70f5abb5ab34351a1d8f35532",
+      "bytes": 1573
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/local-authority-coverage.schema.json",
+      "sha256": "1440b9dd1f1960d110fadba78298f312f28d080147e3620d081317f6b2ceb40d",
+      "bytes": 1239
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json",
+      "sha256": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+      "bytes": 6042
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/mandatory-transaction-fee.schema.json",
+      "sha256": "f15dc355036fc273666795fff5e36d391a0fee777c309ead4c760dc2951085e8",
+      "bytes": 2980
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/marketplace.schema.json",
+      "sha256": "da99eb427bfd0091373133c2b7bef00d23d33b703da59ddff8723aad0f2d29b2",
+      "bytes": 1561
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/rate-cap-threshold-rule.schema.json",
+      "sha256": "9f88815dd41e5136f41bd5c1d7daf53dc916f4658ff51e0b016247c02ef6ed5b",
+      "bytes": 2918
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/rate-component-rule.schema.json",
+      "sha256": "84287b3dba688997d7a3ecd4802b1cfdeecfadac9f7db4d45a33f2c50d18f332",
+      "bytes": 2833
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/rounding-rule.schema.json",
+      "sha256": "3bcfd009aec44864cd5fd6ce635d4693abe6eacc6b282828cf2255a5f5e3d235",
+      "bytes": 2556
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/seller-collection-rule.schema.json",
+      "sha256": "077fb8220f9f7061335bb15cf79af2ec9bf86fdf0a1d25b121293934886dcf69",
+      "bytes": 2795
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/seller-tax-election.schema.json",
+      "sha256": "884d93e7ef8b858f73a1ca25a10ee00deb267097eee6ae405e13b300bafdecd9",
+      "bytes": 2568
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/sourcing.schema.json",
+      "sha256": "bc399ce4bfd742c1673abf68bb6f44dd7ede14fa10ff04e341037521e48130b3",
+      "bytes": 1555
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json",
+      "sha256": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+      "bytes": 6068
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/tax-credit.schema.json",
+      "sha256": "433dd749e31674a73f4ba1930395b837f69768cca5c6853816ef9d66412c9433",
+      "bytes": 1559
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/tax-jurisdiction.schema.json",
+      "sha256": "aeca757620035faafcbb07864354825bcf8deb44f788dc1a5e0345dbc6eafd92",
+      "bytes": 2721
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/tax-regime.schema.json",
+      "sha256": "4430ce0f55ba056fae1ce76b150a1a8479301485ad09a27440fe58c346e8a4c9",
+      "bytes": 1554
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/taxability.schema.json",
+      "sha256": "a9baf10bf2c42d92ae8a00443e02dcd73ffb750d7c4bdecfe6d89dbe49d48627",
+      "bytes": 1562
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/schemas/taxable-base.schema.json",
+      "sha256": "fa2558cc2d0d591c9119cd535b1d1cb8a9534359b160a3c8120e4d9d8bcbd350",
+      "bytes": 1563
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/tests/sst-nine-column.test.mjs",
+      "sha256": "ce7041d064713c41bcb3fc701178145709c735d16d86d183260bdaf457eccddb",
+      "bytes": 5727
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/tsconfig.json",
+      "sha256": "d3d969d9bc81ef3787c920c1e577392b34891f2020cb408a40f7f250be73953a",
+      "bytes": 478
+    },
+    {
+      "path": "tools/zsl-tax-source-acquisition/zsl2/geography-binding.ts",
+      "sha256": "84085f5c58ce7347c257ec8b42fb19303cbd82bcfb8915d754af3e72acea9627",
+      "bytes": 761
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "32407786c49cd0c42a723bb976258325af5c20ccfb2d280297b0fb0875f319ea",
+      "bytes": 369
+    }
+  ]
+}

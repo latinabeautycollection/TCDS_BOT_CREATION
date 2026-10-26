@@ -1,0 +1,27 @@
+{
+  "version": "1.2.0",
+  "checks": [
+    "engine_version_v14",
+    "package_identity_valid",
+    "zsl2_binding_current",
+    "national_publication_certified",
+    "national_family_coverage_1071",
+    "national_local_coverage_51",
+    "national_resolution_coverage_51",
+    "source_bindings_strict",
+    "zero_fatal_conflicts",
+    "family_facts_loaded",
+    "category_tax_mapping_coverage_10",
+    "negative_authority_consistent",
+    "publication_freshness_1071",
+    "quote_math_numeric",
+    "rounding_rules_resolved",
+    "jurisdiction_resolution_resolved",
+    "replay_deterministic",
+    "rollback_attested",
+    "rbac_isolation",
+    "category_runtime_tests_10",
+    "golden_51_states",
+    "adversarial_suite"
+  ]
+}

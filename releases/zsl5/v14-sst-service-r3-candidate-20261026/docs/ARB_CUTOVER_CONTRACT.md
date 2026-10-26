@@ -1,0 +1,2 @@
+# ARB downstream contract (separate repo/package)
+ARB must eventually replace `estimatedPurchasePriceUsd * policy.salesTaxRate` with a sealed ZSL5 V1.4 quote containing: quoteEvidenceId/evidenceSha256, checkoutTaxEstimateCents, estimatedLegalTaxBurdenCents, potentialUseTaxCents, mandatoryGovernmentFeesCents, totalGovernmentAcquisitionCostCents, confidence, missingness, evaluationAsOf. ZSL5 must never make BUY/WATCH/REVIEW/REJECT or capital-allocation decisions.

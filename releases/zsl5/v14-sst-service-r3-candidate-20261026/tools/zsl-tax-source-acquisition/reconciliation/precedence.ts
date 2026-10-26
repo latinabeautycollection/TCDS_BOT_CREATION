@@ -1,0 +1,2 @@
+import type { CanonicalTaxRecord } from '../adapters/types.ts';
+export function chooseAuthority(records:CanonicalTaxRecord[]){if(!records.length)return {winner:null,conflicts:[]};const sorted=[...records].sort((a,b)=>a.authority_rank-b.authority_rank);const best=sorted[0].authority_rank;const top=sorted.filter(x=>x.authority_rank===best);const fingerprints=new Map(top.map(x=>[JSON.stringify(x.payload),x]));if(fingerprints.size>1)return {winner:null,conflicts:top};return {winner:top[0],conflicts:[]};}

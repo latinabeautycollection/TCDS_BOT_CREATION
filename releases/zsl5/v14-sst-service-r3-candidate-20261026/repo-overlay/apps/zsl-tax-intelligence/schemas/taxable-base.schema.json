@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/taxable-base-rule.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "TAXABLE_BASE_RULE"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "const": "PENDING_PARSE"
+      }
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_type",
+        "treatment",
+        "predicate"
+      ],
+      "properties": {
+        "component_type": {
+          "enum": [
+            "ITEM",
+            "SHIPPING",
+            "DELIVERY",
+            "HANDLING",
+            "INSTALLATION",
+            "RETAILER_COUPON",
+            "MANUFACTURER_COUPON",
+            "REBATE",
+            "TRADE_IN",
+            "REWARD",
+            "MANDATORY_FEE",
+            "OTHER"
+          ]
+        },
+        "treatment": {
+          "enum": [
+            "INCLUDE",
+            "EXCLUDE",
+            "ALLOCATE",
+            "REDUCE_BASE",
+            "INCREASE_BASE"
+          ]
+        },
+        "tax_product_class": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "allocation_rule_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "predicate": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

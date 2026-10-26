@@ -1,0 +1,18 @@
+{
+  "package_version":"1.2.0",
+  "open_p0":0,
+  "open_p1":0,
+  "remediations":[
+    {"id":"FF-001","severity":"P0","issue":"canonical ingest omitted mandatory DB columns","fix":"release/artifact/raw IDs plus parser/normalization versions now inserted","verification":"compile + static DB contract test PASS"},
+    {"id":"FF-002","severity":"P0","issue":"raw record conflict path mutated immutable natural_key","fix":"DO NOTHING + exact immutable row verification","verification":"static test PASS"},
+    {"id":"FF-003","severity":"P0","issue":"quote engine used noncanonical schema keys","fix":"runtime aligned to canonical 21-family payload names; payload violation view added","verification":"compile + freeze gate"},
+    {"id":"FF-004","severity":"P0","issue":"seller election recorded but not applied","fix":"explicit LOCAL rate override required and applied; unscoped election fails closed","verification":"compile/fail-closed logic"},
+    {"id":"FF-005","severity":"P0","issue":"jurisdiction resolver skipped ADDRESS_RULE and AUTHORITATIVE_POLYGON","fix":"documented ordered resolver implemented","verification":"compile/static"},
+    {"id":"FF-006","severity":"P1","issue":"effective-to boundary was inclusive","fix":"runtime uses half-open interval and DB constraint added","verification":"static test PASS"},
+    {"id":"FF-007","severity":"P1","issue":"rounding runtime only supported implicit HALF_UP field alias","fix":"canonical rounding_mode plus deterministic exact modes","verification":"unit tests PASS"},
+    {"id":"FF-008","severity":"P1","issue":"membership conflict could be silently ignored","fix":"existing ordinal membership must exactly match","verification":"compile/static"},
+    {"id":"FF-009","severity":"P1","issue":"future ZSL6 integration undefined","fix":"read-only certified acquisition-cost view/interface","verification":"static ownership test PASS"},
+    {"id":"FF-010","severity":"P1","issue":"final activation did not reject malformed canonical runtime payloads","fix":"payload violation view is mandatory final-freeze gate","verification":"047c gate"}
+  ],
+  "non_authority_environment_limitations":["Acquisition-tool npm install/typecheck did not complete because dependency installation timed out; syntax scan passed 23/23 and staging dependency-aware validation remains mandatory."]
+}

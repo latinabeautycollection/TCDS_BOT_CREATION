@@ -1,0 +1,2119 @@
+Here is a master adversarial-review prompt tailored to the actual runtime package you attached.
+
+# TCDS ZSL1 → ZSL5 NATIONAL TAX RUNTIME POPULATION  
+## ADVERSARIAL PEER REVIEW MASTER PROMPT
+
+You are acting as an **independent Fortune-500 enterprise architecture, PostgreSQL, tax-engine, data-governance, security, QA, and production-readiness review board**.
+
+Your task is to conduct a **hostile/adversarial peer review** of the attached solution:
+
+**TCDS_ZSL1_ZSL5_NATIONAL_TAX_RUNTIME_POPULATION_V1_0_0_GREEN_TIER1_BUILD_CANDIDATE**
+
+Do not assume the package is correct because it is labeled Green Tier 1, Build Candidate, hardened, certified, final, freeze candidate, or production-ready.
+
+Your job is to attempt to **disprove those claims**.
+
+The standard is not:
+
+> “Does the package look well designed?”
+
+The standard is:
+
+> “Can this solution be safely merged into the current TCDS production architecture, ingest real nationwide tax content, produce reproducible and legally defensible tax acquisition-cost intelligence, survive malformed/missing/conflicting sources, and only become runtime authority when every required control has actually passed?”
+
+---
+
+# 1. AUTHORITATIVE REVIEW INPUTS
+
+Review the attached runtime package in full.
+
+Also cross-reference it against the current production repository:
+
+`https://github.com/latinabeautycollection/TCDS_BOT_CREATION`
+
+Review the current `main` branch, including current migrations, application code, package configuration, TypeScript configuration, and existing ZSL architecture.
+
+Do not assume repository state from documentation inside the ZIP. Verify the actual repository.
+
+The expected production baseline during the package build was approximately:
+
+```text
+TCDS_BOT_CREATION
+main
+observed head:
+ef985e28f41a56b5b5d25252aacdb1ab456888b0
+```
+
+If the repository has moved forward, use the **current repository state** and report the drift.
+
+Also reconcile the package against the existing ZSL schema and authority hierarchy:
+
+```text
+ZSL1 = external source acquisition, provenance, ingest, reconciliation, certification
+
+ZSL2 = canonical geography/location authority
+
+ZSL3 = economic intelligence
+
+ZSL4 = logistics/supply intelligence
+
+ZSL5 = tax and acquisition-cost intelligence
+
+ZSL6 = acquisition economics
+
+ARB = profit / ROI / max bid / BUY-WATCH-REVIEW-REJECT
+
+PQP = purchase readiness
+
+CAX = checkout execution
+```
+
+Hard ownership boundaries must remain intact.
+
+---
+
+# 2. TARGET ARCHITECTURE TO VERIFY
+
+The intended flow is:
+
+```text
+OFFICIAL TAX SOURCES
+        ↓
+ZSL1 SOURCE ACQUISITION
+        ↓
+IMMUTABLE RAW ARTIFACTS
+        ↓
+zsl_raw.raw_records
+        ↓
+zsl.release_record_memberships
+        ↓
+21 CANONICAL TAX FAMILIES
+        ↓
+SOURCE PRECEDENCE / CONFLICT RESOLUTION
+        ↓
+SCHEMA VALIDATION
+        ↓
+PARSER REPLAY
+        ↓
+RECONCILIATION
+        ↓
+STRICT ZSL1 CERTIFICATION
+        ↓
+STATE COVERAGE CERTIFICATION
+        ↓
+1,071 FAMILY CELLS
++ 51 LOCAL-AUTHORITY GATES
++ 51 ADDRESS-RESOLUTION GATES
+        ↓
+US_NATIONAL_TAX_CONTENT
+IMMUTABLE NATIONAL PUBLICATION
+        ↓
+ZSL2 GEOGRAPHIC BINDING
+        ↓
+ZSL5 V1.4
+        ↓
+21 EXACT SOURCE-FAMILY BINDINGS
+        ↓
+ZSL5 RUNTIME RULE TABLES
+        ↓
+CANDIDATE QUOTE TESTING
+        ↓
+51-STATE GOLDEN TESTS
++ HIGH-RISK ADVERSARIAL TESTS
++ REPLAY
++ ROLLBACK
+        ↓
+ZSL5 CERTIFICATION
+        ↓
+ZSL5 ACTIVATION
+```
+
+Verify whether the implementation actually enforces this.
+
+Do not accept architecture diagrams as evidence.
+
+---
+
+# 3. REQUIRED 21 TAX FAMILIES
+
+Verify that these exact 21 governed tax families are supported end-to-end:
+
+```text
+1.  TAX_REGIME
+2.  TAX_JURISDICTION
+3.  TAX_JURISDICTION_ASSIGNMENT
+4.  STATE_RATE
+5.  LOCAL_RATE
+6.  RATE_COMPONENT_RULE
+7.  RATE_CAP_THRESHOLD_RULE
+8.  PRODUCT_TAXABILITY
+9.  TAXABLE_BASE_RULE
+10. BUNDLED_TRANSACTION_RULE
+11. ALLOCATION_RULE
+12. TAX_HOLIDAY
+13. SOURCING_RULE
+14. SELLER_COLLECTION_RULE
+15. MARKETPLACE_RULE
+16. SELLER_TAX_ELECTION
+17. EXEMPTION_RULE
+18. EXEMPTION_CERTIFICATE_REQUIREMENT
+19. TAX_CREDIT_RULE
+20. ROUNDING_RULE
+21. MANDATORY_TRANSACTION_FEE
+```
+
+For **every family**, determine whether it has:
+
+```text
+source acquisition
+parser/normalizer support
+canonical schema
+ZSL1 raw lineage
+schema validation
+reconciliation
+source precedence
+effective dating
+supersession/correction handling
+certification
+state-level coverage attestation
+national publication membership
+ZSL5 binding
+ZSL5 runtime consumption
+quote-engine effect
+runtime test coverage
+```
+
+Create a 21-row matrix.
+
+No family should receive PASS merely because its enum or table name exists.
+
+---
+
+# 4. NATIONAL CERTIFICATION DENOMINATOR
+
+Verify the complete national denominator:
+
+```text
+51 jurisdictions
+×
+21 tax families
+=
+1,071 family certification cells
+```
+
+Additionally verify:
+
+```text
+51 / 51 local-authority coverage gates
+
+51 / 51 address-resolution quality gates
+```
+
+Confirm whether production authority requires:
+
+```text
+1,071 / 1,071 PASS
+AND
+51 / 51 local coverage PASS
+AND
+51 / 51 address resolution PASS
+AND
+0 unresolved FATAL conflicts
+```
+
+Attempt to bypass these controls.
+
+Test whether:
+
+```text
+a JSON file can falsely mark coverage complete
+
+one record can falsely certify an entire family
+
+one state-level source can falsely certify home-rule municipalities
+
+absence of data can be mistaken for zero/not-applicable
+
+a stale or superseded certification can still count
+
+a revoked source can still count
+
+an incomplete family can satisfy national publication
+```
+
+Any such bypass is P0.
+
+---
+
+# 5. NEGATIVE AUTHORITY / NOT-APPLICABLE REVIEW
+
+The system must distinguish:
+
+```text
+NO GENERAL TAX
+```
+
+from:
+
+```text
+NO DATA FOUND
+```
+
+Review all applicability-assertion logic.
+
+Expected examples include:
+
+```text
+NO_GENERAL_TAX
+NO_LOCAL_TAX
+NO_HOLIDAY
+NO_SPECIAL_FEE
+NO_SELLER_ELECTION
+DOES_NOT_APPLY
+```
+
+Verify that negative authority requires:
+
+```text
+official source evidence
+effective dates
+sealed evidence SHA
+certified source lineage
+review/approval state
+```
+
+Attempt to generate a false `CERTIFIED_NOT_APPLICABLE` result without authoritative evidence.
+
+If possible, classify P0.
+
+---
+
+# 6. ZSL1 SOURCE ACQUISITION REVIEW
+
+Audit:
+
+```text
+tools/zsl-tax-source-acquisition/
+```
+
+Review all:
+
+```text
+downloaders
+source discovery
+rate/boundary adapters
+SST adapters
+state adapters
+legal-rule adapters
+archive validation
+object storage
+release detection
+schema validation
+effective-date logic
+supersession
+precedence
+conflict handling
+```
+
+Verify:
+
+```text
+HTTP 429 / Retry-After
+timeouts
+redirects
+ETag
+If-Modified-Since
+304 handling
+maximum artifact size
+content-type checks
+ZIP validation
+ZIP bomb protection
+path traversal protection
+inner-file hashing
+atomic writes
+idempotency
+published checksum support
+source URL drift detection
+```
+
+Attempt to make a source-site HTML layout change cause silent bad ingestion.
+
+Fail closed is required.
+
+---
+
+# 7. OFFICIAL SOURCE GOVERNANCE
+
+Review whether the runtime population layer clearly separates:
+
+```text
+State DOR / legislature / official tax GIS
+SST
+other government
+FTA/MTC
+optional commercial validation
+unverified sources
+```
+
+Expected source precedence:
+
+```text
+1 = state DOR / legislature / official state authority
+2 = SST state-supplied evidence
+3 = other government
+4 = FTA / MTC corroboration
+5 = explicitly approved commercial comparison
+99 = unverified
+```
+
+Verify that the precedence algorithm is executable, deterministic, effective-dated, and auditable.
+
+Test:
+
+```text
+higher-ranked vs lower-ranked conflicting source
+
+equal-ranked conflicting sources
+
+older official source vs newer official correction
+
+SST vs newer state DOR rule
+
+FTA summary vs state legal authority
+
+duplicate equivalent records
+
+same natural key with materially different content
+```
+
+A conflict must never be silently resolved arbitrarily.
+
+---
+
+# 8. SST STACK COMPLETENESS
+
+Verify acquisition and use of the full SST reference stack:
+
+```text
+rate files
+boundary files
+correction notices
+Taxability Matrix
+Tax Administration Practices
+state details
+SSUTA
+definitions
+Certificate of Compliance
+Technology Guide
+update notices
+historical versions where needed
+```
+
+Determine whether the parsers rely on undocumented assumptions that conflict with SST file semantics.
+
+Pay particular attention to:
+
+```text
+component codes
+intrastate/interstate distinctions
+ZIP / ZIP+4 assignment
+taxability definitions
+holiday semantics
+caps/thresholds
+bundled transaction definitions
+rounding
+sourcing
+```
+
+---
+
+# 9. RAW EVIDENCE LINEAGE
+
+Review the path:
+
+```text
+official artifact
+→ zsl.source_artifacts
+→ zsl_raw.raw_records
+→ zsl.release_record_memberships
+→ zsl_tax_acq canonical record
+→ national publication
+→ ZSL5 fact
+→ quote evidence
+```
+
+Verify that every canonical fact can be traced back to an actual immutable raw record.
+
+Confirm:
+
+```text
+raw_record_id exists
+record_sha256 is immutable
+membership ordinal deterministic
+natural key preserved
+artifact SHA preserved
+release lineage preserved
+certification lineage preserved
+```
+
+Attempt to create:
+
+```text
+canonical record without raw membership
+
+ZSL5 fact without source certification
+
+quote evidence without raw lineage
+```
+
+All must fail.
+
+---
+
+# 10. STRICT ZSL1 CERTIFICATION
+
+Review the final strict certification function.
+
+Certification must require at minimum:
+
+```text
+source release = RECONCILED
+
+ingest run = RECONCILED
+
+package SHA valid and nonzero
+
+Git SHA valid and non-UNSET
+
+schema contract SHA valid
+
+every artifact schema-validation PASS
+
+every artifact reconciliation present
+
+parsed count = loaded membership count where required
+
+raw-record memberships populated
+
+canonical record count reconciled
+
+ordered-record hash present
+
+parser-replay hash present
+
+parser_replay_pass = true
+
+zero unresolved fatal conflicts
+```
+
+Attempt to certify with each requirement individually missing.
+
+Document whether every failure is correctly blocked.
+
+---
+
+# 11. NATIONAL PUBLICATION REVIEW
+
+Audit the `US_NATIONAL_TAX_CONTENT` publication architecture.
+
+Verify that it is:
+
+```text
+atomic
+immutable
+versioned
+effective-dated
+replayable
+hash-sealed
+source-certified
+coverage-certified
+```
+
+Ensure one publication cannot mix:
+
+```text
+Texas Q4
+California Q3
+stale SST
+future holiday data
+superseded sourcing rules
+```
+
+unless the publication policy explicitly allows mixed source vintages and records that fact.
+
+Confirm publication membership is explicit and immutable.
+
+---
+
+# 12. ZSL2 BOUNDARY REVIEW
+
+Verify:
+
+```text
+ZSL1 does not mutate canonical geography
+
+ZSL5 does not own canonical geography
+
+ZSL2 remains geography authority
+```
+
+Audit geographic binding paths for:
+
+```text
+state
+county
+place
+ZIP5
+ZIP+4
+special district
+home-rule jurisdiction
+tax authority IDs
+address rules
+GIS polygons
+```
+
+ZSL1 may propose mappings.
+
+It must not silently create canonical ZSL2 identity.
+
+---
+
+# 13. ZSL5 V1.4 BINDING REVIEW
+
+Verify ZSL5 binds exactly the certified national publication.
+
+Expected:
+
+```text
+21 source roles
+same release_id
+same ingest_run_id
+same certification_run_id
+same publication package SHA
+```
+
+Attempt:
+
+```text
+mixed publication bindings
+one family from older release
+missing family
+duplicate family
+revoked publication
+superseded publication
+failed schema validation
+failed parser replay
+stale certification
+```
+
+All must block.
+
+---
+
+# 14. ZSL5 21-FAMILY RUNTIME MODEL
+
+Confirm each family affects runtime behavior where applicable.
+
+Review runtime structures for:
+
+```text
+tax regime
+jurisdiction identity
+jurisdiction assignment
+state rates
+local rates
+rate relationships
+rate caps
+product taxability
+taxable base
+bundle treatment
+allocation
+holidays
+sourcing
+seller collection
+marketplace
+seller election
+exemptions
+certificate requirements
+credits
+rounding
+mandatory fees
+```
+
+Identify any family that exists as data but is never consumed by the quote engine.
+
+That is a critical defect.
+
+---
+
+# 15. PRODUCT TAX CLASSIFICATION
+
+Audit the internal:
+
+```text
+TCDS category → tax product class
+```
+
+mapping.
+
+The required TCDS categories include:
+
+```text
+LAPTOPS
+PHONES
+NETWORKING
+AUTOMOTIVE_TOOLS
+GARDENING_TOOLS
+GAME_CONSOLES
+MUSIC_EQUIPMENT
+DRONES
+CAMERAS
+ELECTRONICS
+```
+
+Verify that broad classes such as:
+
+```text
+ELECTRONICS
+TOOLS
+GENERAL_TANGIBLE_PERSONAL_PROPERTY
+```
+
+are not used where the legal tax rules require finer classification.
+
+Test:
+
+```text
+laptop vs software
+phone vs prepaid service
+console vs downloadable software
+drone vs accessory
+tool kit vs replacement battery
+music hardware vs digital content
+bundle vs bare product
+```
+
+Unknown mapping must fail closed or produce REVIEW/INSUFFICIENT tax authority, not silently default.
+
+---
+
+# 16. JURISDICTION RESOLUTION
+
+Review resolution order and implementation.
+
+Expected candidate hierarchy:
+
+```text
+DIRECT_TAX_ADDRESS_ID
+ZIP9
+official ADDRESS_RULE
+DIRECT_ZSL2_ID
+AUTHORITATIVE_POLYGON
+governed ZIP5 fallback
+STATEWIDE where legally valid
+UNRESOLVED
+```
+
+Test:
+
+```text
+ZIP crossing jurisdictions
+ZIP+4
+special district overlap
+home-rule city
+unincorporated county
+multiple district taxes
+ambiguous city name
+missing coordinates
+invalid coordinates
+PO Box
+store pickup
+delivery address
+```
+
+The engine must not equate ZIP code with taxing jurisdiction where that is legally unsafe.
+
+---
+
+# 17. SOURCING REVIEW
+
+Test:
+
+```text
+store pickup
+ship-to-address
+remote seller
+marketplace facilitator
+origin sourcing
+destination sourcing
+order-receipt sourcing
+mixed sourcing
+seller election
+special local rules
+```
+
+High-risk states should include:
+
+```text
+AK
+AZ
+CA
+CO
+HI
+LA
+NM
+TX
+```
+
+Verify sourcing is effective-dated and not represented as one simplistic rule per state.
+
+---
+
+# 18. TAXABLE BASE REVIEW
+
+Review handling of:
+
+```text
+shipping
+delivery
+handling
+installation
+retailer coupons
+manufacturer coupons
+rebates
+trade-ins
+rewards
+mandatory fees
+buyer-paid fees
+seller-paid fees
+bundled charges
+mixed taxable/non-taxable cart
+```
+
+Verify the system distinguishes:
+
+```text
+price
+taxable base
+legal burden
+checkout tax
+fees
+```
+
+---
+
+# 19. BUNDLE AND ALLOCATION REVIEW
+
+Attack the bundle and transaction-allocation logic.
+
+Test:
+
+```text
+console + game
+laptop + software
+phone + accessory
+tool + battery + charger
+mixed taxable/exempt bundle
+holiday-eligible + noneligible items
+transaction-level coupon
+shipping allocated across multiple lines
+```
+
+The allocation engine must guarantee:
+
+```text
+sum(line allocations)
+=
+original transaction-level adjustment
+```
+
+with no lost or created pennies.
+
+---
+
+# 20. TAX HOLIDAY REVIEW
+
+Test:
+
+```text
+state with holiday
+state with no holiday
+category-specific thresholds
+per-item threshold
+per-transaction threshold
+date/time boundary
+midnight crossing
+future holiday
+expired holiday
+local participation differences
+bundle during holiday
+discount lowering item below threshold
+```
+
+Ensure `NO_HOLIDAY` is explicit evidence, not inferred absence.
+
+---
+
+# 21. EXEMPTION / RESALE REVIEW
+
+Since TCDS purchases inventory for resale, aggressively review:
+
+```text
+resale exemption
+certificate form
+state permit
+registration requirement
+blanket certificate
+certificate expiration
+good-faith acceptance
+reciprocity
+MTC certificate
+SST certificate
+seller acceptance conditions
+documentation retention
+```
+
+Do not assume resale exemption merely because buyer purpose = resale.
+
+Missing certificate evidence should produce the legally correct behavior.
+
+---
+
+# 22. SELLER COLLECTION / NEXUS REVIEW
+
+Review the distinction between:
+
+```text
+expected checkout tax
+legal tax burden
+potential use tax
+```
+
+Test:
+
+```text
+seller has nexus
+seller lacks nexus
+marketplace transaction
+remote seller threshold
+seller election
+unknown seller collection status
+```
+
+The system must not confuse “seller did not collect” with “tax not legally due.”
+
+---
+
+# 23. MANDATORY GOVERNMENT FEES
+
+Review:
+
+```text
+retail delivery fees
+electronic waste fees
+battery fees
+environmental fees
+other statutory transaction charges
+```
+
+Verify they are not incorrectly added to sales-tax rates.
+
+Ensure fee taxability itself is modeled when required.
+
+---
+
+# 24. ROUNDING / MONEY MATH
+
+Audit all tax math.
+
+Expected engineering standard:
+
+```text
+integer cents
+scaled decimal rates
+BigInt or exact NUMERIC arithmetic
+deterministic rounding
+```
+
+Reject authoritative calculations using binary floating-point dollars.
+
+Test:
+
+```text
+0.005
+0.0049
+negative discount allocation
+large cart
+100+ line items
+multiple districts
+component rounding
+invoice rounding
+line rounding
+credit application
+cap boundary
+```
+
+Confirm penny determinism.
+
+---
+
+# 25. SPECIAL TAX REGIMES
+
+Explicitly test:
+
+```text
+AZ = TPT
+HI = GET
+NM = GRT
+AK = local sales tax / no general statewide sales tax
+DE = no general sales tax, gross receipts considerations
+MT = no general state sales tax
+NH = no general state sales tax
+OR = no general state sales tax
+```
+
+The engine must not model these merely as:
+
+```text
+standard sales-tax rate = zero
+```
+
+unless the governing rule explicitly supports that representation.
+
+---
+
+# 26. TAX QUOTE OUTPUT CONTRACT
+
+Review whether ZSL5 returns distinct authoritative amounts:
+
+```text
+checkoutTaxEstimate
+estimatedLegalTaxBurden
+potentialUseTax
+mandatoryGovernmentFees
+totalGovernmentAcquisitionCost
+```
+
+Confirm every quote includes:
+
+```text
+quote ID
+build ID
+national publication ID
+evaluation timestamp
+source evidence
+jurisdiction evidence
+product-class evidence
+applicable rule IDs
+missingness
+confidence
+evidence SHA / quote SHA
+```
+
+Verify no quote can be represented as HIGH confidence when a required family is missing.
+
+---
+
+# 27. PRE-ACTIVATION TEST MODE
+
+The package includes certification-only candidate quote execution before activation.
+
+Attack this control.
+
+Verify:
+
+```text
+candidate mode only works for ZSL5 V1.4 candidate builds
+bindings must remain valid
+national publication must be certified
+candidate mode cannot leak into normal/public requests
+default quote mode requires active authority
+```
+
+Attempt to use candidate mode to bypass production activation.
+
+Any such bypass is P0.
+
+---
+
+# 28. GOLDEN TEST INDEPENDENCE
+
+The 51-state golden tests must be independently grounded.
+
+Verify the system does not do:
+
+```text
+run engine
+→ capture result
+→ call it expected result
+→ rerun engine
+→ PASS
+```
+
+Every approved golden result should have:
+
+```text
+independent authority citation
+expected calculation
+reviewer
+approval
+effective date
+fixture SHA
+```
+
+Cases without approved expected evidence should remain:
+
+```text
+EVIDENCE_REQUIRED
+or
+NOT_EXECUTED
+```
+
+not PASS.
+
+---
+
+# 29. HIGH-RISK ADVERSARIAL SUITE
+
+Inspect the special suite for:
+
+```text
+AK
+AZ
+CA
+CO
+HI
+LA
+NM
+TX
+```
+
+Require meaningful tests for each state's unusual mechanics.
+
+Do not accept eight state names with trivial test cases as adequate coverage.
+
+---
+
+# 30. DETERMINISTIC REPLAY
+
+Verify identical:
+
+```text
+transaction input
+national publication
+ZSL2 authority
+ZSL5 build
+policy versions
+evaluation_as_of
+```
+
+produces identical:
+
+```text
+jurisdiction
+taxable base
+component rates
+tax amount
+fees
+evidence document
+quote SHA
+```
+
+Run repeated calculations.
+
+If timestamps or `now()` alter the quote evidence, flag it.
+
+Evaluation time must be explicit input, not hidden wall-clock state.
+
+---
+
+# 31. ROLLBACK REVIEW
+
+Test rollback as a real control.
+
+Verify:
+
+```text
+migration rollback
+authority rollback
+old active build restoration
+source publication supersession
+failed candidate isolation
+```
+
+Rollback must not:
+
+```text
+delete immutable evidence
+rewrite prior certifications
+change historical quotes
+orphan foreign keys
+activate an unverified prior build
+```
+
+Require actual rollback evidence rather than README claims.
+
+---
+
+# 32. AUTHORITY ACTIVATION
+
+Audit the final activation function.
+
+Activation must require:
+
+```text
+ZSL5 V1.4
+national publication CERTIFIED
+21 exact family bindings
+1,071 / 1,071 family cells
+51 / 51 local gates
+51 / 51 resolution gates
+10 / 10 TCDS category mappings
+golden suite PASS
+adversarial suite PASS
+replay PASS
+rollback PASS
+runtime checks PASS
+0 fatal conflicts
+```
+
+Attempt activation with each one missing.
+
+Every attempt must fail.
+
+---
+
+# 33. CURRENT AUTHORITY VIEW
+
+Review the effective/current authority view.
+
+Ensure it dynamically revalidates:
+
+```text
+upstream certifications
+publication state
+ZSL2 authority
+binding validity
+revocation
+supersession
+runtime-check state
+```
+
+A once-valid build must disappear from current authority if a required upstream certification is revoked.
+
+---
+
+# 34. PRODUCTION REPOSITORY INTEGRATION
+
+Cross-reference the package against the current `TCDS_BOT_CREATION` repository.
+
+Verify:
+
+```text
+migration numbering
+migration dependencies
+existing type names
+constraint names
+function signatures
+schema ownership
+role names
+pgcrypto location
+TypeScript module conventions
+tsconfig include paths
+existing dependencies
+Node version assumptions
+```
+
+Expected package placement:
+
+```text
+database/migrations/
+    042...
+    043...
+    044...
+    045...
+
+apps/zsl-tax-intelligence/
+
+tools/zsl-tax-source-acquisition/
+```
+
+Confirm no file will silently fail to compile because production `tsconfig.json` excludes it.
+
+---
+
+# 35. R1A BOUNDARY
+
+Verify the package does not modify or duplicate:
+
+```text
+retail.effective_search_targets
+```
+
+R1A remains:
+
+> What products may Retail search for?
+
+Tax must not own search-target authority.
+
+---
+
+# 36. R1F BOUNDARY
+
+Verify tax code does not interfere with:
+
+```text
+Bright Data billing
+scraper cost
+proxy consumption
+provider cost allocation
+```
+
+R1F remains operational/provider-cost authority.
+
+Tax/government acquisition cost belongs to ZSL5.
+
+---
+
+# 37. ARB BOUNDARY
+
+Search for any tax authority still existing in ARB or shared acquisition code.
+
+The eventual intended flow is:
+
+```text
+ZSL5 certified tax quote
+        ↓
+ARB cost model
+        ↓
+profit / ROI / max bid
+        ↓
+BUY / WATCH / REVIEW / REJECT
+```
+
+ARB must not continue using a competing flat `salesTaxRate` after ZSL5 cutover.
+
+If the runtime package assumes this cutover has occurred when it has not, report the dependency explicitly.
+
+Do not modify ARB from this package unless separately authorized.
+
+---
+
+# 38. PQP / CAX BOUNDARY
+
+Tax must not own:
+
+```text
+session readiness
+account readiness
+MFA
+checkout execution
+payment
+anti-fraud controls
+purchase authorization
+```
+
+ZSL5 may provide tax evidence to downstream systems.
+
+It must never execute purchases.
+
+---
+
+# 39. RBAC / SECURITY
+
+Audit roles and grants.
+
+Verify:
+
+```text
+least privilege
+no PUBLIC mutation
+no broad anon/authenticated access
+append-only evidence
+controlled certification roles
+controlled publication roles
+controlled activation roles
+```
+
+Review SECURITY DEFINER functions carefully.
+
+Every SECURITY DEFINER function must have:
+
+```text
+fixed search_path
+explicit authorization
+input validation
+no arbitrary dynamic SQL
+```
+
+Look for privilege escalation through:
+
+```text
+search_path
+role inheritance
+PUBLIC EXECUTE
+untrusted JSON
+dynamic identifier construction
+```
+
+---
+
+# 40. IMMUTABILITY
+
+Verify immutable surfaces truly reject:
+
+```text
+UPDATE
+DELETE
+silent overwrite
+ON CONFLICT DO UPDATE
+```
+
+where history should be append-only.
+
+Corrections must create new versions/supersession lineage.
+
+Historical tax evidence must never be rewritten.
+
+---
+
+# 41. CONCURRENCY
+
+Test concurrent:
+
+```text
+downloads
+ingests
+certifications
+national publications
+ZSL5 builds
+activations
+```
+
+Look for race conditions that could create:
+
+```text
+duplicate releases
+mixed publication memberships
+two active builds
+double certification
+different SHA for same logical publication
+```
+
+Require advisory locks or equivalent transaction controls where necessary.
+
+---
+
+# 42. FAILURE RECOVERY
+
+Test failures during:
+
+```text
+download
+parse
+raw-record load
+membership creation
+validation
+reconciliation
+certification
+publication
+ZSL5 loading
+runtime certification
+activation
+```
+
+Confirm partially completed runs cannot appear authoritative.
+
+---
+
+# 43. FRESHNESS / STALENESS
+
+Review how the system handles:
+
+```text
+quarterly rate updates
+mid-quarter corrections
+future-effective rates
+sunset rates
+holiday calendars
+law changes
+expired exemption rules
+state guidance changes
+```
+
+National publication must not remain silently authoritative indefinitely.
+
+Require explicit freshness policies and stale-state behavior.
+
+---
+
+# 44. OBSERVABILITY
+
+Determine whether production operations can answer:
+
+```text
+What state is incomplete?
+
+What family is missing?
+
+Which source failed?
+
+Which parser drifted?
+
+Which source was superseded?
+
+Which conflict blocked publication?
+
+Which address failed jurisdiction resolution?
+
+Which quote rule caused tax difference?
+
+Why did activation fail?
+```
+
+Recommend operational dashboards/metrics if missing.
+
+---
+
+# 45. PERFORMANCE / SCALE
+
+Evaluate national scale.
+
+Consider:
+
+```text
+millions of ZIP+4 assignments
+special-district boundaries
+national rate datasets
+multiple historical vintages
+21-family records
+quote throughput
+concurrent Retail candidates
+```
+
+Review indexes and query plans conceptually and, if a runnable database is available, execute EXPLAIN/EXPLAIN ANALYZE on representative queries.
+
+Identify N+1 query patterns in the V1.4 quote engine.
+
+---
+
+# 46. DATABASE INTEGRITY
+
+Review:
+
+```text
+primary keys
+foreign keys
+unique constraints
+check constraints
+partial indexes
+effective-period uniqueness
+exclusion constraints
+natural-key uniqueness
+```
+
+Look for scenarios allowing duplicate effective rules.
+
+---
+
+# 47. DATA-TYPE SAFETY
+
+Verify:
+
+```text
+rates are exact numeric/scaled integer
+money uses integer cents or NUMERIC
+timestamps use timestamptz where required
+dates are correct for legal effective periods
+state code lengths are correct
+ZIP5 vs ZIP9 types are not conflated
+```
+
+---
+
+# 48. SOURCE SITE LEGAL / OPERATIONAL ROBUSTNESS
+
+Identify sources requiring:
+
+```text
+registration
+API credentials
+terms review
+rate limits
+GIS token
+download session
+manual publication review
+```
+
+Do not assume every public page is automatically suitable for unattended scraping.
+
+Mark each source:
+
+```text
+AUTOMATED
+AUTOMATED_WITH_REGISTRATION
+MANUAL_REVIEW_REQUIRED
+UNRESOLVED
+```
+
+---
+
+# 49. TEST QUALITY
+
+Review whether tests actually test behavior.
+
+Reject weak tests such as:
+
+```text
+file exists
+table exists
+string exists
+enum contains 21 names
+```
+
+if they are presented as runtime proof.
+
+Require:
+
+```text
+behavioral tests
+negative tests
+boundary tests
+database tests
+malformed-source tests
+conflict tests
+replay tests
+activation-failure tests
+```
+
+---
+
+# 50. STATIC VS RUNTIME CERTIFICATION
+
+The reviewer must explicitly distinguish:
+
+```text
+STATIC BUILD PASS
+
+STAGING MIGRATION PASS
+
+STAGING CONTENT POPULATION PASS
+
+RUNTIME TAX TEST PASS
+
+PRODUCTION CERTIFIED
+```
+
+Never promote one state into the next based on documentation alone.
+
+The current package should be assumed to be:
+
+```text
+BUILD CANDIDATE
+```
+
+until proven otherwise.
+
+---
+
+# 51. REQUIRED REVIEW METHODOLOGY
+
+Do not only read README files.
+
+Perform actual inspection of:
+
+```text
+all migrations
+all TypeScript runtime code
+source adapters
+normalizers
+catalogs
+schemas
+test fixtures
+test runners
+rollback scripts
+RBAC
+authority views
+activation functions
+package manifest
+hash manifest
+```
+
+Search for:
+
+```text
+TODO
+FIXME
+PENDING
+UNSET
+000000...
+placeholder
+mock
+stub
+fallback
+assume
+hardcoded
+temporary
+```
+
+Treat hidden placeholders as potential P0/P1 issues.
+
+---
+
+# 52. RUN THE CODE
+
+Where possible, actually execute:
+
+```text
+npm install / npm ci
+TypeScript typecheck
+build
+unit tests
+static tests
+migration lint
+ZIP integrity
+manifest verification
+```
+
+If a staging database is available, apply migrations there.
+
+Do not modify production.
+
+If database execution is unavailable, say exactly which conclusions remain unproven.
+
+---
+
+# 53. ATTACK THE DATABASE MIGRATIONS
+
+Apply the complete expected order:
+
+```text
+existing production baseline
+        ↓
+042 series
+        ↓
+043 series
+        ↓
+044 series
+        ↓
+045 series
+```
+
+Verify no dependency on a table/function/type that does not exist at that point.
+
+Test migration order from a clean staging clone.
+
+---
+
+# 54. ATTACK THE BUILD MANIFEST
+
+Verify:
+
+```text
+every file listed actually exists
+every SHA matches
+no file is omitted
+no duplicate path
+no stale prior-package file
+no incorrect version metadata
+no stale package lock
+```
+
+---
+
+# 55. CROSS-DOMAIN MUTATION SCAN
+
+Search all SQL and runtime code for unauthorized writes to:
+
+```text
+retail.*
+arb.*
+pqp.*
+cax.*
+```
+
+Also verify ZSL1 does not mutate ZSL2 canonical geography directly.
+
+Any unauthorized ownership violation is P0.
+
+---
+
+# 56. HIGH-RISK FAILURE SCENARIOS
+
+Explicitly attack at least these scenarios:
+
+```text
+source website returns HTML instead of CSV
+
+ZIP archive is valid but internal layout changed
+
+rate correction is published after certification
+
+state law conflicts with SST summary
+
+two same-ranked sources disagree
+
+holiday source disappears
+
+state has no general sales tax
+
+special district overlaps city/county
+
+seller election is unknown
+
+resale certificate invalid
+
+bundle contains taxable and exempt items
+
+coupon allocation changes taxable base
+
+mandatory government fee applies
+
+transaction crosses midnight during holiday
+
+address cannot be resolved
+
+ZSL2 mapping superseded
+
+national publication revoked
+
+candidate build tested after upstream revocation
+
+two ZSL5 activations race
+
+quote replay one day later
+
+old source artifact replaced at same URL
+```
+
+---
+
+# 57. REQUIRED SEVERITY SCALE
+
+Classify every issue:
+
+```text
+P0 — unsafe / incorrect authority / false certification /
+     deployment blocker / materially wrong tax result
+
+P1 — high-risk correctness or governance weakness
+
+P2 — meaningful hardening / operability problem
+
+P3 — low-risk improvement
+```
+
+Do not dilute P0 issues by averaging them into a score.
+
+---
+
+# 58. REQUIRED FINAL SCORING
+
+Score independently:
+
+```text
+Architecture & Domain Boundaries
+ZSL1 Source Governance
+Raw Evidence & Provenance
+21-Family Completeness
+National Coverage Certification
+ZSL2 Integration
+ZSL5 Data Model
+Jurisdiction Resolution
+Tax Calculation Correctness
+Tax Allocation / Rounding
+Negative Authority
+Runtime Certification
+Replay Determinism
+Rollback
+RBAC / Security
+Immutability
+Concurrency
+Failure Recovery
+Observability
+Performance / Scale
+Production Repo Integration
+Test Quality
+Documentation / Developer Usability
+```
+
+Score each 0–10.
+
+Then give:
+
+```text
+Overall Build Quality: X/10
+Green Tier 1 Build Candidate: PASS / FAIL
+Safe for Staging: YES / NO
+Safe for Production Activation: YES / NO
+```
+
+Do not call the package production-certified unless actual runtime evidence supports it.
+
+---
+
+# 59. REQUIRED OUTPUT FORMAT
+
+Return the review in this exact order:
+
+## A. Executive Verdict
+
+One direct conclusion:
+
+```text
+PASS
+PASS WITH REMEDIATION
+FAIL
+```
+
+State whether you would personally authorize:
+
+```text
+merge to repository
+staging deployment
+production activation
+```
+
+separately.
+
+---
+
+## B. Top Findings
+
+List the most important findings first.
+
+For every finding give:
+
+```text
+ID
+Severity
+Component
+File(s)
+Exact issue
+Why it matters
+Failure scenario
+Required remediation
+How to verify remediation
+```
+
+---
+
+## C. 21-Family End-to-End Matrix
+
+For each family report:
+
+```text
+Acquire
+Parse
+Normalize
+Validate
+Certify
+Coverage
+Publish
+Bind
+Runtime consume
+Quote effect
+Tests
+Status
+```
+
+Use:
+
+```text
+PASS
+PARTIAL
+FAIL
+NOT PROVEN
+```
+
+---
+
+## D. 51-Jurisdiction Coverage Review
+
+Report:
+
+```text
+51 jurisdictions expected
+21 families each
+1,071 cells expected
+
+family cells proven
+local-authority gates proven
+address-resolution gates proven
+
+states incomplete
+states with questionable negative authority
+states with home-rule/local gaps
+```
+
+---
+
+## E. High-Complexity State Review
+
+Separate section for:
+
+```text
+AK
+AZ
+CA
+CO
+HI
+LA
+NM
+TX
+```
+
+---
+
+## F. ZSL1 Certification Review
+
+Determine whether false certification is possible.
+
+---
+
+## G. ZSL1 → National Publication Review
+
+Determine whether mixed-vintage or incomplete publication is possible.
+
+---
+
+## H. ZSL5 V1.4 Runtime Review
+
+Determine whether all 21 families actually affect runtime behavior.
+
+---
+
+## I. Tax Math Review
+
+Cover:
+
+```text
+taxable base
+rate composition
+caps
+allocation
+rounding
+credits
+mandatory fees
+use tax
+```
+
+---
+
+## J. Repository Integration Review
+
+Compare directly against current `TCDS_BOT_CREATION`.
+
+Report migration/file/code conflicts.
+
+---
+
+## K. Security / RBAC / Immutability Review
+
+Report any privilege or authority bypass.
+
+---
+
+## L. Replay / Rollback / Concurrency Review
+
+Report deterministic and race-condition findings.
+
+---
+
+## M. Test Adequacy Review
+
+State which tests provide real behavioral evidence and which are merely static assertions.
+
+---
+
+## N. Missing Data / Missing Source Review
+
+Identify any tax data family, jurisdictional information, or official source content still absent from the national stack.
+
+Do not assume the current 21-family model is complete merely because it was previously reviewed.
+
+If another necessary tax source/data family exists, identify it.
+
+---
+
+## O. P0/P1 Remediation Plan
+
+Give an ordered implementation plan.
+
+Do not recommend cosmetic cleanup ahead of P0 correctness work.
+
+---
+
+## P. Final Certification Gate Matrix
+
+Return:
+
+```text
+SOURCE ACQUISITION
+RAW EVIDENCE
+SCHEMA VALIDATION
+RECONCILIATION
+PARSER REPLAY
+SOURCE CERTIFICATION
+21-FAMILY COVERAGE
+LOCAL COVERAGE
+ADDRESS RESOLUTION
+NATIONAL PUBLICATION
+ZSL2 BINDING
+ZSL5 SOURCE BINDING
+CATEGORY MAPPING
+JURISDICTION RESOLUTION
+TAXABILITY
+TAXABLE BASE
+BUNDLE/ALLOCATION
+HOLIDAY
+SOURCING
+SELLER COLLECTION
+MARKETPLACE
+EXEMPTION/CERTIFICATE
+RATE/CAPS
+CREDITS
+MANDATORY FEES
+ROUNDING
+GOLDEN TESTS
+ADVERSARIAL TESTS
+REPLAY
+ROLLBACK
+RBAC
+IMMUTABILITY
+CONCURRENCY
+REPO ALIGNMENT
+STAGING ACCEPTANCE
+PRODUCTION ACCEPTANCE
+```
+
+For each:
+
+```text
+PASS
+FAIL
+NOT EXECUTED
+NOT PROVEN
+```
+
+No waiver.
+
+No assumed pass.
+
+---
+
+# 60. FINAL RULE
+
+Your job is **not to help the package pass**.
+
+Your job is to discover every reason it should fail before production.
+
+If the package truly deserves a high score after adversarial review, explain why with evidence.
+
+If it does not, say so clearly.
+
+A static BUILD CANDIDATE is not a runtime-certified tax authority.
+
+A production tax engine should only receive final approval when its source evidence, calculations, coverage, replay, rollback, and activation controls are all independently demonstrated.
+
+This version is designed to force the reviewer to test both the **tax-content side and the runtime-authority side**, instead of giving us another superficial code review.

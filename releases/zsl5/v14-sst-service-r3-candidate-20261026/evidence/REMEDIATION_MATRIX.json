@@ -1,0 +1,129 @@
+{
+  "version": "1.0.0",
+  "p0_remediations": [
+    {
+      "id": 1,
+      "issue": "21-family schema registrar only had 11",
+      "status": "REMEDIATED",
+      "evidence": [
+        "src/zsl1/schema-contract.ts",
+        "schemas/"
+      ]
+    },
+    {
+      "id": 2,
+      "issue": "raw record bridge placeholder",
+      "status": "REMEDIATED",
+      "evidence": [
+        "database/migrations/042c_zsl1_tax_strict_ingest_certification.sql"
+      ]
+    },
+    {
+      "id": 3,
+      "issue": "weak ZSL1 certification",
+      "status": "REMEDIATED",
+      "evidence": [
+        "zsl_tax_acq.certify_ingest_strict"
+      ]
+    },
+    {
+      "id": 4,
+      "issue": "placeholder identity hashes/version",
+      "status": "REMEDIATED",
+      "evidence": [
+        "strict certification rejects zero/UNSET/PENDING_PARSE"
+      ]
+    },
+    {
+      "id": 5,
+      "issue": "JSON-driven national readiness",
+      "status": "REMEDIATED",
+      "evidence": [
+        "zsl_tax_acq.v_certified_family_cells",
+        "zsl_tax_acq.v_national_readiness"
+      ]
+    },
+    {
+      "id": 6,
+      "issue": "v1.3 engine blocked by v1.2 constraints",
+      "status": "REMEDIATED",
+      "evidence": [
+        "043 allows v1.2 + v1.4"
+      ]
+    },
+    {
+      "id": 7,
+      "issue": "missing 21-family ZSL5 runtime",
+      "status": "REMEDIATED",
+      "evidence": [
+        "zsl5_family_facts_v14",
+        "21 first-class views"
+      ]
+    },
+    {
+      "id": 8,
+      "issue": "no executable hardened quote engine",
+      "status": "REMEDIATED_BUILD",
+      "evidence": [
+        "src/zsl5/tax-quote-v14.service.ts"
+      ]
+    },
+    {
+      "id": 9,
+      "issue": "polygon-centric resolver",
+      "status": "REMEDIATED_BUILD",
+      "evidence": [
+        "src/zsl5/jurisdiction-resolver-v14.ts"
+      ]
+    },
+    {
+      "id": 10,
+      "issue": "six synthetic source feeds",
+      "status": "REMEDIATED",
+      "evidence": [
+        "US_NATIONAL_TAX_CONTENT atomic publication"
+      ]
+    },
+    {
+      "id": 11,
+      "issue": "no national publication layer",
+      "status": "REMEDIATED_BUILD",
+      "evidence": [
+        "national_publication_*",
+        "src/zsl1/national-publication.ts"
+      ]
+    },
+    {
+      "id": 12,
+      "issue": "binding validity insufficient",
+      "status": "REMEDIATED",
+      "evidence": [
+        "043b zsl5_bindings_still_valid"
+      ]
+    },
+    {
+      "id": 13,
+      "issue": "source precedence duplicated in ZSL5",
+      "status": "REMOVED_FROM_ZSL5",
+      "evidence": [
+        "domain boundary"
+      ]
+    },
+    {
+      "id": 14,
+      "issue": "negative authority not consumed",
+      "status": "REMEDIATED",
+      "evidence": [
+        "zsl5_applicability_assertions_v14"
+      ]
+    },
+    {
+      "id": 15,
+      "issue": "national coverage absent from activation",
+      "status": "REMEDIATED",
+      "evidence": [
+        "043c zsl5_activate_v14"
+      ]
+    }
+  ]
+}

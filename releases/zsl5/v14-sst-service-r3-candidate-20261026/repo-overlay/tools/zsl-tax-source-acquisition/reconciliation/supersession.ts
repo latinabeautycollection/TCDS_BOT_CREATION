@@ -1,0 +1,2 @@
+export interface ReleaseNode{release_id:string;release_key:string;published_at:string|null;correction_of_release_id?:string|null;supersedes_release_id?:string|null;}
+export function validateSupersession(nodes:ReleaseNode[]){const ids=new Set(nodes.map(x=>x.release_id));for(const n of nodes){for(const ref of [n.correction_of_release_id,n.supersedes_release_id])if(ref&&!ids.has(ref))throw new Error(`UNKNOWN_SUPERSESSION_REFERENCE:${ref}`);}return true;}

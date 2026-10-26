@@ -1,0 +1,106 @@
+=== TYPECHECK ===
+=== BUILD ===
+=== TEST ===
+TAP version 13
+# Subtest: all 042-046 migrations preserve cross-domain ownership
+ok 1 - all 042-046 migrations preserve cross-domain ownership
+  ---
+  duration_ms: 11.373973
+  type: 'test'
+  ...
+# Subtest: v14 engine remains additive with v12
+ok 2 - v14 engine remains additive with v12
+  ---
+  duration_ms: 1.99932
+  type: 'test'
+  ...
+# Subtest: approved runtime fixtures become immutable
+ok 3 - approved runtime fixtures become immutable
+  ---
+  duration_ms: 1.346675
+  type: 'test'
+  ...
+# Subtest: ten TCDS tax categories
+ok 4 - ten TCDS tax categories
+  ---
+  duration_ms: 0.684344
+  type: 'test'
+  ...
+# Subtest: 21 families
+ok 5 - 21 families
+  ---
+  duration_ms: 1.017317
+  type: 'test'
+  ...
+# Subtest: decimal rate exact and half-up cents
+ok 6 - decimal rate exact and half-up cents
+  ---
+  duration_ms: 1.26436
+  type: 'test'
+  ...
+# Subtest: pro rata allocation preserves total deterministically
+ok 7 - pro rata allocation preserves total deterministically
+  ---
+  duration_ms: 1.320405
+  type: 'test'
+  ...
+# Subtest: runtime catalogs have complete denominators and independent golden evidence starts pending
+ok 8 - runtime catalogs have complete denominators and independent golden evidence starts pending
+  ---
+  duration_ms: 14.051773
+  type: 'test'
+  ...
+# Subtest: ten governed categories include cameras electronics and game consoles
+ok 9 - ten governed categories include cameras electronics and game consoles
+  ---
+  duration_ms: 2.079221
+  type: 'test'
+  ...
+# Subtest: verified source catalog declares operational access mode
+ok 10 - verified source catalog declares operational access mode
+  ---
+  duration_ms: 1.27104
+  type: 'test'
+  ...
+# Subtest: runtime activation requires authority gate
+ok 11 - runtime activation requires authority gate
+  ---
+  duration_ms: 6.604147
+  type: 'test'
+  ...
+# Subtest: candidate quote execution is a separate export and public quote remains active-only
+ok 12 - candidate quote execution is a separate export and public quote remains active-only
+  ---
+  duration_ms: 1.444231
+  type: 'test'
+  ...
+# Subtest: golden and replay runners do not invent wall-clock evaluation times
+ok 13 - golden and replay runners do not invent wall-clock evaluation times
+  ---
+  duration_ms: 1.465284
+  type: 'test'
+  ...
+# Subtest: freshness and ten-category gates are part of v14 authority
+ok 14 - freshness and ten-category gates are part of v14 authority
+  ---
+  duration_ms: 2.128746
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 177.65374
+=== STATIC ===
+{
+  "status": "PASS",
+  "files": 313,
+  "families": 21,
+  "jurisdictions": 51,
+  "denominator": 1071,
+  "categories": 10
+}

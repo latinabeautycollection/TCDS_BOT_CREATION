@@ -1,0 +1,40 @@
+{
+  "classification": "LOCAL_SST_OBSERVATION_CORRECTION_CANDIDATE_NOT_CERTIFIED",
+  "upstream_zip_sha256": "34b6b815504c3b267987c3c1df1ba038d763fd440f38b2bf80475fe310de89cb",
+  "production_writes": 0,
+  "executable_tax_mapping_approved": false,
+  "notes": [
+    "Predecessor package manifest retained as historical evidence; not a seal for modified files.",
+    "SST dates preserved without inventing exclusive end instants or rate-scope semantics.",
+    "Acquisition parser/schema tests are separate from database ingestion and national certification."
+  ],
+  "changed_files": {
+    "apps/zsl-tax-intelligence/schemas/local-rate.schema.json": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+    "apps/zsl-tax-intelligence/schemas/state-rate.schema.json": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+    "apps/zsl-tax-intelligence/src/zsl5/national-loader.ts": "23e92c8fc1a0ff34aad087df554595dd8ec349394be8307e607bc7b29f0730a2",
+    "database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql": "62612ab7b187aa051a74b2756fe615381a5c7964dc506e64b067c84db261dead",
+    "database/migrations/046b_zsl5_v14_freshness_security_activation.sql": "9ae1338a0d3643b83152da005a9cddf60568bf8ba7e497e777eab24b5e9b8473",
+    "database/migrations/046c_zsl5_v14_category_runtime_certification.sql": "7be4c102f0f700b29a499c6d3bc80a48f7371f8882ded866f438d336716d996f",
+    "database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql": "9bce979207f5bb7892089fd0e3052e63887bfa2a616eeadac6010baed1fc9916",
+    "repo-overlay/apps/zsl-tax-intelligence/schemas/local-rate.schema.json": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+    "repo-overlay/apps/zsl-tax-intelligence/schemas/state-rate.schema.json": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+    "repo-overlay/apps/zsl-tax-intelligence/src/zsl5/national-loader.ts": "23e92c8fc1a0ff34aad087df554595dd8ec349394be8307e607bc7b29f0730a2",
+    "repo-overlay/database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql": "62612ab7b187aa051a74b2756fe615381a5c7964dc506e64b067c84db261dead",
+    "repo-overlay/database/migrations/046b_zsl5_v14_freshness_security_activation.sql": "9ae1338a0d3643b83152da005a9cddf60568bf8ba7e497e777eab24b5e9b8473",
+    "repo-overlay/database/migrations/046c_zsl5_v14_category_runtime_certification.sql": "7be4c102f0f700b29a499c6d3bc80a48f7371f8882ded866f438d336716d996f",
+    "repo-overlay/database/migrations/047c_zsl5_v14_final_freeze_activation_gate.sql": "9bce979207f5bb7892089fd0e3052e63887bfa2a616eeadac6010baed1fc9916",
+    "repo-overlay/tools/zsl-tax-source-acquisition/adapters/sst/rate.ts": "45fe230c54c964909c6a905e2fa7ac1e9a229c9c8a9e5ac57847c6631e50ab0f",
+    "repo-overlay/tools/zsl-tax-source-acquisition/normalization/normalize-run.ts": "cbd043164688eab53cbddbb31efa8708d66d40f84e48e0257a6cccba56998b2a",
+    "repo-overlay/tools/zsl-tax-source-acquisition/normalization/schema-validator.ts": "8d3afc77a75346d5a0f4db35c5663aa4fc901716bca3f7071bcd57f339bcc109",
+    "repo-overlay/tools/zsl-tax-source-acquisition/package.json": "686713795dda9a6111f7321532973b6b22c44161d84a510bf215030da68ef5d8",
+    "repo-overlay/tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+    "repo-overlay/tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+    "tools/zsl-tax-source-acquisition/adapters/sst/rate.ts": "45fe230c54c964909c6a905e2fa7ac1e9a229c9c8a9e5ac57847c6631e50ab0f",
+    "tools/zsl-tax-source-acquisition/normalization/normalize-run.ts": "cbd043164688eab53cbddbb31efa8708d66d40f84e48e0257a6cccba56998b2a",
+    "tools/zsl-tax-source-acquisition/normalization/schema-validator.ts": "8d3afc77a75346d5a0f4db35c5663aa4fc901716bca3f7071bcd57f339bcc109",
+    "tools/zsl-tax-source-acquisition/package.json": "686713795dda9a6111f7321532973b6b22c44161d84a510bf215030da68ef5d8",
+    "tools/zsl-tax-source-acquisition/schemas/local-rate.schema.json": "f66321083f848d36e9347764ea2aba971c45bb09c80cc1abd1885d55e02399aa",
+    "tools/zsl-tax-source-acquisition/schemas/state-rate.schema.json": "e10773244b916ec8d4cd430b2c6b785eb6453d5288bbf004a6026c06ad1e4938",
+    "tools/zsl-tax-source-acquisition/tests/sst-nine-column.test.mjs": "ce7041d064713c41bcb3fc701178145709c735d16d86d183260bdaf457eccddb"
+  }
+}

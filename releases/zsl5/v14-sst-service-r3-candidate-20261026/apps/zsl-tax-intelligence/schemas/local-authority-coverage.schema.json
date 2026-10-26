@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/local-authority-coverage.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_code",
+    "status",
+    "coverage_mode",
+    "jurisdictions_certified",
+    "home_rule_certified",
+    "certified_no_local_tax_assertion"
+  ],
+  "properties": {
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NOT_CERTIFIED",
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "coverage_mode": {
+      "type": "string"
+    },
+    "jurisdictions_expected": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "jurisdictions_certified": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "home_rule_expected": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "home_rule_certified": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "certified_no_local_tax_assertion": {
+      "type": "boolean"
+    },
+    "evidence_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

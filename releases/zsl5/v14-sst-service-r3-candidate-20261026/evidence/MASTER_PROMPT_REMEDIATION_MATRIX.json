@@ -1,0 +1,33 @@
+{
+  "package_version": "1.1.0",
+  "review_basis": "TCDS National Tax Runtime adversarial peer-review master prompt",
+  "controls": [
+    {"area":"21-family end-to-end model","status":"IMPLEMENTED_STATICALLY","runtime_evidence_required":true},
+    {"area":"1071 + 51 + 51 denominator","status":"IMPLEMENTED_STATICALLY","runtime_evidence_required":true},
+    {"area":"negative authority","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"official source precedence/conflict blocking","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"raw evidence lineage","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"strict ZSL1 certification","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"atomic national publication","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"ZSL2 ownership boundary","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"ZSL5 exact 21 bindings","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"10-category governed taxonomy","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"CAMERAS","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"ELECTRONICS fail-closed refinement","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"GAME_CONSOLES dedicated category","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"jurisdiction resolution hierarchy","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"bundle/allocation exact cents","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"candidate vs active quote separation","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"independent golden evidence","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"latest-result runtime readiness","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"deterministic replay inputs","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"rollback gate","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"freshness/staleness authority invalidation","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"RBAC / no PUBLIC mutation / SECURITY DEFINER hardening","status":"IMPLEMENTED_STATICALLY","runtime_evidence_required":true},
+    {"area":"immutability","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"concurrency locks","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"source operational access classification","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"observability views","status":"IMPLEMENTED","runtime_evidence_required":true},
+    {"area":"production repo placement/tsconfig compatibility","status":"VERIFIED_AGAINST_CURRENT_MAIN","runtime_evidence_required":false}
+  ]
+}

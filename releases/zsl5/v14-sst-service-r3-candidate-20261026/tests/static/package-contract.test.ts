@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile,readdir} from 'node:fs/promises';
+const read=(p:string)=>readFile(new URL('../../../'+p,import.meta.url),'utf8');
+test('all 042-047 migrations preserve cross-domain ownership',async()=>{const names=(await readdir('database/migrations')).filter(x=>/^04[2-7].*\.sql$/.test(x));const s=(await Promise.all(names.map(x=>readFile('database/migrations/'+x,'utf8')))).join('\n').toLowerCase();for(const d of ['retail.','arb.','pqp.','cax.'])assert.equal(new RegExp('\\b(insert|update|delete|alter|create|drop)\\s+(table\\s+)?'+d.replace('.','\\.')).test(s),false);});
+test('v14 engine remains additive with v12',async()=>{const s=await read('database/migrations/043_zsl5_v14_engine_compatibility.sql');assert.match(s,/zsl5-v1\.2\.0/);assert.match(s,/zsl5-v1\.4\.0/)});
+test('approved runtime fixtures become immutable',async()=>{const s=await read('database/migrations/046a_zsl5_v14_adversarial_runtime_hardening.sql');assert.match(s,/APPROVED_RUNTIME_TEST_CASE_IMMUTABLE/);assert.match(s,/INDEPENDENT_EVIDENCE_NOT_SEALED/)});

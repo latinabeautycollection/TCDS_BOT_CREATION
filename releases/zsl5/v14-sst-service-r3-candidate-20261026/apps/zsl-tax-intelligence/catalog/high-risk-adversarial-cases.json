@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0.0",
+  "cases": [
+    {
+      "case_id": "AK-LOCAL_ONLY_TAX-001",
+      "state_code": "AK",
+      "focus": "LOCAL_ONLY_TAX",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "AK-NO_STATE_GENERAL_SALES_TAX-001",
+      "state_code": "AK",
+      "focus": "NO_STATE_GENERAL_SALES_TAX",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "AK-REMOTE_BOROUGH-001",
+      "state_code": "AK",
+      "focus": "REMOTE_BOROUGH",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "AZ-TPT_SELLER_PRIVILEGE-001",
+      "state_code": "AZ",
+      "focus": "TPT_SELLER_PRIVILEGE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "AZ-LOCAL_JURISDICTION-001",
+      "state_code": "AZ",
+      "focus": "LOCAL_JURISDICTION",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "AZ-MARKETPLACE-001",
+      "state_code": "AZ",
+      "focus": "MARKETPLACE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CA-DISTRICT_STACKING-001",
+      "state_code": "CA",
+      "focus": "DISTRICT_STACKING",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CA-SOURCING-001",
+      "state_code": "CA",
+      "focus": "SOURCING",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CA-SUNSET_RATE-001",
+      "state_code": "CA",
+      "focus": "SUNSET_RATE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CA-MANDATORY_FEE-001",
+      "state_code": "CA",
+      "focus": "MANDATORY_FEE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CO-HOME_RULE-001",
+      "state_code": "CO",
+      "focus": "HOME_RULE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CO-SUTS-001",
+      "state_code": "CO",
+      "focus": "SUTS",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "CO-RETAIL_DELIVERY_FEE-001",
+      "state_code": "CO",
+      "focus": "RETAIL_DELIVERY_FEE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "HI-GET_NOT_SALES_TAX-001",
+      "state_code": "HI",
+      "focus": "GET_NOT_SALES_TAX",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "HI-PASS_THROUGH-001",
+      "state_code": "HI",
+      "focus": "PASS_THROUGH",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "LA-LOCAL_COMPLEXITY-001",
+      "state_code": "LA",
+      "focus": "LOCAL_COMPLEXITY",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "LA-REMOTE_SELLER-001",
+      "state_code": "LA",
+      "focus": "REMOTE_SELLER",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "NM-GRT_NOT_SALES_TAX-001",
+      "state_code": "NM",
+      "focus": "GRT_NOT_SALES_TAX",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "NM-DEDUCTION_EXEMPTION-001",
+      "state_code": "NM",
+      "focus": "DEDUCTION_EXEMPTION",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "TX-LOCAL_CAP-001",
+      "state_code": "TX",
+      "focus": "LOCAL_CAP",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "TX-SINGLE_LOCAL_RATE_ELECTION-001",
+      "state_code": "TX",
+      "focus": "SINGLE_LOCAL_RATE_ELECTION",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    },
+    {
+      "case_id": "TX-MARKETPLACE-001",
+      "state_code": "TX",
+      "focus": "MARKETPLACE",
+      "status": "EVIDENCE_REQUIRED",
+      "independent_evidence_required": true,
+      "expected": null
+    }
+  ]
+}

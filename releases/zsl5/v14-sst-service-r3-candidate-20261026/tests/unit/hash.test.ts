@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {canonicalJson,sha256} from '../../apps/zsl-tax-intelligence/src/core/hash.js';
+test('canonical json is key-order deterministic and JSON-compatible for undefined',()=>{assert.equal(canonicalJson({b:2,a:1,c:undefined}),'{"a":1,"b":2}');assert.equal(canonicalJson([1,undefined,3]),'[1,null,3]');assert.equal(sha256({a:1,b:2}),sha256({b:2,a:1}))});

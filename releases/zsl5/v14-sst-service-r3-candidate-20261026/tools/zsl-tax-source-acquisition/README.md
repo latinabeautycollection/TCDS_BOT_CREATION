@@ -1,0 +1,2 @@
+# ZSL tax source acquisition tool
+This is the operational acquisition/parser portion preserved from the ZSL1 V1.1 package. It downloads and normalizes official sources but **does not certify ZSL1 authority**. The old V1.1 `zsl1/` loaders/certification files are intentionally excluded. Production authority is created only by the reconciled 042-series ZSL1 ingestion/certification path in `apps/zsl-tax-intelligence`.

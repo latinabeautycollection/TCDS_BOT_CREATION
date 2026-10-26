@@ -1,0 +1,53 @@
+=== TSC NO-EMIT ===
+PASS
+=== TSC BUILD ===
+PASS
+=== NODE TESTS ===
+TAP version 13
+# Subtest: migrations are additive and preserve retail/r1f boundaries
+ok 1 - migrations are additive and preserve retail/r1f boundaries
+  ---
+  duration_ms: 9.645858
+  type: 'test'
+  ...
+# Subtest: v14 engine is additive with v12
+ok 2 - v14 engine is additive with v12
+  ---
+  duration_ms: 4.112902
+  type: 'test'
+  ...
+# Subtest: 21 families
+ok 3 - 21 families
+  ---
+  duration_ms: 0.894829
+  type: 'test'
+  ...
+# Subtest: decimal rate exact and half-up cents
+ok 4 - decimal rate exact and half-up cents
+  ---
+  duration_ms: 1.567613
+  type: 'test'
+  ...
+# Subtest: pro rata allocation preserves total deterministically
+ok 5 - pro rata allocation preserves total deterministically
+  ---
+  duration_ms: 1.077971
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 103.418362
+=== STATIC CHECK ===
+{
+  "status": "PASS",
+  "files": 197,
+  "families": 21,
+  "jurisdictions": 51,
+  "denominator": 1071
+}

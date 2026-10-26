@@ -1,0 +1,2 @@
+# Certification standard
+Static/build tests may yield BUILD CANDIDATE only. STAGING APPROVED requires migrations applied on a disposable clone, all SQL/runtime tests, deterministic replay, rollback rehearsal, 1,071/1,071 family cells, 51/51 local gates, 51/51 resolution gates, no fatal conflicts, and v1.4 golden quote cases. PRODUCTION CERTIFIED requires authorized live-host acceptance and independent sign-off. No waiver converts missing runtime evidence into PASS.

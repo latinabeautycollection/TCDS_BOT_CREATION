@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "levels": [
+    {
+      "rank": 1,
+      "code": "STATE_PRIMARY",
+      "description": "State tax department, legislature, official state/local tax publication or official state tax GIS/API"
+    },
+    {
+      "rank": 2,
+      "code": "SST_STATE_SUPPLIED",
+      "description": "SST member-state supplied rate, boundary, taxability, TAP, or other SST-published state material"
+    },
+    {
+      "rank": 3,
+      "code": "OTHER_GOVERNMENT",
+      "description": "Other authoritative federal/state/local government source"
+    },
+    {
+      "rank": 4,
+      "code": "FTA_MTC_CORROBORATION",
+      "description": "FTA/MTC discovery or corroboration; not controlling where state authority conflicts"
+    },
+    {
+      "rank": 5,
+      "code": "APPROVED_COMMERCIAL_SUPPLEMENT",
+      "description": "Optional approved comparison source; never required production dependency"
+    },
+    {
+      "rank": 99,
+      "code": "UNVERIFIED_WEB",
+      "description": "Never production authority"
+    }
+  ],
+  "conflict_policy": "LOWER_AUTHORITY_MUST_NOT_OVERWRITE_HIGHER; equal-rank conflicts require correction/supersession evidence or FATAL conflict"
+}

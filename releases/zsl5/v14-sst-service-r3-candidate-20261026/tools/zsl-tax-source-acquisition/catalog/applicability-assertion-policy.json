@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "allowed_assertions": [
+    "APPLIES",
+    "DOES_NOT_APPLY",
+    "NOT_AUTHORIZED",
+    "NO_GENERAL_TAX",
+    "NO_HOLIDAY",
+    "NO_LOCAL_TAX",
+    "NO_SPECIAL_FEE",
+    "NO_SELLER_ELECTION"
+  ],
+  "requirements": [
+    "official evidence",
+    "state_code",
+    "family",
+    "effective period",
+    "legal citation or official publication reference",
+    "source release",
+    "artifact SHA-256",
+    "review/certification status"
+  ],
+  "rule": "absence of parsed records never proves non-applicability"
+}

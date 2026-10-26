@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/seller-collection-rule.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "SELLER_COLLECTION_RULE"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seller_class",
+        "collection_requirement"
+      ],
+      "properties": {
+        "seller_class": {
+          "type": "string",
+          "enum": [
+            "IN_STATE",
+            "REMOTE_SELLER",
+            "MARKETPLACE_PROVIDER",
+            "MARKETPLACE_SELLER",
+            "ALL"
+          ]
+        },
+        "collection_requirement": {
+          "type": "string",
+          "enum": [
+            "REQUIRED",
+            "NOT_REQUIRED",
+            "CONDITIONAL",
+            "ELECTION_AVAILABLE"
+          ]
+        },
+        "sales_threshold_usd": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "transaction_threshold": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "lookback_period": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "marketplace_exclusion": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.1.0",
+  "required_family_count": 21,
+  "families": [
+    {
+      "code": "TAX_REGIME",
+      "required_for_national_certification": true,
+      "description": "Legal transaction-tax regime and legal incidence."
+    },
+    {
+      "code": "TAX_JURISDICTION",
+      "required_for_national_certification": true,
+      "description": "Canonical taxing-jurisdiction identity, type, parentage and lifecycle."
+    },
+    {
+      "code": "TAX_JURISDICTION_ASSIGNMENT",
+      "required_for_national_certification": true,
+      "description": "Authoritative address/ZIP/tax-code/GIS assignment of transactions to taxing jurisdictions."
+    },
+    {
+      "code": "STATE_RATE",
+      "required_for_national_certification": true,
+      "description": "State-level tax rate facts."
+    },
+    {
+      "code": "LOCAL_RATE",
+      "required_for_national_certification": true,
+      "description": "County/city/municipality/district/local-option rate facts."
+    },
+    {
+      "code": "RATE_COMPONENT_RULE",
+      "required_for_national_certification": true,
+      "description": "How state/local/district rate components combine, nest, override or exclude one another."
+    },
+    {
+      "code": "RATE_CAP_THRESHOLD_RULE",
+      "required_for_national_certification": true,
+      "description": "Rate, taxable-base or tax-amount caps, thresholds and brackets."
+    },
+    {
+      "code": "PRODUCT_TAXABILITY",
+      "required_for_national_certification": true,
+      "description": "Product/service taxability by tax product class and jurisdiction."
+    },
+    {
+      "code": "TAXABLE_BASE_RULE",
+      "required_for_national_certification": true,
+      "description": "Treatment of shipping, handling, fees, discounts, rebates, trade-ins and other consideration."
+    },
+    {
+      "code": "BUNDLED_TRANSACTION_RULE",
+      "required_for_national_certification": true,
+      "description": "Tax treatment of bundled taxable/non-taxable products or services."
+    },
+    {
+      "code": "ALLOCATION_RULE",
+      "required_for_national_certification": true,
+      "description": "Allocation of shipping, discounts, rebates and other adjustments across mixed taxable/exempt items."
+    },
+    {
+      "code": "TAX_HOLIDAY",
+      "required_for_national_certification": true,
+      "description": "Holiday dates, eligible products, thresholds, reduced rates and local participation."
+    },
+    {
+      "code": "SOURCING_RULE",
+      "required_for_national_certification": true,
+      "description": "Transaction sourcing hierarchy and location determination."
+    },
+    {
+      "code": "SELLER_COLLECTION_RULE",
+      "required_for_national_certification": true,
+      "description": "Seller/remote-seller collection obligation and nexus thresholds relevant to expected checkout tax."
+    },
+    {
+      "code": "MARKETPLACE_RULE",
+      "required_for_national_certification": true,
+      "description": "Marketplace facilitator collection/tax treatment."
+    },
+    {
+      "code": "SELLER_TAX_ELECTION",
+      "required_for_national_certification": true,
+      "description": "Seller-specific elections that alter rate/sourcing/collection behavior."
+    },
+    {
+      "code": "EXEMPTION_RULE",
+      "required_for_national_certification": true,
+      "description": "Legal exemption consequence including resale and exempt purchaser/use categories."
+    },
+    {
+      "code": "EXEMPTION_CERTIFICATE_REQUIREMENT",
+      "required_for_national_certification": true,
+      "description": "Certificate form, registration, validity, acceptance, blanket, reciprocity and retention requirements."
+    },
+    {
+      "code": "TAX_CREDIT_RULE",
+      "required_for_national_certification": true,
+      "description": "Credit for taxes previously paid and residual use-tax rules."
+    },
+    {
+      "code": "ROUNDING_RULE",
+      "required_for_national_certification": true,
+      "description": "Authoritative calculation precision and rounding method/level."
+    },
+    {
+      "code": "MANDATORY_TRANSACTION_FEE",
+      "required_for_national_certification": true,
+      "description": "Government-mandated retail/acquisition fees that affect total acquisition cost."
+    }
+  ]
+}

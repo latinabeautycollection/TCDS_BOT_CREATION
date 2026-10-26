@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcds.local/zsl1-tax/state-rate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "state_code",
+    "natural_key",
+    "source_key",
+    "source_release_id",
+    "source_artifact_sha256",
+    "authority_rank",
+    "retrieved_at",
+    "parser_version",
+    "normalization_version",
+    "payload"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "STATE_RATE"
+    },
+    "state_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "natural_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_release_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_artifact_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authority_rank": {
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        99
+      ]
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "const": "PENDING_PARSE"
+      }
+    },
+    "normalization_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "legal_citation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "jurisdiction_code",
+            "component_code",
+            "component_type",
+            "rate",
+            "rate_semantics"
+          ],
+          "properties": {
+            "jurisdiction_code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "component_code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "component_type": {
+              "enum": [
+                "STATE",
+                "COUNTY",
+                "CITY",
+                "MUNICIPALITY",
+                "SPECIAL_DISTRICT",
+                "TRANSIT",
+                "LOCAL_OPTION",
+                "OTHER"
+              ]
+            },
+            "rate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 0.35
+            },
+            "rate_semantics": {
+              "enum": [
+                "COMPONENT",
+                "COMBINED"
+              ]
+            },
+            "combined_scope": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "ALL_IN_LOCATION",
+                "STATE_PLUS_LOCAL",
+                "STATE_ONLY",
+                "LOCAL_ONLY",
+                null
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "observation_format",
+            "executable",
+            "state_fips",
+            "jurisdiction_type_code_raw",
+            "jurisdiction_type_code",
+            "jurisdiction_code",
+            "rates",
+            "source_effective_from",
+            "source_effective_to",
+            "source_end_date_semantics",
+            "source_line"
+          ],
+          "properties": {
+            "observation_format": {
+              "const": "SST_NINE_COLUMN_RATE_OBSERVATION_V1"
+            },
+            "executable": {
+              "const": false
+            },
+            "state_fips": {
+              "type": "string",
+              "pattern": "^\\d{2}$"
+            },
+            "jurisdiction_type_code_raw": {
+              "type": "string",
+              "pattern": "^\\d{1,2}$"
+            },
+            "jurisdiction_type_code": {
+              "type": "string",
+              "pattern": "^\\d{2}$"
+            },
+            "jurisdiction_code": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9]{2,5}$"
+            },
+            "rates": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "general_intrastate",
+                "general_interstate",
+                "food_drug_intrastate",
+                "food_drug_interstate"
+              ],
+              "properties": {
+                "general_intrastate": {
+                  "type": "string",
+                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
+                },
+                "general_interstate": {
+                  "type": "string",
+                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
+                },
+                "food_drug_intrastate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
+                },
+                "food_drug_interstate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "pattern": "^(?:(?:0|1)(?:\\.\\d+)?|\\.\\d+)$"
+                }
+              }
+            },
+            "source_effective_from": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "source_effective_to": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "source_end_date_semantics": {
+              "const": "UNINTERPRETED"
+            },
+            "source_line": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      ]
+    }
+  }
+}

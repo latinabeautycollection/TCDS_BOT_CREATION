@@ -1,0 +1,488 @@
+{
+  "schema_version": "2.1.0",
+  "defaults": {
+    "timeout_ms": 45000,
+    "max_bytes": 100000000,
+    "retries": 4,
+    "respect_retry_after": true,
+    "conditional_get": true
+  },
+  "sources": [
+    {
+      "source_key": "sst_rate_boundary",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/Shared-Pages/rate-and-boundary-files",
+      "mode": "DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "RATE_OR_BOUNDARY",
+          "href_pattern": "(rate|boundary|\\.csv$|\\.txt$|\\.zip$|\\.xlsx?$)",
+          "allowed_content_types": [
+            "text/",
+            "application/zip",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument"
+          ],
+          "required": true,
+          "max_bytes": 100000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_updates",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/Shared-Pages/rate-and-boundary-files/rate-and-boundary-file-updates",
+      "mode": "DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "CORRECTION_NOTICE_OR_FILE",
+          "href_pattern": "(2026|rate|boundary|\\.zip$|\\.txt$|\\.csv$)",
+          "allowed_content_types": [
+            "text/",
+            "application/zip"
+          ],
+          "required": true,
+          "max_bytes": 100000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_taxability_matrix",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "PRODUCT_TAXABILITY",
+        "TAX_HOLIDAY"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/Shared-Pages/State-taxability-matrix",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "TAXABILITY_MATRIX",
+          "href_pattern": "(taxability|library|matrix|excel|download)",
+          "allowed_content_types": [
+            "text/html",
+            "application/",
+            "application/vnd."
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_tap",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "SOURCING_RULE",
+        "TAXABLE_BASE_RULE",
+        "MARKETPLACE_RULE"
+      ],
+      "landing_url": "https://sst.streamlinedsalestax.org/TAP",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "TAX_ADMINISTRATION_PRACTICES",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_otm",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "PRODUCT_TAXABILITY",
+        "TAX_HOLIDAY"
+      ],
+      "landing_url": "https://sst.streamlinedsalestax.org/otm",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "TAXABILITY_MATRIX_VERSIONS",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_state_tables",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 4,
+      "families": [
+        "SOURCE_DISCOVERY"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/state-tables",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "STATE_RATE_AND_LOOKUP_DIRECTORY",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "fta_tax_agencies",
+      "authority": "Federation of Tax Administrators",
+      "authority_rank": 4,
+      "families": [
+        "SOURCE_DISCOVERY"
+      ],
+      "landing_url": "https://taxadmin.org/tax-agencies/",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "STATE_TAX_AGENCY_DIRECTORY",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "fta_holidays_2026",
+      "authority": "Federation of Tax Administrators",
+      "authority_rank": 4,
+      "families": [
+        "TAX_HOLIDAY"
+      ],
+      "landing_url": "https://taxadmin.org/2026-sales-tax-holidays/",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "HOLIDAY_DISCOVERY",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "mtc_resale",
+      "authority": "Multistate Tax Commission",
+      "authority_rank": 4,
+      "families": [
+        "EXEMPTION_RULE"
+      ],
+      "landing_url": "https://www.mtc.gov/Resources/Uniform-Sales-Use-Tax-Exemption-Certificate/",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "RESALE_CERTIFICATE_OR_GUIDANCE",
+          "href_pattern": "(certificate|resale|\\.pdf$)",
+          "allowed_content_types": [
+            "text/html",
+            "application/pdf"
+          ],
+          "required": true,
+          "max_bytes": 25000000
+        }
+      ]
+    },
+    {
+      "source_key": "census_tiger_2026",
+      "authority": "U.S. Census Bureau",
+      "authority_rank": 3,
+      "families": [
+        "ZSL2_GEOGRAPHY_SUPPORT"
+      ],
+      "landing_url": "https://www.census.gov/geographies/mapping-files/2026/geo/tiger-line-file.html",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "GEOGRAPHY_CATALOG",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "tx_rates",
+      "authority": "Texas Comptroller of Public Accounts",
+      "authority_rank": 1,
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE"
+      ],
+      "landing_url": "https://comptroller.texas.gov/taxes/file-pay/edi/sales-tax-rates.php",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "state_code": "TX",
+      "artifact_specs": [
+        {
+          "role": "RATE_FILE",
+          "href_pattern": "(\\.txt$|rate)",
+          "allowed_content_types": [
+            "text/",
+            "application/octet-stream"
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "ca_rates",
+      "authority": "California Department of Tax and Fee Administration",
+      "authority_rank": 1,
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE"
+      ],
+      "landing_url": "https://cdtfa.ca.gov/taxes-and-fees/sales-use-tax-rates.htm",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "state_code": "CA",
+      "artifact_specs": [
+        {
+          "role": "RATE_FILE",
+          "href_pattern": "(\\.xlsx?$|rate|district)",
+          "allowed_content_types": [
+            "text/html",
+            "application/vnd.",
+            "application/"
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "wa_database",
+      "authority": "Washington State Department of Revenue",
+      "authority_rank": 1,
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT"
+      ],
+      "landing_url": "https://dor.wa.gov/taxes-rates/sales-use-tax-rates/downloadable-database",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "state_code": "WA",
+      "artifact_specs": [
+        {
+          "role": "RATE_OR_JURISDICTION_DATABASE",
+          "href_pattern": "(\\.zip$|quarter|zip.?4|location|rate)",
+          "allowed_content_types": [
+            "text/html",
+            "application/zip",
+            "application/octet-stream"
+          ],
+          "required": true,
+          "max_bytes": 250000000
+        }
+      ]
+    },
+    {
+      "source_key": "ny_rates",
+      "authority": "New York State Department of Taxation and Finance",
+      "authority_rank": 1,
+      "families": [
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT",
+        "SOURCING_RULE"
+      ],
+      "landing_url": "https://www.tax.ny.gov/bus/st/rates.htm",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "state_code": "NY",
+      "artifact_specs": [
+        {
+          "role": "RATE_OR_JURISDICTION_RESOURCE",
+          "href_pattern": "(rate|jurisdiction|address|publication|\\.pdf$|\\.xlsx?$|\\.csv$)",
+          "allowed_content_types": [
+            "text/html",
+            "application/pdf",
+            "application/",
+            "text/"
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "co_suts",
+      "authority": "Colorado Department of Revenue",
+      "authority_rank": 1,
+      "families": [
+        "LOCAL_RATE",
+        "TAX_JURISDICTION_ASSIGNMENT",
+        "PRODUCT_TAXABILITY"
+      ],
+      "landing_url": "https://tax.colorado.gov/SUTS-info",
+      "mode": "SNAPSHOT",
+      "state_code": "CO",
+      "artifact_specs": [
+        {
+          "role": "SUTS_PUBLIC_GUIDANCE",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_ssuta_current",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "SOURCING_RULE",
+        "RATE_CAP_THRESHOLD_RULE",
+        "ROUNDING_RULE",
+        "BUNDLED_TRANSACTION_RULE",
+        "EXEMPTION_RULE",
+        "TAXABLE_BASE_RULE"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/Shared-Pages/Streamlined-Sales-and-Use-Tax-Agreement",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "CURRENT_SSUTA",
+          "href_pattern": "(ssuta|agreement|amended|\\.pdf$)",
+          "allowed_content_types": [
+            "text/html",
+            "application/pdf"
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_certificate_of_compliance",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "SOURCING_RULE",
+        "RATE_CAP_THRESHOLD_RULE",
+        "ROUNDING_RULE",
+        "BUNDLED_TRANSACTION_RULE",
+        "EXEMPTION_RULE",
+        "PRODUCT_TAXABILITY",
+        "MARKETPLACE_RULE"
+      ],
+      "landing_url": "https://sst.streamlinedsalestax.org/coc",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "CERTIFICATE_OF_COMPLIANCE",
+          "href_pattern": "(download|excel|certificate|compliance)",
+          "allowed_content_types": [
+            "text/html",
+            "application/",
+            "application/vnd."
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_certificate_update_notices",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "SOURCING_RULE",
+        "RATE_CAP_THRESHOLD_RULE",
+        "ROUNDING_RULE",
+        "BUNDLED_TRANSACTION_RULE",
+        "EXEMPTION_RULE"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/Shared-Pages/certificate-of-compliance",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "COC_UPDATE_NOTICE",
+          "href_pattern": "(update|notice|certificate|compliance)",
+          "allowed_content_types": [
+            "text/html",
+            "application/"
+          ],
+          "required": true,
+          "max_bytes": 25000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_technology_guide",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "TAX_JURISDICTION",
+        "TAX_JURISDICTION_ASSIGNMENT",
+        "STATE_RATE",
+        "LOCAL_RATE",
+        "RATE_COMPONENT_RULE"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/Shared-Pages/SSTTechnology",
+      "mode": "SNAPSHOT_AND_DISCOVER",
+      "artifact_specs": [
+        {
+          "role": "TECHNOLOGY_GUIDE",
+          "href_pattern": "(technology|guide|manual|rate|boundary|\\.pdf$)",
+          "allowed_content_types": [
+            "text/html",
+            "application/pdf"
+          ],
+          "required": true,
+          "max_bytes": 50000000
+        }
+      ]
+    },
+    {
+      "source_key": "sst_important_dates",
+      "authority": "Streamlined Sales Tax Governing Board",
+      "authority_rank": 2,
+      "families": [
+        "PRODUCT_TAXABILITY",
+        "TAX_JURISDICTION_ASSIGNMENT",
+        "STATE_RATE",
+        "LOCAL_RATE"
+      ],
+      "landing_url": "https://www.streamlinedsalestax.org/for-states/important-dates",
+      "mode": "SNAPSHOT",
+      "artifact_specs": [
+        {
+          "role": "UPDATE_CADENCE_AUTHORITY",
+          "allowed_content_types": [
+            "text/html"
+          ],
+          "required": true,
+          "max_bytes": 10000000
+        }
+      ]
+    }
+  ]
+}
